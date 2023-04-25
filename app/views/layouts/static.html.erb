@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Home :: Miners Need Cool Shoes Skin Editor</title>
+
+    <meta
+      name="keywords"
+      content="minecraft, skin, editor, character, creator"
+    />
+    <meta
+      name="description"
+      content="Make your own skins from scratch or edit existing skins in your browser using the skin editor. Browse our collection of community generated skins."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link href="ncsassets/css/css.css" rel="stylesheet" />
+    <%= content_for?(:styles) ? yield(:styles) : nil %>
+
+    <style></style>
+
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="144x144"
+      href="ncsassets/ico/apple-touch-icon-144-precomposed.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="114x114"
+      href="ncsassets/ico/apple-touch-icon-114-precomposed.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      sizes="72x72"
+      href="ncsassets/ico/apple-touch-icon-72-precomposed.png"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      href="ncsassets/ico/apple-touch-icon-57-precomposed.png"
+    />
+    <link rel="shortcut icon" href="ncsassets/ico/favicon.png" />
+    
+  </head>
+
+  <body id="unlogged">
+  
+    <div class="container">
+      <%= render partial: "shared/header" %>
+
+      <%= yield %>
+
+      <%= render partial: "shared/footer" %>
+    </div>
+
+    <script>
+      var App = App || {};
+      App.config = {
+        token: "oHJLuPxwpjbUiw9sJBbAtkJNgL6xI0H0WOeBQfza",
+        s3: {
+          suffix: {
+            file: "files.needcoolshoes.com",
+            temp: "temp.needcoolshoes.com",
+          },
+          prefix: { http: "http:\/\/", aws: "https:\/\/s3.amazonaws.com\/" },
+        },
+        userId: false,
+      };
+      App.data = {};
+    </script>
+    <script src="ncsassets/js/jquery.min.js"></script>
+
+    <%= content_for?(:scripts) ? yield(:scripts) : nil %>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+<% content_for :styles do %>
+  <link href="ncsassets/css/editor.css" rel="stylesheet" />
+<% end %>
+
+<% content_for :scripts do %>
+  <script src="ncsassets/js/canvas.js"></script>
+  <script src="ncsassets/js/editor.js"></script>
+<% end %>
+
+<div id="content">
+  <div class="banner"></div>
+
+  <div id="editor">
+    <div id="toolbox">
+    </div>
+    <div id="toolbar"></div>
+    <div id="workspace">
+      <div id="drawing"></div>
+    </div>
+  </div>
+
+  <div id="tip">
+    <h3>TIP:</h3>
+    Use the w, s, a, d keys to rotate the character 90 degrees.
+  </div>
+</div>
