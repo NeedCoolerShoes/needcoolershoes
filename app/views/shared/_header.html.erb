@@ -1,23 +1,24 @@
-<header>
-  <div class="nav">
-    <div class="navbar" style="z-index: 999">
-      <div class="topitems">
-        <a href=""><img src="ncsassets/img/header.png" /></a>
-        <a href=""><h1>Miners Need Cool Shoes</h1></a>
+<header class="flex items-center justify-center">
+  <div class="max-w-[998px] w-full font-normal">
+    <div class="navbar">
+      <div class="flex items-center gap-2 h-[47px] w-full py-4">
+        <a href="/"><img src="/ncsassets/img/header.png" /></a>
+        <a href="/"><h1 class="uppercase text-sm text-white font-normal">Miners Need Cool Shoes</h1></a>
       </div>
 
-      <div class="bottomitems">
-        <ul class="pages">
-          <li class="<%= active_when("/") %>">
-            <h1><a href="/">Editor</a></h1>
+      <div class="h-[53px] bg-ncs-flourish relative z-50">
+        <ul class="flex items-center gap-4 text-ncs-brown text-2xl h-full uppercase">
+          <li class="hover:text-black duration-300 transition-colors">
+            <h1><a class="<%= class_on_path("/", "font-bold text-black", "text-ncs-brown") %>" href="/">Editor</a></h1>
           </li>
-          <li class="<%= active_when("/banner") %>">
-            <h1><a href="/banner">Banner</a></h1>
+          <span class="text-base">●</span>
+          <li class="hover:text-black duration-300 transition-colors">
+            <h1><a class="<%= class_on_path("/banner", "font-bold text-black", "text-ncs-brown") %>" href="/banner">Banner</a></h1>
           </li>
         </ul>
 
-        <div class="flourish left"></div>
-        <div class="flourish right"></div>
+        <div class="absolute w-[55px] h-[73px] -top-1 left-[-55px] bg-ncs-flourish bg-repeat bg-bottom"></div>
+        <div class="absolute w-[55px] h-[73px] -top-1 right-[-55px] bg-ncs-flourish bg-repeat bg-bottom -scale-x-100"></div>
       </div>
     </div>
   </div>

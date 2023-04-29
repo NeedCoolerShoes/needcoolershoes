@@ -12,6 +12,13 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      backgroundImage: {
+        'ncs-tweed': "url('ncsassets/img/tweed.png')",
+        'ncs-flourish': "url('ncsassets/img/flourish.png')"
+      },
+      colors: {
+        'ncs-brown': '#926602'
+      }
     },
   },
   plugins: [

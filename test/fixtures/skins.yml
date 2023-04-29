@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  data: MyText
+  user: one
+  skin_category: one
+  skin_part: one
+
+two:
+  name: MyString
+  description: MyString
+  data: MyText
+  user: two
+  skin_category: two
+  skin_part: two

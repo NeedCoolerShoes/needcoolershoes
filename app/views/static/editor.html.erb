@@ -10,6 +10,32 @@
 <div id="content">
   <div class="banner"></div>
 
+  <script id="sharegalleryform" type="text/html">
+    <% if current_user.present? %>
+      <%= render partial: "skin_form" %>
+    <% else %>
+      <%= render partial: "sign_in_form" %>
+    <% end %>
+  </script>
+
+  <script type="text/html" id="toggles-template">
+    <div id="toggles">
+      <div class="controls">
+        <div title="hide/show skin overlay" class="overlay"></div>
+        <div title="hide/show skin body" class="underlay"></div>
+      </div>
+
+      <div class="body">
+        <div data-parts="head,hat" class="head"></div>
+        <div data-parts="armR2,armR" class="armR"></div>
+        <div data-parts="torso2,torso" class="torso"></div>
+        <div data-parts="armL2,armL" class="armL"></div>
+        <div data-parts="legR2,legR" class="legL"></div>
+        <div data-parts="legL2,legL" class="legR"></div>
+      </div>
+    </div>
+  </script>
+
   <div id="editor">
     <div id="toolbox">
     </div>

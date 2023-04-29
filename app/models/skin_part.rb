@@ -1,0 +1,2 @@
+class SkinPart < ApplicationRecord
+end

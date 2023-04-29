@@ -1,0 +1,2 @@
+class SkinCategory < ApplicationRecord
+end

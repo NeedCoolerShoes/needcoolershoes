@@ -15,6 +15,11 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <%= stylesheet_link_tag "tailwind", "inter-font" %>
+
+    <%= stylesheet_link_tag "application" %>
+    <%= javascript_importmap_tags %>
+
 		<link href="ncsassets/css/css.css" rel="stylesheet" />
     <%= content_for?(:styles) ? yield(:styles) : nil %>
 
@@ -40,10 +45,9 @@
       href="ncsassets/ico/apple-touch-icon-57-precomposed.png"
     />
     <link rel="shortcut icon" href="ncsassets/ico/favicon.png" />
-    
   </head>
 
-  <body id="unlogged">
+  <body id="unlogged" data-turbo="false">
   
     <div class="container">
       <%= render partial: "shared/header" %>
@@ -67,6 +71,7 @@
         userId: false,
       };
       App.data = {};
+      App.signedIn = <%= current_user.present? ? "true" : "false" %>
     </script>
     <script src="ncsassets/js/jquery.min.js"></script>
 
