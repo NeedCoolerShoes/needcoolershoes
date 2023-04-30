@@ -1153,7 +1153,7 @@ footer p {
   width: 100%;
   margin-top: 4px;
 }
-button,
+button:not(.btn-none),
 .btn,
 .button-group li,
 .ui-slider-handle {
@@ -1178,7 +1178,7 @@ button,
   border-radius: 4px;
   position: relative;
 }
-button:before,
+button:before:not(.btn-none),
 .btn:before,
 .button-group li:before,
 .ui-slider-handle:before {
@@ -1189,7 +1189,7 @@ button:before,
   right: 0;
   bottom: 0;
 }
-button:active:before,
+button:active:before:not(.btn-none),
 .btn:active:before,
 .button-group li:active:before,
 .ui-slider-handle:active:before {
@@ -1203,20 +1203,20 @@ button a,
   color: white;
   text-decoration: none;
 }
-button:focus,
+button:focus:not(.btn-none),
 .btn:focus,
 .button-group li:focus,
 .ui-slider-handle:focus {
   outline: none;
 }
-button:hover,
+button:hover:not(.btn-none),
 .btn:hover,
 .button-group li:hover,
 .ui-slider-handle:hover {
   color: #f5f8cc;
 }
 button.active,
-button:active,
+button:active:not(.btn-none),
 button.disabled,
 .btn.active,
 .btn:active,
@@ -1279,7 +1279,7 @@ button.disabled a,
   text-decoration: none;
 }
 button.active:after,
-button:active:after,
+button:active:after:not(.btn-none),
 button.disabled:after,
 .btn.active:after,
 .btn:active:after,
@@ -1292,7 +1292,7 @@ button.disabled:after,
 .ui-slider-handle.disabled:after {
   opacity: 0.3;
 }
-button:after,
+button:after:not(.btn-none),
 .btn:after,
 .button-group li:after,
 .ui-slider-handle:after {

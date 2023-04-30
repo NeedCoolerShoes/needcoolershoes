@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_160423) do
     t.string "name", null: false
     t.string "description"
     t.text "data", null: false
+    t.integer "visibility", null: false
+    t.boolean "terms_and_conditions"
     t.integer "user_id", null: false
     t.integer "skin_category_id"
     t.integer "skin_part_id"
@@ -40,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_160423) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
+    t.string "display_name", default: ""
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"

@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "static#editor"
   get "banner", to: "static#banner"
+  get "gallery", to: "skins#index"
+  resources :skins, only: %i[create show edit destroy]
 end

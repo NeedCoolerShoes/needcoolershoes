@@ -1,19 +1,41 @@
-<header class="flex items-center justify-center">
-  <div class="max-w-[998px] w-full font-normal">
-    <div class="navbar">
-      <div class="flex items-center gap-2 h-[47px] w-full py-4">
-        <a href="/"><img src="/ncsassets/img/header.png" /></a>
-        <a href="/"><h1 class="uppercase text-sm text-white font-normal">Miners Need Cool Shoes</h1></a>
+<header class="flex items-center justify-center pb-3.5">
+  <div class="flex justify-between max-w-ncs-content w-full font-normal">
+    <div class="grow navbar">
+      <div class="flex justify-between">
+        <div class="flex items-center gap-2 h-[47px] py-4">
+          <a href="/"><img src="/ncsassets/img/header.png" /></a>
+          <a href="/"><h1 class="uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</h1></a>
+        </div>
+        <div class="flex items-center gap-2">
+          <% if current_user.present? %>
+            <%= link_to current_user.name, "", class: "text-white underline" %>
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
+          <% else %>
+            <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>
+            <%= link_to "Sign In", new_user_session_path, class: "text-white underline" %>
+          <% end %>
+        </div>
       </div>
 
       <div class="h-[53px] bg-ncs-flourish relative z-50">
         <ul class="flex items-center gap-4 text-ncs-brown text-2xl h-full uppercase">
-          <li class="hover:text-black duration-300 transition-colors">
-            <h1><a class="<%= class_on_path("/", "font-bold text-black", "text-ncs-brown") %>" href="/">Editor</a></h1>
+          <li>
+            <h1>
+              <a class="<%= class_on_path("/", "font-bold text-black", "text-ncs-brown hover:text-black duration-300 transition-colors") %>" href="/">
+                Editor
+              </a>
+            </h1>
           </li>
           <span class="text-base">●</span>
-          <li class="hover:text-black duration-300 transition-colors">
-            <h1><a class="<%= class_on_path("/banner", "font-bold text-black", "text-ncs-brown") %>" href="/banner">Banner</a></h1>
+          <li>
+            <h1>
+              <a
+                class="<%= class_on_path("/banner", "font-bold text-black", "text-ncs-brown hover:text-black duration-300 transition-colors") %>"
+                href="/banner"
+              >
+                Banner
+              </a>
+            </h1>
           </li>
         </ul>
 

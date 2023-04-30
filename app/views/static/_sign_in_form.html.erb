@@ -1,27 +1,33 @@
-<h3>Sign In</h3>
-<%= form_with(url: user_session_path, model: User) do |f| %>
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="flex flex-col gap-8 text-white">
+  <div class="flex flex-col gap-2">
+    <h3 class="text-white text-2xl">Sign In</h3>
+    <%= form_with(url: user_session_path, model: User) do |f| %>
+      <div>
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      </div>
+
+      <div>
+        <%= f.label :password %>
+        <%= f.password_field :password, autocomplete: "current-password" %>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; margin: 8px auto;">
+        <%= f.label :remember_me, style: "flex-grow: 1; margin: 0px;" %>
+        <%= f.check_box :remember_me, class: "!w-4 !h-4" %>
+      </div>
+
+      <div>
+        <%= f.submit "Log in", class: "btn", style: "height: 46px; line-height: inherit;" %>
+      </div>
+    <% end %>
   </div>
 
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: "current-password" %>
+  <div class="text-sm">
+    <p class="!mb-0">
+      Don't have an account?
+      <%= link_to "Register here!", new_user_registration_path, class: "text-white underline" %>
+    </p>
+    <p>(Your skin will still be here when you return)</p>
   </div>
-
-  <div style="display: flex; justify-content: space-between; margin: 8px auto;">
-    <%= f.label :remember_me, style: "flex-grow: 1; margin: 0px;" %>
-    <%= f.check_box :remember_me, style: "height: 16px; width: auto;" %>
-  </div>
-
-  <div>
-    <%= f.submit "Log in", class: "btn", style: "height: 46px; line-height: inherit;" %>
-  </div>
-<% end %>
-
-<div>
-  <p>Don't have an account?</p>
-  <%= link_to "Register here!", new_user_registration_path %>
-  <p>(Your skin will still be here when you return)</p>
 </div>

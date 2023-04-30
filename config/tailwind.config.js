@@ -11,14 +11,35 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Lato', ...defaultTheme.fontFamily.sans],
+        serif: ['Roboto Slab', ...defaultTheme.fontFamily.serif],
+        icon: ['icon', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
         'ncs-tweed': "url('ncsassets/img/tweed.png')",
         'ncs-flourish': "url('ncsassets/img/flourish.png')"
       },
       colors: {
-        'ncs-brown': '#926602'
+        'ncs-brown': '#926602',
+        'ncs-light-gray': {
+          200: "#aaaaaa"
+        },
+        'ncs-gray': {
+          200: "#3f4244",
+          300: "#383b3d",
+          400: "#313436",
+          500: "#262a2e",
+          600: "#232428",
+          700: "#1f2326",
+          900: "#131315"
+
+        },
+        'ncs-yellow': {
+          200: "#f5f8cc"
+        }
+      },
+      maxWidth: {
+        'ncs-content': "998px"
       }
     },
   },

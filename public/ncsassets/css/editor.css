@@ -155,7 +155,7 @@ table {
 }
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,..
+input[type="search"]::-webkit-search-results-button {
   font-family: "Lato", sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -1150,7 +1150,7 @@ footer p {
   width: 100%;
   margin-top: 4px;
 }
-button,
+button:not(.btn-none),
 .btn,
 .button-group li,
 .ui-slider-handle {
@@ -1175,7 +1175,7 @@ button,
   border-radius: 4px;
   position: relative;
 }
-button:before,
+button:before:not(.btn-none),
 .btn:before,
 .button-group li:before,
 .ui-slider-handle:before {
@@ -1186,7 +1186,7 @@ button:before,
   right: 0;
   bottom: 0;
 }
-button:active:before,
+button:active:before:not(.btn-none),
 .btn:active:before,
 .button-group li:active:before,
 .ui-slider-handle:active:before {
@@ -1200,20 +1200,20 @@ button a,
   color: white;
   text-decoration: none;
 }
-button:focus,
+button:focus:not(.btn-none),
 .btn:focus,
 .button-group li:focus,
 .ui-slider-handle:focus {
   outline: none;
 }
-button:hover,
+button:hover:not(.btn-none),
 .btn:hover,
 .button-group li:hover,
 .ui-slider-handle:hover {
   color: #f5f8cc;
 }
 button.active,
-button:active,
+button:active:not(.btn-none),
 button.disabled,
 .btn.active,
 .btn:active,
@@ -1797,6 +1797,7 @@ ul.button-group.top-heavy li.active {
   background: rgba(0, 0, 0, 0.5);
   padding: 10px;
   position: relative;
+  overflow: auto;
 }
 #toolbox .panel button {
   margin-top: 14px;
