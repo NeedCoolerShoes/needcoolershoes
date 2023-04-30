@@ -10,6 +10,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= content_for?(:scripts) ? yield(:scripts) : nil %>
+    <%= render partial: "shared/favicons" %>
   </head>
 
   <body class="flex flex-col min-h-screen">
