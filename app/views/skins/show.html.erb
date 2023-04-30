@@ -8,6 +8,14 @@
       <div class="flex flex-col font-bold">
         <p><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
         <p>by <%= link_to @skin.user.display_name, gallery_path(user: @skin.user.name), class: "underline" %></p>
+        <% if @skin.is_unlisted? && !(current_user&.id == @skin.user_id) %>
+          <p>This skin is marked as unlisted, and cannot be edited.</p>
+        <% elsif @skin.is_unlisted? %>
+          <p>This skin is marked as unlisted. It can be accessed by the link, but will not show up in the Gallery.</p>
+        <% end %>
+        <% if @skin.is_private? %>
+          <p>This skin is marked as private. Only you can view it.</p>
+        <% end %>
       </div>
       <% if @skin.description.present? %>
         <div>

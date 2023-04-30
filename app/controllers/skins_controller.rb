@@ -1,11 +1,12 @@
 class SkinsController < ApplicationController
   before_action :set_skin, only: %i[show download]
+  before_action :check_visibility, only: %i[show download]
 
   def index
     if params[:user].present?
-      @skins = Skin.by_user_name(params[:user])
+      @skins = Skin.is_public.by_user_name(params[:user])
     else
-      @skins = Skin.all
+      @skins = Skin.is_public
     end
   end
 
@@ -36,6 +37,15 @@ class SkinsController < ApplicationController
 
   rescue ActiveRecord::RecordNotFound
     redirect_to gallery_path 
+  end
+
+  def check_visibility
+    return true unless @skin.is_private?
+    unless current_user.present?
+      redirect_to gallery_path unless current_user.present?
+      return false
+    end
+    redirect_to gallery_path unless current_user.id == @skin.user_id
   end
 
   def skin_params
