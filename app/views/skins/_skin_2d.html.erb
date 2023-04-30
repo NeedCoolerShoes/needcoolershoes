@@ -1,0 +1,58 @@
+<div style="height: 192px; width: 204px;">
+  <div class="scaled" style="display: flex; gap: 2px; width: fit-content;">
+    <div>
+      <div class="face display-<%= id %>" style="margin-left: 4px;">
+        <div class="face-overlay display-<%= id %>"></div>
+      </div>
+      <div style="display: flex;">
+        <div class="left-arm display-<%= id %>">
+          <div class="left-arm-overlay display-<%= id %>"></div>
+        </div>
+        <div class="torso display-<%= id %>">
+          <div class="torso-overlay display-<%= id %>"></div>
+        </div>
+        <div class="right-arm display-<%= id %>">
+          <div class="right-arm-overlay display-<%= id %>"></div>
+        </div>
+      </div>
+      <div style="display: flex; margin-left: 4px;">
+        <div class="left-leg display-<%= id %>">
+          <div class="left-leg-overlay display-<%= id %>"></div>
+        </div>
+        <div class="right-leg display-<%= id %>">
+          <div class="right-leg-overlay display-<%= id %>"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="face-back display-<%= id %>" style="margin-left: 4px;">
+        <div class="face-overlay-back display-<%= id %>"></div>
+      </div>
+      <div style="display: flex;">
+        <div class="left-arm-back display-<%= id %>">
+          <div class="left-arm-overlay-back display-<%= id %>"></div>
+        </div>
+        <div class="torso-back display-<%= id %>">
+          <div class="torso-overlay-back display-<%= id %>"></div>
+        </div>
+        <div class="right-arm-back display-<%= id %>">
+          <div class="right-arm-overlay-back display-<%= id %>"></div>
+        </div>
+      </div>
+      <div style="display: flex; margin-left: 4px;">
+        <div class="left-leg-back display-<%= id %>">
+          <div class="left-leg-overlay-back display-<%= id %>"></div>
+        </div>
+        <div class="right-leg-back display-<%= id %>">
+          <div class="right-leg-overlay-back display-<%= id %>"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .display-<%= id %> {
+    background-image: url(<%= data %>);
+  }
+</style>

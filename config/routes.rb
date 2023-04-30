@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root "static#editor"
   get "banner", to: "static#banner"
   get "gallery", to: "skins#index"
+  get "skins/:id/download", to: "skins#download", as: "skin_download"
   resources :skins, only: %i[create show edit destroy]
 end

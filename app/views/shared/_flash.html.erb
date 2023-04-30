@@ -1,2 +1,15 @@
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<% if notice.present? %>
+  <div class="flex justify-center bg-yellow-400 p-2 relative z-50">
+    <div class="max-w-ncs-content w-full">
+      <p><%= notice %></p>
+    </div>
+  </div>
+<% end %>
+
+<% if alert.present? %>
+  <div class="flex justify-center bg-red-500 p-2 relative z-50">
+    <div class="max-w-ncs-content w-full">
+      <p><%= alert %></p>
+    </div>
+  </div>
+<% end %>

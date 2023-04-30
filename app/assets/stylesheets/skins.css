@@ -1,0 +1,150 @@
+.scaled {
+  scale: 6;
+  transform-origin: left top;
+  image-rendering: pixelated;
+}
+
+.face {
+  width: 8px;
+  height: 8px;
+  background-position: 56px 56px;
+}
+
+.face-overlay {
+  width: 8px;
+  height: 8px;
+  background-position: 24px 56px;
+}
+
+.torso {
+  width: 8px;
+  height: 12px;
+  background-position: 44px 44px;
+}
+
+.torso-overlay {
+  width: 8px;
+  height: 12px;
+  background-position: 44px 28px;
+}
+
+.left-arm {
+  width: 4px;
+  height: 12px;
+  background-position: 28px 12px;
+}
+
+.left-arm-overlay {
+  width: 4px;
+  height: 12px;
+  background-position: 12px 12px;
+}
+
+.right-arm {
+  width: 4px;
+  height: 12px;
+  background-position: 20px 44px;
+}
+
+.right-arm-overlay {
+  width: 4px;
+  height: 12px;
+  background-position: 20px 28px;
+}
+
+.left-leg {
+  width: 4px;
+  height: 12px;
+  background-position: 44px 12px;
+}
+
+.left-leg-overlay {
+  width: 4px;
+  height: 12px;
+  background-position: 60px 12px;
+}
+
+.right-leg {
+  width: 4px;
+  height: 12px;
+  background-position: 60px 44px;
+}
+
+.right-leg-overlay {
+  width: 4px;
+  height: 12px;
+  background-position: 60px 28px;
+}
+
+.face-back {
+  width: 8px;
+  height: 8px;
+  background-position: 40px 56px;
+}
+
+.face-overlay-back {
+  width: 8px;
+  height: 8px;
+  background-position: 8px 56px;
+
+}
+
+.torso-back {
+  width: 8px;
+  height: 12px;
+  background-position: 32px 44px;
+}
+
+.torso-overlay-back {
+  width: 8px;
+  height: 12px;
+  background-position: 32px 28px;
+}
+
+.left-arm-back {
+  width: 4px;
+  height: 12px;
+  background-position: 20px 12px;
+}
+
+.left-arm-overlay-back {
+  width: 4px;
+  height: 12px;
+  background-position: 4px 12px;
+}
+
+.right-arm-back {
+  width: 4px;
+  height: 12px;
+  background-position: 12px 44px;
+}
+
+.right-arm-overlay-back {
+  width: 4px;
+  height: 12px;
+  background-position: 12px 28px;
+}
+
+.left-leg-back {
+  width: 4px;
+  height: 12px;
+  background-position: 36px 12px;
+}
+
+.left-leg-overlay-back {
+  width: 4px;
+  height: 12px;
+  background-position: 52px 12px;
+}
+
+.right-leg-back {
+  width: 4px;
+  height: 12px;
+  background-position: 52px 44px;
+}
+
+.right-leg-overlay-back {
+  width: 4px;
+  height: 12px;
+  background-position: 52px 28px;
+}

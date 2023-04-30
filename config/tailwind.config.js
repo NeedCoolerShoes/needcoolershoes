@@ -17,7 +17,9 @@ module.exports = {
       },
       backgroundImage: {
         'ncs-tweed': "url('ncsassets/img/tweed.png')",
-        'ncs-flourish': "url('ncsassets/img/flourish.png')"
+        'ncs-flourish': "url('ncsassets/img/flourish.png')",
+        'ncs-grid': "url('ncsassets/img/grid.png')",
+        'skin-clouds': "url('ncsassets/img/bg-clouds-temp.png')"
       },
       colors: {
         'ncs-brown': '#926602',

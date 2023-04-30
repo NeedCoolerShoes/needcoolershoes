@@ -48,6 +48,7 @@
   </head>
 
   <body id="unlogged" data-turbo="false">
+    <%= render partial: "shared/flash" %>
   
     <div class="container">
       <%= render partial: "shared/header" %>
@@ -71,7 +72,6 @@
         userId: false,
       };
       App.data = {};
-      App.signedIn = <%= current_user.present? ? "true" : "false" %>
     </script>
     <script src="ncsassets/js/jquery.min.js"></script>
 

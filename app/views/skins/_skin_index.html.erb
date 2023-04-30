@@ -1,0 +1,12 @@
+<div class="flex flex-col basis-[32%] rounded bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
+  <div class="flex items-center justify-center bg-ncs-grid rounded p-4">
+    <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data } %>
+  </div>
+  <div class="p-4 pt-2">
+    <%= link_to skin.name, skin, class: "text-2xl underline font-bold" %>
+    <div class="flex flex-col font-bold">
+      <p><%= skin.skin_part.name %> - <%= skin.skin_category.name %></p>
+      <p>by <%= link_to skin.user.display_name, gallery_path(user: skin.user.name), class: "underline", onclick: "event.stopImmediatePropagation()" %></p>
+    </div>
+  </div>
+</div>

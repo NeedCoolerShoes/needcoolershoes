@@ -21,13 +21,13 @@
     </div>
 
     <div class="flex flex-col gap-2">
-      <%= form.label :skin_part, nil, class: "!m-0" %>
-      <%= form.select :skin_part, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+      <%= form.label :skin_part_id, nil, class: "!m-0" %>
+      <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
     </div>
 
     <div class="flex flex-col gap-2">
-      <%= form.label :skin_category, nil, class: "!m-0" %>
-      <%= form.select :skin_category, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+      <%= form.label :skin_category_id, nil, class: "!m-0" %>
+      <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
     </div>
 
     <div>
@@ -41,6 +41,7 @@
       <%= form.submit "Upload Skin", class: "btn !h-auto !leading-normal" %>
     </div>
 
+    <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.hidden_field :data %>
 
     <div class="flex flex-col items-start" id="terms-and-conditions">

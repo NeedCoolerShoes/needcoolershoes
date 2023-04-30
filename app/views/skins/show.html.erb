@@ -1,0 +1,19 @@
+<div class="flex gap-2">
+  <div class="max-w-[364px] w-full">
+    <%= render partial: "skin_3d", locals: { skin: @skin } %>
+  </div>
+  <div class="grow">
+    <div class="bg-white p-4">
+      <h2 class="text-4xl font-bold"><%= @skin.name %></h2>
+      <div class="flex flex-col font-bold">
+        <p><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
+        <p>by <%= link_to @skin.user.display_name, gallery_path(user: @skin.user.name), class: "underline" %></p>
+      </div>
+      <% if @skin.description.present? %>
+        <div>
+          <%= simple_format @skin.description %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

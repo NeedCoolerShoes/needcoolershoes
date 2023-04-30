@@ -1,0 +1,26 @@
+<% content_for :scripts do %>
+  <script>
+      var App = App || {};
+      App.config = {token: "", s3: {suffix: {file: "", temp: ""},prefix: {http: "", aws: ""}}, userId: false};
+      App.data = {};
+  </script>
+  <script src="/ncsassets/js/jquery.min.js"></script>
+  <script src="/ncsassets/js/view-skin.js"></script>
+<% end %>
+<div class="col-left flex flex-col gap-4">
+  <div
+    class="model checker-border h-[530px] bg-ncs-grid"
+    data-user-id="149654"
+    data-id="346239"
+    data-local="<%= skin.data %>"
+    data-save="<%= skin.data %>"
+  ></div>
+
+  <div>
+    <button data-url="/" class="edit btn-ncs">
+      Edit this Skin
+    </button>
+    <button class="minecraft btn-ncs" disabled>Change Minecraft.net Skin</button>
+    <button class="download btn-ncs">Download to Computer</button>
+  </div>
+</div>
