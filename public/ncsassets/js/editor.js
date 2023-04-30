@@ -890,7 +890,7 @@ App.Editor = function (a, b, c, d) {
             g("crosshair"),
             c.length &&
               c.length > 0 &&
-              h.toolbox.refs.colorPicker.preveiwColor(
+              h.toolbox.refs.colorPicker.previewColor(
                 h.layerModel.getFaceColor(c[0].face)
               );
         else if (h.toolbar.getModeObj() && "drawing" == l) {
@@ -1522,7 +1522,7 @@ App.ColorPickerTool = function (a, b) {
     o = $('<div title = "Color Picker" class = "dropper"></div>'),
     p = $('<div class = "transparent" > </div>'),
     q = $('<div class = "recent" ></div>'),
-    r = $('<input type="text" >');
+    r = $('<input class="hex-input" type="text" value="#ff0000">');
   return (
     n.append(p),
     n.append(o),
@@ -1570,7 +1570,7 @@ App.ColorPickerTool = function (a, b) {
         return m;
       },
       dropperDeactivate: d,
-      preveiwColor: i,
+      previewColor: i,
       addRecentColorsFromFaces: j,
     }
   );

@@ -2510,3 +2510,23 @@ button:disabled:active {
 .topitems {
   height: 47px;
 }
+
+.hex-input {
+  color: black;
+  width: 94% !important;
+  background-color: #ff0000;
+  display: inherit !important;
+  border-radius: .25rem;
+}
+
+.colorpicker .jQWCP-wWidget.jQWCP-block{
+  height: 240px;
+}
+
+.jQWCP-wPreview {
+  margin-bottom: 12px;
+}
+
+.colorpicker.transparent-active .hex-input {
+  background: #fff url(../img/transparent-grid.png) repeat !important;
+}
