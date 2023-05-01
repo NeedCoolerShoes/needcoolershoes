@@ -673,27 +673,6 @@ textarea:focus {
 .alert.alert-info {
   background: rgba(255, 255, 0, 0.36);
 }
-footer {
-  margin: 14px 0;
-  padding: 14px;
-  overflow: hidden;
-  font-size: 12px;
-}
-footer ul {
-  float: left;
-}
-footer ul li {
-  float: left;
-  list-style-type: circle;
-  margin-left: 20px;
-}
-footer ul li a {
-  color: #444;
-}
-footer p {
-  float: right;
-  clear: both;
-}
 .white-popup {
   position: relative;
   background: #fff;
@@ -921,20 +900,6 @@ footer p {
   #bottom-bar li {
     margin: 0;
     display: block;
-  }
-  footer p {
-    display: block;
-    text-align: center;
-    float: none;
-    margin-bottom: 14px;
-  }
-  footer ul {
-    float: none;
-  }
-  footer ul li {
-    display: block;
-    float: none;
-    text-align: center;
   }
 }
 .skin-item {

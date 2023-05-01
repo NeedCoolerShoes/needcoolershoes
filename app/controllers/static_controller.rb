@@ -4,4 +4,8 @@ class StaticController < ApplicationController
 
   def banner
   end
+
+  def about
+    render layout: "application"
+  end
 end
