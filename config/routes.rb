@@ -8,4 +8,9 @@ Rails.application.routes.draw do
   get "gallery", to: "skins#index"
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   resources :skins, only: %i[create show edit destroy]
+
+  # API
+  scope :api do
+    get 'skin/:id', to: "api#skin"
+  end
 end

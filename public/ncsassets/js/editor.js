@@ -2009,34 +2009,27 @@ App.InputButton = function (a, b) {
       '<button class = "top-heavy">Import Minecraft.net skin</button>'
     ).mousedown(function () {
       if ((d && c(), "" != g.val())) {
-        // e.hide(), f.addClass("loading");
-        // var a = f.find("li").text();
-        // f.find("li").text("Searching...");
+        e.hide(), f.addClass("loading");
+        var a = f.find("li").text();
+        f.find("li").text("Searching...");
         var h = g.val();
-        //   i =
-        //     App.URL.root +
-        //     "ncsassets/sip.php?name=" +
-        //     h +
-        //     "&" +
-        //     new Date().getTime();
-        //   i = "http://textures.minecraft.net/texture/c4ffe4ce9348035722f3f1e6f5cb8e2cf7f0a260790791cb0098d4ad081468b";
-        // b.transporter
-        //   .setUVImage(i, "skin")
-        //   .always(function () {
-        //     f.find("li").text(a), f.removeClass("loading"), d && d();
-        //   })
-        //   .done(function () {
-        //     g.val(""),
-        //       b.toolbar && b.toolbar.changeToDefault(),
-        //       b.layerPresenter && b.layerPresenter.checkpoint(true),
-        //       b.colorPicker &&
-        //         b.toolbox.refs.colorPicker.addRecentColorsFromFaces(),
-        //       ga("send", "event", "editor", "import minecraft.net skin", h);
-        //   })
-        //   .fail(function () {
-        //     e.text("Could not find a user with that name.").show();
-        //   });
-        setMinecraftSkin({ b: b, f: f, d: d, g: g, e: e }, h);
+        var i = "/api/skin/" + h
+        b.transporter
+          .setUVImage(i, "skin")
+          .always(function () {
+            f.find("li").text(a), f.removeClass("loading"), d && d();
+          })
+          .done(function () {
+            g.val(""),
+              b.toolbar && b.toolbar.changeToDefault(),
+              b.layerPresenter && b.layerPresenter.checkpoint(true),
+              b.colorPicker &&
+              b.toolbox.refs.colorPicker.addRecentColorsFromFaces()
+              // g.a("send", "event", "editor", "import minecraft.net skin", h);
+          })
+          .fail(function () {
+            e.text("Could not find a user with that name.").show();
+          });
       } else e.text("Please enter a minecraft username.").show();
     }),
     g = $(
