@@ -42,7 +42,19 @@ module.exports = {
       },
       maxWidth: {
         'ncs-content': "998px"
-      }
+      },
+      screens: {
+        xs: "375px",
+        mob: "450px",
+        sm: "640px",
+        md: "768px",
+        tab: "860px",
+        lg: "1024px",
+        'ncs-min': "1125px",
+        xl: "1280px",
+        '2xl': "1536px",
+        hd: "1920px",
+      },
     },
   },
   plugins: [
