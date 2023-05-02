@@ -18,7 +18,7 @@
       <lastmod><%= last_modified_date(Skin.last.updated_at) %></lastmod>
     </url>
   <% end %>
-  <% Skin.all.last(49000).each do |skin| %>
+  <% Skin.is_public.last(49000).each do |skin| %>
     <url>
       <loc><%= skin_url(skin) %></loc>
       <lastmod><%= last_modified_date(skin.updated_at) %></lastmod>
