@@ -6,10 +6,12 @@ Rails.application.routes.draw do
   root "static#editor"
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
+  get "open_letter", to: "static#open_letter"
   get 'sitemap', to: 'static#sitemap', defaults: {format: 'xml'}
   get "gallery", to: "skins#index"
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   resources :skins, only: %i[create show edit destroy]
+  get "users/current", to: "users#current", as: "current_user"
   resources :users, only: %i[show]
 
   # API

@@ -6,7 +6,13 @@ class User < ApplicationRecord
   
   before_validation :setup_username, unless: :id?
 
-  validates :name, format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" }
+  validates :name,
+    format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
+    exclusion: { in: %w(current), message: "%{value} is reserved" }
+  
+  def to_param
+    name
+  end
 
   private
 

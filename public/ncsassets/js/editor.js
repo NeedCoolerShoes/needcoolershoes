@@ -1298,7 +1298,7 @@ App.Toolbar = function (a, b) {
             ? a.parent().addClass("wide")
             : a.parent().removeClass("wide"))
         );
-    log("ERROR: MODE NOT REGONIZED.");
+    log("ERROR: MODE NOT RECOGNIZED.");
   }
   function e() {
     d("ecmPaint");
@@ -1497,6 +1497,12 @@ App.ColorPickerTool = function (a, b) {
     }
   }
   var k = new THREE.Color();
+  function toggleTransparent () {
+    if (k.isAlpha()) {
+      var a = r.wheelColorPicker("getColor");
+      f(new THREE.Color().setRGB(a.r, a.g, a.b));
+    } else f(new THREE.Color().setAlpha());
+  }
   if (null === localStorage.getItem("recentColors"))
     var l = [
       "ffffff",
@@ -1540,12 +1546,7 @@ App.ColorPickerTool = function (a, b) {
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);
     }),
-    p.click(function () {
-      if (k.isAlpha()) {
-        var a = r.wheelColorPicker("getColor");
-        f(new THREE.Color().setRGB(a.r, a.g, a.b));
-      } else f(new THREE.Color().setAlpha());
-    }),
+    p.click(function () { toggleTransparent() }),
     o.mouseup(function () {
       c();
     }),
@@ -1557,6 +1558,8 @@ App.ColorPickerTool = function (a, b) {
     f(new THREE.Color().setRGB(1, 0, 0)),
     $(".jQWCP-wWidget").width(a.width()),
     {
+      enableDropper: c,
+      toggleTransparent: toggleTransparent,
       getColor: e,
       setColor: f,
       hide: function () {
@@ -2336,6 +2339,9 @@ App.ToggleButtonTool = function (a, b, c) {
       e.toggleClass("active"), (d = !d), a.preventDefault();
     }),
     {
+      toggle: function () {
+        e.toggleClass("active"), (d = !d);
+      },
       isEnabled: function () {
         return d;
       },

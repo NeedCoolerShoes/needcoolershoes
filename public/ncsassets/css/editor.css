@@ -1190,7 +1190,7 @@ button.disabled,
 .ui-slider-handle:active,
 .ui-slider-handle.disabled {
   border-left-width: 0;
-  z-index: 2;
+  z-index: 1;
   position: relative;
   -webkit-transform: translateY(4px);
   -moz-transform: translateY(4px);
