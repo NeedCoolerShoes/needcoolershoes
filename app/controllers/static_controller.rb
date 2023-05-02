@@ -8,4 +8,7 @@ class StaticController < ApplicationController
   def about
     render layout: "application"
   end
+
+  def sitemap
+  end
 end

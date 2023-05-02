@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc><%= root_url %></loc>
+    <lastmod><%= last_modified("app/views/static/editor.html.erb") %></lastmod>
+  </url>
+  <url>
+    <loc><%= banner_url %></loc>
+    <lastmod><%= last_modified("app/views/static/banner.html.erb") %></lastmod>
+  </url>
+  <url>
+    <loc><%= about_url %></loc>
+    <lastmod><%= last_modified("app/views/static/about.html.erb") %></lastmod>
+  </url>
+  <% if Skin.all.any? %>
+    <url>
+      <loc><%= gallery_url %></loc>
+      <lastmod><%= last_modified_date(Skin.last.updated_at) %></lastmod>
+    </url>
+  <% end %>
+  <% Skin.all.last(49000).each do |skin| %>
+    <url>
+      <loc><%= skin_url(skin) %></loc>
+      <lastmod><%= last_modified_date(skin.updated_at) %></lastmod>
+    </url>
+  <% end %>
+</urlset>
