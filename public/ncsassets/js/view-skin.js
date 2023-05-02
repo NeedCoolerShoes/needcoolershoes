@@ -14585,6 +14585,7 @@
         }),
         b.model.rotateTo({ x: 0, y: -30 }),
         b.model.turnOffGrid();
+        c.addClass("!h-max");
       var d = $(".more"),
         e = ($(".parts"), $(".related")),
         f = $("#skin-item").html();
