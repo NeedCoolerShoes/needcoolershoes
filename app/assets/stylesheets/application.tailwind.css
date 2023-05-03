@@ -2,26 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer components {
   .btn-ncs {
     @apply capitalize cursor-pointer text-white text-center mb-1.5;
     @apply leading-10 w-full text-lg font-serif font-extrabold;
     @apply border border-ncs-gray-600 border-b-ncs-gray-700 rounded;
     @apply bg-gradient-to-t from-ncs-gray-400 to-ncs-gray-200;
-    @apply active:text-ncs-light-gray-200 active:hover:text-ncs-light-gray-200 active:bg-gradient-to-b active:bg-ncs-gray-300 active:mb-0;
-    @apply disabled:text-ncs-light-gray-200 disabled:hover:text-ncs-light-gray-200 disabled:cursor-not-allowed disabled:bg-ncs-gray-300;
-    @apply disabled:active:mb-1.5 disabled:active:bg-gradient-to-t;
     @apply hover:text-ncs-yellow-200;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 2px #262a2e,
     0 3px #1f2326, 0 4px 3px rgba(0, 0, 0, 0.2);
     text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
   }
-  .btn-ncs:active {
+  .btn-ncs:active, .btn-ncs-active {
+    @apply text-ncs-light-gray-200 hover:text-ncs-light-gray-200 bg-gradient-to-b bg-ncs-gray-300 mb-0;
     box-shadow: inset 0 1px rgba(255, 255, 255, 0.05), inset 0 -1px 1px rgba(0, 0, 0, 0.15), 1px 0 rgba(0, 0, 0, 0.05), -1px 0 rgba(0, 0, 0, 0.05), 0 1px rgba(255, 255, 255, 0.05);
   }
-  .btn-ncs:active:disabled {
+  .btn-ncs:disabled, .btn-ncs-disabled {
+    @apply text-ncs-light-gray-200 hover:text-ncs-light-gray-200 cursor-not-allowed bg-ncs-gray-300;
+    @apply active:mb-1.5 active:bg-gradient-to-t;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 2px #262a2e,
+    0 3px #1f2326, 0 4px 3px rgba(0, 0, 0, 0.2);
+  }
+  .btn-ncs:disabled:active, .btn-ncs-disabled:active {
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 2px #262a2e,
     0 3px #1f2326, 0 4px 3px rgba(0, 0, 0, 0.2);
   }
@@ -30,4 +32,30 @@
   }
 }
 
+.pagy-nav.pagination {
+  @apply py-2 rounded-md shadow-sm;
+}
 
+.page.next a {
+  @apply btn-ncs relative px-2 py-2 text-sm font-medium focus:z-20;
+}
+
+.page.prev a {
+  @apply btn-ncs relative px-2 py-2 text-sm font-medium focus:z-20;
+}
+
+.page.next.disabled {
+  @apply btn-ncs btn-ncs-disabled relative px-2 py-2 text-sm font-medium focus:z-20;
+}
+
+.page.prev.disabled {
+  @apply btn-ncs btn-ncs-disabled relative px-2 py-2 text-sm font-medium focus:z-20;
+}
+
+.page a, .page.gap {
+  @apply btn-ncs px-4 py-2 text-sm font-medium focus:z-20;
+}
+
+.page.active {
+  @apply btn-ncs btn-ncs-active px-4 py-2 text-sm font-medium focus:z-20;
+}
