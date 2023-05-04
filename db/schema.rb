@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_25_160423) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_04_155755) do
   create_table "skin_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -54,7 +54,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_160423) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "featured_skin_id"
+    t.string "biography"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -62,4 +65,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_25_160423) do
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"
+  add_foreign_key "users", "skins", column: "featured_skin_id"
 end

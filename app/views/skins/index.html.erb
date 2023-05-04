@@ -1,9 +1,15 @@
-<div class="py-2">
+<div class="flex justify-start">
   <%== pagy_nav(@pagy) %>
 </div>
 <div class="flex justify-center gap-4 flex-wrap">
-  <%= render partial: "skin_index", collection: @skins, as: :skin, cached: true %>
+  <% @skins.each do |skin| %>
+    <%
+      show_visibility = false
+      show_visibility = true if current_user.present? && skin.user == current_user
+    %>
+    <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility  }%>
+  <% end %>
 </div>
-<div class="py-2">
+<div class="flex justify-start">
   <%== pagy_nav(@pagy) %>
 </div>

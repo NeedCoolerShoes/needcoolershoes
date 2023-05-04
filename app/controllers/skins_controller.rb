@@ -3,12 +3,14 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download]
 
   def index
-    if params[:user].present?
-      skins = Skin.order_by_updated.is_public.by_user_name(params[:user])
+    skins = Skin.order_by_updated
+    skins = skins.merge(Skin.by_user_name(params[:user])) if params[:user].present?
+    if current_user.present?
+      skins = skins.merge(Skin.visible_to_user(current_user))
     else
-      skins = Skin.order_by_updated.is_public
+      skins = skins.merge(Skin.is_public)
     end
-    @pagy, @skins = pagy(skins)
+    @pagy, @skins = pagy(skins, items: 12)
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end

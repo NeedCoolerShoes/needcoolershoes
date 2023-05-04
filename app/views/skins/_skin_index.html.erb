@@ -1,4 +1,17 @@
-<div class="flex flex-col basis-[32%] rounded bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
+<%
+  show_visibility ||= false
+  icons = {
+    is_public: "globe-alt",
+    is_unlisted: "link",
+    is_private: "eye-slash"
+  }
+%>
+<div class="relative flex flex-col basis-[32%] rounded bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
+  <% if show_visibility%>
+    <div class="absolute top-0 left-0 p-2">
+      <%= heroicon icons[skin.visibility.to_sym], class: "text-gray-500", title: skin.visibility.titleize %>
+    </div>
+  <% end %>
   <div class="flex items-center justify-center bg-ncs-grid rounded p-4 px-8">
     <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data } %>
   </div>
@@ -6,7 +19,10 @@
     <%= link_to skin.name, skin, class: "text-2xl underline font-bold" %>
     <div class="flex flex-col font-bold">
       <p><%= skin.skin_part.name %> - <%= skin.skin_category.name %></p>
-      <p>by <%= link_to skin.user.display_name, gallery_path(user: skin.user.name), class: "underline", onclick: "event.stopImmediatePropagation()" %></p>
+      <p>
+        by
+        <%= link_to skin.user.display_name, gallery_path(user: skin.user), class: "underline", onclick: "event.stopImmediatePropagation()" %>
+      </p>
     </div>
   </div>
 </div>

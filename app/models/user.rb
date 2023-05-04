@@ -6,9 +6,18 @@ class User < ApplicationRecord
   
   before_validation :setup_username, unless: :id?
 
+  belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
+  has_many :skins
+
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
     exclusion: { in: %w(current), message: "%{value} is reserved" }
+
+  def featured_skin_data
+    return featured_skin.data if featured_skin.present?
+    return skins.last.data if skins.any?
+    "http://textures.minecraft.net/texture/31f477eb1a7beee631c2ca64d06f8f68fa93a3386d04452ab27f43acdf1b60cb"
+  end
   
   def to_param
     name
