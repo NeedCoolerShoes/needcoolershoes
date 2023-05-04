@@ -4,10 +4,13 @@ class SkinsController < ApplicationController
 
   def index
     if params[:user].present?
-      @skins = Skin.is_public.by_user_name(params[:user])
+      skins = Skin.order_by_updated.is_public.by_user_name(params[:user])
     else
-      @skins = Skin.is_public
+      skins = Skin.order_by_updated.is_public
     end
+    @pagy, @skins = pagy(skins)
+  rescue Pagy::OverflowError
+    redirect_to gallery_path
   end
 
   def show
