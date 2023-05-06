@@ -1,0 +1,3 @@
+<% if user.skins.any? %>
+  <%= link_to "View User's Skins", gallery_path(user: user.name), class: "btn-ncs" %>
+<% end %>

@@ -27,7 +27,7 @@
         <% if @skin.user == current_user %>
           <%= form_with model: current_user, url: update_profile_path do |form| %>
             <%= form.hidden_field :featured_skin_id, value: @skin.id %>
-            <%= form.submit "Feature Skin on Profile", class: "btn-ncs" %>
+            <%= form.submit "Feature Skin on Profile", class: "btn-ncs", title: "Display skin as your avatar on your profile." %>
           <% end %>
         <% end %>
       </div>

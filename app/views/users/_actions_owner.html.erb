@@ -1,0 +1,4 @@
+<%= link_to "Edit Profile", "", class: "btn-ncs btn-ncs-disabled" %>
+<% if user.skins.any? %>
+  <%= link_to "View My Skins", gallery_path(user: user.name), class: "btn-ncs" %>
+<% end %>
