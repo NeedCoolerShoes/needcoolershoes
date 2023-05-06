@@ -13,6 +13,9 @@
         <span class="text-2xl text-gray-500"><%= @user.name %></span>
       </div>
       <%= render partial: "skins/skin_3d_new", locals: { data: @user.featured_skin_data } %>
+      <script>
+        skinViewer.nameTag = "<%= @user.name %>"
+      </script>
     </div>
     <div class="flex flex-col gap-2 p-4 grow">
       <div class="bg-ncs-gray-300 rounded p-4 w-full">
