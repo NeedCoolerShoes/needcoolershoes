@@ -4,11 +4,11 @@
       <div class="flex justify-between">
         <div class="flex items-center gap-2 h-[47px] py-4">
           <a href="/"><img src="/ncsassets/img/header.png" /></a>
-          <a href="/"><h1 class="uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</h1></a>
+          <a href="/"><h1 class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</h1></a>
         </div>
         <div class="flex items-center gap-2">
           <% if current_user.present? %>
-            <%= link_to current_user.name, "", class: "text-white underline" %>
+            <%= link_to current_user.name, current_user, class: "text-white underline" %>
             <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
           <% else %>
             <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>

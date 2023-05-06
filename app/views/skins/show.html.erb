@@ -1,6 +1,37 @@
+<% content_for :scripts do %>
+  <meta name="turbo-visit-control" content="reload">
+  <script src="/ncsassets/js/jquery.min.js"></script>
+<% end %>
+
 <div class="flex gap-2">
   <div class="max-w-[364px] w-full">
-    <%= render partial: "skin_3d", locals: { skin: @skin } %>
+    <div class="col-left flex flex-col gap-2">
+      <div class="checker-border bg-ncs-grid">
+        <%= render partial: "skin_3d_new", locals: { data: @skin.data } %>
+        <% if current_user.present? %>
+          <script>
+            skinViewer.nameTag = "<%= current_user.name %>"
+          </script>
+        <% end %>
+      </div>
+      <div
+        class="model" data-user-id="<%= @skin.user_id %>" data-id="<%= @skin.id %>"
+        data-local="<%= @skin.data %>" data-save="<%= @skin.data %>"
+      ></div>
+      <div>
+        <button data-url="/" class="edit btn-ncs" <%= @skin.is_public? ? nil : "disabled" %>>
+          Edit this Skin
+        </button>
+        <button class="minecraft btn-ncs" disabled>Change Minecraft.net Skin</button>
+        <button class="download btn-ncs">Download to Computer</button>
+        <% if @skin.user == current_user %>
+          <%= form_with model: current_user, url: update_profile_path do |form| %>
+            <%= form.hidden_field :featured_skin_id, value: @skin.id %>
+            <%= form.submit "Feature Skin on Profile", class: "btn-ncs", title: "Display skin as your avatar on your profile." %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
   <div class="grow">
     <div class="bg-white p-4">

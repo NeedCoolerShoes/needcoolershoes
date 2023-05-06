@@ -1,0 +1,17 @@
+<%
+  data ||= ""
+%>
+<% content_for :scripts do %>
+  <script src="/ncsassets/js/skinview3d.bundle.js"></script>
+<% end %>
+
+<canvas class="!w-full !h-auto" id="skin_container"></canvas>
+
+<script>
+  let skinViewer = new skinview3d.SkinViewer({
+    canvas: document.getElementById("skin_container"),
+    width: 300,
+    height: 400,
+    skin: "<%= data %>"
+  });
+</script>
