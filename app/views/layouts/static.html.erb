@@ -25,6 +25,12 @@
 
     <div class="flex flex-col items-center mx-3 sm:mx-16">
       <div class="flex flex-col justify-center w-full max-w-ncs-content">
+      <% if content_for?(:message) %>
+        <%= yield :message %>
+      <% else %>
+        <div class="h-3.5">
+        </div>
+      <% end %>
 
         <%= yield %>
 

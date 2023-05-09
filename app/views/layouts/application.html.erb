@@ -23,6 +23,13 @@
     </div>
     <main class="flex flex-col items-center justify-start grow mx-3 sm:mx-16">
       <div class="flex flex-col max-w-ncs-content w-full">
+        <% if content_for?(:message) %>
+          <%= yield :message %>
+        <% else %>
+          <div class="h-3.5">
+          </div>
+        <% end %>
+        
         <%= yield %>
       </div>
     </main>

@@ -8,6 +8,11 @@
   
   <script src="ncsassets/js/banner.js"></script>
 <% end %>
+<% content_for :message do %>
+  <div class="p-2 bg-ncs-yellow-200 !mb-2 shadow">
+    Credits to <%= link_to "Algoinde", "https://algoinde.ru/", class: "text-black underline" %> for the banner generator!
+  </div>
+<% end %>
 <div id="content">
   <div id="banner" class="bg">
     <div id="hidey" class=""></div>
