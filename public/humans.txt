@@ -24,4 +24,4 @@ M - needcoolershoes.com - MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 Miners Need Cool Shoes Restoration Team
 - Moxvallix: https://github.com/moxvallix/
-- OwaHai: https://github.com/owohai
+- OwaHai: https://github.com/owohai/

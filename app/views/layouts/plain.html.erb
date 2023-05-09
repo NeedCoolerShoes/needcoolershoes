@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Miners Need Cooler Shoes :: A fan made Restoration of Need Cool Shoes</title>
+
+    <%= render partial: "shared/meta" %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= content_for?(:scripts) ? yield(:scripts) : nil %>
+    <%= render partial: "shared/favicons" %>
+    <%= render partial: "shared/plausible" %>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <%= render partial: "shared/flash" %>
+    <%= yield %>
+  </body>
+</html>

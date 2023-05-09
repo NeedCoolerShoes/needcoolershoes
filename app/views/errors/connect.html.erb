@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center justify-center grow text-2xl">
+  <p class="text-sm">Placeholder for... a cute picture of mascot yawning.</p>
+  <p>Connecting to the Database (it's probably still waking up...)</p>
+  <p>Your page should refresh shortly. If not, click <%= link_to "here", "", class: "underline", target: "_top" %>.</p>
+  <p class="text-sm">
+    Still having issues? Contact us on Reddit:
+    <%= link_to "r/NeedCoolerShoes", "https://reddit.com/r/NeedCoolerShoes", class: "underline"%>
+  </p>
+</div>
+<script>
+  setTimeout(function(){
+    window.location.reload(1);
+  }, 5000);
+</script>
