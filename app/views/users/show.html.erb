@@ -12,7 +12,7 @@
         <h1 class="text-2xl mr-2"><%= @user.display_name %></h1>
         <span class="text-2xl text-gray-500"><%= @user.name %></span>
       </div>
-      <%= render partial: "skins/skin_3d_new", locals: { data: @user.featured_skin_data } %>
+      <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data } %>
       <script>
         skinViewer.nameTag = "<%= @user.name %>"
       </script>

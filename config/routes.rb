@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :skins, only: %i[create show edit destroy]
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
-  resources :users, only: %i[show]
+  resources :users, only: %i[show edit]
 
   # API
   scope :api do

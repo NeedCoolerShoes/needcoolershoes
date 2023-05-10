@@ -1,29 +1,17 @@
 <%
-  id ||= 0
-  user_id ||= 0
   data ||= ""
 %>
 <% content_for :scripts do %>
-  <script>
-      var App = App || {};
-      App.config = {token: "", s3: {suffix: {file: "", temp: ""},prefix: {http: "", aws: ""}}, userId: false};
-      App.data = {};
-  </script>
-  <script src="/ncsassets/js/jquery.min.js"></script>
-  <script src="/ncsassets/js/view-skin.js"></script>
+  <script src="/ncsassets/js/skinview3d.bundle.js"></script>
 <% end %>
 
-<div
-  class="model checker-border bg-ncs-grid h-[530px]"
-  data-user-id="<%= user_id %>"
-  data-id="<%= id %>"
-  data-local="<%= data %>"
-  data-save="<%= data %>"
-></div>
+<canvas class="!w-full !h-auto" id="skin_container"></canvas>
 
-<style>
-  .model canvas {
-    width: 100%;
-    height: auto;
-  }
-</style>
+<script>
+  let skinViewer = new skinview3d.SkinViewer({
+    canvas: document.getElementById("skin_container"),
+    width: 300,
+    height: 400,
+    skin: "<%= data %>"
+  });
+</script>
