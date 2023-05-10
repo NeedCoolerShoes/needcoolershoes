@@ -21,7 +21,7 @@
       <p><%= skin.skin_part.name %> - <%= skin.skin_category.name %></p>
       <p>
         by
-        <%= link_to skin.user.display_name, gallery_path(user: skin.user), class: "underline", onclick: "event.stopImmediatePropagation()" %>
+        <%= link_to skin.user.display_name, skin.user, class: "underline", onclick: "event.stopImmediatePropagation()" %>
       </p>
     </div>
   </div>

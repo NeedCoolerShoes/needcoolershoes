@@ -41,7 +41,7 @@
       <h2 class="text-4xl font-bold"><%= @skin.name %></h2>
       <div class="flex flex-col font-bold">
         <p><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
-        <p>by <%= link_to @skin.user.display_name, gallery_path(user: @skin.user.name), class: "underline" %></p>
+        <p>by <%= link_to @skin.user.display_name, @skin.user, class: "underline" %></p>
         <% if !@skin.can_user_edit?(current_user) %>
           <p><%= t "skins.status.unlisted_guest" %></p>
         <% elsif @skin.is_unlisted? %>
