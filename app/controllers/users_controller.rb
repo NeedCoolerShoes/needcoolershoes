@@ -33,6 +33,6 @@ class UsersController < ApplicationController
   end
 
   def profile_params
-    params.require(:user).permit(:featured_skin_id)
+    params.require(:user).permit(:display_name, :biography, :featured_skin_id)
   end
 end

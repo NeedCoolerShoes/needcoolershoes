@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   get "gallery", to: "skins#index"
   get "gallery/:page", to: "skins#index"
   get "skins/:id/download", to: "skins#download", as: "skin_download"
-  resources :skins, only: %i[create show edit destroy]
+  resources :skins, only: %i[create show edit destroy update]
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
-  resources :users, only: %i[show edit delete]
+  resources :users, only: %i[show edit destroy update]
 
   # API
   scope :api do

@@ -1,5 +1,7 @@
 <%
   data ||= ""
+  height ||= 400
+  width ||= 300
 %>
 <% content_for :scripts do %>
   <script src="/ncsassets/js/skinview3d.bundle.js"></script>
@@ -10,8 +12,8 @@
 <script>
   let skinViewer = new skinview3d.SkinViewer({
     canvas: document.getElementById("skin_container"),
-    width: 300,
-    height: 400,
+    width: <%= width %>,
+    height: <%= height %>,
     skin: "<%= data %>"
   });
 </script>

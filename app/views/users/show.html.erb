@@ -20,11 +20,13 @@
     <div class="flex flex-col gap-2 p-4 grow">
       <div class="bg-ncs-gray-300 rounded p-4 w-full">
         <h2 class="text-xl text-gray-500">Biography</h2>
-        <% if @user.biography.present? %>
-          <%= simple_format @user.biography %>
-        <% else %>
-          <p>A Miner in Need of Cooler Shoes...</p>
-        <% end %>
+        <div class="prose prose-invert">
+          <% if @user.biography.present? %>
+            <%= markdown @user.biography %>
+          <% else %>
+            <p>A Miner in Need of Cooler Shoes...</p>
+          <% end %>
+        </div>
       </div>
       <div>
         <% if current_user.present? && current_user.id == @user.id %>

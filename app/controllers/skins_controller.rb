@@ -1,7 +1,7 @@
 class SkinsController < ApplicationController
-  before_action :authenticate_user!, only: %i[edit delete]
-  before_action :validate_owner, only: %i[edit delete]
-  before_action :set_skin, only: %i[show edit download]
+  before_action :authenticate_user!, only: %i[edit destroy]
+  before_action :set_skin, only: %i[show edit update download destroy]
+  before_action :validate_owner, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
 
   def index
@@ -27,8 +27,17 @@ class SkinsController < ApplicationController
       if @skin.save
         format.html { redirect_to root_path, notice: "Skin was successfully created." }
       else
-        puts @skin.errors.messages
         format.html { redirect_to root_path, alert: "Error saving skin." }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @skin.update(skin_params)
+        format.html { redirect_to @skin, notice: "Skin was successfully updated." }
+      else
+        format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
       end
     end
   end
@@ -37,7 +46,12 @@ class SkinsController < ApplicationController
     send_data @skin.data, type: "image/png", filename: "download.png"
   end
 
-  def delete
+  def destroy
+    @skin.destroy
+    respond_to do |format|
+      format.html { redirect_to gallery_path, notice: "Skin was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   private
@@ -59,7 +73,9 @@ class SkinsController < ApplicationController
   end
 
   def validate_owner
-    return true if current_user.present? && current_user.id == @skin.user_id
+    if current_user.present?
+      return true if current_user.id == @skin.user.id
+    end
     redirect_to gallery_path
   end
 
