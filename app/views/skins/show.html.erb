@@ -7,7 +7,7 @@
   <div class="max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
       <div class="checker-border bg-ncs-grid">
-        <%= render partial: "skin_3d_new", locals: { data: @skin.data } %>
+        <%= render partial: "skin_3d", locals: { data: @skin.data } %>
         <% if current_user.present? %>
           <script>
             skinViewer.nameTag = "<%= current_user.name %>"
