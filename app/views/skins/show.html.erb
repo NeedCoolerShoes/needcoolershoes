@@ -52,8 +52,8 @@
         <% end %>
       </div>
       <% if @skin.description.present? %>
-        <div>
-          <%= simple_format @skin.description %>
+        <div class="prose">
+          <%= markdown @skin.description %>
         </div>
       <% end %>
       <div class="flex gap-2 pt-2">
