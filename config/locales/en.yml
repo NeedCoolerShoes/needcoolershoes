@@ -31,3 +31,16 @@
 
 en:
   hello: "Hello world"
+  skins:
+    editor: "Open in Editor"
+    download: "Download to Computer"
+    change_skin: "Change Skin on minecraft.net"
+    feature: "Feature Skin on Profile"
+    feature_tooltip: "Display skin as your avatar on your profile."
+    edit: "Edit Information"
+    delete: "Delete Skin"
+    delete_confirmation: "Are you sure you want to delete this skin? It will be gone forever."
+    status:
+      unlisted_guest: "This skin is marked as unlisted, and cannot be edited."
+      unlisted_owner: "This skin is marked as unlisted. It can be accessed by the link, but will not show up in the Gallery."
+      private: "This skin is marked as private. Only you can view it." 

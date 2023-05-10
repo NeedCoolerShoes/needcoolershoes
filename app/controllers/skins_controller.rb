@@ -1,5 +1,7 @@
 class SkinsController < ApplicationController
-  before_action :set_skin, only: %i[show download]
+  before_action :authenticate_user!, only: %i[edit delete]
+  before_action :validate_owner, only: %i[edit delete]
+  before_action :set_skin, only: %i[show edit download]
   before_action :check_visibility, only: %i[show download]
 
   def index
@@ -35,6 +37,9 @@ class SkinsController < ApplicationController
     send_data @skin.data, type: "image/png", filename: "download.png"
   end
 
+  def delete
+  end
+
   private
 
   def set_skin
@@ -51,6 +56,11 @@ class SkinsController < ApplicationController
       return false
     end
     redirect_to gallery_path unless current_user.id == @skin.user_id
+  end
+
+  def validate_owner
+    return true if current_user.present? && current_user.id == @skin.user_id
+    redirect_to gallery_path
   end
 
   def skin_params
