@@ -1,5 +1,5 @@
 SKIN_PARTS = [
-  "Full Skin", "Base", "Face/Hair", "Hat/Helmet", "Shirt", "Jacket", "Pants", "Costume/Outfit", "Armor", "Accessory"
+  "Full Skin", "Base", "Face/Hair", "Hat/Helmet", "Shirt", "Jacket", "Pants", "Costume/Outfit", "Armor", "Accessory", "Shoes/Footwear"
 ]
 
 SKIN_PARTS.each do |part|

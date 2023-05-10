@@ -13,17 +13,18 @@
             skinViewer.nameTag = "<%= current_user.name %>"
           </script>
         <% end %>
+        <script src="/ncsassets/js/skins.js"></script>
       </div>
       <div
         class="model" data-user-id="<%= @skin.user_id %>" data-id="<%= @skin.id %>"
         data-local="<%= @skin.data %>" data-save="<%= @skin.data %>"
       ></div>
       <div>
-        <button data-url="/" class="edit btn-ncs" <%= @skin.is_public? ? nil : "disabled" %>>
+        <button onclick="editSkin('<%= @skin.data %>', <%= @skin.id %>, '/')" class="edit btn-ncs" <%= @skin.is_public? ? nil : "disabled" %>>
           Edit this Skin
         </button>
         <button class="minecraft btn-ncs" disabled>Change Minecraft.net Skin</button>
-        <button class="download btn-ncs">Download to Computer</button>
+        <button onclick="download('<%= @skin.data %>', 'download.png')" class="download btn-ncs">Download to Computer</button>
         <% if @skin.user == current_user %>
           <%= form_with model: current_user, url: update_profile_path do |form| %>
             <%= form.hidden_field :featured_skin_id, value: @skin.id %>
