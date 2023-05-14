@@ -32,7 +32,7 @@
 }
 
 .pagy-nav.pagination {
-  @apply flex gap-1 py-2 rounded-md shadow-sm;
+  @apply flex gap-1 py-2 rounded-md;
 }
 
 .page.next a {
