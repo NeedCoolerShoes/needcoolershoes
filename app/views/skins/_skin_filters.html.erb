@@ -1,0 +1,34 @@
+<div class="flex flex-col gap-2 bg-ncs-yellow-200 py-2 px-4 rounded-b">
+  <details>
+    <summary>
+      <h2 class="font-bold inline cursor-pointer select-none">Categories</h2>
+    </summary>
+    <div class="flex flex-wrap items-center gap-1 text-gray-600">
+      <% SkinCategory.all.each do |category| %>
+        <%
+          gallery_params = @gallery_params.merge({category: category.name})
+          selected = category.name == params[:category]
+        %>
+        <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+          <%= link_to category.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+        </span>
+      <% end %>
+    </div>
+  </details>
+  <details>
+    <summary>
+      <h2 class="font-bold inline cursor-pointer select-none">Parts</h2>
+    </summary>
+    <div class="flex flex-wrap gap-1 text-gray-600">
+      <% SkinPart.all.each do |part| %>
+        <%
+          gallery_params = @gallery_params.merge({part: part.name})
+          selected = part.name == params[:part]
+        %>
+        <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+          <%= link_to part.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+        </span>
+      <% end %>
+    </div>
+  </details>
+</div>

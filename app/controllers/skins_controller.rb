@@ -5,14 +5,14 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download]
 
   def index
-    skins = Skin.order_by_updated
-    skins = skins.merge(Skin.by_user_name(params[:user])) if params[:user].present?
+    @gallery_params = gallery_params
+    skins = gallery_filter_skins
     if current_user.present?
       skins = skins.merge(Skin.visible_to_user(current_user))
     else
       skins = skins.merge(Skin.is_public)
     end
-    @pagy, @skins = pagy(skins, items: 12)
+    @pagy, @skins = pagy(skins, items: 6)
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end
@@ -81,5 +81,17 @@ class SkinsController < ApplicationController
 
   def skin_params
     params.require(:skin).permit(:name, :description, :data, :visibility, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
+  end
+
+  def gallery_params
+    params.permit(:user, :part, :category)
+  end
+
+  def gallery_filter_skins
+    skins = Skin.order_by_updated
+    skins = skins.merge(Skin.by_user_name(params[:user])) if params[:user].present?
+    skins = skins.merge(Skin.by_part_name(params[:part])) if params[:part].present?
+    skins = skins.merge(Skin.by_category_name(params[:category])) if params[:category].present?
+    skins
   end
 end

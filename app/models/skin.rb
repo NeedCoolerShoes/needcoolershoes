@@ -10,6 +10,8 @@ class Skin < ApplicationRecord
   scope :by_user_name, ->(name) { includes(:user).where(user: { name: name } ) }
   scope :order_by_updated, -> { order(updated_at: :desc) }
   scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
+  scope :by_part_name, ->(name) { includes(:skin_part).where(skin_part: { name: name }) }
+  scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
 
   def can_user_edit?(some_user)
     return true if is_public?

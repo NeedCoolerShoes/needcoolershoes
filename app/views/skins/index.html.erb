@@ -1,3 +1,9 @@
+<% content_for :message do %>
+  <div>
+    <%= render partial: "skin_filters" %>
+  </div>
+<% end %>
+
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
 <div class="flex justify-center gap-4 flex-wrap">
   <% @skins.each do |skin| %>
