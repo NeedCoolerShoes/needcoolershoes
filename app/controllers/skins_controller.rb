@@ -12,7 +12,7 @@ class SkinsController < ApplicationController
     else
       skins = skins.merge(Skin.is_public)
     end
-    @pagy, @skins = pagy(skins, items: 6)
+    @pagy, @skins = pagy(skins, items: 12)
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end
