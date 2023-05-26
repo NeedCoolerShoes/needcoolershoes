@@ -16,7 +16,7 @@ class User < ApplicationRecord
   def featured_skin_data
     return featured_skin.data if featured_skin.present?
     return skins.last.data if skins.any?
-    "http://textures.minecraft.net/texture/31f477eb1a7beee631c2ca64d06f8f68fa93a3386d04452ab27f43acdf1b60cb"
+    "/ncsassets/img/mncs_mascot_skin.png"
   end
   
   def to_param
