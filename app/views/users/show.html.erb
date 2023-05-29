@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  <%= @user.display_name %>'s Profile
+<% end %>
+
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>

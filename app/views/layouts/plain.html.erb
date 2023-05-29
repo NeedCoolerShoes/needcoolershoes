@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Miners Need Cooler Shoes :: A fan made Restoration of Need Cool Shoes</title>
+    <title>
+      <%= content_for?(:title) ? "#{yield(:title)} -" : nil %>
+      Miners Need Cooler Shoes :: A fan made Restoration of Need Cool Shoes
+    </title>
 
     <%= render partial: "shared/meta" %>
 
