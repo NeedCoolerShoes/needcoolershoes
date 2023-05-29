@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   has_many :skins
+  has_many :user_badges
+  has_many :badges, through: :user_badges
 
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },

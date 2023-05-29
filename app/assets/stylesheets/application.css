@@ -207,3 +207,11 @@ body {
   line-height: 1.3em;
   margin: 0;
 }
+
+.ncs-selectable .overlay {
+  display: none;
+}
+
+.ncs-selectable:focus .overlay {
+  display: inherit;
+}

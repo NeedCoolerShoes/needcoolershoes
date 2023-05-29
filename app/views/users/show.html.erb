@@ -6,9 +6,9 @@
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 
-<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white overflow-clip">
+<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white">
   <div class="flex flex-col sm:flex-row gap-4">
-    <div class="flex flex-col gap-2 bg-ncs-grid basis-2/5">
+    <div class="flex flex-col bg-ncs-grid basis-2/5">
       <div
         class="flex items-center flex-wrap bg-ncs-gray-400 px-2 py-1
         bg-gradient-to-b from-ncs-gray-200"
@@ -32,6 +32,21 @@
           <% end %>
         </div>
       </div>
+      <% if @user.badges.any? %>
+        <div class="relative flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 w-full">
+          <% @user.user_badges.each do |user_badge| %>
+            <% badge = user_badge.badge %>
+            <div class="ncs-selectable cursor-pointer" tabindex="0">
+              <img width="32" height="32" title="<%= badge.name %>" src="<%= badge.url %>" alt="<%= badge.name %>">
+              <div class="cursor-auto overlay z-50 absolute flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 mt-1 left-2 right-2 shadow border border-gray-600">
+                <h2 class="font-bold"><%= badge.name %></h2>
+                <p class="text-gray-400">Granted on <%= simple_date user_badge.created_at %></p>
+                <p class="text-gray-200"><%= badge.description %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
       <div>
         <% if current_user.present? && current_user.id == @user.id %>
           <%= render partial: "actions_owner", locals: { user: @user } %>

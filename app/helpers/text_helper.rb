@@ -20,4 +20,9 @@ module TextHelper
 
     Redcarpet::Markdown.new(renderer, extensions_hash).render(text).html_safe
   end
+
+  def simple_date(date)
+    return "Invalid Date" unless date.respond_to? :strftime
+    date.strftime("%b %d, %Y")
+  end
 end

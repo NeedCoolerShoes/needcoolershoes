@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_04_155755) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_144921) do
+  create_table "badges", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "url"
+    t.integer "karma"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "skin_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -39,6 +48,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_155755) do
     t.index ["user_id"], name: "index_skins_on_user_id"
   end
 
+  create_table "user_badges", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "badge_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_user_badges_on_badge_id"
+    t.index ["user_id"], name: "index_user_badges_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "name", default: "", null: false
@@ -65,5 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_04_155755) do
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"
+  add_foreign_key "user_badges", "badges"
+  add_foreign_key "user_badges", "users"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end
