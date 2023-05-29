@@ -752,9 +752,11 @@ App.LayerPresenter = function (toolbar, app) {
     k = $('<li title="Add a new layer" class= "add"></li>'),
     l = $('<li title="Delete this layer" class= "delete"></li></ul>'),
     m = $('<ul class = "button-group top-heavy" ></ul>'),
-    n = $("<ul></ul>");
+    o = $('<div class="max-h-[220px] overflow-auto"></div>'),
+    n = $('<ul class="flex flex-col justify-end h-full"></ul>');
   return (
-    j.append(n),
+    j.append(o),
+    o.append(n),
     m.append(k),
     m.append(l),
     j.append(m),
