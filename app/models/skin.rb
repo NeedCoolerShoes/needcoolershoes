@@ -14,6 +14,8 @@ class Skin < ApplicationRecord
   scope :by_part_name, ->(name) { includes(:skin_part).where(skin_part: { name: name }) }
   scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
 
+  acts_as_taggable_on :tags
+
   def can_user_edit?(some_user)
     return true if is_public?
     return false unless some_user.present?

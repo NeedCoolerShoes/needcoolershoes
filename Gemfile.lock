@@ -76,6 +76,8 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    acts-as-taggable-on (9.0.1)
+      activerecord (>= 6.0, < 7.1)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     bcrypt (3.1.18)
@@ -243,6 +245,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 9.0)
   bootsnap
   canonical-rails!
   capybara
