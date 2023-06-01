@@ -1,34 +1,81 @@
 <div class="flex flex-col gap-2 bg-ncs-yellow-200 py-2 px-4 rounded-b">
   <details>
     <summary>
-      <h2 class="font-bold inline cursor-pointer select-none">Categories</h2>
+      <h2 class="font-bold inline cursor-pointer select-none">Parts & Categories</h2>
     </summary>
-    <div class="flex flex-wrap items-center gap-1 text-gray-600">
-      <% SkinCategory.all.each do |category| %>
-        <%
-          gallery_params = @gallery_params.merge({category: category.name})
-          selected = category.name == params[:category]
-        %>
-        <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-          <%= link_to category.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
-        </span>
-      <% end %>
+    <div class="flex flex-col gap-2">
+      <div>
+        <h3 class="font-bold">Parts:</h3>
+        <div class="flex flex-wrap gap-1 text-gray-600">
+          <% SkinPart.all.each do |part| %>
+            <%
+              gallery_params = @gallery_params.merge({part: part.name})
+              selected = (part.name == params[:part])
+            %>
+            <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+              <%= link_to part.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold">Categories:</h3>
+        <div class="flex flex-wrap items-center gap-1 text-gray-600">
+          <% SkinCategory.all.each do |category| %>
+            <%
+              gallery_params = @gallery_params.merge({category: category.name})
+              selected = (category.name == params[:category])
+            %>
+            <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+              <%= link_to category.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+            </span>
+          <% end %>
+        </div>
+      </div>
     </div>
   </details>
   <details>
     <summary>
-      <h2 class="font-bold inline cursor-pointer select-none">Parts</h2>
+      <h2 class="font-bold inline cursor-pointer select-none">Misc</h2>
     </summary>
-    <div class="flex flex-wrap gap-1 text-gray-600">
-      <% SkinPart.all.each do |part| %>
-        <%
-          gallery_params = @gallery_params.merge({part: part.name})
-          selected = part.name == params[:part]
-        %>
-        <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-          <%= link_to part.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
-        </span>
-      <% end %>
+    <div class="flex flex-col gap-2">
+      <div>
+        <h3 class="font-bold">Models:</h3>
+        <div class="flex flex-wrap gap-1 text-gray-600">
+          <div class="flex flex-wrap items-center gap-1 text-gray-600">
+            <% Skin.models.keys.each do |model| %>
+              <%
+                gallery_params = @gallery_params.merge({model: model})
+                selected = (model == params[:model])
+              %>
+              <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                <%= link_to model.titleize, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 class="font-bold">Created At:</h3>
+        <div class="flex flex-wrap gap-1 text-gray-600">
+          <div class="flex flex-wrap items-center gap-1 text-gray-600">
+            <%
+              date_ranges = {
+                today: 0, last_7_days: 7, last_30_days: 30, last_90_days: 90, last_year: 365
+              }
+            %>
+            <% date_ranges.each do |title, count| %>
+              <%
+                gallery_params = @gallery_params.merge({date_offset: count})
+                selected = (count.to_s == params[:date_offset])
+              %>
+              <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                <%= link_to title.to_s.titleize, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </details>
 </div>

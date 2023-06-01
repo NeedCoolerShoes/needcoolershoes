@@ -1,4 +1,11 @@
 class Skin < ApplicationRecord
+  PARAMS = {
+    user: "by_user_name",
+    part: "by_part_name",
+    category: "by_category_name",
+    model: "by_model",
+    date_offset: "created_after_days"
+  }
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part
@@ -14,6 +21,21 @@ class Skin < ApplicationRecord
   scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { includes(:skin_part).where(skin_part: { name: name }) }
   scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
+  scope :by_model, ->(model) { where(model: model) }
+  scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
+
+  scope :with_params, ->(params) { with_params_query(params) }
+
+  class << self
+    def with_params_query(params)
+      query = all
+      params.each do |key, value|
+        next unless PARAMS.include? key.to_sym
+        query = query.merge(send(PARAMS[key.to_sym], value))
+      end
+      query
+    end
+  end
 
   def can_user_edit?(some_user)
     return true if is_public?
