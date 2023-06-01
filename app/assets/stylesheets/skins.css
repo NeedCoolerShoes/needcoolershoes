@@ -40,6 +40,18 @@
   background-position: 12px 12px;
 }
 
+.left-arm-slim {
+  width: 3px;
+  height: 12px;
+  background-position: 28px 12px;
+}
+
+.left-arm-slim-overlay {
+  width: 3px;
+  height: 12px;
+  background-position: 12px 12px;
+}
+
 .right-arm {
   width: 4px;
   height: 12px;
@@ -48,6 +60,19 @@
 
 .right-arm-overlay {
   width: 4px;
+  height: 12px;
+  background-position: 20px 28px;
+}
+
+.right-arm-slim {
+  width: 3px;
+  height: 12px;
+  margin-left: 1px;
+  background-position: 20px 44px;
+}
+
+.right-arm-slim-overlay {
+  width: 3px;
   height: 12px;
   background-position: 20px 28px;
 }
@@ -113,6 +138,19 @@
   background-position: 4px 12px;
 }
 
+.left-arm-slim-back {
+  width: 3px;
+  height: 12px;
+  margin-left: 1px;
+  background-position: 21px 12px;
+}
+
+.left-arm-slim-overlay-back {
+  width: 3px;
+  height: 12px;
+  background-position: 5px 12px;
+}
+
 .right-arm-back {
   width: 4px;
   height: 12px;
@@ -123,6 +161,18 @@
   width: 4px;
   height: 12px;
   background-position: 12px 28px;
+}
+
+.right-arm-slim-back {
+  width: 3px;
+  height: 12px;
+  background-position: 13px 44px;
+}
+
+.right-arm-slim-overlay-back {
+  width: 3px;
+  height: 12px;
+  background-position: 13px 28px;
 }
 
 .left-leg-back {

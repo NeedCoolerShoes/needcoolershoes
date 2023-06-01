@@ -4,8 +4,9 @@ class Skin < ApplicationRecord
   belongs_to :skin_part
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
+  enum :model, %i[classic slim], default: :classic
   
-  validates :name, :skin_category, :skin_part, presence: true
+  validates :name, :skin_category, :skin_part, :visibility, :model, presence: true
   validates :terms_and_conditions, acceptance: true
 
   scope :by_user_name, ->(name) { includes(:user).where(user: { name: name } ) }

@@ -80,7 +80,7 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :data, :visibility, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
+    params.require(:skin).permit(:name, :description, :data, :visibility, :model, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
   end
 
   def gallery_params
