@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_30_043958) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_01_013726) do
   create_table "badges", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_30_043958) do
     t.integer "skin_part_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "model"
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"

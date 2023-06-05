@@ -6,7 +6,7 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
-    skins = gallery_filter_skins
+    skins = Skin.order_by_updated.with_params(@gallery_params)
     if current_user.present?
       skins = skins.merge(Skin.visible_to_user(current_user))
     else
@@ -80,11 +80,11 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :data, :visibility, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
+    params.require(:skin).permit(:name, :description, :data, :visibility, :model, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
   end
 
   def gallery_params
-    params.permit(:user, :part, :category)
+    params.permit(:user, :part, :category, :model, :date_offset)
   end
 
   def gallery_filter_skins

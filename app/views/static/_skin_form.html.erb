@@ -1,5 +1,6 @@
 <%
   visibilities = Skin.visibilities.keys.map { |key| [key.to_s.delete_prefix("is_").titleize, key] }
+  models = Skin.models.keys.map { |key| [key.to_s.titleize, key] }
 %>
 
 <h2 class="text-xl text-white">Upload Skin</h2>
@@ -28,6 +29,11 @@
     <div class="flex flex-col gap-2">
       <%= form.label :skin_category_id, nil, class: "!m-0" %>
       <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      <%= form.label :model, nil, class: "!m-0" %>
+      <%= form.select :model, models, {}, class: "text-black !p-1" %>
     </div>
 
     <div>
