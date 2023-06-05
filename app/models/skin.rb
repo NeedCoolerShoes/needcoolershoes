@@ -26,6 +26,8 @@ class Skin < ApplicationRecord
 
   scope :with_params, ->(params) { with_params_query(params) }
 
+  after_create :send_creation_webhook, if: :is_public?
+
   class << self
     def with_params_query(params)
       query = all
@@ -42,5 +44,13 @@ class Skin < ApplicationRecord
     return false unless some_user.present?
     return true if some_user.id == user_id
     false
+  end
+
+  private
+
+  def send_creation_webhook
+    Discord::NewSkinWebhook.send_webhook(self)
+  rescue
+    nil
   end
 end
