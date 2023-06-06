@@ -6,7 +6,7 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
-    skins = Skin.order_by_updated.with_params(@gallery_params)
+    skins = Skin.order_by_created.with_params(@gallery_params)
     if current_user.present?
       skins = skins.merge(Skin.visible_to_user(current_user))
     else
@@ -36,8 +36,11 @@ class SkinsController < ApplicationController
   end
 
   def update
+    params = skin_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(skin_params[:tags])
     respond_to do |format|
-      if @skin.update(skin_params)
+      if @skin.update(params)
         format.html { redirect_to @skin, notice: "Skin was successfully updated." }
       else
         format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
@@ -87,7 +90,7 @@ class SkinsController < ApplicationController
   end
 
   def gallery_params
-    params.permit(:user, :part, :category, :model, :date_offset)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag)
   end
 
   def transform_tags(tags)

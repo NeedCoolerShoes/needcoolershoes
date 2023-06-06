@@ -4,7 +4,8 @@ class Skin < ApplicationRecord
     part: "by_part_name",
     category: "by_category_name",
     model: "by_model",
-    date_offset: "created_after_days"
+    date_offset: "created_after_days",
+    tag: "tagged_with"
   }
   belongs_to :user
   belongs_to :skin_category
@@ -18,6 +19,7 @@ class Skin < ApplicationRecord
 
   scope :by_user_name, ->(name) { includes(:user).where(user: { name: name } ) }
   scope :order_by_updated, -> { order(updated_at: :desc) }
+  scope :order_by_created, -> { order(created_at: :desc) }
   scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { includes(:skin_part).where(skin_part: { name: name }) }
   scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
@@ -46,6 +48,10 @@ class Skin < ApplicationRecord
     return false unless some_user.present?
     return true if some_user.id == user_id
     false
+  end
+
+  def tag_js
+    tags.map { |tag| {value: tag.name} }.to_json
   end
 
   private

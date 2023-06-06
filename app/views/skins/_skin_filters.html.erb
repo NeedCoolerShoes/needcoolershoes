@@ -76,6 +76,22 @@
           </div>
         </div>
       </div>
+      <div>
+        <h3 class="font-bold">Popular Tags:</h3>
+        <div class="flex flex-wrap gap-1 text-gray-600">
+          <div class="flex flex-wrap items-center gap-1 text-gray-600">
+            <% Skin.top_tags(10).each do |tag| %>
+              <%
+                gallery_params = @gallery_params.merge({tag: tag.name})
+                selected = (tag.name == params[:tag])
+              %>
+              <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                <%= link_to tag.name, gallery_path(gallery_params), title: "#{tag.name} - #{tag.taggings_count}", class: "#{ selected ? "font-bold" : nil }" %>
+              </span>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </details>
 </div>

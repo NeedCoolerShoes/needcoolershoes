@@ -16,6 +16,11 @@ export default class extends Controller {
       ),
       controller;
     tagify.on('input', onInput)
+    tagify.on('focus', _e => resetWhitelist())
+
+    function resetWhitelist() {
+      onInput({detail: { value: "" }})
+    }
 
     function onInput(e) {
       var value = e.detail.value
