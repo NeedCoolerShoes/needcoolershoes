@@ -9,4 +9,9 @@ class ApiController < ApplicationController
     end
   end
 
+  def tags
+    list = Skin.tags_on("tags").named_like(params[:query] || "").limit(20)
+    render json: list.map { |tag| tag.name }
+  end
+
 end

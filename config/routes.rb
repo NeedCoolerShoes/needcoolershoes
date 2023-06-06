@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   # API
   scope :api do
     get 'skin/:id', to: "api#skin"
+    get 'tags', to: "api#tags"
   end
 end

@@ -21,7 +21,10 @@ class SkinsController < ApplicationController
   end
 
   def create
-    @skin = Skin.new(skin_params)
+    params = skin_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(skin_params[:tags])
+    @skin = Skin.new(params)
 
     respond_to do |format|
       if @skin.save
@@ -80,11 +83,18 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :data, :visibility, :model, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
+    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
   end
 
   def gallery_params
     params.permit(:user, :part, :category, :model, :date_offset)
+  end
+
+  def transform_tags(tags)
+    json = JSON.parse(tags)
+    json.map { |tag| tag["value"] }
+  rescue
+    []
   end
 
   def gallery_filter_skins

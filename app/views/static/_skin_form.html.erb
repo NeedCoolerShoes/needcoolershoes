@@ -17,6 +17,11 @@
     </div>
 
     <div class="flex flex-col gap-2">
+      <%= form.label :tags, nil, class: "!m-0" %>
+      <%= form.text_field :tags, value: "", data: { controller: "tagify" } %>
+    </div>
+
+    <div class="flex flex-col gap-2">
       <%= form.label :visibility, nil, class: "!m-0" %>
       <%= form.select :visibility, visibilities, {}, class: "text-black !p-1" %>
     </div>
