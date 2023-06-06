@@ -17,7 +17,7 @@
   </div>
   <div class="p-4 pt-2">
     <% if skin.tags.any? %>
-      <div class="line-clamp-1 text-gray-500 text-sm flex gap-1 flex-wrap">
+      <div class="line-clamp-1 text-gray-500 text-sm">
         <% skin.tags.each do |tag| %>
           <%= link_to tag.name, gallery_path(@gallery_params.merge(tag: tag.name)), title: "#{tag.name} - #{tag.taggings_count}", onclick: "event.stopImmediatePropagation()" %>
         <% end %>
