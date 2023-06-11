@@ -90,7 +90,7 @@ class SkinsController < ApplicationController
   end
 
   def gallery_params
-    params.permit(:user, :part, :category, :model, :date_offset, :tag)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by)
   end
 
   def transform_tags(tags)
@@ -98,13 +98,5 @@ class SkinsController < ApplicationController
     json.map { |tag| tag["value"] }
   rescue
     []
-  end
-
-  def gallery_filter_skins
-    skins = Skin.order_by_updated
-    skins = skins.merge(Skin.by_user_name(params[:user])) if params[:user].present?
-    skins = skins.merge(Skin.by_part_name(params[:part])) if params[:part].present?
-    skins = skins.merge(Skin.by_category_name(params[:category])) if params[:category].present?
-    skins
   end
 end

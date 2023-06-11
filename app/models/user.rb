@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  YEAR_KARMA = 50
+  FAVOURITE_RATIO = 0.02
+  FAVOURITE_MAX = 25
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -10,6 +13,7 @@ class User < ApplicationRecord
   has_many :skins
   has_many :user_badges
   has_many :badges, through: :user_badges
+  has_many :favourites
 
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
@@ -23,6 +27,17 @@ class User < ApplicationRecord
   
   def to_param
     name
+  end
+
+  def pixel_count
+    count = User.includes(:badges).where(id: id).sum("badges.karma")
+    count += skins.is_public.count * Skin::KARMA
+    count += (Time.now.year - created_at.year) * YEAR_KARMA
+    count < 0 ? 0 : count
+  end
+
+  def favourite_grant
+    (pixel_count * FAVOURITE_RATIO).floor.clamp(0, FAVOURITE_MAX)
   end
 
   private

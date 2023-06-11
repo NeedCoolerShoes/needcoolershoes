@@ -1,4 +1,9 @@
+<div class="flex gap-2">
+  <% if user.skins.any? %>
+    <%= link_to "View My Skins", gallery_path(user: user.name), class: "btn-ncs" %>
+  <% end %>
+  <% if user.favourites.any? %>
+    <%= link_to "View My Favourites", gallery_path(favourited_by: user.name), class: "btn-ncs" %>
+  <% end %>
+</div>
 <%= link_to "Edit Profile", edit_user_path(user), class: "btn-ncs" %>
-<% if user.skins.any? %>
-  <%= link_to "View My Skins", gallery_path(user: user.name), class: "btn-ncs" %>
-<% end %>
