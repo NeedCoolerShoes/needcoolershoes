@@ -8,7 +8,7 @@
         </div>
         <div class="flex items-center gap-2">
           <% if current_user.present? %>
-            <%= link_to current_user.name, current_user, class: "text-white underline" %>
+            <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
             <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
           <% else %>
             <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>

@@ -6,12 +6,13 @@ class Favourite < ApplicationRecord
 
   validates :skin, uniqueness: { scope: :user }
 
+  scope :not_by_user, ->(user) { where.not(user: user) }
+  scope :is_public, -> { includes(:skin).where(skin: { id: Skin.is_public }) }
+
   private
 
   def set_karma_from_user
-    puts "setting karma"
     return unless user.present? && skin.present?
-    puts "found user and skin"
     self.karma = (skin.user_id == user_id) ? 0 : user.favourite_grant
   end
 end

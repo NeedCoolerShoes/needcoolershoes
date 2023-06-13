@@ -2,6 +2,7 @@ class User < ApplicationRecord
   YEAR_KARMA = 50
   FAVOURITE_RATIO = 0.02
   FAVOURITE_MAX = 25
+  PIXEL_CACHE = 5.minutes
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -14,10 +15,19 @@ class User < ApplicationRecord
   has_many :user_badges
   has_many :badges, through: :user_badges
   has_many :favourites
+  has_many :skin_favourites, through: :skins, source: :favourites
 
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
     exclusion: { in: %w(current), message: "%{value} is reserved" }
+
+  def pixels
+    if @pixels
+      return @pixels[:count] unless @pixels[:expires] < Time.now
+    end
+    @pixels = { count: pixel_count, expires: (Time.now + PIXEL_CACHE) }
+    @pixels[:count]
+  end
 
   def featured_skin_data
     return featured_skin.data if featured_skin.present?
@@ -33,6 +43,7 @@ class User < ApplicationRecord
     count = User.includes(:badges).where(id: id).sum("badges.karma")
     count += skins.is_public.count * Skin::KARMA
     count += (Time.now.year - created_at.year) * YEAR_KARMA
+    count += skin_favourites.is_public.sum("favourites.karma")
     count < 0 ? 0 : count
   end
 

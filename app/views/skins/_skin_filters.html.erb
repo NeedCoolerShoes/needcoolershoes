@@ -92,6 +92,23 @@
           </div>
         </div>
       </div>
+      <% if current_user.present? %>
+        <div>
+          <h3 class="font-bold">Relevant to Me:</h3>
+          <div class="flex flex-wrap gap-1 text-gray-600">
+            <div class="flex flex-wrap items-center gap-1 text-gray-600">
+              <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                <% gallery_params = @gallery_params.merge(user: current_user.name); gallery_params.delete(:favourited_by) %>
+                <%= link_to "My Skins", gallery_path(gallery_params), class: "#{ params[:user] == current_user.name ? "font-bold" : nil }" %>
+              </span>
+              <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                <% gallery_params = @gallery_params.merge(favourited_by: current_user.name); gallery_params.delete(:user) %>
+                <%= link_to "My Favourites", gallery_path(gallery_params), class: "#{ params[:favourited_by] == current_user.name ? "font-bold" : nil }" %>
+              </span>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </details>
 </div>
