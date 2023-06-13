@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_01_013726) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
   create_table "badges", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -18,6 +18,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_013726) do
     t.integer "karma"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "favourites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "skin_id", null: false
+    t.integer "karma"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skin_id"], name: "index_favourites_on_skin_id"
+    t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 
   create_table "skin_categories", force: :cascade do |t|
@@ -112,6 +122,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_013726) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "favourites", "skins"
+  add_foreign_key "favourites", "users"
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"

@@ -25,4 +25,14 @@ module TextHelper
     return "Invalid Date" unless date.respond_to? :strftime
     date.strftime("%b %d, %Y")
   end
+
+  def simple_number(number)
+    number = number.to_i
+    return number.to_s if number < 1000
+    return "#{number / 1000.0}k" if number < 9999
+    return "#{number / 1000}k" if number < 1000000
+    return "#{number / 1000000.0}m" if number < 9999999
+    return "#{number / 1000000}m" if number < 1000000000
+    return "1B+"
+  end
 end

@@ -32,6 +32,23 @@
           <% end %>
         </div>
       </div>
+      <div class="bg-ncs-gray-300 rounded p-4 w-full">
+        <h2 class="text-xl text-gray-500">Stats</h2>
+        <table class="text-left">
+          <tr>
+            <th class="pr-4">Joined:</th>
+            <td><%= simple_date @user.created_at %></td>
+          </tr>
+          <tr>
+            <th class="pr-4">Public Skins:</th>
+            <td><%= simple_number @user.skins.is_public.count %></td>
+          </tr>
+          <tr class="bg-rainbow-animated">
+            <th class="pr-4">Pixels:</th>
+            <td><%= simple_number @user.pixels %></td>
+          </tr>
+        </table>
+      </div>
       <% if @user.badges.any? %>
         <div class="relative flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 w-full">
           <% @user.user_badges.each do |user_badge| %>

@@ -5,11 +5,14 @@ class Skin < ApplicationRecord
     category: "by_category_name",
     model: "by_model",
     date_offset: "created_after_days",
-    tag: "tagged_with"
+    tag: "tagged_with",
+    favourited_by: "favourited_by_user_name"
   }
+  KARMA = 5
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part
+  has_many :favourites
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
@@ -25,6 +28,7 @@ class Skin < ApplicationRecord
   scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
   scope :by_model, ->(model) { where(model: model) }
   scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
+  scope :favourited_by_user_name, ->(name) { includes(:favourites).where(favourites: { user: User.where(name: name) }) }
 
   scope :with_params, ->(params) { with_params_query(params) }
 
@@ -52,6 +56,10 @@ class Skin < ApplicationRecord
 
   def tag_js
     tags.map { |tag| {value: tag.name} }.to_json
+  end
+
+  def favourited_by?(user)
+    favourites.where(user: user).any?
   end
 
   private

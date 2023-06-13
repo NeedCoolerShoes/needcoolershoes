@@ -1,0 +1,14 @@
+/* https://jsfiddle.net/jpe81nd6/3/ */
+
+.bg-rainbow-animated {
+  background: linear-gradient(90deg,#FF0000,#FF7F00,#FFFF00,#00FF00,#0000FF,#4B0082,#8B00FF);
+  background-clip: text;
+  background-size: 400% 100%;
+  animation: rainbowanim 10s ease infinite;
+}
+
+@keyframes rainbowanim { 
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}

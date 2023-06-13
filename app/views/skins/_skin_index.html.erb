@@ -12,6 +12,9 @@
       <%= heroicon icons[skin.visibility.to_sym], class: "text-gray-500", title: skin.visibility.titleize %>
     </div>
   <% end %>
+  <div class="absolute top-0 right-0 p-2">
+    <%= render partial: "skin_favourite", locals: { skin: skin, user: current_user, show_guests: true } %>
+  </div>
   <div class="flex items-center justify-center bg-ncs-grid rounded p-4 px-8">
     <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data, slim: skin.slim? } %>
   </div>
@@ -32,7 +35,7 @@
       </p>
       <p>
         by
-        <%= link_to skin.user.display_name, skin.user, class: "underline", onclick: "event.stopImmediatePropagation()" %>
+        <%= link_to skin.user.display_name, skin.user, title: "#{skin.user.name} - #{simple_number(skin.user.pixels)} pixels", class: "underline", onclick: "event.stopImmediatePropagation()" %>
       </p>
     </div>
   </div>

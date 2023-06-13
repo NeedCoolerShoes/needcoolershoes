@@ -1,8 +1,9 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[edit destroy]
-  before_action :set_skin, only: %i[show edit update download destroy]
+  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite]
   before_action :validate_owner, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
+  before_action :set_favouriting_user, only: %i[add_favourite remove_favourite]
 
   def index
     @gallery_params = gallery_params
@@ -60,10 +61,42 @@ class SkinsController < ApplicationController
     end
   end
 
+  def add_favourite
+    respond_to do |format|
+      if Favourite.create(skin: @skin, user: @user)
+        redirect_to gallery_path(gallery_params), notice: "Added skin to favourites."
+      else
+        redirect_to gallery_path(gallery_params), alert: "Error favouriting skin."
+      end
+    end
+  end
+
+  def remove_favourite
+    favourite = Favourite.find_by(skin: @skin, user: @user)
+    respond_to do |format|
+      if favourite.delete
+        redirect_to gallery_path(gallery_params), notice: "Removed skin from favourites."
+      else
+        redirect_to gallery_path(gallery_params), alert: "Error removing favourite skin."
+      end
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to gallery_path 
+  end
+
   private
 
   def set_skin
     @skin = Skin.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    redirect_to gallery_path 
+  end
+
+  def set_favouriting_user
+    @user = User.find(params[:user_id])
+    return if @user == current_user
+    redirect_to gallery_path
 
   rescue ActiveRecord::RecordNotFound
     redirect_to gallery_path 
@@ -90,7 +123,7 @@ class SkinsController < ApplicationController
   end
 
   def gallery_params
-    params.permit(:user, :part, :category, :model, :date_offset, :tag)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by)
   end
 
   def transform_tags(tags)
@@ -98,13 +131,5 @@ class SkinsController < ApplicationController
     json.map { |tag| tag["value"] }
   rescue
     []
-  end
-
-  def gallery_filter_skins
-    skins = Skin.order_by_updated
-    skins = skins.merge(Skin.by_user_name(params[:user])) if params[:user].present?
-    skins = skins.merge(Skin.by_part_name(params[:part])) if params[:part].present?
-    skins = skins.merge(Skin.by_category_name(params[:category])) if params[:category].present?
-    skins
   end
 end
