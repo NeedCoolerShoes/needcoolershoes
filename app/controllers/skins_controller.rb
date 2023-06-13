@@ -64,9 +64,9 @@ class SkinsController < ApplicationController
   def add_favourite
     respond_to do |format|
       if Favourite.create(skin: @skin, user: @user)
-        redirect_to gallery_path(gallery_params), notice: "Added skin to favourites."
+        format.html { redirect_to gallery_path(gallery_params), notice: "Added skin to favourites." }
       else
-        redirect_to gallery_path(gallery_params), alert: "Error favouriting skin."
+        format.html { redirect_to gallery_path(gallery_params), alert: "Error favouriting skin." }
       end
     end
   end
@@ -75,9 +75,9 @@ class SkinsController < ApplicationController
     favourite = Favourite.find_by(skin: @skin, user: @user)
     respond_to do |format|
       if favourite.delete
-        redirect_to gallery_path(gallery_params), notice: "Removed skin from favourites."
+        format.html { redirect_to gallery_path(gallery_params), notice: "Removed skin from favourites." }
       else
-        redirect_to gallery_path(gallery_params), alert: "Error removing favourite skin."
+        format.html { redirect_to gallery_path(gallery_params), alert: "Error removing favourite skin." }
       end
     end
   rescue ActiveRecord::RecordNotFound
