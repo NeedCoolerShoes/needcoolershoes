@@ -1548,6 +1548,12 @@ App.ColorPickerTool = function (a, b) {
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);
     }),
+    r.on("change", function () {
+      var a = r.wheelColorPicker("getColor"),
+        b = new THREE.Color().setRGB(a.r, a.g, a.b);
+      b.protectAlpha(), f(b);
+      this.style.backgroundColor = this.value
+    }),
     p.click(function () { toggleTransparent() }),
     o.mouseup(function () {
       c();
