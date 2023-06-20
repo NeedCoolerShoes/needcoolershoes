@@ -1683,7 +1683,7 @@ ul.button-group.top-heavy li.active {
   opacity: 0.7;
   position: relative;
   line-height: 42px;
-  height: 42px;
+  /* height: 42px; */
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25),
     0 1px 0 rgba(255, 255, 255, 0.04);
   background: rgba(0, 0, 0, 0.35);
@@ -2291,6 +2291,12 @@ ul.button-group.top-heavy li.active {
     url("../img/graphy.png")
     repeat right bottom;
   position: relative;
+}
+#workspace #drawing.dark {
+  background: #1a1a1a
+    url("../img/graphy-dark.png")
+    repeat right bottom;
+  color: white;
 }
 #workspace #drawing canvas {
   position: relative;

@@ -1,4 +1,5 @@
 var App = App || {};
+var drawingPanel = document.getElementById("drawing");
 
 App.Transporter = function (a) {
   "use strict";
@@ -753,7 +754,7 @@ App.LayerPresenter = function (toolbar, app) {
     l = $('<li title="Delete this layer" class= "delete"></li></ul>'),
     m = $('<ul class = "button-group top-heavy" ></ul>'),
     o = $('<div class="max-h-[220px] overflow-auto"></div>'),
-    n = $('<ul class="flex flex-col justify-end h-full"></ul>');
+    n = $('<ul class="flex flex-col justify-end"></ul>');
   return (
     j.append(o),
     o.append(n),
@@ -980,12 +981,16 @@ App.ModelToggles = function (a, b, c) {
         }),
       b.model.render();
   }
+  function toggleColorScheme(e) {
+    if (!e.classList.contains("colortheme")) { return }
+    drawingPanel.classList.toggle("dark")
+  }
   var e = $($("#toggles-template").html());
   e.on("click", ".body div", function () {
     $(this).toggleClass("disabled"), d();
   }),
     e.on("click", ".controls div", function () {
-      $(this).toggleClass("unchecked"), d();
+      $(this).toggleClass("unchecked"), d(), toggleColorScheme(this);
     }),
     a.append(e);
 };

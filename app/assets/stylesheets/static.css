@@ -1,0 +1,6 @@
+#layers > .overflow-auto::-webkit-scrollbar {
+  display: none;
+}
+#layers > .overflow-auto {
+  scrollbar-width: none;
+}
