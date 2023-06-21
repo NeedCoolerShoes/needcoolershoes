@@ -194,7 +194,9 @@ export default class extends Controller {
         section: "Skin Editor Modes",
         parent: "Editor Tools",
         handler: () => {
-          App.dep.model.animateExact({ x: 0, y: 0 })
+          App.dep.model.animateExact({ x: 0, y: 0 });
+          App.dep.model.scale(70);
+          App.dep.model.position(0,-1);
         }
       },
     ]
