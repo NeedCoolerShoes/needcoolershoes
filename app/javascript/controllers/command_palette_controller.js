@@ -186,6 +186,17 @@ export default class extends Controller {
           App.dep.toolbox.refs.noise.toggle();
         }
       },
+      {
+        id: "Face Front",
+        title: "Turn Character to Face Front",
+        hotkey: "0",
+        icon: '<svg aria-hidden="true" fill="none" class="ninja-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M15 15l-6 6m0 0l-6-6m6 6V9a6 6 0 0112 0v3" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+        section: "Skin Editor Modes",
+        parent: "Editor Tools",
+        handler: () => {
+          App.dep.model.animateExact({ x: 0, y: 0 })
+        }
+      },
     ]
   }
 }

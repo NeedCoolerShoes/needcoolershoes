@@ -313,10 +313,25 @@ App.Model = function (a, b) {
   function h(a) {
     (A.rotation.y -= 0.02 * a.y), (A.rotation.x -= 0.02 * a.x);
   }
-  function i(a) {
+  function animateTo(a) {
     if (!x) {
       new TWEEN.Tween({ x: A.rotation.x, y: A.rotation.y })
         .to({ x: A.rotation.x + a.x, y: A.rotation.y + a.y }, 250)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .onUpdate(function () {
+          (A.rotation.x = this.x), (A.rotation.y = this.y), t();
+        })
+        .onComplete(function () {
+          x = !1;
+        })
+        .start();
+      (x = !0), j();
+    }
+  }
+  function animateExact(a) {
+    if (!x) {
+      new TWEEN.Tween({ x: A.rotation.x, y: A.rotation.y })
+        .to({ x: a.x, y: a.y }, 250)
         .easing(TWEEN.Easing.Quadratic.InOut)
         .onUpdate(function () {
           (A.rotation.x = this.x), (A.rotation.y = this.y), t();
@@ -552,7 +567,8 @@ App.Model = function (a, b) {
     cursorOffset: s,
     render: t,
     turnOffGrid: u,
-    animateTo: i,
+    animateTo: animateTo,
+    animateExact: animateExact,
   };
 };
 
