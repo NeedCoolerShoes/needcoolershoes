@@ -51,3 +51,12 @@ function download(dataUrl, filename) {
   link.download = filename;
   link.click();
 }
+
+$("#model-toggle").on("click", e => {
+  if (App.UVMAP.current == "skin") {
+    localStorage.setItem("model", "skinAlex")
+  } else {
+    localStorage.setItem("model", "skin")
+  }
+  location.reload()
+})

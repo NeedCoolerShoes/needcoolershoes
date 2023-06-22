@@ -333,7 +333,7 @@
       _euler: void 0,
       _updateEuler: function (a) {
         void 0 !== this._euler &&
-          this._euler.setFromQuaternion(this, void 0, !1);
+          this._euler.setFromQuaternion(this, void 0, false);
       },
       get x() {
         return this._x;
@@ -421,7 +421,7 @@
               (this._y = c * g * e - f * d * h),
               (this._z = c * d * h + f * g * e),
               (this._w = c * d * e + f * g * h)),
-          b !== !1 && this._updateEuler(),
+          b !== false && this._updateEuler(),
           this
         );
       },
@@ -1413,7 +1413,7 @@
       _order: THREE.Euler.DefaultOrder,
       _quaternion: void 0,
       _updateQuaternion: function () {
-        void 0 !== this._quaternion && this._quaternion.setFromEuler(this, !1);
+        void 0 !== this._quaternion && this._quaternion.setFromEuler(this, false);
       },
       get x() {
         return this._x;
@@ -1589,7 +1589,7 @@
                   b
               ),
           (this._order = b),
-          c !== !1 && this._updateQuaternion(),
+          c !== false && this._updateQuaternion(),
           this
         );
       },
@@ -1838,7 +1838,7 @@
         return function (b) {
           var c = this;
           return (
-            b.updateMatrixWorld(!0),
+            b.updateMatrixWorld(true),
             this.makeEmpty(),
             b.traverse(function (b) {
               if (void 0 !== b.geometry && void 0 !== b.geometry.vertices)
@@ -3189,7 +3189,7 @@
       },
       isIntersectionPlane: function (a) {
         var b = a.distanceToPoint(this.origin);
-        if (0 === b) return !0;
+        if (0 === b) return true;
         var c = a.normal.dot(this.direction);
         return c * b < 0;
       },
@@ -3351,9 +3351,9 @@
           a.getPositionFromMatrix(d);
           for (var f = this.planes, g = 0; g < 6; g++) {
             var h = f[g].distanceToPoint(a);
-            if (h < e) return !1;
+            if (h < e) return false;
           }
-          return !0;
+          return true;
         };
       })(),
       intersectsSphere: function (a) {
@@ -3363,9 +3363,9 @@
           e++
         ) {
           var f = b[e].distanceToPoint(c);
-          if (f < d) return !1;
+          if (f < d) return false;
         }
-        return !0;
+        return true;
       },
       intersectsBox: (function () {
         var a = new THREE.Vector3(),
@@ -3381,15 +3381,15 @@
               (b.z = f.normal.z > 0 ? c.max.z : c.min.z);
             var g = f.distanceToPoint(a),
               h = f.distanceToPoint(b);
-            if (g < 0 && h < 0) return !1;
+            if (g < 0 && h < 0) return false;
           }
-          return !0;
+          return true;
         };
       })(),
       containsPoint: function (a) {
         for (var b = this.planes, c = 0; c < 6; c++)
-          if (b[c].distanceToPoint(a) < 0) return !1;
-        return !0;
+          if (b[c].distanceToPoint(a) < 0) return false;
+        return true;
       },
       clone: function () {
         return new THREE.Frustum().copy(this);
@@ -3671,7 +3671,7 @@
         (this.startTime = 0),
         (this.oldTime = 0),
         (this.elapsedTime = 0),
-        (this.running = !1);
+        (this.running = false);
     }),
     (THREE.Clock.prototype = {
       constructor: THREE.Clock,
@@ -3681,10 +3681,10 @@
             ? self.performance.now()
             : Date.now()),
           (this.oldTime = this.startTime),
-          (this.running = !0);
+          (this.running = true);
       },
       stop: function () {
-        this.getElapsedTime(), (this.running = !1);
+        this.getElapsedTime(), (this.running = false);
       },
       getElapsedTime: function () {
         return this.getDelta(), this.elapsedTime;
@@ -3720,7 +3720,7 @@
         void 0 === c[a] && (c[a] = []), c[a].indexOf(b) === -1 && c[a].push(b);
       },
       hasEventListener: function (a, b) {
-        if (void 0 === this._listeners) return !1;
+        if (void 0 === this._listeners) return false;
         var c = this._listeners;
         return void 0 !== c[a] && c[a].indexOf(b) !== -1;
       },
@@ -3777,26 +3777,26 @@
                 f,
                 m.boundingSphere.radius * h.matrixWorld.getMaxScaleOnAxis()
               ),
-              j.ray.isIntersectionSphere(b) === !1)
+              j.ray.isIntersectionSphere(b) === false)
             )
               return k;
             var n = m.vertices;
             if (m instanceof a.BufferGeometry) {
               var o = h.material;
               if (void 0 === o) return k;
-              if (m.dynamic === !1) return k;
+              if (m.dynamic === false) return k;
               var p,
                 q,
                 r,
                 s = h.material instanceof a.MeshFaceMaterial,
-                t = s === !0 ? h.material.materials : null,
+                t = s === true ? h.material.materials : null,
                 u = h.material.side,
                 v = j.precision;
               g.getInverse(h.matrixWorld), c.copy(j.ray).applyMatrix4(g);
               var w,
-                x = !1;
+                x = false;
               m.attributes.index
-                ? ((x = !0), (w = m.attributes.index.numItems / 3))
+                ? ((x = true), (w = m.attributes.index.numItems / 3))
                 : (w = m.attributes.position.numItems / 9);
               for (
                 var y = new a.Vector3(),
@@ -3845,7 +3845,7 @@
                     H < j.near ||
                       H > j.far ||
                       ((e = c.at(H, e)),
-                      a.Triangle.containsPoint(e, y, z, A) !== !1 &&
+                      a.Triangle.containsPoint(e, y, z, A) !== false &&
                         k.push({
                           distance: H,
                           point: j.ray.at(H),
@@ -3861,13 +3861,13 @@
                 r,
                 J,
                 s = h.material instanceof a.MeshFaceMaterial,
-                t = s === !0 ? h.material.materials : null,
+                t = s === true ? h.material.materials : null,
                 u = h.material.side,
                 v = j.precision;
               g.getInverse(h.matrixWorld), c.copy(j.ray).applyMatrix4(g);
               for (var K = 0, w = m.faces.length; K < w; K++) {
                 var L = m.faces[K],
-                  o = s === !0 ? t[L.materialIndex] : h.material;
+                  o = s === true ? t[L.materialIndex] : h.material;
                 if (void 0 !== o) {
                   d.setFromNormalAndCoplanarPoint(L.normal, n[L.a]);
                   var H = c.distanceToPlane(d);
@@ -3882,7 +3882,7 @@
                           ((p = n[L.a]),
                           (q = n[L.b]),
                           (r = n[L.c]),
-                          a.Triangle.containsPoint(e, p, q, r) === !1)
+                          a.Triangle.containsPoint(e, p, q, r) === false)
                         )
                           continue;
                       } else {
@@ -3893,8 +3893,8 @@
                           (q = n[L.b]),
                           (r = n[L.c]),
                           (J = n[L.d]),
-                          a.Triangle.containsPoint(e, p, q, J) === !1 &&
-                            a.Triangle.containsPoint(e, q, r, J) === !1)
+                          a.Triangle.containsPoint(e, p, q, J) === false &&
+                            a.Triangle.containsPoint(e, q, r, J) === false)
                         )
                           continue;
                       }
@@ -3921,7 +3921,7 @@
                 f,
                 m.boundingSphere.radius * h.matrixWorld.getMaxScaleOnAxis()
               ),
-              j.ray.isIntersectionSphere(b) === !1)
+              j.ray.isIntersectionSphere(b) === false)
             )
               return k;
             g.getInverse(h.matrixWorld),
@@ -3965,11 +3965,11 @@
         }),
         (a.Raycaster.prototype.intersectObject = function (a, b) {
           var c = [];
-          return b === !0 && j(a, this, c), i(a, this, c), c.sort(h), c;
+          return b === true && j(a, this, c), i(a, this, c), c.sort(h), c;
         }),
         (a.Raycaster.prototype.intersectObjects = function (a, b) {
           for (var c = [], d = 0, e = a.length; d < e; d++)
-            i(a[d], this, c), b === !0 && j(a[d], this, c);
+            i(a[d], this, c), b === true && j(a[d], this, c);
           return c.sort(h), c;
         });
     })(THREE),
@@ -3987,15 +3987,15 @@
         (this.rotation._quaternion = this.quaternion),
         (this.quaternion._euler = this.rotation),
         (this.renderDepth = null),
-        (this.rotationAutoUpdate = !0),
+        (this.rotationAutoUpdate = true),
         (this.matrix = new THREE.Matrix4()),
         (this.matrixWorld = new THREE.Matrix4()),
-        (this.matrixAutoUpdate = !0),
-        (this.matrixWorldNeedsUpdate = !0),
-        (this.visible = !0),
-        (this.castShadow = !1),
-        (this.receiveShadow = !1),
-        (this.frustumCulled = !0),
+        (this.matrixAutoUpdate = true),
+        (this.matrixWorldNeedsUpdate = true),
+        (this.visible = true),
+        (this.castShadow = false),
+        (this.receiveShadow = false),
+        (this.frustumCulled = true),
         (this.userData = {});
     }),
     (THREE.Object3D.prototype = {
@@ -4038,7 +4038,7 @@
         this.quaternion.setFromAxisAngle(a, b);
       },
       setRotationFromEuler: function (a) {
-        this.quaternion.setFromEuler(a, !0);
+        this.quaternion.setFromEuler(a, true);
       },
       setRotationFromMatrix: function (a) {
         this.quaternion.setFromRotationMatrix(a);
@@ -4156,14 +4156,14 @@
         for (var c = 0, d = this.children.length; c < d; c++) {
           var e = this.children[c];
           if (e.id === a) return e;
-          if (b === !0 && ((e = e.getObjectById(a, b)), void 0 !== e)) return e;
+          if (b === true && ((e = e.getObjectById(a, b)), void 0 !== e)) return e;
         }
       },
       getObjectByName: function (a, b) {
         for (var c = 0, d = this.children.length; c < d; c++) {
           var e = this.children[c];
           if (e.name === a) return e;
-          if (b === !0 && ((e = e.getObjectByName(a, b)), void 0 !== e))
+          if (b === true && ((e = e.getObjectByName(a, b)), void 0 !== e))
             return e;
         }
       },
@@ -4183,26 +4183,26 @@
       },
       updateMatrix: function () {
         this.matrix.compose(this.position, this.quaternion, this.scale),
-          (this.matrixWorldNeedsUpdate = !0);
+          (this.matrixWorldNeedsUpdate = true);
       },
       updateMatrixWorld: function (a) {
-        this.matrixAutoUpdate === !0 && this.updateMatrix(),
-          (this.matrixWorldNeedsUpdate !== !0 && a !== !0) ||
+        this.matrixAutoUpdate === true && this.updateMatrix(),
+          (this.matrixWorldNeedsUpdate !== true && a !== true) ||
             (void 0 === this.parent
               ? this.matrixWorld.copy(this.matrix)
               : this.matrixWorld.multiplyMatrices(
                   this.parent.matrixWorld,
                   this.matrix
                 ),
-            (this.matrixWorldNeedsUpdate = !1),
-            (a = !0));
+            (this.matrixWorldNeedsUpdate = false),
+            (a = true));
         for (var b = 0, c = this.children.length; b < c; b++)
           this.children[b].updateMatrixWorld(a);
       },
       clone: function (a, b) {
         if (
           (void 0 === a && (a = new THREE.Object3D()),
-          void 0 === b && (b = !0),
+          void 0 === b && (b = true),
           (a.name = this.name),
           a.up.copy(this.up),
           a.position.copy(this.position),
@@ -4219,7 +4219,7 @@
           (a.receiveShadow = this.receiveShadow),
           (a.frustumCulled = this.frustumCulled),
           (a.userData = JSON.parse(JSON.stringify(this.userData))),
-          b === !0)
+          b === true)
         )
           for (var c = 0; c < this.children.length; c++) {
             var d = this.children[c];
@@ -4292,7 +4292,7 @@
             g < 0
               ? (c = Math.max(c, g / (g - h)))
               : h < 0 && (d = Math.min(d, g / (g - h))),
-            !(d < c) && (a.lerp(b, c), b.lerp(a, 1 - d), !0)))
+            !(d < c) && (a.lerp(b, c), b.lerp(a, 1 - d), true)))
         );
       }
       var i,
@@ -4376,11 +4376,11 @@
           );
         },
         X = function (a) {
-          if (a.visible !== !1) {
+          if (a.visible !== false) {
             a instanceof THREE.Light
               ? G.lights.push(a)
               : a instanceof THREE.Mesh || a instanceof THREE.Line
-              ? (a.frustumCulled !== !1 && T.intersectsObject(a) !== !0) ||
+              ? (a.frustumCulled !== false && T.intersectsObject(a) !== true) ||
                 G.objects.push(W(a))
               : (a instanceof THREE.Sprite || a instanceof THREE.Particle) &&
                 G.sprites.push(W(a));
@@ -4393,7 +4393,7 @@
             (G.sprites.length = 0),
             (G.lights.length = 0),
             X(a),
-            b === !0 && G.objects.sort(g);
+            b === true && G.objects.sort(g);
         };
       this.projectScene = function (a, i, j, u) {
         var v,
@@ -4422,14 +4422,14 @@
           ha,
           ia,
           ja,
-          ka = !1;
+          ka = false;
         for (
           n = 0,
             o = 0,
             q = 0,
             s = 0,
             G.elements.length = 0,
-            a.autoUpdate === !0 && a.updateMatrixWorld(),
+            a.autoUpdate === true && a.updateMatrixWorld(),
             void 0 === i.parent && i.updateMatrixWorld(),
             N.copy(i.matrixWorldInverse.getInverse(i.matrixWorld)),
             O.multiplyMatrices(i.projectionMatrix, N),
@@ -4454,7 +4454,7 @@
                 ca = Z.faceVertexUvs,
                 Q.getNormalMatrix(t),
                 ia = X.material instanceof THREE.MeshFaceMaterial,
-                ja = ia === !0 ? X.material : null,
+                ja = ia === true ? X.material : null,
                 y = 0,
                 z = $.length;
               y < z;
@@ -4478,7 +4478,7 @@
             }
             for (A = 0, B = _.length; A < B; A++) {
               aa = _[A];
-              var ma = ia === !0 ? ja.materials[aa.materialIndex] : X.material;
+              var ma = ia === true ? ja.materials[aa.materialIndex] : X.material;
               if (void 0 !== ma) {
                 var na = ma.side;
                 if (aa instanceof THREE.Face3) {
@@ -4489,9 +4489,9 @@
                     (L[0] = ea.positionScreen),
                     (L[1] = fa.positionScreen),
                     (L[2] = ga.positionScreen),
-                    ea.visible !== !0 &&
-                      fa.visible !== !0 &&
-                      ga.visible !== !0 &&
+                    ea.visible !== true &&
+                      fa.visible !== true &&
+                      ga.visible !== true &&
                       !J.isIntersectionBox(K.setFromPoints(L)))
                   )
                     continue;
@@ -4520,10 +4520,10 @@
                     (M[1] = fa.positionScreen),
                     (M[2] = ga.positionScreen),
                     (M[3] = ha.positionScreen),
-                    ea.visible !== !0 &&
-                      fa.visible !== !0 &&
-                      ga.visible !== !0 &&
-                      ha.visible !== !0 &&
+                    ea.visible !== true &&
+                      fa.visible !== true &&
+                      ga.visible !== true &&
+                      ha.visible !== true &&
                       !J.isIntersectionBox(K.setFromPoints(M)))
                   )
                     continue;
@@ -4551,7 +4551,7 @@
                 }
                 for (
                   m.normalModel.copy(aa.normal),
-                    ka !== !1 ||
+                    ka !== false ||
                       (na !== THREE.BackSide && na !== THREE.DoubleSide) ||
                       m.normalModel.negate(),
                     m.normalModel.applyMatrix3(Q).normalize(),
@@ -4565,7 +4565,7 @@
                 ) {
                   var oa = m.vertexNormalsModel[C];
                   oa.copy(ba[C]),
-                    ka !== !1 ||
+                    ka !== false ||
                       (na !== THREE.BackSide && na !== THREE.DoubleSide) ||
                       oa.negate(),
                     oa.applyMatrix3(Q).normalize();
@@ -4600,7 +4600,7 @@
                   ((fa = w[l - 2]),
                   U.copy(ea.positionScreen),
                   V.copy(fa.positionScreen),
-                  h(U, V) === !0 &&
+                  h(U, V) === true &&
                     (U.multiplyScalar(1 / U.w),
                     V.multiplyScalar(1 / V.w),
                     (p = e()),
@@ -4650,7 +4650,7 @@
                 (r.material = X.material),
                 G.elements.push(r));
           }
-        return u === !0 && G.elements.sort(g), G;
+        return u === true && G.elements.sort(g), G;
       };
     }),
     (THREE.Face3 = function (a, b, c, d, e, f) {
@@ -4732,16 +4732,16 @@
         (this.lineDistances = []),
         (this.boundingBox = null),
         (this.boundingSphere = null),
-        (this.hasTangents = !1),
-        (this.dynamic = !0),
-        (this.verticesNeedUpdate = !1),
-        (this.elementsNeedUpdate = !1),
-        (this.uvsNeedUpdate = !1),
-        (this.normalsNeedUpdate = !1),
-        (this.tangentsNeedUpdate = !1),
-        (this.colorsNeedUpdate = !1),
-        (this.lineDistancesNeedUpdate = !1),
-        (this.buffersNeedUpdate = !1);
+        (this.hasTangents = false),
+        (this.dynamic = true),
+        (this.verticesNeedUpdate = false),
+        (this.elementsNeedUpdate = false),
+        (this.uvsNeedUpdate = false),
+        (this.normalsNeedUpdate = false),
+        (this.tangentsNeedUpdate = false),
+        (this.colorsNeedUpdate = false),
+        (this.lineDistancesNeedUpdate = false),
+        (this.buffersNeedUpdate = false);
     }),
     (THREE.Geometry.prototype = {
       constructor: THREE.Geometry,
@@ -5069,7 +5069,7 @@
               (B = I.dot(E[g])),
               (C = B < 0 ? -1 : 1),
               (h.vertexTangents[f] = new THREE.Vector4(H.x, H.y, H.z, C));
-        this.hasTangents = !0;
+        this.hasTangents = true;
       },
       computeLineDistances: function () {
         for (var a = 0, b = this.vertices, c = 0, d = b.length; c < d; c++)
@@ -5194,11 +5194,11 @@
       (this.id = THREE.GeometryIdCount++),
         (this.uuid = THREE.Math.generateUUID()),
         (this.attributes = {}),
-        (this.dynamic = !1),
+        (this.dynamic = false),
         (this.offsets = []),
         (this.boundingBox = null),
         (this.boundingSphere = null),
-        (this.hasTangents = !1),
+        (this.hasTangents = false),
         (this.morphTargets = []);
     }),
     (THREE.BufferGeometry.prototype = {
@@ -5209,13 +5209,13 @@
           (this.attributes.position && (b = this.attributes.position.array),
           this.attributes.normal && (c = this.attributes.normal.array),
           void 0 !== b &&
-            (a.multiplyVector3Array(b), (this.verticesNeedUpdate = !0)),
+            (a.multiplyVector3Array(b), (this.verticesNeedUpdate = true)),
           void 0 !== c)
         ) {
           var d = new THREE.Matrix3().getNormalMatrix(a);
           d.multiplyVector3Array(c),
             this.normalizeNormals(),
-            (this.normalsNeedUpdate = !0);
+            (this.normalsNeedUpdate = true);
         }
       },
       computeBoundingBox: function () {
@@ -5346,7 +5346,7 @@
                 (m[a + 6] = q.x),
                 (m[a + 7] = q.y),
                 (m[a + 8] = q.z);
-          this.normalizeNormals(), (this.normalsNeedUpdate = !0);
+          this.normalizeNormals(), (this.normalsNeedUpdate = true);
         }
       },
       normalizeNormals: function () {
@@ -5510,7 +5510,7 @@
               b(R),
               b(S);
         }
-        (this.hasTangents = !0), (this.tangentsNeedUpdate = !0);
+        (this.hasTangents = true), (this.tangentsNeedUpdate = true);
       },
       dispose: function () {
         this.dispatchEvent({ type: "dispose" });
@@ -5646,20 +5646,20 @@
         this.position.set(0, 1, 0),
         (this.target = new THREE.Object3D()),
         (this.intensity = void 0 !== b ? b : 1),
-        (this.castShadow = !1),
-        (this.onlyShadow = !1),
+        (this.castShadow = false),
+        (this.onlyShadow = false),
         (this.shadowCameraNear = 50),
         (this.shadowCameraFar = 5e3),
         (this.shadowCameraLeft = -500),
         (this.shadowCameraRight = 500),
         (this.shadowCameraTop = 500),
         (this.shadowCameraBottom = -500),
-        (this.shadowCameraVisible = !1),
+        (this.shadowCameraVisible = false),
         (this.shadowBias = 0),
         (this.shadowDarkness = 0.5),
         (this.shadowMapWidth = 512),
         (this.shadowMapHeight = 512),
-        (this.shadowCascade = !1),
+        (this.shadowCascade = false),
         (this.shadowCascadeOffset = new THREE.Vector3(0, 0, -1e3)),
         (this.shadowCascadeCount = 2),
         (this.shadowCascadeBias = [0, 0, 0]),
@@ -5724,12 +5724,12 @@
         (this.distance = void 0 !== c ? c : 0),
         (this.angle = void 0 !== d ? d : Math.PI / 3),
         (this.exponent = void 0 !== e ? e : 10),
-        (this.castShadow = !1),
-        (this.onlyShadow = !1),
+        (this.castShadow = false),
+        (this.onlyShadow = false),
         (this.shadowCameraNear = 50),
         (this.shadowCameraFar = 5e3),
         (this.shadowCameraFov = 50),
-        (this.shadowCameraVisible = !1),
+        (this.shadowCameraVisible = false),
         (this.shadowBias = 0),
         (this.shadowDarkness = 0.5),
         (this.shadowMapWidth = 512),
@@ -5802,9 +5802,9 @@
       needsTangents: function (a) {
         for (var b = 0, c = a.length; b < c; b++) {
           var d = a[b];
-          if (d instanceof THREE.ShaderMaterial) return !0;
+          if (d instanceof THREE.ShaderMaterial) return true;
         }
-        return !1;
+        return false;
       },
       createMaterial: function (a, b) {
         function c(a) {
@@ -5826,7 +5826,7 @@
                 (a.image.height = e),
                 a.image.getContext("2d").drawImage(this, 0, 0, b, e);
             }
-            a.needsUpdate = !0;
+            a.needsUpdate = true;
           }),
             (e.crossOrigin = h.crossOrigin),
             (e.src = b);
@@ -5871,7 +5871,7 @@
             lightMap: null,
             normalMap: null,
             bumpMap: null,
-            wireframe: !1,
+            wireframe: false,
           };
         if (a.shading) {
           var k = a.shading.toLowerCase();
@@ -5965,11 +5965,11 @@
           (m.tNormal.value = j.normalMap),
             a.mapNormalFactor &&
               m.uNormalScale.value.set(a.mapNormalFactor, a.mapNormalFactor),
-            j.map && ((m.tDiffuse.value = j.map), (m.enableDiffuse.value = !0)),
+            j.map && ((m.tDiffuse.value = j.map), (m.enableDiffuse.value = true)),
             j.specularMap &&
               ((m.tSpecular.value = j.specularMap),
-              (m.enableSpecular.value = !0)),
-            j.lightMap && ((m.tAO.value = j.lightMap), (m.enableAO.value = !0)),
+              (m.enableSpecular.value = true)),
+            j.lightMap && ((m.tAO.value = j.lightMap), (m.enableAO.value = true)),
             m.uDiffuseColor.value.setHex(j.color),
             m.uSpecularColor.value.setHex(j.specular),
             m.uAmbientColor.value.setHex(j.ambient),
@@ -5979,11 +5979,11 @@
               fragmentShader: l.fragmentShader,
               vertexShader: l.vertexShader,
               uniforms: m,
-              lights: !0,
-              fog: !0,
+              lights: true,
+              fog: true,
             },
             o = new THREE.ShaderMaterial(n);
-          j.transparent && (o.transparent = !0);
+          j.transparent && (o.transparent = true);
         } else var o = new THREE[i](j);
         return void 0 !== a.DbgName && (o.name = a.DbgName), o;
       },
@@ -6002,7 +6002,7 @@
             function (c) {
               e.manager.itemEnd(a), b(c.target.responseText);
             },
-            !1
+            false
           ),
           void 0 !== c &&
             f.addEventListener(
@@ -6010,7 +6010,7 @@
               function (a) {
                 c(a);
               },
-              !1
+              false
             ),
           void 0 !== d &&
             f.addEventListener(
@@ -6018,10 +6018,10 @@
               function (a) {
                 d(a);
               },
-              !1
+              false
             ),
           void 0 !== this.crossOrigin && (f.crossOrigin = this.crossOrigin),
-          f.open("GET", a, !0),
+          f.open("GET", a, true),
           f.send(null),
           e.manager.itemStart(a);
       },
@@ -6043,7 +6043,7 @@
             function (c) {
               e.manager.itemEnd(a), b(this);
             },
-            !1
+            false
           ),
           void 0 !== c &&
             f.addEventListener(
@@ -6051,7 +6051,7 @@
               function (a) {
                 c(a);
               },
-              !1
+              false
             ),
           void 0 !== d &&
             f.addEventListener(
@@ -6059,7 +6059,7 @@
               function (a) {
                 d(a);
               },
-              !1
+              false
             ),
           void 0 !== this.crossOrigin && (f.crossOrigin = this.crossOrigin),
           (f.src = a),
@@ -6070,7 +6070,7 @@
       },
     }),
     (THREE.JSONLoader = function (a) {
-      THREE.Loader.call(this, a), (this.withCredentials = !1);
+      THREE.Loader.call(this, a), (this.withCredentials = false);
     }),
     (THREE.JSONLoader.prototype = Object.create(THREE.Loader.prototype)),
     (THREE.JSONLoader.prototype.load = function (a, b, c) {
@@ -6108,7 +6108,7 @@
               void 0 !== e &&
               (g = f.getResponseHeader("Content-Length"));
       }),
-        f.open("GET", b, !0),
+        f.open("GET", b, true),
         (f.withCredentials = this.withCredentials),
         f.send(null);
     }),
@@ -6583,7 +6583,7 @@
                     },
                     s = {};
                   for (var t in n) t in r || (s[t] = n[t]);
-                  (p = B.materials[n.material]), (n.loading = !0);
+                  (p = B.materials[n.material]), (n.loading = true);
                   var x = C.hierarchyHandlers[n.type].loaderObject;
                   x.options
                     ? x.load(d(n.url, F.urlBaseType), j(l, a, p, n))
@@ -6591,7 +6591,7 @@
                 }
               } else if (void 0 !== n.geometry) {
                 if ((o = B.geometries[n.geometry])) {
-                  var y = !1;
+                  var y = false;
                   if (
                     ((p = B.materials[n.material]),
                     (y = p instanceof THREE.ShaderMaterial),
@@ -6626,7 +6626,7 @@
                       : (m = new THREE.Mesh(o, p)),
                     (m.name = l),
                     c
-                      ? ((m.matrixAutoUpdate = !1),
+                      ? ((m.matrixAutoUpdate = false),
                         m.matrix.set(
                           c[0],
                           c[1],
@@ -7049,7 +7049,7 @@
           if (
             (void 0 !== ia.parameters.opacity &&
               ia.parameters.opacity < 1 &&
-              (ia.parameters.transparent = !0),
+              (ia.parameters.transparent = true),
             ia.parameters.normalMap)
           ) {
             var la = THREE.ShaderLib.normalmap,
@@ -7066,21 +7066,21 @@
                 ),
               ia.parameters.map &&
                 ((ma.tDiffuse.value = ia.parameters.map),
-                (ma.enableDiffuse.value = !0)),
+                (ma.enableDiffuse.value = true)),
               ia.parameters.envMap &&
                 ((ma.tCube.value = ia.parameters.envMap),
-                (ma.enableReflection.value = !0),
+                (ma.enableReflection.value = true),
                 (ma.uReflectivity.value = ia.parameters.reflectivity)),
               ia.parameters.lightMap &&
                 ((ma.tAO.value = ia.parameters.lightMap),
-                (ma.enableAO.value = !0)),
+                (ma.enableAO.value = true)),
               ia.parameters.specularMap &&
                 ((ma.tSpecular.value = B.textures[ia.parameters.specularMap]),
-                (ma.enableSpecular.value = !0)),
+                (ma.enableSpecular.value = true)),
               ia.parameters.displacementMap &&
                 ((ma.tDisplacement.value =
                   B.textures[ia.parameters.displacementMap]),
-                (ma.enableDisplacement.value = !0),
+                (ma.enableDisplacement.value = true),
                 (ma.uDisplacementBias.value = ia.parameters.displacementBias),
                 (ma.uDisplacementScale.value =
                   ia.parameters.displacementScale)),
@@ -7094,8 +7094,8 @@
               fragmentShader: la.fragmentShader,
               vertexShader: la.vertexShader,
               uniforms: ma,
-              lights: !0,
-              fog: !0,
+              lights: true,
+              fog: true,
             };
             p = new THREE.ShaderMaterial(ra);
           } else p = new THREE[ia.type](ia.parameters);
@@ -7128,20 +7128,20 @@
         (this.name = ""),
         (this.side = THREE.FrontSide),
         (this.opacity = 1),
-        (this.transparent = !1),
+        (this.transparent = false),
         (this.blending = THREE.NormalBlending),
         (this.blendSrc = THREE.SrcAlphaFactor),
         (this.blendDst = THREE.OneMinusSrcAlphaFactor),
         (this.blendEquation = THREE.AddEquation),
-        (this.depthTest = !0),
-        (this.depthWrite = !0),
-        (this.polygonOffset = !1),
+        (this.depthTest = true),
+        (this.depthWrite = true),
+        (this.polygonOffset = false),
         (this.polygonOffsetFactor = 0),
         (this.polygonOffsetUnits = 0),
         (this.alphaTest = 0),
         (this.overdraw = 0),
-        (this.visible = !0),
-        (this.needsUpdate = !0);
+        (this.visible = true),
+        (this.needsUpdate = true);
     }),
     (THREE.Material.prototype = {
       constructor: THREE.Material,
@@ -7200,8 +7200,8 @@
         (this.linewidth = 1),
         (this.linecap = "round"),
         (this.linejoin = "round"),
-        (this.vertexColors = !1),
-        (this.fog = !0),
+        (this.vertexColors = false),
+        (this.fog = true),
         this.setValues(a);
     }),
     (THREE.LineBasicMaterial.prototype = Object.create(
@@ -7227,8 +7227,8 @@
         (this.scale = 1),
         (this.dashSize = 3),
         (this.gapSize = 1),
-        (this.vertexColors = !1),
-        (this.fog = !0),
+        (this.vertexColors = false),
+        (this.fog = true),
         this.setValues(a);
     }),
     (THREE.LineDashedMaterial.prototype = Object.create(
@@ -7258,15 +7258,15 @@
         (this.combine = THREE.MultiplyOperation),
         (this.reflectivity = 1),
         (this.refractionRatio = 0.98),
-        (this.fog = !0),
+        (this.fog = true),
         (this.shading = THREE.SmoothShading),
-        (this.wireframe = !1),
+        (this.wireframe = false),
         (this.wireframeLinewidth = 1),
         (this.wireframeLinecap = "round"),
         (this.wireframeLinejoin = "round"),
         (this.vertexColors = THREE.NoColors),
-        (this.skinning = !1),
-        (this.morphTargets = !1),
+        (this.skinning = false),
+        (this.morphTargets = false),
         this.setValues(a);
     }),
     (THREE.MeshBasicMaterial.prototype = Object.create(
@@ -7301,7 +7301,7 @@
         (this.color = new THREE.Color(16777215)),
         (this.ambient = new THREE.Color(16777215)),
         (this.emissive = new THREE.Color(0)),
-        (this.wrapAround = !1),
+        (this.wrapAround = false),
         (this.wrapRGB = new THREE.Vector3(1, 1, 1)),
         (this.map = null),
         (this.lightMap = null),
@@ -7310,16 +7310,16 @@
         (this.combine = THREE.MultiplyOperation),
         (this.reflectivity = 1),
         (this.refractionRatio = 0.98),
-        (this.fog = !0),
+        (this.fog = true),
         (this.shading = THREE.SmoothShading),
-        (this.wireframe = !1),
+        (this.wireframe = false),
         (this.wireframeLinewidth = 1),
         (this.wireframeLinecap = "round"),
         (this.wireframeLinejoin = "round"),
         (this.vertexColors = THREE.NoColors),
-        (this.skinning = !1),
-        (this.morphTargets = !1),
-        (this.morphNormals = !1),
+        (this.skinning = false),
+        (this.morphTargets = false),
+        (this.morphNormals = false),
         this.setValues(a);
     }),
     (THREE.MeshLambertMaterial.prototype = Object.create(
@@ -7361,9 +7361,9 @@
         (this.emissive = new THREE.Color(0)),
         (this.specular = new THREE.Color(1118481)),
         (this.shininess = 30),
-        (this.metal = !1),
-        (this.perPixel = !0),
-        (this.wrapAround = !1),
+        (this.metal = false),
+        (this.perPixel = true),
+        (this.wrapAround = false),
         (this.wrapRGB = new THREE.Vector3(1, 1, 1)),
         (this.map = null),
         (this.lightMap = null),
@@ -7376,16 +7376,16 @@
         (this.combine = THREE.MultiplyOperation),
         (this.reflectivity = 1),
         (this.refractionRatio = 0.98),
-        (this.fog = !0),
+        (this.fog = true),
         (this.shading = THREE.SmoothShading),
-        (this.wireframe = !1),
+        (this.wireframe = false),
         (this.wireframeLinewidth = 1),
         (this.wireframeLinecap = "round"),
         (this.wireframeLinejoin = "round"),
         (this.vertexColors = THREE.NoColors),
-        (this.skinning = !1),
-        (this.morphTargets = !1),
-        (this.morphNormals = !1),
+        (this.skinning = false),
+        (this.morphTargets = false),
+        (this.morphNormals = false),
         this.setValues(a);
     }),
     (THREE.MeshPhongMaterial.prototype = Object.create(
@@ -7430,7 +7430,7 @@
     }),
     (THREE.MeshDepthMaterial = function (a) {
       THREE.Material.call(this),
-        (this.wireframe = !1),
+        (this.wireframe = false),
         (this.wireframeLinewidth = 1),
         this.setValues(a);
     }),
@@ -7449,9 +7449,9 @@
     (THREE.MeshNormalMaterial = function (a) {
       THREE.Material.call(this, a),
         (this.shading = THREE.FlatShading),
-        (this.wireframe = !1),
+        (this.wireframe = false),
         (this.wireframeLinewidth = 1),
-        (this.morphTargets = !1),
+        (this.morphTargets = false),
         this.setValues(a);
     }),
     (THREE.MeshNormalMaterial.prototype = Object.create(
@@ -7489,11 +7489,11 @@
         (this.type = void 0 !== h ? h : THREE.UnsignedByteType),
         (this.offset = new THREE.Vector2(0, 0)),
         (this.repeat = new THREE.Vector2(1, 1)),
-        (this.generateMipmaps = !0),
-        (this.premultiplyAlpha = !1),
-        (this.flipY = !0),
+        (this.generateMipmaps = true),
+        (this.premultiplyAlpha = false),
+        (this.flipY = true),
         (this.unpackAlignment = 4),
-        (this.needsUpdate = !1),
+        (this.needsUpdate = false),
         (this.onUpdate = null);
     }),
     (THREE.Texture.prototype = {
@@ -7530,7 +7530,7 @@
       THREE.Texture.call(this, null, f, g, h, i, j, d, e, k),
         (this.image = { width: b, height: c }),
         (this.mipmaps = a),
-        (this.generateMipmaps = !1);
+        (this.generateMipmaps = false);
     }),
     (THREE.CompressedTexture.prototype = Object.create(
       THREE.Texture.prototype
@@ -7568,8 +7568,8 @@
             : new THREE.ParticleBasicMaterial({
                 color: 16777215 * Math.random(),
               })),
-        (this.sortParticles = !1),
-        (this.frustumCulled = !1);
+        (this.sortParticles = false),
+        (this.frustumCulled = false);
     }),
     (THREE.ParticleSystem.prototype = Object.create(THREE.Object3D.prototype)),
     (THREE.ParticleSystem.prototype.clone = function (a) {
@@ -7652,8 +7652,8 @@
           (a
             ? this.skinMatrix.multiplyMatrices(a, this.matrix)
             : this.skinMatrix.copy(this.matrix),
-          (this.matrixWorldNeedsUpdate = !1),
-          (b = !0));
+          (this.matrixWorldNeedsUpdate = false),
+          (b = true));
       var c,
         d = this.children.length;
       for (c = 0; c < d; c++) this.children[c].update(this.skinMatrix, b);
@@ -7687,15 +7687,15 @@
           a.getPositionFromMatrix(c.matrixWorld),
             b.getPositionFromMatrix(this.matrixWorld);
           var d = a.distanceTo(b);
-          this.objects[0].object.visible = !0;
+          this.objects[0].object.visible = true;
           for (
             var e = 1, f = this.objects.length;
             e < f && d >= this.objects[e].distance;
             e++
           )
-            (this.objects[e - 1].object.visible = !1),
-              (this.objects[e].object.visible = !0);
-          for (; e < f; e++) this.objects[e].object.visible = !1;
+            (this.objects[e - 1].object.visible = false),
+              (this.objects[e].object.visible = true);
+          for (; e < f; e++) this.objects[e].object.visible = false;
         }
       };
     })()),
@@ -7711,7 +7711,7 @@
       this.rotation3d.set(0, 0, this.rotation, this.rotation3d.order),
         this.quaternion.setFromEuler(this.rotation3d),
         this.matrix.compose(this.position, this.quaternion, this.scale),
-        (this.matrixWorldNeedsUpdate = !0);
+        (this.matrixWorldNeedsUpdate = true);
     }),
     (THREE.Sprite.prototype.clone = function (a) {
       return (
@@ -7724,8 +7724,8 @@
       THREE.Object3D.call(this),
         (this.fog = null),
         (this.overrideMaterial = null),
-        (this.autoUpdate = !0),
-        (this.matrixAutoUpdate = !1),
+        (this.autoUpdate = true),
+        (this.matrixAutoUpdate = false),
         (this.__objects = []),
         (this.__lights = []),
         (this.__objectsAdded = []),
@@ -7840,7 +7840,7 @@
               (g *= b.scale.y * E),
               Na.min.set(a.x - f, a.y - g),
               Na.max.set(a.x + f, a.y + g),
-              La.isIntersectionBox(Na) === !1)
+              La.isIntersectionBox(Na) === false)
             )
               return void Na.makeEmpty();
             v(c.color.getStyle()),
@@ -7861,7 +7861,7 @@
               (e = g * j),
               Na.min.set(a.x - d, a.y - e),
               Na.max.set(a.x + d, a.y + e),
-              La.isIntersectionBox(Na) === !1)
+              La.isIntersectionBox(Na) === false)
             )
               return void Na.makeEmpty();
             na.save(),
@@ -7878,7 +7878,7 @@
             (e = b.scale.y * E),
             Na.min.set(a.x - d, a.y - e),
             Na.max.set(a.x + d, a.y + e),
-            La.isIntersectionBox(Na) === !1)
+            La.isIntersectionBox(Na) === false)
           )
             return void Na.makeEmpty();
           u(c.color.getStyle()),
@@ -7958,7 +7958,7 @@
           Ga.copy(o.color),
             Ha.copy(o.emissive),
             o.vertexColors === THREE.FaceColors && Ga.multiply(i.color),
-            o.wireframe === !1 &&
+            o.wireframe === false &&
             o.shading == THREE.SmoothShading &&
             3 == i.vertexNormalsLength
               ? (Ca.copy(Oa),
@@ -7976,7 +7976,7 @@
               : (Ba.copy(Oa),
                 c(i.centroidModel, i.normalModel, Ba),
                 Ba.multiply(Ga).add(Ha),
-                o.wireframe === !0
+                o.wireframe === true
                   ? j(
                       Ba,
                       o.wireframeLinewidth,
@@ -8021,7 +8021,7 @@
               l(K, L, M, N, O, P, $, _, aa, ba, ca, da, o.envMap))
             : (Ba.copy(o.color),
               o.vertexColors === THREE.FaceColors && Ba.multiply(i.color),
-              o.wireframe === !0
+              o.wireframe === true
                 ? j(
                     Ba,
                     o.wireframeLinewidth,
@@ -8052,7 +8052,7 @@
           o.shading == THREE.FlatShading
             ? ((r = i.normalModelView),
               Ba.setRGB(r.x, r.y, r.z).multiplyScalar(0.5).addScalar(0.5),
-              o.wireframe === !0
+              o.wireframe === true
                 ? j(
                     Ba,
                     o.wireframeLinewidth,
@@ -8101,7 +8101,7 @@
           Ga.copy(r.color),
             Ha.copy(r.emissive),
             r.vertexColors === THREE.FaceColors && Ga.multiply(o.color),
-            r.wireframe === !1 &&
+            r.wireframe === false &&
             r.shading == THREE.SmoothShading &&
             4 == o.vertexNormalsLength
               ? (Ca.copy(Oa),
@@ -8125,7 +8125,7 @@
                 c(o.centroidModel, o.normalModel, Ba),
                 Ba.multiply(Ga).add(Ha),
                 i(K, L, M, N, O, P, Q, R),
-                r.wireframe === !0
+                r.wireframe === true
                   ? j(
                       Ba,
                       r.wireframeLinewidth,
@@ -8137,7 +8137,7 @@
           Ba.copy(r.color),
             r.vertexColors === THREE.FaceColors && Ba.multiply(o.color),
             i(K, L, M, N, O, P, Q, R),
-            r.wireframe === !0
+            r.wireframe === true
               ? j(
                   Ba,
                   r.wireframeLinewidth,
@@ -8151,7 +8151,7 @@
             ? ((s = o.normalModelView),
               Ba.setRGB(s.x, s.y, s.z).multiplyScalar(0.5).addScalar(0.5),
               i(K, L, M, N, O, P, Q, R),
-              r.wireframe === !0
+              r.wireframe === true
                 ? j(
                     Ba,
                     r.wireframeLinewidth,
@@ -8233,20 +8233,20 @@
             0 == n.image.width
           )
         ) {
-          if (n.needsUpdate === !0) {
+          if (n.needsUpdate === true) {
             var o = n.wrapS == THREE.RepeatWrapping,
               p = n.wrapT == THREE.RepeatWrapping;
             (Ja[n.id] = na.createPattern(
               n.image,
-              o === !0 && p === !0
+              o === true && p === true
                 ? "repeat"
-                : o === !0 && p === !1
+                : o === true && p === false
                 ? "repeat-x"
-                : o === !1 && p === !0
+                : o === false && p === true
                 ? "repeat-y"
                 : "no-repeat"
             )),
-              (n.needsUpdate = !1);
+              (n.needsUpdate = false);
           }
           v(void 0 === Ja[n.id] ? "rgba(0,0,0,1)" : Ja[n.id]);
           var q,
@@ -8517,9 +8517,9 @@
             : void 0 !== window.devicePixelRatio
             ? window.devicePixelRatio
             : 1),
-        (this.autoClear = !0),
-        (this.sortObjects = !0),
-        (this.sortElements = !0),
+        (this.autoClear = true),
+        (this.sortObjects = true),
+        (this.sortElements = true),
         (this.info = { render: { vertices: 0, faces: 0 } }),
         (this.supportsVertexTextures = function () {}),
         (this.setFaceCulling = function () {}),
@@ -8531,7 +8531,7 @@
             (ma.width = B),
             (ma.height = C),
             1 !== this.devicePixelRatio &&
-              c !== !1 &&
+              c !== false &&
               ((ma.style.width = a + "px"), (ma.style.height = b + "px")),
             La.set(new THREE.Vector2(-D, -E), new THREE.Vector2(D, E)),
             Ma.set(new THREE.Vector2(-D, -E), new THREE.Vector2(D, E)),
@@ -8559,7 +8559,7 @@
         }),
         (this.clear = function () {
           na.setTransform(1, 0, 0, -1, D, E),
-            Ma.empty() === !1 &&
+            Ma.empty() === false &&
               (Ma.intersect(La),
               Ma.expandByScalar(2),
               pa < 1 &&
@@ -8592,11 +8592,11 @@
               Ma.makeEmpty());
         }),
         (this.render = function (a, c) {
-          if (c instanceof THREE.Camera == !1)
+          if (c instanceof THREE.Camera == false)
             return void console.error(
               "THREE.CanvasRenderer.render: camera is not an instance of THREE.Camera."
             );
-          this.autoClear === !0 && this.clear(),
+          this.autoClear === true && this.clear(),
             na.setTransform(1, 0, 0, -1, D, E),
             (ka.info.render.vertices = 0),
             (ka.info.render.faces = 0),
@@ -8608,7 +8608,7 @@
           for (var h = 0, i = z.length; h < i; h++) {
             var j = z[h],
               k = j.material;
-            if (void 0 !== k && k.visible !== !1) {
+            if (void 0 !== k && k.visible !== false) {
               if ((Na.makeEmpty(), j instanceof THREE.RenderableParticle))
                 (G = j), (G.x *= D), (G.y *= E), d(G, j, k);
               else if (j instanceof THREE.RenderableLine)
@@ -8619,7 +8619,7 @@
                   (H.positionScreen.x *= D),
                   (H.positionScreen.y *= E),
                   Na.setFromPoints([G.positionScreen, H.positionScreen]),
-                  La.isIntersectionBox(Na) === !0 && e(G, H, j, k);
+                  La.isIntersectionBox(Na) === true && e(G, H, j, k);
               else if (j instanceof THREE.RenderableFace3) {
                 if (
                   ((G = j.v1),
@@ -8645,7 +8645,7 @@
                     H.positionScreen,
                     I.positionScreen,
                   ]),
-                  La.isIntersectionBox(Na) === !0 && f(G, H, I, 0, 1, 2, j, k);
+                  La.isIntersectionBox(Na) === true && f(G, H, I, 0, 1, 2, j, k);
               } else if (j instanceof THREE.RenderableFace4) {
                 if (
                   ((G = j.v1),
@@ -8680,7 +8680,7 @@
                     I.positionScreen,
                     J.positionScreen,
                   ]),
-                  La.isIntersectionBox(Na) === !0 &&
+                  La.isIntersectionBox(Na) === true &&
                     g(G, H, I, J, za, Aa, j, k);
               }
               Ma.union(Na);
@@ -8793,7 +8793,7 @@
     (THREE.RenderableVertex = function () {
       (this.positionWorld = new THREE.Vector3()),
         (this.positionScreen = new THREE.Vector4()),
-        (this.visible = !0);
+        (this.visible = true);
     }),
     (THREE.RenderableVertex.prototype.copy = function (a) {
       this.positionWorld.copy(a.positionWorld),
@@ -8927,7 +8927,7 @@
         }
       },
       removeMaterials: function (a, b) {
-        for (var c = {}, d = 0, e = b.length; d < e; d++) c[b[d]] = !0;
+        for (var c = {}, d = 0, e = b.length; d < e; d++) c[b[d]] = true;
         for (var f, g = [], d = 0, e = a.faces.length; d < e; d++)
           (f = a.faces[d]), f.materialIndex in c || g.push(f);
         a.faces = g;
@@ -9028,7 +9028,7 @@
         for (e = 0; e < b; e++)
           (o = THREE.Math.random16() * m),
             (p = c(o)),
-            (q[e] = THREE.GeometryUtils.randomPointInFace(j[p], a, !0)),
+            (q[e] = THREE.GeometryUtils.randomPointInFace(j[p], a, true)),
             r[p] ? (r[p] += 1) : (r[p] = 1);
         return q;
       },
@@ -9144,7 +9144,7 @@
         return (
           (g.crossOrigin = this.crossOrigin),
           g.load(a, function (a) {
-            (f.image = a), (f.needsUpdate = !0), c && c(f);
+            (f.image = a), (f.needsUpdate = true), c && c(f);
           }),
           (f.sourceFile = a),
           f
@@ -9157,17 +9157,17 @@
         return (
           (f.onload = function () {
             var a = f.response,
-              b = THREE.ImageUtils.parseDDS(a, !0);
+              b = THREE.ImageUtils.parseDDS(a, true);
             (e.format = b.format),
               (e.mipmaps = b.mipmaps),
               (e.image.width = b.width),
               (e.image.height = b.height),
-              (e.generateMipmaps = !1),
-              (e.needsUpdate = !0),
+              (e.generateMipmaps = false),
+              (e.needsUpdate = true),
               c && c(e);
           }),
           (f.onerror = d),
-          f.open("GET", a, !0),
+          f.open("GET", a, true),
           (f.responseType = "arraybuffer"),
           f.send(null),
           e
@@ -9177,13 +9177,13 @@
         var e = [];
         e.loadCount = 0;
         var f = new THREE.Texture();
-        (f.image = e), void 0 !== b && (f.mapping = b), (f.flipY = !1);
+        (f.image = e), void 0 !== b && (f.mapping = b), (f.flipY = false);
         for (var g = 0, h = a.length; g < h; ++g) {
           var i = new Image();
           (e[g] = i),
             (i.onload = function () {
               (e.loadCount += 1),
-                6 === e.loadCount && ((f.needsUpdate = !0), c && c(f));
+                6 === e.loadCount && ((f.needsUpdate = true), c && c(f));
             }),
             (i.onerror = d),
             (i.crossOrigin = this.crossOrigin),
@@ -9197,19 +9197,19 @@
         var f = new THREE.CompressedTexture();
         (f.image = e),
           void 0 !== b && (f.mapping = b),
-          (f.flipY = !1),
-          (f.generateMipmaps = !1);
+          (f.flipY = false),
+          (f.generateMipmaps = false);
         var g = function (a, b) {
           return function () {
             var d = a.response,
-              g = THREE.ImageUtils.parseDDS(d, !0);
+              g = THREE.ImageUtils.parseDDS(d, true);
             (b.format = g.format),
               (b.mipmaps = g.mipmaps),
               (b.width = g.width),
               (b.height = g.height),
               (e.loadCount += 1),
               6 === e.loadCount &&
-                ((f.format = g.format), (f.needsUpdate = !0), c && c(f));
+                ((f.format = g.format), (f.needsUpdate = true), c && c(f));
           };
         };
         if (a instanceof Array)
@@ -9219,7 +9219,7 @@
             var k = new XMLHttpRequest();
             (k.onload = g(k, j)), (k.onerror = d);
             var l = a[h];
-            k.open("GET", l, !0),
+            k.open("GET", l, true),
               (k.responseType = "arraybuffer"),
               k.send(null);
           }
@@ -9228,7 +9228,7 @@
             k = new XMLHttpRequest();
           (k.onload = function () {
             var a = k.response,
-              b = THREE.ImageUtils.parseDDS(a, !0);
+              b = THREE.ImageUtils.parseDDS(a, true);
             if (b.isCubemap) {
               for (
                 var d = b.mipmaps.length / b.mipmapCount, g = 0;
@@ -9242,11 +9242,11 @@
                     (e[g].width = b.width),
                     (e[g].height = b.height);
               }
-              (f.format = b.format), (f.needsUpdate = !0), c && c(f);
+              (f.format = b.format), (f.needsUpdate = true), c && c(f);
             }
           }),
             (k.onerror = d),
-            k.open("GET", l, !0),
+            k.open("GET", l, true),
             (k.responseType = "arraybuffer"),
             k.send(null);
         }
@@ -9330,7 +9330,7 @@
             );
         }
         (e.mipmapCount = 1),
-          w[p] & g && b !== !1 && (e.mipmapCount = Math.max(1, w[s])),
+          w[p] & g && b !== false && (e.mipmapCount = Math.max(1, w[s])),
           (e.isCubemap = !!(w[v] & h)),
           (e.width = w[r]),
           (e.height = w[q]);
@@ -9430,7 +9430,7 @@
         )
           (e[3 * i] = f), (e[3 * i + 1] = g), (e[3 * i + 2] = h);
         var j = new THREE.DataTexture(e, a, b, THREE.RGBFormat);
-        return (j.needsUpdate = !0), j;
+        return (j.needsUpdate = true), j;
       },
     }),
     (THREE.SceneUtils = {
@@ -9654,7 +9654,7 @@
             (n = a[g[e]].y),
             b > (k - i) * (n - j) - (l - j) * (m - i))
           )
-            return !1;
+            return false;
           var q, r, s, t, u, v, w, x, y, z, A, B, C, D, E;
           for (
             q = m - k,
@@ -9684,8 +9684,8 @@
               (D = s * B - t * A),
               E >= 0 && D >= 0 && C >= 0)
             )
-              return !1;
-          return !0;
+              return false;
+          return true;
         };
       return (a.Triangulate = c), (a.Triangulate.area = d), a;
     })(THREE.FontUtils),
@@ -9728,7 +9728,7 @@
           !this.needsUpdate)
       )
         return this.cacheArcLengths;
-      this.needsUpdate = !1;
+      this.needsUpdate = false;
       var b,
         c,
         d = [],
@@ -9739,7 +9739,7 @@
       return (this.cacheArcLengths = d), d;
     }),
     (THREE.Curve.prototype.updateArcLengths = function () {
-      (this.needsUpdate = !0), this.getLengths();
+      (this.needsUpdate = true), this.getLengths();
     }),
     (THREE.Curve.prototype.getUtoTmapping = function (a, b) {
       var c,
@@ -9824,7 +9824,7 @@
       );
     }),
     (THREE.CurvePath = function () {
-      (this.curves = []), (this.bends = []), (this.autoClose = !1);
+      (this.curves = []), (this.bends = []), (this.autoClose = false);
     }),
     (THREE.CurvePath.prototype = Object.create(THREE.Curve.prototype)),
     (THREE.CurvePath.prototype.add = function (a) {
@@ -9899,11 +9899,11 @@
       return l && ((m.maxZ = c), (m.minZ = f)), m;
     }),
     (THREE.CurvePath.prototype.createPointsGeometry = function (a) {
-      var b = this.getPoints(a, !0);
+      var b = this.getPoints(a, true);
       return this.createGeometry(b);
     }),
     (THREE.CurvePath.prototype.createSpacedPointsGeometry = function (a) {
-      var b = this.getSpacedPoints(a, !0);
+      var b = this.getSpacedPoints(a, true);
       return this.createGeometry(b);
     }),
     (THREE.CurvePath.prototype.createGeometry = function (a) {
@@ -9978,8 +9978,8 @@
                 this.scaleWorld
               ))
             : this.matrixWorld.copy(this.matrix),
-          (this.matrixWorldNeedsUpdate = !1),
-          (a = !0));
+          (this.matrixWorldNeedsUpdate = false),
+          (a = true));
       for (var b = 0, c = this.children.length; b < c; b++)
         this.children[b].updateMatrixWorld(a);
     }),
@@ -10416,7 +10416,7 @@
           j = i.shape,
           k = i.allpoints,
           l = i.isolatedPts,
-          m = THREE.FontUtils.Triangulate(j, !1),
+          m = THREE.FontUtils.Triangulate(j, false),
           n = {};
         for (c = 0, d = k.length; c < d; c++)
           (g = k[c].x + ":" + k[c].y),
@@ -10792,7 +10792,7 @@
           for (var c = 0; c < a.children.length; c++) d(a.children[c], b);
         },
         e = function (a) {
-          if (a.initialized !== !0) {
+          if (a.initialized !== true) {
             for (var b = 0; b < a.hierarchy.length; b++) {
               for (var c = 0; c < a.hierarchy[b].keys.length; c++)
                 if (
@@ -10852,7 +10852,7 @@
             (a.JIT = {}), (a.JIT.hierarchy = []);
             for (var b = 0; b < a.hierarchy.length; b++)
               a.JIT.hierarchy.push(new Array(i));
-            a.initialized = !0;
+            a.initialized = true;
           }
         };
       return (c.LINEAR = 0), (c.CATMULLROM = 1), (c.CATMULLROM_FORWARD = 2), c;
@@ -10883,7 +10883,7 @@
         (this.updateCubeMap = function (a, b) {
           var c = this.renderTarget,
             d = c.generateMipmaps;
-          (c.generateMipmaps = !1),
+          (c.generateMipmaps = false),
             (c.activeCubeFace = 0),
             a.render(b, f, c),
             (c.activeCubeFace = 1),
@@ -10926,8 +10926,8 @@
         (this.cameraP.fov = this.fov / this.zoom),
         this.cameraP.updateProjectionMatrix(),
         (this.projectionMatrix = this.cameraP.projectionMatrix),
-        (this.inPerspectiveMode = !0),
-        (this.inOrthographicMode = !1);
+        (this.inPerspectiveMode = true),
+        (this.inOrthographicMode = false);
     }),
     (THREE.CombinedCamera.prototype.toOrthographic = function () {
       var a = this.fov,
@@ -10949,8 +10949,8 @@
         (this.near = this.cameraO.near),
         (this.far = this.cameraO.far),
         (this.projectionMatrix = this.cameraO.projectionMatrix),
-        (this.inPerspectiveMode = !1),
-        (this.inOrthographicMode = !0);
+        (this.inPerspectiveMode = false),
+        (this.inOrthographicMode = true);
     }),
     (THREE.CombinedCamera.prototype.setSize = function (a, b) {
       (this.cameraP.aspect = a / b),
@@ -10981,37 +10981,37 @@
       (this.rotation.x = 0),
         (this.rotation.y = 0),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CombinedCamera.prototype.toBackView = function () {
       (this.rotation.x = 0),
         (this.rotation.y = Math.PI),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CombinedCamera.prototype.toLeftView = function () {
       (this.rotation.x = 0),
         (this.rotation.y = -Math.PI / 2),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CombinedCamera.prototype.toRightView = function () {
       (this.rotation.x = 0),
         (this.rotation.y = Math.PI / 2),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CombinedCamera.prototype.toTopView = function () {
       (this.rotation.x = -Math.PI / 2),
         (this.rotation.y = 0),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CombinedCamera.prototype.toBottomView = function () {
       (this.rotation.x = Math.PI / 2),
         (this.rotation.y = 0),
         (this.rotation.z = 0),
-        (this.rotationAutoUpdate = !1);
+        (this.rotationAutoUpdate = false);
     }),
     (THREE.CircleGeometry = function (a, b, c, d) {
       THREE.Geometry.call(this),
@@ -11174,7 +11174,7 @@
           this.faces.push(new THREE.Face4(u, v, w, x, [y, z, A, B])),
             this.faceVertexUvs[0].push([C, D, E, F]);
         }
-      if (f === !1 && a > 0)
+      if (f === false && a > 0)
         for (
           this.vertices.push(new THREE.Vector3(0, i, 0)), g = 0;
           g < d;
@@ -11192,7 +11192,7 @@
           this.faces.push(new THREE.Face3(u, v, w, [y, z, A])),
             this.faceVertexUvs[0].push([C, D, E]);
         }
-      if (f === !1 && b > 0)
+      if (f === false && b > 0)
         for (
           this.vertices.push(new THREE.Vector3(0, -i, 0)), g = 0;
           g < d;
@@ -11293,13 +11293,13 @@
           var a = 0,
             b = U * a;
           for (X = 0; X < V; X++)
-            (T = M[X]), k(T[2] + b, T[1] + b, T[0] + b, !0);
+            (T = M[X]), k(T[2] + b, T[1] + b, T[0] + b, true);
           for (a = x + 2 * u, b = U * a, X = 0; X < V; X++)
-            (T = M[X]), k(T[0] + b, T[1] + b, T[2] + b, !1);
+            (T = M[X]), k(T[0] + b, T[1] + b, T[2] + b, false);
         } else {
-          for (X = 0; X < V; X++) (T = M[X]), k(T[2], T[1], T[0], !0);
+          for (X = 0; X < V; X++) (T = M[X]), k(T[2], T[1], T[0], true);
           for (X = 0; X < V; X++)
-            (T = M[X]), k(T[0] + U * x, T[1] + U * x, T[2] + U * x, !1);
+            (T = M[X]), k(T[0] + U * x, T[1] + U * x, T[2] + U * x, false);
         }
       }
       function h() {
@@ -11359,7 +11359,7 @@
         w = void 0 !== b.curveSegments ? b.curveSegments : 12,
         x = void 0 !== b.steps ? b.steps : 1,
         y = b.extrudePath,
-        z = !1,
+        z = false,
         A = b.material,
         B = b.extrudeMaterial,
         C =
@@ -11369,12 +11369,12 @@
       this.shapebb;
       y &&
         ((m = y.getSpacedPoints(x)),
-        (z = !0),
-        (v = !1),
+        (z = true),
+        (v = false),
         (n =
           void 0 !== b.frames
             ? b.frames
-            : new THREE.TubeGeometry.FrenetFrames(y, x, !1)),
+            : new THREE.TubeGeometry.FrenetFrames(y, x, false)),
         (o = new THREE.Vector3()),
         (p = new THREE.Vector3()),
         (q = new THREE.Vector3())),
@@ -11391,7 +11391,7 @@
       if (L) {
         for (J = J.reverse(), E = 0, F = K.length; E < F; E++)
           (D = K[E]), THREE.Shape.Utils.isClockWise(D) && (K[E] = D.reverse());
-        L = !1;
+        L = false;
       }
       var M = THREE.Shape.Utils.triangulateShape(J, K),
         N = J;
@@ -11533,7 +11533,7 @@
     (THREE.ExtrudeGeometry.__v6 = new THREE.Vector2()),
     (THREE.ShapeGeometry = function (a, b) {
       THREE.Geometry.call(this),
-        a instanceof Array == !1 && (a = [a]),
+        a instanceof Array == false && (a = [a]),
         (this.shapebb = a[a.length - 1].getBoundingBox()),
         this.addShapeList(a, b),
         this.computeCentroids(),
@@ -11563,7 +11563,7 @@
       if (m) {
         for (k = k.reverse(), c = 0, d = l.length; c < d; c++)
           (e = l[c]), THREE.Shape.Utils.isClockWise(e) && (l[c] = e.reverse());
-        m = !1;
+        m = false;
       }
       var n = THREE.Shape.Utils.triangulateShape(k, l),
         o = k;
@@ -11785,7 +11785,7 @@
       (b.amount = void 0 !== b.height ? b.height : 50),
         void 0 === b.bevelThickness && (b.bevelThickness = 10),
         void 0 === b.bevelSize && (b.bevelSize = 8),
-        void 0 === b.bevelEnabled && (b.bevelEnabled = !1),
+        void 0 === b.bevelEnabled && (b.bevelEnabled = false),
         THREE.ExtrudeGeometry.call(this, c, b);
     }),
     (THREE.TextGeometry.prototype = Object.create(
@@ -11852,7 +11852,7 @@
         (this.segments = b || 64),
         (this.radius = c || 1),
         (this.radialSegments = d || 8),
-        (this.closed = e || !1),
+        (this.closed = e || false),
         (this.grid = []);
       var g,
         h,
@@ -12256,7 +12256,7 @@
           e,
           new THREE.LineBasicMaterial({ color: d })
         )),
-        (this.line.matrixAutoUpdate = !1),
+        (this.line.matrixAutoUpdate = false),
         this.add(this.line);
       var f = new THREE.CylinderGeometry(0, 0.05, 0.25, 5, 1);
       f.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0.875, 0)),
@@ -12264,7 +12264,7 @@
           f,
           new THREE.MeshBasicMaterial({ color: d })
         )),
-        (this.cone.matrixAutoUpdate = !1),
+        (this.cone.matrixAutoUpdate = false),
         this.add(this.cone),
         this.setDirection(a),
         this.setLength(c);
@@ -12352,8 +12352,8 @@
         e[6].set(c.x, c.y, c.z),
         e[7].set(d.x, c.y, c.z),
         this.geometry.computeBoundingSphere(),
-        (this.geometry.verticesNeedUpdate = !0),
-        (this.matrixAutoUpdate = !1),
+        (this.geometry.verticesNeedUpdate = true),
+        (this.matrixAutoUpdate = false),
         (this.matrixWorld = a.matrixWorld);
     }),
     (THREE.BoundingBoxHelper = function (a, b) {
@@ -12363,7 +12363,7 @@
         THREE.Mesh.call(
           this,
           new THREE.CubeGeometry(1, 1, 1),
-          new THREE.MeshBasicMaterial({ color: c, wireframe: !0 })
+          new THREE.MeshBasicMaterial({ color: c, wireframe: true })
         );
     }),
     (THREE.BoundingBoxHelper.prototype = Object.create(THREE.Mesh.prototype)),
@@ -12421,7 +12421,7 @@
         THREE.Line.call(this, d, e, THREE.LinePieces),
         (this.camera = a),
         (this.matrixWorld = a.matrixWorld),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         (this.pointMap = f),
         this.update();
     }),
@@ -12463,7 +12463,7 @@
           d("cn2", f, 0, -1),
           d("cn3", 0, -g, -1),
           d("cn4", 0, g, -1),
-          (this.geometry.verticesNeedUpdate = !0);
+          (this.geometry.verticesNeedUpdate = true);
       };
     })()),
     (THREE.DirectionalLightHelper = function (a, b) {
@@ -12471,9 +12471,9 @@
         (this.light = a),
         this.light.updateMatrixWorld(),
         (this.matrixWorld = a.matrixWorld),
-        (this.matrixAutoUpdate = !1);
+        (this.matrixAutoUpdate = false);
       var c = new THREE.PlaneGeometry(b, b),
-        d = new THREE.MeshBasicMaterial({ wireframe: !0, fog: !1 });
+        d = new THREE.MeshBasicMaterial({ wireframe: true, fog: false });
       d.color.copy(this.light.color).multiplyScalar(this.light.intensity),
         (this.lightPlane = new THREE.Mesh(c, d)),
         this.add(this.lightPlane),
@@ -12481,7 +12481,7 @@
         c.vertices.push(new THREE.Vector3()),
         c.vertices.push(new THREE.Vector3()),
         c.computeLineDistances(),
-        (d = new THREE.LineBasicMaterial({ fog: !1 })),
+        (d = new THREE.LineBasicMaterial({ fog: false })),
         d.color.copy(this.light.color).multiplyScalar(this.light.intensity),
         (this.targetLine = new THREE.Line(c, d)),
         this.add(this.targetLine),
@@ -12499,7 +12499,7 @@
             .copy(this.light.color)
             .multiplyScalar(this.light.intensity),
           this.targetLine.geometry.vertices[1].copy(a),
-          (this.targetLine.geometry.verticesNeedUpdate = !0),
+          (this.targetLine.geometry.verticesNeedUpdate = true),
           this.targetLine.material.color.copy(this.lightPlane.material.color);
       };
     })()),
@@ -12523,7 +12523,7 @@
         new THREE.LineBasicMaterial({ color: e, linewidth: f }),
         THREE.LinePieces
       ),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         (this.normalMatrix = new THREE.Matrix3()),
         this.update();
     }),
@@ -12531,7 +12531,7 @@
     (THREE.FaceNormalsHelper.prototype.update = (function (a) {
       var b = new THREE.Vector3();
       return function (a) {
-        this.object.updateMatrixWorld(!0),
+        this.object.updateMatrixWorld(true),
           this.normalMatrix.getNormalMatrix(this.object.matrixWorld);
         for (
           var c = this.geometry.vertices,
@@ -12550,7 +12550,7 @@
           var i = 2 * f;
           c[i].copy(h.centroid).applyMatrix4(e), c[i + 1].addVectors(c[i], b);
         }
-        return (this.geometry.verticesNeedUpdate = !0), this;
+        return (this.geometry.verticesNeedUpdate = true), this;
       };
     })()),
     (THREE.GridHelper = function (a, b) {
@@ -12574,14 +12574,14 @@
     (THREE.GridHelper.prototype.setColors = function (a, b) {
       this.color1.set(a),
         this.color2.set(b),
-        (this.geometry.colorsNeedUpdate = !0);
+        (this.geometry.colorsNeedUpdate = true);
     }),
     (THREE.HemisphereLightHelper = function (a, b, c, d) {
       THREE.Object3D.call(this),
         (this.light = a),
         this.light.updateMatrixWorld(),
         (this.matrixWorld = a.matrixWorld),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         (this.colors = [new THREE.Color(), new THREE.Color()]);
       var e = new THREE.SphereGeometry(b, 4, 2);
       e.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
@@ -12589,7 +12589,7 @@
         e.faces[f].color = this.colors[f < 4 ? 0 : 1];
       var h = new THREE.MeshBasicMaterial({
         vertexColors: THREE.FaceColors,
-        wireframe: !0,
+        wireframe: true,
       });
       (this.lightSphere = new THREE.Mesh(e, h)),
         this.add(this.lightSphere),
@@ -12610,17 +12610,17 @@
           this.lightSphere.lookAt(
             a.getPositionFromMatrix(this.light.matrixWorld).negate()
           ),
-          (this.lightSphere.geometry.colorsNeedUpdate = !0);
+          (this.lightSphere.geometry.colorsNeedUpdate = true);
       };
     })()),
     (THREE.PointLightHelper = function (a, b) {
       (this.light = a), this.light.updateMatrixWorld();
       var c = new THREE.SphereGeometry(b, 4, 2),
-        d = new THREE.MeshBasicMaterial({ wireframe: !0, fog: !1 });
+        d = new THREE.MeshBasicMaterial({ wireframe: true, fog: false });
       d.color.copy(this.light.color).multiplyScalar(this.light.intensity),
         THREE.Mesh.call(this, c, d),
         (this.matrixWorld = this.light.matrixWorld),
-        (this.matrixAutoUpdate = !1);
+        (this.matrixAutoUpdate = false);
     }),
     (THREE.PointLightHelper.prototype = Object.create(THREE.Mesh.prototype)),
     (THREE.PointLightHelper.prototype.update = function () {
@@ -12633,11 +12633,11 @@
         (this.light = a),
         this.light.updateMatrixWorld(),
         (this.matrixWorld = a.matrixWorld),
-        (this.matrixAutoUpdate = !1);
-      var b = new THREE.CylinderGeometry(0, 1, 1, 8, 1, !0);
+        (this.matrixAutoUpdate = false);
+      var b = new THREE.CylinderGeometry(0, 1, 1, 8, 1, true);
       b.applyMatrix(new THREE.Matrix4().makeTranslation(0, -0.5, 0)),
         b.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-      var c = new THREE.MeshBasicMaterial({ wireframe: !0, fog: !1 });
+      var c = new THREE.MeshBasicMaterial({ wireframe: true, fog: false });
       (this.cone = new THREE.Mesh(b, c)), this.add(this.cone), this.update();
     }),
     (THREE.SpotLightHelper.prototype = Object.create(THREE.Object3D.prototype)),
@@ -12676,7 +12676,7 @@
         new THREE.LineBasicMaterial({ color: e, linewidth: f }),
         THREE.LinePieces
       ),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         (this.normalMatrix = new THREE.Matrix3()),
         this.update();
     }),
@@ -12685,7 +12685,7 @@
       var b = new THREE.Vector3();
       return function (a) {
         var c = ["a", "b", "c", "d"];
-        this.object.updateMatrixWorld(!0),
+        this.object.updateMatrixWorld(true),
           this.normalMatrix.getNormalMatrix(this.object.matrixWorld);
         for (
           var d = this.geometry.vertices,
@@ -12713,7 +12713,7 @@
               d[h].copy(b),
               (h += 1);
           }
-        return (this.geometry.verticesNeedUpdate = !0), this;
+        return (this.geometry.verticesNeedUpdate = true), this;
       };
     })()),
     (THREE.VertexTangentsHelper = function (a, b, c, d) {
@@ -12737,7 +12737,7 @@
         new THREE.LineBasicMaterial({ color: e, linewidth: f }),
         THREE.LinePieces
       ),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         this.update();
     }),
     (THREE.VertexTangentsHelper.prototype = Object.create(
@@ -12747,7 +12747,7 @@
       var b = new THREE.Vector3();
       return function (a) {
         var c = ["a", "b", "c", "d"];
-        this.object.updateMatrixWorld(!0);
+        this.object.updateMatrixWorld(true);
         for (
           var d = this.geometry.vertices,
             e = this.object.geometry.vertices,
@@ -12770,7 +12770,7 @@
               d[h].copy(b),
               (h += 1);
           }
-        return (this.geometry.verticesNeedUpdate = !0), this;
+        return (this.geometry.verticesNeedUpdate = true), this;
       };
     })()),
     (THREE.WireframeHelper = function (a) {
@@ -12797,7 +12797,7 @@
           (b[0] = k[e[m]]), (b[1] = k[e[(m + 1) % l]]), b.sort(d);
           var n = b.toString();
           void 0 === c[n] &&
-            (f.vertices.push(g[b[0]]), f.vertices.push(g[b[1]]), (c[n] = !0));
+            (f.vertices.push(g[b[0]]), f.vertices.push(g[b[1]]), (c[n] = true));
         }
       THREE.Line.call(
         this,
@@ -12805,7 +12805,7 @@
         new THREE.LineBasicMaterial({ color: 16777215 }),
         THREE.LinePieces
       ),
-        (this.matrixAutoUpdate = !1),
+        (this.matrixAutoUpdate = false),
         (this.matrixWorld = a.matrixWorld);
     }),
     (THREE.WireframeHelper.prototype = Object.create(THREE.Line.prototype)),
@@ -12867,6 +12867,7 @@
       return this.isAlpha() && (this.g = 0.98), this;
     }),
     (App.UVMAP = {
+      current: localStorage.getItem("model") || "skin",
       skinLT18: {
         width: 64,
         height: 32,
@@ -12890,29 +12891,29 @@
           [20, 20, "front", "torso"],
           [32, 20, "back", "torso"],
           [4, 16, "top", "legR"],
-          [8, 16, "bottom", "legR", !0],
-          [8, 20, "left", "legR", !1, !1],
-          [0, 20, "right", "legR", !1, !1],
+          [8, 16, "bottom", "legR", true],
+          [8, 20, "left", "legR", false, false],
+          [0, 20, "right", "legR", false, false],
           [4, 20, "front", "legR"],
           [12, 20, "back", "legR"],
-          [4, 16, "top", "legL", !1, !0],
-          [8, 16, "bottom", "legL", !0, !0],
-          [8, 20, "right", "legL", !1, !0],
-          [0, 20, "left", "legL", !1, !0],
-          [4, 20, "front", "legL", !1, !0],
-          [12, 20, "back", "legL", !1, !0],
+          [4, 16, "top", "legL", false, true],
+          [8, 16, "bottom", "legL", true, true],
+          [8, 20, "right", "legL", false, true],
+          [0, 20, "left", "legL", false, true],
+          [4, 20, "front", "legL", false, true],
+          [12, 20, "back", "legL", false, true],
           [44, 16, "top", "armR"],
-          [48, 16, "bottom", "armR", !0],
+          [48, 16, "bottom", "armR", true],
           [48, 20, "left", "armR"],
           [40, 20, "right", "armR"],
           [44, 20, "front", "armR"],
           [52, 20, "back", "armR"],
-          [44, 16, "top", "armL", !1, !0],
-          [48, 16, "bottom", "armL", !0, !0],
-          [48, 20, "right", "armL", !1, !0],
-          [40, 20, "left", "armL", !1, !0],
-          [44, 20, "front", "armL", !1, !0],
-          [52, 20, "back", "armL", !1, !0],
+          [44, 16, "top", "armL", false, true],
+          [48, 16, "bottom", "armL", true, true],
+          [48, 20, "right", "armL", false, true],
+          [40, 20, "left", "armL", false, true],
+          [44, 20, "front", "armL", false, true],
+          [52, 20, "back", "armL", false, true],
         ],
       },
       skin: {
@@ -12920,77 +12921,155 @@
         height: 64,
         commands: [
           [40, 0, "top", "hat"],
-          [48, 0, "bottom", "hat", !0],
+          [48, 0, "bottom", "hat", true],
           [32, 8, "right", "hat"],
           [48, 8, "left", "hat"],
           [40, 8, "front", "hat"],
           [56, 8, "back", "hat"],
           [8, 0, "top", "head"],
-          [16, 0, "bottom", "head", !0],
+          [16, 0, "bottom", "head", true],
           [0, 8, "right", "head"],
           [16, 8, "left", "head"],
           [8, 8, "front", "head"],
           [24, 8, "back", "head"],
           [20, 16, "top", "torso"],
-          [28, 16, "bottom", "torso", !0],
+          [28, 16, "bottom", "torso", true],
           [16, 20, "right", "torso"],
           [28, 20, "left", "torso"],
           [20, 20, "front", "torso"],
           [32, 20, "back", "torso"],
           [20, 32, "top", "torso2"],
-          [28, 32, "bottom", "torso2", !0],
+          [28, 32, "bottom", "torso2", true],
           [16, 36, "right", "torso2"],
           [28, 36, "left", "torso2"],
           [20, 36, "front", "torso2"],
           [32, 36, "back", "torso2"],
           [4, 16, "top", "legR"],
-          [8, 16, "bottom", "legR", !0],
-          [8, 20, "left", "legR", !1, !1],
-          [0, 20, "right", "legR", !1, !1],
+          [8, 16, "bottom", "legR", true],
+          [8, 20, "left", "legR", false, false],
+          [0, 20, "right", "legR", false, false],
           [4, 20, "front", "legR"],
           [12, 20, "back", "legR"],
           [4, 32, "top", "legR2"],
-          [8, 32, "bottom", "legR2", !0],
-          [8, 36, "left", "legR2", !1, !1],
-          [0, 36, "right", "legR2", !1, !1],
+          [8, 32, "bottom", "legR2", true],
+          [8, 36, "left", "legR2", false, false],
+          [0, 36, "right", "legR2", false, false],
           [4, 36, "front", "legR2"],
           [12, 36, "back", "legR2"],
           [44, 16, "top", "armR"],
-          [48, 16, "bottom", "armR", !0],
+          [48, 16, "bottom", "armR", true],
           [48, 20, "left", "armR"],
           [40, 20, "right", "armR"],
           [44, 20, "front", "armR"],
           [52, 20, "back", "armR"],
           [44, 32, "top", "armR2"],
-          [48, 32, "bottom", "armR2", !0],
+          [48, 32, "bottom", "armR2", true],
           [48, 36, "left", "armR2"],
           [40, 36, "right", "armR2"],
           [44, 36, "front", "armR2"],
           [52, 36, "back", "armR2"],
           [4, 48, "top", "legL2"],
-          [8, 48, "bottom", "legL2", !0],
-          [8, 52, "left", "legL2", !1, !1],
-          [0, 52, "right", "legL2", !1, !1],
+          [8, 48, "bottom", "legL2", true],
+          [8, 52, "left", "legL2", false, false],
+          [0, 52, "right", "legL2", false, false],
           [4, 52, "front", "legL2"],
           [12, 52, "back", "legL2"],
           [20, 48, "top", "legL"],
-          [24, 48, "bottom", "legL", !0],
-          [24, 52, "left", "legL", !1, !1],
-          [16, 52, "right", "legL", !1, !1],
+          [24, 48, "bottom", "legL", true],
+          [24, 52, "left", "legL", false, false],
+          [16, 52, "right", "legL", false, false],
           [20, 52, "front", "legL"],
           [28, 52, "back", "legL"],
           [36, 48, "top", "armL"],
-          [40, 48, "bottom", "armL", !0],
-          [40, 52, "left", "armL", !1, !1],
-          [32, 52, "right", "armL", !1, !1],
+          [40, 48, "bottom", "armL", true],
+          [40, 52, "left", "armL", false, false],
+          [32, 52, "right", "armL", false, false],
           [36, 52, "front", "armL"],
           [44, 52, "back", "armL"],
           [52, 48, "top", "armL2"],
-          [56, 48, "bottom", "armL2", !0],
-          [56, 52, "left", "armL2", !1, !1],
-          [48, 52, "right", "armL2", !1, !1],
+          [56, 48, "bottom", "armL2", true],
+          [56, 52, "left", "armL2", false, false],
+          [48, 52, "right", "armL2", false, false],
           [52, 52, "front", "armL2"],
           [60, 52, "back", "armL2"],
+        ],
+      },
+      skinAlex: {
+        width: 64,
+        height: 64,
+        commands: [
+          [40, 0, "top", "hat"],
+          [48, 0, "bottom", "hat", true],
+          [32, 8, "right", "hat"],
+          [48, 8, "left", "hat"],
+          [40, 8, "front", "hat"],
+          [56, 8, "back", "hat"],
+          [8, 0, "top", "head"],
+          [16, 0, "bottom", "head", true],
+          [0, 8, "right", "head"],
+          [16, 8, "left", "head"],
+          [8, 8, "front", "head"],
+          [24, 8, "back", "head"],
+          [20, 16, "top", "torso"],
+          [28, 16, "bottom", "torso", true],
+          [16, 20, "right", "torso"],
+          [28, 20, "left", "torso"],
+          [20, 20, "front", "torso"],
+          [32, 20, "back", "torso"],
+          [20, 32, "top", "torso2"],
+          [28, 32, "bottom", "torso2", true],
+          [16, 36, "right", "torso2"],
+          [28, 36, "left", "torso2"],
+          [20, 36, "front", "torso2"],
+          [32, 36, "back", "torso2"],
+          [4, 16, "top", "legR"],
+          [8, 16, "bottom", "legR", true],
+          [8, 20, "left", "legR", false, false],
+          [0, 20, "right", "legR", false, false],
+          [4, 20, "front", "legR"],
+          [12, 20, "back", "legR"],
+          [4, 32, "top", "legR2"],
+          [8, 32, "bottom", "legR2", true],
+          [8, 36, "left", "legR2", false, false],
+          [0, 36, "right", "legR2", false, false],
+          [4, 36, "front", "legR2"],
+          [12, 36, "back", "legR2"],
+          [44, 16, "top", "armR"],
+          [47, 16, "bottom", "armR", true],
+          [47, 20, "left", "armR"],
+          [40, 20, "right", "armR"],
+          [44, 20, "front", "armR"],
+          [51, 20, "back", "armR"],
+          [44, 32, "top", "armR2"],
+          [47, 32, "bottom", "armR2", true],
+          [47, 36, "left", "armR2"],
+          [40, 36, "right", "armR2"],
+          [44, 36, "front", "armR2"],
+          [51, 36, "back", "armR2"],
+          [4, 48, "top", "legL2"],
+          [8, 48, "bottom", "legL2", true],
+          [8, 52, "left", "legL2", false, false],
+          [0, 52, "right", "legL2", false, false],
+          [4, 52, "front", "legL2"],
+          [12, 52, "back", "legL2"],
+          [20, 48, "top", "legL"],
+          [24, 48, "bottom", "legL", true],
+          [24, 52, "left", "legL", false, false],
+          [16, 52, "right", "legL", false, false],
+          [20, 52, "front", "legL"],
+          [28, 52, "back", "legL"],
+          [36, 48, "top", "armL"],
+          [39, 48, "bottom", "armL", true],
+          [39, 52, "left", "armL", false, false],
+          [32, 52, "right", "armL", false, false],
+          [36, 52, "front", "armL"],
+          [43, 52, "back", "armL"],
+          [52, 48, "top", "armL2"],
+          [55, 48, "bottom", "armL2", true],
+          [55, 52, "left", "armL2", false, false],
+          [48, 52, "right", "armL2", false, false],
+          [52, 52, "front", "armL2"],
+          [59, 52, "back", "armL2"],
         ],
       },
       frontBack: {
@@ -13074,75 +13153,75 @@
         height: 64,
         commands: [
           [8, 0, "top", "hat"],
-          [16, 0, "bottom", "hat", !0],
+          [16, 0, "bottom", "hat", true],
           [0, 8, "right", "hat"],
           [16, 8, "left", "hat"],
           [8, 8, "front", "hat"],
           [24, 8, "back", "hat"],
           [8, 0, "top", "head"],
-          [16, 0, "bottom", "head", !0],
+          [16, 0, "bottom", "head", true],
           [0, 8, "right", "head"],
           [16, 8, "left", "head"],
           [8, 8, "front", "head"],
           [24, 8, "back", "head"],
           [20, 16, "top", "torso2"],
-          [28, 16, "bottom", "torso2", !0],
+          [28, 16, "bottom", "torso2", true],
           [16, 20, "right", "torso2"],
           [28, 20, "left", "torso2"],
           [20, 20, "front", "torso2"],
           [32, 20, "back", "torso2"],
           [20, 16, "top", "torso"],
-          [28, 16, "bottom", "torso", !0],
+          [28, 16, "bottom", "torso", true],
           [16, 20, "right", "torso"],
           [28, 20, "left", "torso"],
           [20, 20, "front", "torso"],
           [32, 20, "back", "torso"],
           [4, 16, "top", "legR2"],
-          [8, 16, "bottom", "legR2", !0],
-          [8, 20, "left", "legR2", !1, !1],
-          [0, 20, "right", "legR2", !1, !1],
+          [8, 16, "bottom", "legR2", true],
+          [8, 20, "left", "legR2", false, false],
+          [0, 20, "right", "legR2", false, false],
           [4, 20, "front", "legR2"],
           [12, 20, "back", "legR2"],
           [4, 16, "top", "legR"],
-          [8, 16, "bottom", "legR", !0],
-          [8, 20, "left", "legR", !1, !1],
-          [0, 20, "right", "legR", !1, !1],
+          [8, 16, "bottom", "legR", true],
+          [8, 20, "left", "legR", false, false],
+          [0, 20, "right", "legR", false, false],
           [4, 20, "front", "legR"],
           [12, 20, "back", "legR"],
           [44, 16, "top", "armR2"],
-          [48, 16, "bottom", "armR2", !0],
+          [48, 16, "bottom", "armR2", true],
           [48, 20, "left", "armR2"],
           [40, 20, "right", "armR2"],
           [44, 20, "front", "armR2"],
           [52, 20, "back", "armR2"],
           [44, 16, "top", "armR"],
-          [48, 16, "bottom", "armR", !0],
+          [48, 16, "bottom", "armR", true],
           [48, 20, "left", "armR"],
           [40, 20, "right", "armR"],
           [44, 20, "front", "armR"],
           [52, 20, "back", "armR"],
           [4, 48, "top", "legL2"],
-          [8, 48, "bottom", "legL2", !0],
-          [8, 52, "left", "legL2", !1, !1],
-          [0, 52, "right", "legL2", !1, !1],
+          [8, 48, "bottom", "legL2", true],
+          [8, 52, "left", "legL2", false, false],
+          [0, 52, "right", "legL2", false, false],
           [4, 52, "front", "legL2"],
           [12, 52, "back", "legL2"],
           [4, 48, "top", "legL"],
-          [8, 48, "bottom", "legL", !0],
-          [8, 52, "left", "legL", !1, !1],
-          [0, 52, "right", "legL", !1, !1],
+          [8, 48, "bottom", "legL", true],
+          [8, 52, "left", "legL", false, false],
+          [0, 52, "right", "legL", false, false],
           [4, 52, "front", "legL"],
           [12, 52, "back", "legL"],
           [36, 48, "top", "armL2"],
-          [40, 48, "bottom", "armL2", !0],
-          [40, 52, "left", "armL2", !1, !1],
-          [32, 52, "right", "armL2", !1, !1],
+          [40, 48, "bottom", "armL2", true],
+          [40, 52, "left", "armL2", false, false],
+          [32, 52, "right", "armL2", false, false],
           [36, 52, "front", "armL2"],
           [44, 52, "back", "armL2"],
           [36, 48, "top", "armL"],
-          [40, 48, "bottom", "armL", !0],
-          [40, 52, "left", "armL", !1, !1],
-          [32, 52, "right", "armL", !1, !1],
+          [40, 48, "bottom", "armL", true],
+          [40, 52, "left", "armL", false, false],
+          [32, 52, "right", "armL", false, false],
           [36, 52, "front", "armL"],
           [44, 52, "back", "armL"],
         ],
@@ -13152,75 +13231,75 @@
         height: 32,
         commands: [
           [8, 0, "top", "hat"],
-          [0, 0, "bottom", "hat", !0],
+          [0, 0, "bottom", "hat", true],
           [0, 8, "right", "hat"],
           [16, 8, "left", "hat"],
           [8, 8, "front", "hat"],
           [16, 0, "back", "hat"],
           [8, 0, "top", "head"],
-          [0, 0, "bottom", "head", !0],
+          [0, 0, "bottom", "head", true],
           [0, 8, "right", "head"],
           [16, 8, "left", "head"],
           [8, 8, "front", "head"],
           [16, 0, "back", "head"],
           [4, 16, "top", "torso2"],
-          [12, 16, "bottom", "torso2", !0],
+          [12, 16, "bottom", "torso2", true],
           [0, 20, "right", "torso2"],
           [12, 20, "left", "torso2"],
           [4, 20, "front", "torso2"],
           [16, 20, "back", "torso2"],
           [4, 16, "top", "torso"],
-          [12, 16, "bottom", "torso", !0],
+          [12, 16, "bottom", "torso", true],
           [0, 20, "right", "torso"],
           [12, 20, "left", "torso"],
           [4, 20, "front", "torso"],
           [16, 20, "back", "torso"],
           [28, 0, "top", "legR2"],
-          [32, 0, "bottom", "legR2", !0],
-          [32, 4, "left", "legR2", !1, !1],
-          [24, 4, "right", "legR2", !1, !1],
+          [32, 0, "bottom", "legR2", true],
+          [32, 4, "left", "legR2", false, false],
+          [24, 4, "right", "legR2", false, false],
           [28, 4, "front", "legR2"],
           [36, 4, "back", "legR2"],
           [28, 0, "top", "legR"],
-          [32, 0, "bottom", "legR", !0],
-          [32, 4, "left", "legR", !1, !1],
-          [24, 4, "right", "legR", !1, !1],
+          [32, 0, "bottom", "legR", true],
+          [32, 4, "left", "legR", false, false],
+          [24, 4, "right", "legR", false, false],
           [28, 4, "front", "legR"],
           [36, 4, "back", "legR"],
           [28, 16, "top", "armR2"],
-          [32, 16, "bottom", "armR2", !0],
+          [32, 16, "bottom", "armR2", true],
           [32, 20, "left", "armR2"],
           [24, 20, "right", "armR2"],
           [28, 20, "front", "armR2"],
           [36, 20, "back", "armR2"],
           [28, 16, "top", "armR"],
-          [32, 16, "bottom", "armR", !0],
+          [32, 16, "bottom", "armR", true],
           [32, 20, "left", "armR"],
           [24, 20, "right", "armR"],
           [28, 20, "front", "armR"],
           [36, 20, "back", "armR"],
           [44, 0, "top", "legL2"],
-          [48, 0, "bottom", "legL2", !0],
-          [48, 4, "left", "legL2", !1, !1],
-          [40, 4, "right", "legL2", !1, !1],
+          [48, 0, "bottom", "legL2", true],
+          [48, 4, "left", "legL2", false, false],
+          [40, 4, "right", "legL2", false, false],
           [44, 4, "front", "legL2"],
           [52, 4, "back", "legL2"],
           [44, 0, "top", "legL"],
-          [48, 0, "bottom", "legL", !0],
-          [48, 4, "left", "legL", !1, !1],
-          [40, 4, "right", "legL", !1, !1],
+          [48, 0, "bottom", "legL", true],
+          [48, 4, "left", "legL", false, false],
+          [40, 4, "right", "legL", false, false],
           [44, 4, "front", "legL"],
           [52, 4, "back", "legL"],
           [44, 16, "top", "armL2"],
-          [48, 16, "bottom", "armL2", !0],
-          [48, 20, "left", "armL2", !1, !1],
-          [40, 20, "right", "armL2", !1, !1],
+          [48, 16, "bottom", "armL2", true],
+          [48, 20, "left", "armL2", false, false],
+          [40, 20, "right", "armL2", false, false],
           [44, 20, "front", "armL2"],
           [52, 20, "back", "armL2"],
           [44, 16, "top", "armL"],
-          [48, 16, "bottom", "armL", !0],
-          [48, 20, "left", "armL", !1, !1],
-          [40, 20, "right", "armL", !1, !1],
+          [48, 16, "bottom", "armL", true],
+          [48, 20, "left", "armL", false, false],
+          [40, 20, "right", "armL", false, false],
           [44, 20, "front", "armL"],
           [52, 20, "back", "armL"],
         ],
@@ -13229,11 +13308,11 @@
     (App.Canvas = function () {
       "use strict";
       function a() {
-        n && (m.putImageData(j, 0, 0), (n = !1)),
-          o && ((j = m.getImageData(0, 0, l.width, l.height)), (o = !1));
+        n && (m.putImageData(j, 0, 0), (n = false)),
+          o && ((j = m.getImageData(0, 0, l.width, l.height)), (o = false));
       }
       function b(b, c) {
-        a(), (l.width = b), (l.height = c), (o = !0);
+        a(), (l.width = b), (l.height = c), (o = true);
       }
       function c(b, c, d) {
         a();
@@ -13242,7 +13321,7 @@
           (j.data[e + 1] = 256 * d.g),
           (j.data[e + 2] = 256 * d.b),
           d.isAlpha() ? (j.data[e + 3] = 0) : (j.data[e + 3] = 256),
-          (n = !0);
+          (n = true);
       }
       function d(b, c) {
         a();
@@ -13261,7 +13340,7 @@
         return a(), (k = new Image()), (k.src = l.toDataURL("image/png")), k;
       }
       function f(c) {
-        a(), b(c.width, c.height), m.drawImage(c, 0, 0), (o = !0);
+        a(), b(c.width, c.height), m.drawImage(c, 0, 0), (o = true);
       }
       function g(a) {
         for (
@@ -13283,7 +13362,7 @@
         return b(c, d), m.putImageData(e, 0, 0), (j = e), l;
       }
       function h(b, c, d) {
-        return a(), m.drawImage(b, 0, 0), (o = !0), l;
+        return a(), m.drawImage(b, 0, 0), (o = true), l;
       }
       function i() {
         return a(), l.toDataURL();
@@ -13292,8 +13371,8 @@
         k,
         l = document.createElement("canvas"),
         m = l.getContext("2d"),
-        n = !1,
-        o = !1;
+        n = false,
+        o = false;
       return (
         b(16, 16),
         {
@@ -13347,13 +13426,13 @@
     }
     function b(a) {
       function b() {
-        c.sort(a), (d = !0);
+        c.sort(a), (d = true);
       }
       var c = [],
-        d = !1;
+        d = false;
       return {
         push: function (a) {
-          c.push(a), (d = !1);
+          c.push(a), (d = false);
         },
         peek: function (a) {
           return d || b(), void 0 === a && (a = c.length - 1), c[a];
@@ -13511,7 +13590,7 @@
             if (e++ > k) return;
           } else a.push(c), e++;
       }
-      if (!a.length || c < 2 || c > 256) return !1;
+      if (!a.length || c < 2 || c > 256) return false;
       var i = e(a),
         j = 0;
       i.forEach(function () {
@@ -13564,7 +13643,7 @@
               for (f = c.g1; f <= c.g2; f++)
                 for (g = c.b1; g <= c.b2; g++)
                   (index = a(e, f, g)), (h += d[index] || 0);
-            (c._count = h), (c._count_set = !0);
+            (c._count = h), (c._count_set = true);
           }
           return c._count;
         },
@@ -13690,14 +13769,14 @@
     }),
       (a.fn.wheelColorPicker.defaults = {
         format: "hex",
-        preview: !1,
-        live: !0,
-        userinput: !0,
-        validate: !1,
-        autoConvert: !0,
+        preview: false,
+        live: true,
+        userinput: true,
+        validate: false,
+        autoConvert: true,
         color: null,
         alpha: null,
-        preserveWheel: !1,
+        preserveWheel: false,
         cssClass: "",
         width: null,
         height: null,
@@ -13705,10 +13784,10 @@
         animDuration: 200,
         quality: 1,
         sliders: null,
-        showSliderLabel: !0,
-        showSliderValue: !1,
+        showSliderLabel: true,
+        showSliderValue: false,
       }),
-      (a.fn.wheelColorPicker.hasInit = !1),
+      (a.fn.wheelColorPicker.hasInit = false),
       (a.fn.wheelColorPicker.colorToStr = function (a, b) {
         var c = "";
         switch (b) {
@@ -13808,13 +13887,13 @@
           c,
           d = { a: 1 };
         if (null != a.match(/^#[0-9a-f]{6}$/i)) {
-          if (isNaN((d.r = parseInt(a.substr(1, 2), 16) / 255))) return !1;
-          if (isNaN((d.g = parseInt(a.substr(3, 2), 16) / 255))) return !1;
-          if (isNaN((d.b = parseInt(a.substr(5, 2), 16) / 255))) return !1;
+          if (isNaN((d.r = parseInt(a.substr(1, 2), 16) / 255))) return false;
+          if (isNaN((d.g = parseInt(a.substr(3, 2), 16) / 255))) return false;
+          if (isNaN((d.b = parseInt(a.substr(5, 2), 16) / 255))) return false;
         } else if (null != a.match(/^[0-9a-f]{6}$/i)) {
-          if (isNaN((d.r = parseInt(a.substr(0, 2), 16) / 255))) return !1;
-          if (isNaN((d.g = parseInt(a.substr(2, 2), 16) / 255))) return !1;
-          if (isNaN((d.b = parseInt(a.substr(4, 2), 16) / 255))) return !1;
+          if (isNaN((d.r = parseInt(a.substr(0, 2), 16) / 255))) return false;
+          if (isNaN((d.g = parseInt(a.substr(2, 2), 16) / 255))) return false;
+          if (isNaN((d.b = parseInt(a.substr(4, 2), 16) / 255))) return false;
         } else if (
           null !=
             a.match(
@@ -13830,8 +13909,8 @@
             (b = a.substring(a.indexOf("(") + 1, a.indexOf(","))),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.r = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.r = parseInt(b) / 255))) return !1;
+            if (isNaN((d.r = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.r = parseInt(b) / 255))) return false;
           if (
             ((b = a.substring(
               a.indexOf(",") + 1,
@@ -13839,8 +13918,8 @@
             )),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.g = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.g = parseInt(b) / 255))) return !1;
+            if (isNaN((d.g = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.g = parseInt(b) / 255))) return false;
           if (
             ((b = c
               ? a.substring(
@@ -13850,15 +13929,15 @@
               : a.substring(a.lastIndexOf(",") + 1, a.lastIndexOf(")"))),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.b = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.b = parseInt(b) / 255))) return !1;
+            if (isNaN((d.b = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.b = parseInt(b) / 255))) return false;
           if (c)
             if (
               ((b = a.substring(a.lastIndexOf(",") + 1, a.lastIndexOf(")"))),
               "%" == b.charAt(b.length - 1))
             ) {
-              if (isNaN((d.a = parseFloat(b) / 100))) return !1;
-            } else if (isNaN((d.a = parseFloat(b)))) return !1;
+              if (isNaN((d.a = parseFloat(b) / 100))) return false;
+            } else if (isNaN((d.a = parseFloat(b)))) return false;
         } else {
           if (
             null ==
@@ -13878,14 +13957,14 @@
                 /^hsb\s*\(\s*([0-9\.]+%|[01]?\.?[0-9]*)\s*,\s*([0-9\.]+%|[01]?\.?[0-9]*)\s*,\s*([0-9\.]+%|[01]?\.?[0-9]*)\s*\)$/i
               )
           )
-            return !1;
+            return false;
           if (
             ((c = null != a.match(/a/i)),
             (b = a.substring(a.indexOf("(") + 1, a.indexOf(","))),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.h = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.h = parseFloat(b) / 360))) return !1;
+            if (isNaN((d.h = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.h = parseFloat(b) / 360))) return false;
           if (
             ((b = a.substring(
               a.indexOf(",") + 1,
@@ -13893,8 +13972,8 @@
             )),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.s = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.s = parseFloat(b)))) return !1;
+            if (isNaN((d.s = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.s = parseFloat(b)))) return false;
           if (
             ((b = c
               ? a.substring(
@@ -13904,15 +13983,15 @@
               : a.substring(a.lastIndexOf(",") + 1, a.lastIndexOf(")"))),
             "%" == b.charAt(b.length - 1))
           ) {
-            if (isNaN((d.v = parseFloat(b) / 100))) return !1;
-          } else if (isNaN((d.v = parseFloat(b)))) return !1;
+            if (isNaN((d.v = parseFloat(b) / 100))) return false;
+          } else if (isNaN((d.v = parseFloat(b)))) return false;
           if (c)
             if (
               ((b = a.substring(a.lastIndexOf(",") + 1, a.lastIndexOf(")"))),
               "%" == b.charAt(b.length - 1))
             ) {
-              if (isNaN((d.a = parseFloat(b) / 100))) return !1;
-            } else if (isNaN((d.a = parseFloat(b)))) return !1;
+              if (isNaN((d.a = parseFloat(b) / 100))) return false;
+            } else if (isNaN((d.a = parseFloat(b)))) return false;
         }
         return d;
       }),
@@ -13983,7 +14062,7 @@
               f = e.data("jQWCP.settings"),
               g = null;
             if (!f.hasInit) {
-              f.hasInit = !0;
+              f.hasInit = true;
               var h = { h: 0, s: 0, v: 1, r: 1, g: 1, b: 1, a: 1 };
               e.data("jQWCP.color", h),
                 null == f.sliders &&
@@ -14004,7 +14083,7 @@
                     void 0 != e.attr("tabindex")
                       ? g.attr("tabindex", e.attr("tabindex"))
                       : g.attr("tabindex", 0),
-                    b.redrawSliders.call(e, null, !0),
+                    b.redrawSliders.call(e, null, true),
                     b.updateSliders.call(e),
                     g.on("focus.wheelColorPicker", c.onWidgetFocus),
                     g.on("blur.wheelColorPicker", c.onWidgetBlur))
@@ -14029,7 +14108,7 @@
                   : "object" == typeof f.color
                   ? (b.setColor.call(e, f.color), (f.color = void 0))
                   : (b.setValue.call(e, f.color), (f.color = void 0)),
-                f.userinput ? e.removeAttr("readonly") : e.attr("readonly", !0);
+                f.userinput ? e.removeAttr("readonly") : e.attr("readonly", true);
             }
           })
         );
@@ -14038,7 +14117,7 @@
         return (
           this.each(function () {
             var b = a(this),
-              d = a.extend(!0, {}, a.fn.wheelColorPicker.defaults, c);
+              d = a.extend(true, {}, a.fn.wheelColorPicker.defaults, c);
             b.data("jQWCP.settings", d);
           }),
           b.init.call(this)
@@ -14070,7 +14149,7 @@
           h = d;
         "popup" == g.layout &&
           this != f.data("jQWCP.inputElm") &&
-          (h.stop(!0, !0),
+          (h.stop(true, true),
           h.css({
             top: f.offset().top + f.outerHeight() + "px",
             left: f.offset().left + "px",
@@ -14079,7 +14158,7 @@
           h.attr("class", "jQWCP-wWidget"),
           h.addClass(g.cssClass),
           c.adjustWidget(h.get(0), g),
-          b.redrawSliders.call(f, null, !0),
+          b.redrawSliders.call(f, null, true),
           b.updateSliders.call(f),
           (g.lastValue = f.val()),
           h.fadeIn(g.animDuration));
@@ -14474,7 +14553,7 @@
         if (0 != d.length) {
           var e = d.parents(".jQWCP-wWidget:eq(0)"),
             f = a(e.data("jQWCP.inputElm"));
-          return c.updateActiveControl(b), f.trigger("slidermove"), !1;
+          return c.updateActiveControl(b), f.trigger("slidermove"), false;
         }
       }),
       (c.updateActiveControl = function (c) {
@@ -14722,7 +14801,7 @@
                 return "number" != typeof b
                   ? h["outer" + d].call(this, b)
                   : this.each(function () {
-                      a(this).css(g, e(this, b, !0, c) + "px");
+                      a(this).css(g, e(this, b, true, c) + "px");
                     });
               });
           }),
@@ -14779,9 +14858,9 @@
             },
           },
           hasScroll: function (b, c) {
-            if ("hidden" === a(b).css("overflow")) return !1;
+            if ("hidden" === a(b).css("overflow")) return false;
             var d = c && "left" === c ? "scrollLeft" : "scrollTop",
-              e = !1;
+              e = false;
             return b[d] > 0 || ((b[d] = 1), (e = b[d] > 0), (b[d] = 0), e);
           },
         });
@@ -14902,7 +14981,7 @@
                         ? ((d = e[g].apply(e, i)),
                           d !== e && d !== b
                             ? ((j = d && d.jquery ? j.pushStack(d.get()) : d),
-                              !1)
+                              false)
                             : void 0)
                         : a.error(
                             "no such method '" +
@@ -14935,7 +15014,7 @@
           widgetName: "widget",
           widgetEventPrefix: "",
           defaultElement: "<div>",
-          options: { disabled: !1, create: null },
+          options: { disabled: false, create: null },
           _createWidget: function (b, d) {
             (d = a(d || this.defaultElement || this)[0]),
               (this.element = a(d)),
@@ -14952,7 +15031,7 @@
               (this.focusable = a()),
               d !== this &&
                 (a.data(d, this.widgetFullName, this),
-                this._on(!0, this.element, {
+                this._on(true, this.element, {
                   remove: function (a) {
                     a.target === d && this.destroy();
                   },
@@ -15038,15 +15117,15 @@
             );
           },
           enable: function () {
-            return this._setOption("disabled", !1);
+            return this._setOption("disabled", false);
           },
           disable: function () {
-            return this._setOption("disabled", !0);
+            return this._setOption("disabled", true);
           },
           _on: function (b, c, d) {
             var e,
               f = this;
-            "boolean" != typeof b && ((d = c), (c = b), (b = !1)),
+            "boolean" != typeof b && ((d = c), (c = b), (b = false)),
               d
                 ? ((c = e = a(c)), (this.bindings = this.bindings.add(c)))
                 : ((d = c), (c = this.element), (e = this.widget())),
@@ -15054,7 +15133,7 @@
                 function h() {
                   if (
                     b ||
-                    (f.options.disabled !== !0 &&
+                    (f.options.disabled !== true &&
                       !a(this).hasClass("ui-state-disabled"))
                   )
                     return ("string" == typeof g ? f[g] : g).apply(
@@ -15123,7 +15202,7 @@
               this.element.trigger(c, d),
               !(
                 (a.isFunction(g) &&
-                  g.apply(this.element[0], [c].concat(d)) === !1) ||
+                  g.apply(this.element[0], [c].concat(d)) === false) ||
                 c.isDefaultPrevented()
               )
             );
@@ -15134,7 +15213,7 @@
             "string" == typeof e && (e = { effect: e });
             var g,
               h = e
-                ? e === !0 || "number" == typeof e
+                ? e === true || "number" == typeof e
                   ? c
                   : e.effect || c
                 : b;
@@ -15154,9 +15233,9 @@
         });
     })(jQuery),
     (function (a, b) {
-      var c = !1;
+      var c = false;
       a(document).mouseup(function () {
-        c = !1;
+        c = false;
       }),
         a.widget("ui.mouse", {
           version: "1.10.4",
@@ -15173,15 +15252,15 @@
               })
               .bind("click." + this.widgetName, function (c) {
                 if (
-                  !0 === a.data(c.target, b.widgetName + ".preventClickEvent")
+                  true === a.data(c.target, b.widgetName + ".preventClickEvent")
                 )
                   return (
                     a.removeData(c.target, b.widgetName + ".preventClickEvent"),
                     c.stopImmediatePropagation(),
-                    !1
+                    false
                   );
               }),
-              (this.started = !1);
+              (this.started = false);
           },
           _mouseDestroy: function () {
             this.element.unbind("." + this.widgetName),
@@ -15208,14 +15287,14 @@
                 ((this.mouseDelayMet = !this.options.delay),
                 this.mouseDelayMet ||
                   (this._mouseDelayTimer = setTimeout(function () {
-                    d.mouseDelayMet = !0;
+                    d.mouseDelayMet = true;
                   }, this.options.delay)),
                 this._mouseDistanceMet(b) &&
                 this._mouseDelayMet(b) &&
-                ((this._mouseStarted = this._mouseStart(b) !== !1),
+                ((this._mouseStarted = this._mouseStart(b) !== false),
                 !this._mouseStarted)
-                  ? (b.preventDefault(), !0)
-                  : (!0 ===
+                  ? (b.preventDefault(), true)
+                  : (true ===
                       a.data(
                         b.target,
                         this.widgetName + ".preventClickEvent"
@@ -15240,8 +15319,8 @@
                         this._mouseUpDelegate
                       ),
                     b.preventDefault(),
-                    (c = !0),
-                    !0))
+                    (c = true),
+                    true))
               );
             }
           },
@@ -15255,7 +15334,7 @@
               : (this._mouseDistanceMet(b) &&
                   this._mouseDelayMet(b) &&
                   ((this._mouseStarted =
-                    this._mouseStart(this._mouseDownEvent, b) !== !1),
+                    this._mouseStart(this._mouseDownEvent, b) !== false),
                   this._mouseStarted ? this._mouseDrag(b) : this._mouseUp(b)),
                 !this._mouseStarted);
           },
@@ -15265,11 +15344,11 @@
                 .unbind("mousemove." + this.widgetName, this._mouseMoveDelegate)
                 .unbind("mouseup." + this.widgetName, this._mouseUpDelegate),
               this._mouseStarted &&
-                ((this._mouseStarted = !1),
+                ((this._mouseStarted = false),
                 b.target === this._mouseDownEvent.target &&
-                  a.data(b.target, this.widgetName + ".preventClickEvent", !0),
+                  a.data(b.target, this.widgetName + ".preventClickEvent", true),
                 this._mouseStop(b)),
-              !1
+              false
             );
           },
           _mouseDistanceMet: function (a) {
@@ -15287,7 +15366,7 @@
           _mouseDrag: function () {},
           _mouseStop: function () {},
           _mouseCapture: function () {
-            return !0;
+            return true;
           },
         });
     })(jQuery),
@@ -15304,25 +15383,25 @@
       a.widget("ui.sortable", a.ui.mouse, {
         version: "1.10.4",
         widgetEventPrefix: "sort",
-        ready: !1,
+        ready: false,
         options: {
           appendTo: "parent",
-          axis: !1,
-          connectWith: !1,
-          containment: !1,
+          axis: false,
+          connectWith: false,
+          containment: false,
           cursor: "auto",
-          cursorAt: !1,
-          dropOnEmpty: !0,
-          forcePlaceholderSize: !1,
-          forceHelperSize: !1,
-          grid: !1,
-          handle: !1,
+          cursorAt: false,
+          dropOnEmpty: true,
+          forcePlaceholderSize: false,
+          forceHelperSize: false,
+          grid: false,
+          handle: false,
           helper: "original",
           items: "> *",
-          opacity: !1,
-          placeholder: !1,
-          revert: !1,
-          scroll: !0,
+          opacity: false,
+          placeholder: false,
+          revert: false,
+          scroll: true,
           scrollSensitivity: 20,
           scrollSpeed: 20,
           scope: "default",
@@ -15350,7 +15429,7 @@
               !!this.items.length && ("x" === a.axis || d(this.items[0].item))),
             (this.offset = this.element.offset()),
             this._mouseInit(),
-            (this.ready = !0);
+            (this.ready = true);
         },
         _destroy: function () {
           this.element.removeClass("ui-sortable ui-sortable-disabled"),
@@ -15367,7 +15446,7 @@
         },
         _mouseCapture: function (b, c) {
           var d = null,
-            e = !1,
+            e = false,
             f = this;
           return (
             !this.reverting &&
@@ -15378,7 +15457,7 @@
               .parents()
               .each(function () {
                 if (a.data(this, f.widgetName + "-item") === f)
-                  return (d = a(this)), !1;
+                  return (d = a(this)), false;
               }),
             a.data(b.target, f.widgetName + "-item") === f && (d = a(b.target)),
             !!d &&
@@ -15389,11 +15468,11 @@
                   .find("*")
                   .addBack()
                   .each(function () {
-                    this === b.target && (e = !0);
+                    this === b.target && (e = true);
                   }),
                 !e)
               ) &&
-              ((this.currentItem = d), this._removeCurrentsFromItems(), !0))
+              ((this.currentItem = d), this._removeCurrentsFromItems(), true))
           );
         },
         _mouseStart: function (b, c, d) {
@@ -15463,10 +15542,10 @@
             a.ui.ddmanager &&
               !g.dropBehaviour &&
               a.ui.ddmanager.prepareOffsets(this, b),
-            (this.dragging = !0),
+            (this.dragging = true),
             this.helper.addClass("ui-sortable-helper"),
             this._mouseDrag(b),
-            !0
+            true
           );
         },
         _mouseDrag: function (b) {
@@ -15475,7 +15554,7 @@
             e,
             f,
             g = this.options,
-            h = !1;
+            h = false;
           for (
             this.position = this._generatePosition(b),
               this.positionAbs = this._convertPositionTo("absolute"),
@@ -15523,7 +15602,7 @@
                         (h = a(document).scrollLeft(
                           a(document).scrollLeft() + g.scrollSpeed
                         ))),
-                h !== !1 &&
+                h !== false &&
                   a.ui.ddmanager &&
                   !g.dropBehaviour &&
                   a.ui.ddmanager.prepareOffsets(this, b)),
@@ -15564,7 +15643,7 @@
             a.ui.ddmanager && a.ui.ddmanager.drag(this, b),
             this._trigger("sort", b, this._uiHash()),
             (this.lastPositionAbs = this.positionAbs),
-            !1
+            false
           );
         },
         _mouseStop: function (b, c) {
@@ -15595,7 +15674,7 @@
                     (this.offsetParent[0] === document.body
                       ? 0
                       : this.offsetParent[0].scrollTop)),
-                (this.reverting = !0),
+                (this.reverting = true),
                 a(this.helper).animate(
                   g,
                   parseInt(this.options.revert, 10) || 500,
@@ -15604,7 +15683,7 @@
                   }
                 );
             } else this._clear(b, c);
-            return !1;
+            return false;
           }
         },
         cancel: function () {
@@ -15635,8 +15714,8 @@
                 this.helper.remove(),
               a.extend(this, {
                 helper: null,
-                dragging: !1,
-                reverting: !1,
+                dragging: false,
+                reverting: false,
                 _noFinalSort: null,
               }),
               this.domPosition.prev
@@ -15807,8 +15886,8 @@
           var b = this.currentItem.find(":data(" + this.widgetName + "-item)");
           this.items = a.grep(this.items, function (a) {
             for (var c = 0; c < b.length; c++)
-              if (b[c] === a.item[0]) return !1;
-            return !0;
+              if (b[c] === a.item[0]) return false;
+            return true;
           });
         },
         _refreshItems: function (b) {
@@ -15996,9 +16075,9 @@
                       this.items[f].height
                     )) ||
                     ((l = this.items[f].item.offset()[i]),
-                    (m = !1),
+                    (m = false),
                     Math.abs(l - k) > Math.abs(l + this.items[f][j] - k) &&
-                      ((m = !0), (l += this.items[f][j])),
+                      ((m = true), (l += this.items[f][j])),
                     Math.abs(l - k) < g &&
                       ((g = Math.abs(l - k)),
                       (h = this.items[f]),
@@ -16006,8 +16085,8 @@
               if (!h && !this.options.dropOnEmpty) return;
               if (this.currentContainer === this.containers[p]) return;
               h
-                ? this._rearrange(b, h, null, !0)
-                : this._rearrange(b, null, this.containers[p].element, !0),
+                ? this._rearrange(b, h, null, true)
+                : this._rearrange(b, null, this.containers[p].element, true),
                 this._trigger("change", b, this._uiHash()),
                 this.containers[p]._trigger("change", b, this._uiHash(this)),
                 (this.currentContainer = this.containers[p]),
@@ -16288,7 +16367,7 @@
               c._trigger(a, d, b._uiHash(b));
             };
           }
-          this.reverting = !1;
+          this.reverting = false;
           var d,
             e = [];
           if (
@@ -16358,7 +16437,7 @@
                 "zIndex",
                 "auto" === this._storedZIndex ? "" : this._storedZIndex
               ),
-            (this.dragging = !1),
+            (this.dragging = false),
             this.cancelHelperRemoval)
           ) {
             if (!b) {
@@ -16370,7 +16449,7 @@
                 e[d].call(this, a);
               this._trigger("stop", a, this._uiHash());
             }
-            return (this.fromOutside = !1), !1;
+            return (this.fromOutside = false), false;
           }
           if (
             (b || this._trigger("beforeStop", a, this._uiHash()),
@@ -16382,10 +16461,10 @@
             for (d = 0; d < e.length; d++) e[d].call(this, a);
             this._trigger("stop", a, this._uiHash());
           }
-          return (this.fromOutside = !1), !0;
+          return (this.fromOutside = false), true;
         },
         _trigger: function () {
-          a.Widget.prototype._trigger.apply(this, arguments) === !1 &&
+          a.Widget.prototype._trigger.apply(this, arguments) === false &&
             this.cancel();
         },
         _uiHash: function (b) {
@@ -16408,12 +16487,12 @@
         version: "1.10.4",
         widgetEventPrefix: "slide",
         options: {
-          animate: !1,
+          animate: false,
           distance: 0,
           max: 100,
           min: 0,
           orientation: "horizontal",
-          range: !1,
+          range: false,
           step: 1,
           value: 0,
           values: null,
@@ -16423,9 +16502,9 @@
           stop: null,
         },
         _create: function () {
-          (this._keySliding = !1),
-            (this._mouseSliding = !1),
-            (this._animateOff = !0),
+          (this._keySliding = false),
+            (this._mouseSliding = false),
+            (this._animateOff = true),
             (this._handleIndex = null),
             this._detectOrientation(),
             this._mouseInit(),
@@ -16436,7 +16515,7 @@
             ),
             this._refresh(),
             this._setOption("disabled", this.options.disabled),
-            (this._animateOff = !1);
+            (this._animateOff = false);
         },
         _refresh: function () {
           this._createRange(),
@@ -16472,7 +16551,7 @@
           var b = this.options,
             c = "";
           b.range
-            ? (b.range === !0 &&
+            ? (b.range === true &&
                 (b.values
                   ? b.values.length && 2 !== b.values.length
                     ? (b.values = [b.values[0], b.values[0]])
@@ -16536,8 +16615,8 @@
                 ((e = c), (f = a(this)), (g = b));
             }),
             (h = this._start(b, g)),
-            h !== !1 &&
-              ((this._mouseSliding = !0),
+            h !== false &&
+              ((this._mouseSliding = true),
               (this._handleIndex = g),
               f.addClass("ui-state-active").focus(),
               (i = f.offset()),
@@ -16555,28 +16634,28 @@
                       (parseInt(f.css("marginTop"), 10) || 0),
                   }),
               this.handles.hasClass("ui-state-hover") || this._slide(b, g, d),
-              (this._animateOff = !0),
-              !0))
+              (this._animateOff = true),
+              true))
           );
         },
         _mouseStart: function () {
-          return !0;
+          return true;
         },
         _mouseDrag: function (a) {
           var b = { x: a.pageX, y: a.pageY },
             c = this._normValueFromMouse(b);
-          return this._slide(a, this._handleIndex, c), !1;
+          return this._slide(a, this._handleIndex, c), false;
         },
         _mouseStop: function (a) {
           return (
             this.handles.removeClass("ui-state-active"),
-            (this._mouseSliding = !1),
+            (this._mouseSliding = false),
             this._stop(a, this._handleIndex),
             this._change(a, this._handleIndex),
             (this._handleIndex = null),
             (this._clickOffset = null),
-            (this._animateOff = !1),
-            !1
+            (this._animateOff = false),
+            false
           );
         },
         _detectOrientation: function () {
@@ -16620,7 +16699,7 @@
           this.options.values && this.options.values.length
             ? ((d = this.values(b ? 0 : 1)),
               2 === this.options.values.length &&
-                this.options.range === !0 &&
+                this.options.range === true &&
                 ((0 === b && c > d) || (1 === b && c < d)) &&
                 (c = d),
               c !== this.values(b) &&
@@ -16632,13 +16711,13 @@
                   values: e,
                 })),
                 (d = this.values(b ? 0 : 1)),
-                f !== !1 && this.values(b, c)))
+                f !== false && this.values(b, c)))
             : c !== this.value() &&
               ((f = this._trigger("slide", a, {
                 handle: this.handles[b],
                 value: c,
               })),
-              f !== !1 && this.value(c));
+              f !== false && this.value(c));
         },
         _stop: function (a, b) {
           var c = { handle: this.handles[b], value: this.value() };
@@ -16690,7 +16769,7 @@
             e = 0;
           switch (
             ("range" === b &&
-              this.options.range === !0 &&
+              this.options.range === true &&
               ("min" === c
                 ? ((this.options.value = this._values(0)),
                   (this.options.values = null))
@@ -16711,28 +16790,28 @@
                 this._refreshValue();
               break;
             case "value":
-              (this._animateOff = !0),
+              (this._animateOff = true),
                 this._refreshValue(),
                 this._change(null, 0),
-                (this._animateOff = !1);
+                (this._animateOff = false);
               break;
             case "values":
               for (
-                this._animateOff = !0, this._refreshValue(), d = 0;
+                this._animateOff = true, this._refreshValue(), d = 0;
                 d < e;
                 d += 1
               )
                 this._change(null, d);
-              this._animateOff = !1;
+              this._animateOff = false;
               break;
             case "min":
             case "max":
-              (this._animateOff = !0),
+              (this._animateOff = true),
                 this._refreshValue(),
-                (this._animateOff = !1);
+                (this._animateOff = false);
               break;
             case "range":
-              (this._animateOff = !0), this._refresh(), (this._animateOff = !1);
+              (this._animateOff = true), this._refresh(), (this._animateOff = false);
           }
         },
         _value: function () {
@@ -16787,7 +16866,7 @@
                   (k["horizontal" === i.orientation ? "left" : "bottom"] =
                     c + "%"),
                   a(this).stop(1, 1)[j ? "animate" : "css"](k, h.animate),
-                  i.options.range === !0 &&
+                  i.options.range === true &&
                     ("horizontal" === i.orientation
                       ? (0 === d &&
                           i.range
@@ -16799,7 +16878,7 @@
                         1 === d &&
                           i.range[j ? "animate" : "css"](
                             { width: c - b + "%" },
-                            { queue: !1, duration: h.animate }
+                            { queue: false, duration: h.animate }
                           ))
                       : (0 === d &&
                           i.range
@@ -16811,7 +16890,7 @@
                         1 === d &&
                           i.range[j ? "animate" : "css"](
                             { height: c - b + "%" },
-                            { queue: !1, duration: h.animate }
+                            { queue: false, duration: h.animate }
                           ))),
                   (b = c);
               })
@@ -16831,7 +16910,7 @@
                 "horizontal" === this.orientation &&
                 this.range[j ? "animate" : "css"](
                   { width: 100 - c + "%" },
-                  { queue: !1, duration: h.animate }
+                  { queue: false, duration: h.animate }
                 ),
               "min" === g &&
                 "vertical" === this.orientation &&
@@ -16842,7 +16921,7 @@
                 "vertical" === this.orientation &&
                 this.range[j ? "animate" : "css"](
                   { height: 100 - c + "%" },
-                  { queue: !1, duration: h.animate }
+                  { queue: false, duration: h.animate }
                 ));
         },
         _handleEvents: {
@@ -16864,10 +16943,10 @@
                 if (
                   (b.preventDefault(),
                   !this._keySliding &&
-                    ((this._keySliding = !0),
+                    ((this._keySliding = true),
                     a(b.target).addClass("ui-state-active"),
                     (d = this._start(b, h)),
-                    d === !1))
+                    d === false))
                 )
                   return;
             }
@@ -16913,7 +16992,7 @@
           keyup: function (b) {
             var c = a(b.target).data("ui-slider-handle-index");
             this._keySliding &&
-              ((this._keySliding = !1),
+              ((this._keySliding = false),
               this._stop(b, c),
               this._change(b, c),
               a(b.target).removeClass("ui-state-active"));
@@ -16924,7 +17003,7 @@
     (function (a, b, c) {
       function d(a, b, c) {
         a.addEventListener
-          ? a.addEventListener(b, c, !1)
+          ? a.addEventListener(b, c, false)
           : a.attachEvent("on" + b, c);
       }
       function e(a) {
@@ -16941,9 +17020,9 @@
       function f(a) {
         a = a || {};
         var b,
-          c = !1;
-        for (b in w) a[b] ? (c = !0) : (w[b] = 0);
-        c || (z = !1);
+          c = false;
+        for (b in w) a[b] ? (c = true) : (w[b] = 0);
+        c || (z = false);
       }
       function g(a, b, c, d, e, f) {
         var g,
@@ -16978,15 +17057,15 @@
       }
       function i(a, b, c, d) {
         A.stopCallback(b, b.target || b.srcElement, c, d) ||
-          !1 !== a(b, c) ||
-          (b.preventDefault ? b.preventDefault() : (b.returnValue = !1),
-          b.stopPropagation ? b.stopPropagation() : (b.cancelBubble = !0));
+          false !== a(b, c) ||
+          (b.preventDefault ? b.preventDefault() : (b.returnValue = false),
+          b.stopPropagation ? b.stopPropagation() : (b.cancelBubble = true));
       }
       function j(a) {
         "number" != typeof a.which && (a.which = a.keyCode);
         var b = e(a);
         b &&
-          ("keyup" == a.type && x === b ? (x = !1) : A.handleKey(b, h(a), a));
+          ("keyup" == a.type && x === b ? (x = false) : A.handleKey(b, h(a), a));
       }
       function k(a) {
         return "shift" == a || "ctrl" == a || "alt" == a || "meta" == a;
@@ -17122,9 +17201,9 @@
         u = {},
         v = {},
         w = {},
-        x = !1,
-        y = !1,
-        z = !1;
+        x = false,
+        y = false,
+        z = false;
       for (c = 1; 20 > c; ++c) q[111 + c] = "f" + c;
       for (c = 0; 9 >= c; ++c) q[c + 96] = c;
       d(b, "keypress", j), d(b, "keydown", j), d(b, "keyup", j);
@@ -17157,13 +17236,13 @@
             e = g(a, b, c);
           b = {};
           var h = 0,
-            j = !1;
+            j = false;
           for (d = 0; d < e.length; ++d)
             e[d].seq && (h = Math.max(h, e[d].level));
           for (d = 0; d < e.length; ++d)
             e[d].seq
               ? e[d].level == h &&
-                ((j = !0),
+                ((j = true),
                 (b[e[d].seq] = 1),
                 i(e[d].callback, c, e[d].combo, e[d].seq))
               : j || i(e[d].callback, c, e[d].combo);
@@ -17198,7 +17277,7 @@
           c !== -1 && a.splice(c, 1);
         },
         update: function (b) {
-          if (0 === a.length) return !1;
+          if (0 === a.length) return false;
           var c = 0;
           for (
             b =
@@ -17213,7 +17292,7 @@
 
           )
             a[c].update(b) ? c++ : a.splice(c, 1);
-          return !0;
+          return true;
         },
       };
     })();
@@ -17224,16 +17303,16 @@
       e = {},
       f = 1e3,
       g = 0,
-      h = !1,
-      i = !1,
-      j = !1,
+      h = false,
+      i = false,
+      j = false,
       k = 0,
       l = null,
       m = TWEEN.Easing.Linear.None,
       n = TWEEN.Interpolation.Linear,
       o = [],
       p = null,
-      q = !1,
+      q = false,
       r = null,
       s = null;
     for (var t in a) c[t] = parseFloat(a[t], 10);
@@ -17242,8 +17321,8 @@
     }),
       (this.start = function (a) {
         TWEEN.add(this),
-          (i = !0),
-          (q = !1),
+          (i = true),
+          (q = false),
           (l =
             void 0 !== a
               ? a
@@ -17259,14 +17338,14 @@
             d[f] = [b[f]].concat(d[f]);
           }
           (c[f] = b[f]),
-            c[f] instanceof Array == !1 && (c[f] *= 1),
+            c[f] instanceof Array == false && (c[f] *= 1),
             (e[f] = c[f] || 0);
         }
         return this;
       }),
       (this.stop = function () {
         return i
-          ? (TWEEN.remove(this), (i = !1), this.stopChainedTweens(), this)
+          ? (TWEEN.remove(this), (i = false), this.stopChainedTweens(), this)
           : this;
       }),
       (this.stopChainedTweens = function () {
@@ -17301,8 +17380,8 @@
       }),
       (this.update = function (a) {
         var i;
-        if (a < l) return !0;
-        q === !1 && (null !== p && p.call(b), (q = !0));
+        if (a < l) return true;
+        q === false && (null !== p && p.call(b), (q = true));
         var t = (a - l) / f;
         t = t > 1 ? 1 : t;
         var u = m(t);
@@ -17328,13 +17407,13 @@
               }
               c[i] = e[i];
             }
-            return (l = a + k), !0;
+            return (l = a + k), true;
           }
           null !== s && s.call(b);
           for (var y = 0, z = o.length; y < z; y++) o[y].start(a);
-          return !1;
+          return false;
         }
-        return !0;
+        return true;
       });
   }),
     (TWEEN.Easing = {

@@ -13,6 +13,7 @@ App.Transporter = function (a) {
               a.layerModel.getTopLayerOf(e)
             );
           else var f = a.layerModel.getFaceColor(e, c);
+          f ||= new THREE.Color().setRGB(0, 0, 0)
           f.isAlpha() || o.setPixelColor(b, d, f);
         },
         d
@@ -30,7 +31,7 @@ App.Transporter = function (a) {
     f.setCrossOrigin(!0);
     var h = function (b) {
         if (
-          (32 == b.height && "skin" == c && (g = App.UVMAP.skinLT18),
+          (32 == b.height && App.UVMAP.current == c && (g = App.UVMAP.skinLT18),
           a.layerModel && a.layerModel.add)
         )
           var f = a.layerModel.add(d);
@@ -54,8 +55,8 @@ App.Transporter = function (a) {
     );
   }
   function e() {
-    if (localStorage.getItem("layerJson")) {
-      var b = localStorage.getItem("layerJson");
+    if (localStorage.getItem(`layerJson-${App.UVMAP.current}`)) {
+      var b = localStorage.getItem(`layerJson-${App.UVMAP.current}`);
       a.layerModel.parse(b),
         a.layerPresenter && a.layerPresenter.updateAllLayerThumbnails(),
         a.layerModel.renderModel(),
@@ -66,7 +67,7 @@ App.Transporter = function (a) {
       ? a.transporter
           .setUVImage(
             localStorage.getItem("edit-save-ref"),
-            "skin",
+            App.UVMAP.current,
             localStorage.getItem("edit-id-ref")
           )
           .done(function () {
@@ -233,7 +234,7 @@ App.Transporter = function (a) {
   }
   function l() {
     // k(App.URL.root + "download", { upload: c("skin", !0).src });
-    download(getUVImage("skin", true).src, "download.png");
+    download(getUVImage(App.UVMAP.current, true).src, "download.png");
   }
   function m() {
     window.open(App.URL.root + "product/print3d/picnic");

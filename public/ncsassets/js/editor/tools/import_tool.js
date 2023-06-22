@@ -31,7 +31,7 @@ App.ImportTool = function (a, b) {
               "/save/" +
               d[1] +
               ".png",
-            "skin",
+              App.UVMAP.current,
             d[0]
           )
         );

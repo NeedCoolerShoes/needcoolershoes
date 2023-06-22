@@ -70,5 +70,6 @@
 
 <script>
   skinDataField = document.getElementById("skin_data")
-  skinDataField.value = App.dep.transporter.getUVImage("skin", true).src
+  skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src
+  document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic")
 </script>

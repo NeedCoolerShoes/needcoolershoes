@@ -231,6 +231,8 @@ App.Model = function (canvas, _deps) {
     ],
     z = {},
     A = new THREE.Object3D();
+  var armWidth = App.UVMAP.current == "skinAlex" ? 3 : 4
+  var armOffset = App.UVMAP.current == "skinAlex" ? 5.65 : 6
   c("hat", { width: 8, height: 8, depth: 8 }, { x: 0, y: 10, z: 0 }, 0.5),
     c(
       "torso2",
@@ -240,14 +242,14 @@ App.Model = function (canvas, _deps) {
     ),
     c(
       "armR2",
-      { width: 4, height: 12, depth: 4 },
-      { x: -6, y: 0, z: 0 },
+      { width: armWidth, height: 12, depth: 4 },
+      { x: -armOffset, y: 0, z: 0 },
       0.5
     ),
     c(
       "armL2",
-      { width: 4, height: 12, depth: 4 },
-      { x: 6, y: 0, z: 0 },
+      { width: armWidth, height: 12, depth: 4 },
+      { x: armOffset, y: 0, z: 0 },
       0.5
     ),
     c(
@@ -264,8 +266,8 @@ App.Model = function (canvas, _deps) {
     ),
     c("head", { width: 8, height: 8, depth: 8 }, { x: 0, y: 10, z: 0 }),
     c("torso", { width: 8, height: 12, depth: 4 }, { x: 0, y: 0, z: 0 }),
-    c("armR", { width: 4, height: 12, depth: 4 }, { x: -6, y: 0, z: 0 }),
-    c("armL", { width: 4, height: 12, depth: 4 }, { x: 6, y: 0, z: 0 }),
+    c("armR", { width: armWidth, height: 12, depth: 4 }, { x: -armOffset, y: 0, z: 0 }),
+    c("armL", { width: armWidth, height: 12, depth: 4 }, { x: armOffset, y: 0, z: 0 }),
     c("legR", { width: 4, height: 12, depth: 4 }, { x: -2, y: -12, z: 0 }),
     c("legL", { width: 4, height: 12, depth: 4 }, { x: 2, y: -12, z: 0 }),
     d("armR", "armL"),

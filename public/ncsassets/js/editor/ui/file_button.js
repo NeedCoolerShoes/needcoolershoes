@@ -10,7 +10,7 @@ App.FileButton = function (a, b) {
     }),
     f.change(function (a) {
       b.transporter
-        .setUVImage(URL.createObjectURL(a.target.files[0]), "skin")
+        .setUVImage(URL.createObjectURL(a.target.files[0]), App.UVMAP.current)
         .done(function () {
           b.layerPresenter && b.layerPresenter.checkpoint(true),
             b.toolbox &&

@@ -9,8 +9,9 @@ function download(dataUrl, filename) {
   link.click();
 }
 
-function editSkin(data, id, location) {
+function editSkin(data, id, location, model) {
   localStorage["edit-save-ref"] = data;
   localStorage["edit-id-ref"] = id;
+  localStorage["model"] = model;
   window.location = location;
 }

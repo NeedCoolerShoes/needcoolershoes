@@ -21,7 +21,7 @@
       ></div>
       <div>
         <button
-          onclick="editSkin('<%= @skin.data %>', <%= @skin.id %>, '/')"
+          onclick="editSkin('<%= @skin.data %>', <%= @skin.id %>, '/', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_edit?(current_user) ? nil : "disabled" %>
         >
           <%= t("skins.editor") %>

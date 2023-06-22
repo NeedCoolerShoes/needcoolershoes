@@ -13,7 +13,7 @@ App.InputButton = function (a, b) {
         var h = g.val();
         var i = "/api/skin/" + h
         b.transporter
-          .setUVImage(i, "skin")
+          .setUVImage(i, App.UVMAP.current)
           .always(function () {
             f.find("li").text(a), f.removeClass("loading"), d && d();
           })

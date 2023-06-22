@@ -51,8 +51,17 @@
     <div id="toolbox">
     </div>
     <div id="toolbar"></div>
-    <div id="workspace">
+    <div id="workspace" class="relative">
       <div id="drawing"></div>
+      <div class="absolute bottom-0 p-1 cursor-pointer text-sm">
+        <script>
+          if (localStorage.getItem("model") == "skinAlex") {
+            document.write('<span id="model-toggle">Switch to Classic Editor</span>')
+          } else {
+            document.write('<span id="model-toggle">Switch to Slim Editor</span>')
+          }
+        </script>
+      </div>
     </div>
   </div>
 

@@ -39,7 +39,7 @@ App.LayerPresenter = function (toolbar, app) {
       a && app.layerPresenter.render(),
       app.model.render();
     var c = app.layerModel.stringify();
-    localStorage.setItem("layerJson", c), h.push(c);
+    localStorage.setItem(`layerJson-${App.UVMAP.current}`, c), h.push(c);
   }
   function undo() {
     h.length > 1 &&

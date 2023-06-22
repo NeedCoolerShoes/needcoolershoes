@@ -26,7 +26,7 @@ App.ShareTool = function (a, b) {
           .done(function () {
             g.show();
             var a = b.transporter.getUVImage("frontBack", true),
-              c = b.transporter.getUVImage("skin", true),
+              c = b.transporter.getUVImage(App.UVMAP.current, true),
               d = [];
             b.layerModel.loop(function (a) {
               a.skinId && d.push(a.skinId);
