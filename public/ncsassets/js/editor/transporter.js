@@ -57,7 +57,6 @@ App.Transporter = function (a) {
   function e() {
     if (localStorage.getItem("layerJson")) {
       localStorage.setItem("layerJson-skin", localStorage.getItem("layerJson"))
-      localStorage.removeItem("layerJson")
     }
     if (localStorage.getItem(`layerJson-${App.UVMAP.current}`)) {
       var b = localStorage.getItem(`layerJson-${App.UVMAP.current}`);
