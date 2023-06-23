@@ -129,7 +129,7 @@ App.Model = function (canvas, _deps) {
     var c = b.geometry.widthSegments,
       d = b.geometry.heightSegments;
     // Fix for Alex skins, with mirroring
-    if (App.UVMAP.current == "skinAlex" && a.faceIndex <= 95) {
+    if (App.UVMAP.current == "skinAlex" && a.faceIndex <= 95 && ["armR", "armR2", "armL", "armL2"].includes(a.object.name)) {
       c += 1
     }
     if (
