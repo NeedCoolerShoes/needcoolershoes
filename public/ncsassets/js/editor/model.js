@@ -128,6 +128,10 @@ App.Model = function (canvas, _deps) {
     if (a.object.mirrorPart) var b = a.object.mirrorPart;
     var c = b.geometry.widthSegments,
       d = b.geometry.heightSegments;
+    // Fix for Alex skins, with mirroring
+    if (App.UVMAP.current == "skinAlex" && a.faceIndex <= 95) {
+      c += 1
+    }
     if (
       ("torso" != b.name ||
         (1 != a.face.normal.x && a.face.normal.x != -1) ||
