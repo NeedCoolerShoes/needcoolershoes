@@ -4,3 +4,16 @@
 #layers > .overflow-auto {
   scrollbar-width: none;
 }
+
+#workspace.dark .dark-hidden {
+  display: none;
+}
+
+#workspace:not(.dark) .dark-visible {
+  display: none;
+}
+
+#workspace.dark #model-toggle {
+  color: white;
+  text-shadow: none;
+}

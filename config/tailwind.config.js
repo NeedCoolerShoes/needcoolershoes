@@ -38,6 +38,9 @@ module.exports = {
         },
         'ncs-yellow': {
           200: "#f5f8cc"
+        },
+        'ncs-blue': {
+          800: '#0f1e3a'
         }
       },
       maxWidth: {

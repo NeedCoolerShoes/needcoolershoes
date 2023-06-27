@@ -18,8 +18,11 @@
       </div>
 
       <div class="h-[53px] relative z-50 overflow-x-clip sm:overflow-x-visible">
-        <div class="relative z-50 bg-ncs-flourish w-full h-full px-3 sm:px-0">
+        <div class="flex items-center justify-between gap-2 relative z-50 bg-ncs-flourish h-full px-3 sm:px-0">
           <%= render partial: "shared/header_nav" %>
+          <div class="hidden md:block">
+            <%= render partial: "shared/search", locals: { classes: "max-w-[12rem] lg:max-w-none" } %>
+          </div>
         </div>
 
         <div class="absolute w-[55px] h-[73px] -top-1 left-[-43px] sm:left-[-55px] bg-ncs-flourish bg-repeat bg-bottom"></div>

@@ -29,9 +29,6 @@
   <script type="text/html" id="toggles-template">
     <div id="toggles">
       <div class="controls">
-        <div title="hide/show color" class="colortheme before:!content-none">
-          <%= heroicon "sun", variant: "solid", size: 16, class: "absolute right-0 mt-1" %>
-        </div>
         <div title="hide/show skin overlay" class="overlay"></div>
         <div title="hide/show skin body" class="underlay"></div>
       </div>
@@ -53,8 +50,13 @@
     <div id="toolbar"></div>
     <div id="workspace" class="relative">
       <div id="drawing"></div>
+      <div class="absolute top-0 p-1 cursor-pointer text-sm" onclick="workspace.classList.toggle('dark')">
+        <%= heroicon "sun", variant: "solid", size: 25, title: "Switch to Light Theme", class: "dark-visible text-white" %>
+        <%= heroicon "moon", variant: "solid", size: 25, title: "Switch to Dark Theme", class: "dark-hidden" %>
+      </div>
       <div class="absolute bottom-0 p-1 cursor-pointer text-sm">
         <script>
+          var workspace = document.querySelector('#workspace')
           if (localStorage.getItem("model") == "skinAlex") {
             document.write('<span id="model-toggle">Switch to Classic Editor</span>')
           } else {

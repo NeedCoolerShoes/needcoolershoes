@@ -6,6 +6,9 @@
   <div>
     <%= render partial: "skin_filters" %>
   </div>
+  <div class="md:hidden w-full pt-2">
+    <%= render partial: "shared/search", locals: { classes: "w-full", btn_classes: "btn-ncs shrink w-auto" } %>
+  </div>
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>

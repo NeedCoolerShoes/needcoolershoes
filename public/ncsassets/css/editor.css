@@ -2292,7 +2292,7 @@ ul.button-group.top-heavy li.active {
     repeat right bottom;
   position: relative;
 }
-#workspace #drawing.dark {
+#workspace.dark #drawing {
   background: #1a1a1a
     url("../img/graphy-dark.png")
     repeat right bottom;

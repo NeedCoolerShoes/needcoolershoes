@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_26_134713) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "badges", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -21,13 +24,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
   end
 
   create_table "favourites", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "skin_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "skin_id", null: false
     t.integer "karma"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["skin_id"], name: "index_favourites_on_skin_id"
     t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text "content"
+    t.string "searchable_type"
+    t.bigint "searchable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
   create_table "skin_categories", force: :cascade do |t|
@@ -48,9 +60,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
     t.text "data", null: false
     t.integer "visibility", null: false
     t.boolean "terms_and_conditions"
-    t.integer "user_id", null: false
-    t.integer "skin_category_id"
-    t.integer "skin_part_id"
+    t.bigint "user_id", null: false
+    t.bigint "skin_category_id"
+    t.bigint "skin_part_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "model"
@@ -60,11 +72,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id"
+    t.bigint "tag_id"
     t.string "taggable_type"
-    t.integer "taggable_id"
+    t.bigint "taggable_id"
     t.string "tagger_type"
-    t.integer "tagger_id"
+    t.bigint "tagger_id"
     t.string "context", limit: 128
     t.datetime "created_at", precision: nil
     t.string "tenant", limit: 128
@@ -91,8 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
   end
 
   create_table "user_badges", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "badge_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "badge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["badge_id"], name: "index_user_badges_on_badge_id"
@@ -114,7 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_09_165410) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "featured_skin_id"
+    t.bigint "featured_skin_id"
     t.string "biography"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"

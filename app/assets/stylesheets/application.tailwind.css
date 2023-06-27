@@ -36,27 +36,27 @@
 }
 
 .page.next a {
-  @apply btn-ncs relative px-2 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs relative p-1.5 md:px-2 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .page.prev a {
-  @apply btn-ncs relative px-2 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs relative p-1.5 md:px-2 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .page.next.disabled {
-  @apply btn-ncs btn-ncs-disabled relative px-2 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs btn-ncs-disabled relative p-1.5 md:px-2 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .page.prev.disabled {
-  @apply btn-ncs btn-ncs-disabled relative px-2 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs btn-ncs-disabled relative p-1.5 md:px-2 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .page a, .page.gap {
-  @apply btn-ncs px-4 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs p-1.5 md:px-4 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .page.active {
-  @apply btn-ncs btn-ncs-active px-4 py-2 text-sm font-medium focus:z-20;
+  @apply btn-ncs btn-ncs-active p-1.5 md:px-4 md:py-2 text-sm font-medium focus:z-20;
 }
 
 .tags-look .tagify__dropdown__item{

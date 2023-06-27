@@ -23,16 +23,12 @@ App.ModelToggles = function (a, b, c) {
         }),
       b.model.render();
   }
-  function toggleColorScheme(e) {
-    if (!e.classList.contains("colortheme")) { return }
-    drawingPanel.classList.toggle("dark")
-  }
   var e = $($("#toggles-template").html());
   e.on("click", ".body div", function () {
     $(this).toggleClass("disabled"), d();
   }),
     e.on("click", ".controls div", function () {
-      $(this).toggleClass("unchecked"), d(), toggleColorScheme(this);
+      $(this).toggleClass("unchecked"), d();
     }),
     a.append(e);
 };

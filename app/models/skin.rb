@@ -6,9 +6,13 @@ class Skin < ApplicationRecord
     model: "by_model",
     date_offset: "created_after_days",
     tag: "tagged_with",
-    favourited_by: "favourited_by_user_name"
+    favourited_by: "favourited_by_user_name",
+    search: "search"
   }
   KARMA = 5
+  include PgSearch::Model
+  pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
+
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part

@@ -1,0 +1,12 @@
+<%
+  classes ||= ""
+  btn_classes ||= ""
+%>
+<%= form_with url: gallery_path, method: :get do |form| %>
+  <div class="flex gap-2 w-full">
+    <%= form.text_field :search, value: params[:search], placeholder: "Search for skins", class: "bg-ncs-yellow-200 h-8 #{classes}" %>
+    <%= form.button name: "", class: "cursor-pointer btn-none #{btn_classes}", aria: {label: "Search"} do %>
+      <%= heroicon "magnifying-glass", size: 25 %>
+    <% end %>
+  </div>
+<% end %>

@@ -123,7 +123,7 @@ class SkinsController < ApplicationController
   end
 
   def gallery_params
-    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search)
   end
 
   def transform_tags(tags)
