@@ -20,6 +20,7 @@
 
   <body class="flex flex-col min-h-screen">
     <%= render partial: "shared/flash" %>
+    <%= yield :attention if content_for?(:attention) %>
     <div class="mx-3 sm:mx-16 mb-3.5">
       <%= render partial: "shared/header" %>
     </div>

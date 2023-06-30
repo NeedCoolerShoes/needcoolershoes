@@ -1,3 +1,4 @@
+<%= render partial: "shared/welcome" if params[:welcome].present? %>
 <% content_for :title do %>
   <%= params[:user].present? ? "Skins by #{params[:user]}" : "Gallery" %>
   <%= params[:page].present? ? "(Page #{params[:page]})" : nil %>
