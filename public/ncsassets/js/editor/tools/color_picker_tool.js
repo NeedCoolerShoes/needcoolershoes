@@ -23,6 +23,8 @@ App.ColorPickerTool = function (a, b) {
         k.isAlpha() && n.removeClass("transparent-active")),
       (k = a.clone()),
       (localStorage.currentColor = JSON.stringify(k));
+      r[0].value = `#${a.getHexString()}`;
+      r[0].style.backgroundColor = `#${a.getHexString()}`;
   }
   function g(a) {
     a || (a = k.getHexString()),
@@ -129,7 +131,6 @@ App.ColorPickerTool = function (a, b) {
       var a = r.wheelColorPicker("getColor"),
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);
-      this.style.backgroundColor = this.value
     }),
     p.click(function () { toggleTransparent() }),
     o.mouseup(function () {
