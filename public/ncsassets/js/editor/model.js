@@ -133,7 +133,7 @@ App.Model = function (canvas, _deps) {
       c += 1
     }
     if (
-      ("torso" != b.name ||
+      (("torso" != b.name && "torso2" != b.name )||
         (1 != a.face.normal.x && a.face.normal.x != -1) ||
         (c = b.geometry.depthSegments),
       1 == a.face.normal.z ||
