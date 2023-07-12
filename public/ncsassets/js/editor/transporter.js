@@ -13,7 +13,9 @@ App.Transporter = function (a) {
               a.layerModel.getTopLayerOf(e)
             );
           else var f = a.layerModel.getFaceColor(e, c);
-          f ||= new THREE.Color().setRGB(0, 0, 0)
+          if (!f) {
+            f = new THREE.Color().setRGB(0, 0, 0);
+          }
           f.isAlpha() || o.setPixelColor(b, d, f);
         },
         d
