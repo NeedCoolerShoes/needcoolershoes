@@ -1490,6 +1490,7 @@ ul.button-group.top-heavy li.active {
   border-right-color: #ddd;
   border-bottom-color: #ddd;
   box-shadow: -1px -1px 1px #666;
+  min-width: 361px !important; /* Add minimum width as hack to fix hex input vanish bug */
 }
 .jQWCP-wWheel {
   background: url("../vendor/jquery-colorwheel/images/wheel.500.jpg")
