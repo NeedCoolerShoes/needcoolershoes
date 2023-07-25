@@ -1,5 +1,21 @@
-<h2>Forgot your password?</h2>
+<div class="prose prose-invert">
+  <h2>Forgot your password?</h2>
+  <p>
+    Please contact me via email at <strong>dev (at) moxvallix.com</strong> to reset your password.
+    Please use the same email you signed up with, to contact me.
+  </p>
 
+  <h3>Please Note:</h3>
+  <p>
+    This site is a <strong>restoration</strong> of NeedCoolShoes, it is <strong>not</strong> the same site.
+  </p>
+  <p>As such, if you had an account on the old site, you will need to create a new one here.</p>
+
+  <div class="not-prose">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
+<!--
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -12,5 +28,5 @@
     <%= f.submit "Send me reset password instructions" %>
   </div>
 <% end %>
+-->
 
-<%= render "devise/shared/links" %>
