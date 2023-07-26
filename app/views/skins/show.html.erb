@@ -1,4 +1,15 @@
 <% content_for :title do "#{@skin.name} by #{@skin.user.display_name}" end %>
+<% 
+  content_for :meta_description do
+    if @skin.description.present?
+      desc = @skin.description.delete_suffix(".")
+    else
+      desc = "Skin by #{@skin.user.display_name}"
+    end
+    desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
+    desc[0, 130]
+  end
+%>
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>

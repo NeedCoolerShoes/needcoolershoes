@@ -13370,7 +13370,7 @@
       var j,
         k,
         l = document.createElement("canvas"),
-        m = l.getContext("2d"),
+        m = l.getContext("2d", {willReadFrequently: true}),
         n = false,
         o = false;
       return (

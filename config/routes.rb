@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root "static#editor"
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
+  get "contact", to: "static#contact", as: "contact"
+  post "contact", to: "static#send_message", as: "send_message"
   get "open_letter", to: "static#open_letter"
   get 'sitemap', to: 'static#sitemap', defaults: {format: 'xml'}
   get "gallery", to: "skins#index"

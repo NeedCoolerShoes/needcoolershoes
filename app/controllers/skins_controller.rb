@@ -123,6 +123,7 @@ class SkinsController < ApplicationController
   end
 
   def gallery_params
+    params.reject! { |_, value| !value.present? }
     params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search)
   end
 

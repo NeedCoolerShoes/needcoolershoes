@@ -21,8 +21,9 @@ class Skin < ApplicationRecord
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   
-  validates :name, :skin_category, :skin_part, :visibility, :model, presence: true
+  validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :terms_and_conditions, acceptance: true
+  validates :data, uniqueness: true
 
   scope :by_user_name, ->(name) { includes(:user).where(user: { name: name } ) }
   scope :order_by_updated, -> { order(updated_at: :desc) }

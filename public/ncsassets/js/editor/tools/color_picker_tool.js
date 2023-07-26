@@ -107,15 +107,17 @@ App.ColorPickerTool = function (a, b) {
   var m = false,
     n = $('<div class = "colorpicker" ></div>'),
     o = $('<div title = "Color Picker" class = "dropper"></div>'),
-    p = $('<div class = "transparent" > </div>'),
+    p = $('<div class = "absolute z-50 top-2 left-2 p-1 btn-ncs w-6 h-6 cursor-pointer" title = "eraser" ></div>'),
     q = $('<div class = "recent" ></div>'),
-    r = $('<input class="hex-input" type="text" value="#ff0000">');
+    r = $('<input class="hex-input" type="text" value="#ff0000">'),
+    s = $('<img src="/ncsassets/img/eraser.svg">');
   return (
     n.append(p),
     n.append(o),
     n.append(r),
     n.append(q),
     a.append(n),
+    p.append(s),
     r.wheelColorPicker({
       layout: "block",
       sliders: "whsvp",
@@ -142,6 +144,7 @@ App.ColorPickerTool = function (a, b) {
     }),
     h(),
     f(new THREE.Color().setRGB(1, 0, 0)),
+    console.log(a),
     $(".jQWCP-wWidget").width(a.width()),
     {
       enableDropper: c,
