@@ -8,8 +8,11 @@ App.ShareTool = function (a, b) {
     h = $("<button>Change Minecraft.net skin</button>").click(function (a) {
       b.transporter.minecraftNet();
     }),
-    i = $("<button>Download to Computer</button>").mousedown(function (a) {
+    i = $("<button>Download to Computer (PNG)</button>").mousedown(function (a) {
       b.transporter.download();
+    }),
+    ii = $("<button>Export Layers (NCRS)</button>").mousedown(function (a) {
+      b.transporter.downloadLayers();
     }),
     j = $("<button>Share to Gallery</button>").mousedown(function (
       a
@@ -84,6 +87,7 @@ App.ShareTool = function (a, b) {
     f.append(j),
     f.append(h),
     f.append(i),
+    f.append(ii),
     d.append(e.hide()),
     d.append(l.hide()),
     d.append(k),

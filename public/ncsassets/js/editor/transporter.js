@@ -242,8 +242,37 @@ App.Transporter = function (a) {
     // k(App.URL.root + "download", { upload: c("skin", !0).src });
     download(getUVImage(App.UVMAP.current, true).src, "download.png");
   }
+  function downloadLayers() {
+    let data = JSON.stringify(
+      {version: 1, model: App.UVMAP.current, data: localStorage.getItem(`layerJson-${App.UVMAP.current}`)}
+    );
+    download(`data:text/json;,${data}`, "download.ncrs");
+  }
   function m() {
     window.open(App.URL.root + "product/print3d/picnic");
+  }
+  function importLayers(file) {
+    file.text().then( (text) => {
+      let data = {}
+      try {
+        data = JSON.parse(text);
+      } catch {
+        window.alert("Invalid file format (JSON Parse Error)")
+        return false;
+      }
+      if (!data.version) {
+        window.alert("Invalid file format (NCRS Parse Error)")
+        return false;
+      }
+      let warning = "You are about to import a project from your computer.\n" +
+      "This will override any " + (data.model == "skinAlex" ? "slim" : "classic") +
+      " model skins you are currently working on. Proceed?";
+      if (window.confirm(warning)) {
+        localStorage.setItem(`layerJson-${data.model}`, data.data);
+        localStorage.setItem("model", data.model);
+        location.reload();
+      }
+    })
   }
   function n() {}
   var o = new App.Canvas(),
@@ -252,6 +281,7 @@ App.Transporter = function (a) {
     loadFromLocalStorage: e,
     minecraftNet: j,
     download: l,
+    downloadLayers: downloadLayers,
     shirt: n,
     print3d: m,
     getUVCanvas: getUVCanvas,
@@ -260,5 +290,6 @@ App.Transporter = function (a) {
     getAffineCanvas: f,
     drawTexturedTriangle: i,
     submitter: k,
+    importLayers: importLayers,
   };
 };
