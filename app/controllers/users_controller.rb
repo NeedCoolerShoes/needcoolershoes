@@ -5,6 +5,9 @@ class UsersController < ApplicationController
   def show
   end
 
+  def edit
+  end
+
   def current
     if current_user.present?
       redirect_to current_user
@@ -15,10 +18,10 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if current_user.update(profile_params)
-        format.html { redirect_to current_user_path, notice: "Profile updated successfully!" }
+      if current_user.update(user_params)
+        format.html { redirect_to current_user_path, notice: "User updated successfully!" }
       else
-        format.html { redirect_to current_user_path, alert: "Error updating profile!" }
+        format.html { redirect_to current_user_path, alert: "Error updating user!" }
       end
     end
   end
@@ -32,7 +35,7 @@ class UsersController < ApplicationController
     redirect_to root_path 
   end
 
-  def profile_params
-    params.require(:user).permit(:display_name, :biography, :featured_skin_id)
+  def user_params
+    params.require(:user).permit(:display_name, :biography, :featured_skin_id, :password, :password_confirmation)
   end
 end

@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
-    exclusion: { in: %w(current), message: "%{value} is reserved" }
+    exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current), message: "%{value} is reserved" }
 
   def pixels
     if @pixels
@@ -40,11 +40,11 @@ class User < ApplicationRecord
   end
 
   def pixel_count
-    count = User.includes(:badges).where(id: id).sum("badges.karma")
+    count = badges.where(id: id).sum("badges.karma")
     count += skins.is_public.count * Skin::KARMA
     count += (Time.now.year - created_at.year) * YEAR_KARMA
     count += skin_favourites.is_public.sum("favourites.karma")
-    count < 0 ? 0 : count
+    count.clamp(0..)
   end
 
   def favourite_grant
