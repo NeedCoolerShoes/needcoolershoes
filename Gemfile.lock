@@ -275,7 +275,6 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.7)
-    zip (2.0.2)
 
 PLATFORMS
   x86_64-linux
@@ -299,6 +298,7 @@ DEPENDENCIES
   rails_heroicon (~> 2.1)
   redcarpet (~> 3.6)
   redis (~> 4.0)
+  rubyzip (~> 2.3, >= 2.3.2)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
@@ -308,7 +308,6 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
-  zip (~> 2.0, >= 2.0.2)
 
 RUBY VERSION
    ruby 3.1.0p0
