@@ -2293,11 +2293,19 @@ ul.button-group.top-heavy li.active {
     repeat right bottom;
   position: relative;
 }
+#workspace.dusk #drawing {
+  background: #585858
+    url("../img/graphy-dusk.png")
+    repeat right bottom;
+  color: rgb(240, 240, 240);
+  text-shadow: #575757 0px 1px 0px;
+}
 #workspace.dark #drawing {
   background: #1a1a1a
     url("../img/graphy-dark.png")
     repeat right bottom;
   color: white;
+  text-shadow: #1d1d1d 0px 1px 0px;
 }
 #workspace #drawing canvas {
   position: relative;

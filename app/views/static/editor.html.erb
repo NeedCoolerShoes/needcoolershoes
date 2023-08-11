@@ -80,9 +80,16 @@
     <div id="toolbar"></div>
     <div id="workspace" class="relative">
       <div id="drawing"></div>
-      <div class="absolute top-0 p-1 cursor-pointer text-sm" onclick="workspace.classList.toggle('dark')">
-        <%= heroicon "sun", variant: "solid", size: 25, title: "Switch to Light Theme", class: "dark-visible text-white" %>
-        <%= heroicon "moon", variant: "solid", size: 25, title: "Switch to Dark Theme", class: "dark-hidden" %>
+      <div class="absolute top-0 p-1 cursor-pointer text-sm">
+        <span class="theme-icon dusk-visible" onclick="workspace.classList.toggle('dark');workspace.classList.toggle('dusk')">
+          <%= heroicon "moon", variant: "solid", size: 25, title: "Switch to Dark Theme" %>
+        </span>
+        <span class="theme-icon dark-visible" onclick="workspace.classList.toggle('dark')">
+          <%= heroicon "sun", variant: "solid", size: 25, title: "Switch to Light Theme" %>
+        </span>
+        <span class="theme-icon light-visible" onclick="workspace.classList.toggle('dusk')">
+          <%= heroicon "light-bulb", variant: "solid", size: 25, title: "Switch to Dusk Theme" %>
+        </span>
       </div>
       <div class="absolute bottom-0 p-1 cursor-pointer text-sm">
         <script>

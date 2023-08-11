@@ -5,12 +5,27 @@
   scrollbar-width: none;
 }
 
-#workspace.dark .dark-hidden {
+#workspace .theme-icon {
   display: none;
 }
 
-#workspace:not(.dark) .dark-visible {
-  display: none;
+#workspace.dark .dark-visible {
+  color: white;
+  display: initial;
+}
+
+#workspace.dusk .dusk-visible {
+  color: rgb(240, 240, 240);
+  display: initial;
+}
+
+#workspace:not(.dark):not(.dusk) .light-visible {
+  display: initial;
+}
+
+#workspace.dusk #model-toggle {
+  color: rgb(240, 240, 240);
+  text-shadow: none;
 }
 
 #workspace.dark #model-toggle {
