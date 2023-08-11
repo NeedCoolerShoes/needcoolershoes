@@ -6,6 +6,9 @@
     <%= link_to "View My Favourites", gallery_path(favourited_by: user.name), class: "btn-ncs" %>
   <% end %>
 </div>
+<% if user.skins.any? %>
+  <%= link_to "Export My Skins", user_export_path(user), class: "btn-ncs" %>
+<% end %>
 <div class="flex gap-2">
   <%= link_to "Edit Profile", edit_user_path(user), class: "btn-ncs" %>
   <%= link_to "Edit Login", edit_user_registration_path, class: "btn-ncs" %>

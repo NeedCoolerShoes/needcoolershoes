@@ -67,6 +67,15 @@ class Skin < ApplicationRecord
     favourites.where(user: user).any?
   end
 
+  def to_png
+    raise "Skin has invalid data!" unless data.start_with? "data:image/png;base64,"
+    Base64.decode64(data.delete_prefix("data:image/png;base64,"))
+  end
+
+  def filename
+    "#{name.parameterize}_#{created_at.strftime("%Y%m%d")}.png"
+  end
+
   private
 
   def send_creation_webhook

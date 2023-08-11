@@ -18,11 +18,14 @@ Rails.application.routes.draw do
   resources :skins, only: %i[create show edit destroy update]
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
-  resources :users, only: %i[show edit destroy update]
+  resources :users, only: %i[show edit destroy update] do
+    get "export", to: "users#export"
+  end
 
   # API
   scope :api do
     get 'skin/:id', to: "api#skin"
+    get 'skins', to: "api#skins"
     get 'tags', to: "api#tags"
   end
 end

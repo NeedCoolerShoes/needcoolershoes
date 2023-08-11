@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  require 'zip'
+
   YEAR_KARMA = 50
   FAVOURITE_RATIO = 0.02
   FAVOURITE_MAX = 25
@@ -49,6 +51,23 @@ class User < ApplicationRecord
 
   def favourite_grant
     (pixel_count * FAVOURITE_RATIO).floor.clamp(0, FAVOURITE_MAX)
+  end
+
+  def export_skins_to_zip
+    zip_file = Tempfile.new
+    files = []
+    Zip::File.open(zip_file.path, Zip::File::CREATE) do |zip|
+      skins.each do |skin|
+        file = Tempfile.new
+        files << file
+        File.open(file, 'wb') do |file|
+          file.write(skin.to_png)
+        end
+        zip.add(skin.filename, file.path)
+      end
+    end
+    files.each { |f| f.unlink }
+    zip_file
   end
 
   private
