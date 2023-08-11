@@ -15,7 +15,7 @@ App.SquareMode = function (a, b) {
         : ((f.top = g.top), (i.top = c.top));
     for (var j = f.left; j < i.left; j += 5)
       for (var k = f.top; k < i.top; k += 5) {
-        var b = a.model.pingIntersets({ left: j, top: k });
+        var b = a.model.pingIntersects({ left: j, top: k });
         b[0] &&
           (e(b[0].face),
           a.toolbox.refs.mirror.isEnabled() &&

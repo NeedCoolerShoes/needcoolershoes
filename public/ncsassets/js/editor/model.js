@@ -14,7 +14,7 @@ App.Model = function (canvas, _deps) {
         new THREE.MeshFaceMaterial(y)
       )),
       (z[a].name = a),
-      A.add(z[a]),
+      skinObject.add(z[a]),
       (z[a].position.x = c.x),
       (z[a].position.y = c.y),
       (z[a].position.z = c.z);
@@ -28,37 +28,37 @@ App.Model = function (canvas, _deps) {
   function f() {
     (v = canvas.width()), (w = canvas.height()), canvasRenderer.setSize(v, w);
   }
-  function pingIntersets(a) {
-    var b = new THREE.Vector3(
-      (a.left / v) * 2 - 1,
-      2 * -(a.top / w) + 1,
+  function pingIntersects(offset) {
+    var vector = new THREE.Vector3(
+      (offset.left / v) * 2 - 1,
+      2 * -(offset.top / w) + 1,
       0.5
     );
-    projector.unprojectVector(b, perspectiveCamera);
+    projector.unprojectVector(vector, perspectiveCamera);
     for (
-      var c = new THREE.Raycaster(
+      var raycast = new THREE.Raycaster(
           perspectiveCamera.position,
-          b.sub(perspectiveCamera.position).normalize()
+          vector.sub(perspectiveCamera.position).normalize()
         ),
-        d = [],
-        e = 0;
-      e < A.children.length;
-      e++
+        objects = [],
+        iteration = 0;
+      iteration < skinObject.children.length;
+      iteration++
     )
-      A.children[e].visible && d.push(A.children[e]);
-    var f = c.intersectObjects(d);
-    return f;
+    skinObject.children[iteration].visible && objects.push(skinObject.children[iteration]);
+    var intersectingObjects = raycast.intersectObjects(objects);
+    return intersectingObjects;
   }
   function rotateTo(a) {
-    (A.rotation.y -= 0.02 * a.y), (A.rotation.x -= 0.02 * a.x);
+    (skinObject.rotation.y -= 0.02 * a.y), (skinObject.rotation.x -= 0.02 * a.x);
   }
   function animateTo(a) {
     if (!x) {
-      new TWEEN.Tween({ x: A.rotation.x, y: A.rotation.y })
-        .to({ x: A.rotation.x + a.x, y: A.rotation.y + a.y }, 250)
+      new TWEEN.Tween({ x: skinObject.rotation.x, y: skinObject.rotation.y })
+        .to({ x: skinObject.rotation.x + a.x, y: skinObject.rotation.y + a.y }, 250)
         .easing(TWEEN.Easing.Quadratic.InOut)
         .onUpdate(function () {
-          (A.rotation.x = this.x), (A.rotation.y = this.y), render();
+          (skinObject.rotation.x = this.x), (skinObject.rotation.y = this.y), render();
         })
         .onComplete(function () {
           x = !1;
@@ -81,11 +81,11 @@ App.Model = function (canvas, _deps) {
   }
   function animateExact(a) {
     if (!x) {
-      new TWEEN.Tween({ x: A.rotation.x, y: A.rotation.y })
+      new TWEEN.Tween({ x: skinObject.rotation.x, y: skinObject.rotation.y })
         .to({ x: a.x, y: a.y }, 250)
         .easing(TWEEN.Easing.Quadratic.InOut)
         .onUpdate(function () {
-          (A.rotation.x = this.x), (A.rotation.y = this.y), render();
+          (skinObject.rotation.x = this.x), (skinObject.rotation.y = this.y), render();
         })
         .onComplete(function () {
           x = !1;
@@ -150,24 +150,24 @@ App.Model = function (canvas, _deps) {
     return b.geometry.faces[e];
   }
   function loopOverMap(a, b, c) {
-    for (var d = A.children.length - 1; d >= 0; d--) {
+    for (var d = skinObject.children.length - 1; d >= 0; d--) {
       var e = {};
-      if (!c || c == A.children[d])
-        for (var f = 0; f < A.children[d].geometry.faces.length; f++) {
-          var g = A.children[d].geometry.faces[f];
+      if (!c || c == skinObject.children[d])
+        for (var f = 0; f < skinObject.children[d].geometry.faces.length; f++) {
+          var g = skinObject.children[d].geometry.faces[f];
           if (JSON.stringify(e) != JSON.stringify(g.normal)) {
             e = g.normal;
             var h = 0,
               i = 0,
-              j = A.children[d].geometry.depthSegments,
-              k = A.children[d].geometry.heightSegments;
+              j = skinObject.children[d].geometry.depthSegments,
+              k = skinObject.children[d].geometry.heightSegments;
             (Math.abs(e.z) > 0 || Math.abs(e.y) > 0) &&
-              ((j = A.children[d].geometry.widthSegments),
-              (k = A.children[d].geometry.depthSegments));
+              ((j = skinObject.children[d].geometry.widthSegments),
+              (k = skinObject.children[d].geometry.depthSegments));
           }
           for (var l = 0; l < a.length; l++)
             if (
-              A.children[d].name == a[l][3] &&
+              skinObject.children[d].name == a[l][3] &&
               (("front" == a[l][2] && 1 == g.normal.z) ||
                 ("back" == a[l][2] && g.normal.z == -1) ||
                 ("left" == a[l][2] && 1 == g.normal.x) ||
@@ -186,28 +186,29 @@ App.Model = function (canvas, _deps) {
     }
   }
   function loopOverFaces(a) {
-    for (var b = 0; b < A.children.length; b++)
-      for (var c = 0; c < A.children[b].geometry.faces.length; c++)
-        a(A.children[b].geometry.faces[c], A.children[b], b, c);
+    for (var b = 0; b < skinObject.children.length; b++)
+      for (var c = 0; c < skinObject.children[b].geometry.faces.length; c++)
+        a(skinObject.children[b].geometry.faces[c], skinObject.children[b], b, c);
   }
   function loopOverParts(a) {
-    for (var b = 0; b < A.children.length; b++) a(A.children[b]);
+    for (var b = 0; b < skinObject.children.length; b++) a(skinObject.children[b]);
   }
   function getPart(a) {
     return z[a];
   }
-  function cursorOffset(a) {
-    if (void 0 == a.offsetX)
-      var b = a.pageX - K.left,
-        c = a.pageY - K.top;
-    else
-      var b = a.offsetX,
-        c = a.offsetY;
+  function cursorOffset(mouseEvent) {
+    if (mouseEvent.offsetX == void 0) {
+      var b = mouseEvent.pageX - canvasOffset.left,
+      c = mouseEvent.pageY - canvasOffset.top;
+    } else {
+      var b = mouseEvent.offsetX,
+      c = mouseEvent.offsetY;
+    }
     return { left: b, top: c };
   }
   function render() {
-    for (var a = 0; a < A.children.length; a++) {
-      var b = A.children[a],
+    for (var a = 0; a < skinObject.children.length; a++) {
+      var b = skinObject.children[a],
         c = new THREE.Vector3();
       c.getPositionFromMatrix(b.matrixWorld),
         (b.zBoost = c.distanceTo(perspectiveCamera.position)),
@@ -234,7 +235,7 @@ App.Model = function (canvas, _deps) {
       }),
     ],
     z = {},
-    A = new THREE.Object3D();
+    skinObject = new THREE.Object3D();
   var armWidth = App.UVMAP.current == "skinAlex" ? 3 : 4
   var armOffset = App.UVMAP.current == "skinAlex" ? 5.65 : 6
   c("hat", { width: 8, height: 8, depth: 8 }, { x: 0, y: 10, z: 0 }, 0.5),
@@ -290,11 +291,11 @@ App.Model = function (canvas, _deps) {
   var perspectiveCamera = new THREE.PerspectiveCamera(70, v / w, 5, 100);
   (perspectiveCamera.position.z = 30), (perspectiveCamera.position.y = -1);
   var E = new THREE.Scene();
-  E.add(A);
-  for (var F = 0, G = 0; G < A.children.length; G++) {
-    A.children[G].groupIndex = G;
-    for (var H = 0; H < A.children[G].geometry.faces.length; H++) {
-      var I = A.children[G].geometry.faces[H];
+  E.add(skinObject);
+  for (var F = 0, G = 0; G < skinObject.children.length; G++) {
+    skinObject.children[G].groupIndex = G;
+    for (var H = 0; H < skinObject.children[G].geometry.faces.length; H++) {
+      var I = skinObject.children[G].geometry.faces[H];
       (I.materialIndex = 0),
         (I.groupIndex = G),
         (I.faceIndex = H),
@@ -307,9 +308,9 @@ App.Model = function (canvas, _deps) {
   }
   var J = $(canvasRenderer.domElement);
   canvas.append(J), f();
-  var K = J.offset();
+  var canvasOffset = J.offset();
   return {
-    pingIntersets: pingIntersets,
+    pingIntersects: pingIntersects,
     rotateTo: rotateTo,
     getFaceColor: getFaceColor,
     setFaceColor: setFaceColor,
@@ -320,7 +321,7 @@ App.Model = function (canvas, _deps) {
     loopOverParts: loopOverParts,
     getPart: getPart,
     $dom: J,
-    offset: K,
+    offset: canvasOffset,
     cursorOffset: cursorOffset,
     render: render,
     turnOffGrid: turnOffGrid,

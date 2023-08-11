@@ -1,19 +1,19 @@
 App.PaintMode = function (a) {
-  function b(a, b) {
-    c(a, b);
+  function mousedown(intersectingObjects, cursorOffset) {
+    mousemove(intersectingObjects, cursorOffset);
   }
-  function c(b, c) {
+  function mousemove(intersectingObjects, cursorOffset) {
     if (
-      b.length &&
+      intersectingObjects.length &&
       (a.layerModel.setFaceColor(
-        b[0].face,
+        intersectingObjects[0].face,
         a.toolbox.refs.colorPicker.getColor(
           a.toolbox.refs.noise.isEnabled()
         )
       ),
       a.toolbox.refs.mirror.isEnabled() &&
         a.layerModel.setFaceColor(
-          a.model.getMirroredFace(b[0]),
+          a.model.getMirroredFace(intersectingObjects[0]),
           a.toolbox.refs.colorPicker.getColor(
             a.toolbox.refs.noise.isEnabled()
           )
@@ -24,10 +24,10 @@ App.PaintMode = function (a) {
       var d = 4,
         e = 10;
       if ("size3" == a.toolbox.refs.brushSize.getSize()) var e = 20;
-      for (var f = c.left - e; f < c.left + e; f += d)
-        for (var g = c.top - e; g < c.top + e; g += d)
+      for (var f = cursorOffset.left - e; f < cursorOffset.left + e; f += d)
+        for (var g = cursorOffset.top - e; g < cursorOffset.top + e; g += d)
           if (
-            ((b = a.model.pingIntersets({ left: f, top: g })),
+            ((b = a.model.pingIntersects({ left: f, top: g })),
             b.length > 0 &&
               (a.layerModel.setFaceColor(
                 b[0].face,
@@ -61,8 +61,8 @@ App.PaintMode = function (a) {
     getKey: function () {
       return "p";
     },
-    mousedown: b,
-    mousemove: c,
+    mousedown: mousedown,
+    mousemove: mousemove,
     mouseup: d,
     getCursorHoverUrl: function () {
       return "crosshair";

@@ -75,45 +75,64 @@ App.Editor = function (a, b, c, d) {
     h.keys.bind("down", function () {
       h.model.addPosition(0,1);
     }),
+    h.keys.bind(["0", "enter", "space", "ins"], function () {
+      h.model.animateExact({ x: 0, y: 0 });
+      h.model.scale(70);
+      h.model.position(0,-1);
+    }),
     h.model.$dom
       .mousedown(function (a) {
         a.originalEvent.preventDefault();
-        var b = h.model.cursorOffset(a),
-          c = h.model.pingIntersets(b);
-        h.toolbox.refs.colorPicker.isDropperActive()
-          ? (c.length && c.length > 0
-              ? h.toolbox.refs.colorPicker.dropperDeactivate(
-                  h.layerModel.getFaceColor(c[0].face)
-                )
-              : h.toolbox.refs.colorPicker.dropperDeactivate(),
-            g(h.toolbar.getModeObj().getCursorHoverUrl()))
-          : (c.length &&
-            c.length > 0 &&
+        var cursorOffset = h.model.cursorOffset(a),
+          intersectingObjects = h.model.pingIntersects(cursorOffset);
+        if (h.toolbox.refs.colorPicker.isDropperActive()) {
+          if (intersectingObjects.length && intersectingObjects.length > 0) {
+            let color = h.layerModel.getFaceColor(intersectingObjects[0].face);
+            if (color.r == 0 && color.g == 1 && color.b == 0 && intersectingObjects.length > 1) {
+              color = h.layerModel.getFaceColor(intersectingObjects[1].face);
+            }
+            h.toolbox.refs.colorPicker.dropperDeactivate(color)
+          } else {
+            h.toolbox.refs.colorPicker.dropperDeactivate();
+            g(h.toolbar.getModeObj().getCursorHoverUrl());
+          }
+        } else {
+          if (
+            intersectingObjects.length &&
+            intersectingObjects.length > 0 &&
             "grab" != h.toolbar.getModeObj().getCursorHoverUrl()
-              ? ((l = "drawing"),
-                h.toolbar.getModeObj().mousedown(c, b),
-                g(h.toolbar.getModeObj().getCursorDownUrl()))
-              : ((l = "drag"), (i = b)),
-            h.toolbox.refs.colorPicker.addRecentColor()),
-          h.model.render();
+            )
+          {
+              l = "drawing";
+              h.toolbar.getModeObj().mousedown(intersectingObjects, cursorOffset);
+              g(h.toolbar.getModeObj().getCursorDownUrl());
+          } else {
+            l = "drag";
+            i = cursorOffset;
+            h.toolbox.refs.colorPicker.addRecentColor();
+            h.model.render();
+          }
+        }
       })
       .mousemove(function (a) {
         a.preventDefault();
-        var b = h.model.cursorOffset(a),
-          c = h.model.pingIntersets(b);
-        if (h.toolbox.refs.colorPicker.isDropperActive())
-          (l = "dropper"),
-            g("crosshair"),
-            c.length &&
-              c.length > 0 &&
-              h.toolbox.refs.colorPicker.previewColor(
-                h.layerModel.getFaceColor(c[0].face)
-              );
-        else if (h.toolbar.getModeObj() && "drawing" == l) {
-          if (c.length > 0) {
-            if (b && j) {
-              var d = e(j, b),
-                m = f(j, b);
+        var cursorOffset = h.model.cursorOffset(a),
+          intersectingObjects = h.model.pingIntersects(cursorOffset);
+        if (h.toolbox.refs.colorPicker.isDropperActive()) {
+            l = "dropper";
+            g("crosshair");
+            if (intersectingObjects.length && intersectingObjects.length > 0) {
+              let color = h.layerModel.getFaceColor(intersectingObjects[0].face);
+              if (color.r == 0 && color.g == 1 && color.b == 0 && intersectingObjects.length > 1) {
+                color = h.layerModel.getFaceColor(intersectingObjects[1].face);
+              }
+              h.toolbox.refs.colorPicker.previewColor(color);
+            }
+        } else if (h.toolbar.getModeObj() && "drawing" == l) {
+          if (intersectingObjects.length > 0) {
+            if (cursorOffset && j) {
+              var d = e(j, cursorOffset),
+                m = f(j, cursorOffset);
               if (d > 5)
                 for (var n = 0; n < d; n += 4) {
                   var o = j.left + Math.sin(m) * n,
@@ -121,19 +140,19 @@ App.Editor = function (a, b, c, d) {
                     q = { left: o, top: p };
                   h.toolbar
                     .getModeObj()
-                    .mousemove(h.model.pingIntersets(q), q);
+                    .mousemove(h.model.pingIntersects(q), q);
                 }
             }
-            h.toolbar.getModeObj().mousemove(c, b), (j = b), (k = false);
-          } else k || (k = b);
+            h.toolbar.getModeObj().mousemove(intersectingObjects, cursorOffset), (j = cursorOffset), (k = false);
+          } else k || (k = cursorOffset);
           g(h.toolbar.getModeObj().getCursorDownUrl());
         } else
           "drag" == l
-            ? (h.model.rotateTo({ y: i.left - b.left, x: i.top - b.top }),
-              (i = b),
+            ? (h.model.rotateTo({ y: i.left - cursorOffset.left, x: i.top - cursorOffset.top }),
+              (i = cursorOffset),
               g("grabbing"))
             : g(
-                c.length && c.length > 0
+                intersectingObjects.length && intersectingObjects.length > 0
                   ? h.toolbar.getModeObj().getCursorHoverUrl()
                   : "grab"
               );
