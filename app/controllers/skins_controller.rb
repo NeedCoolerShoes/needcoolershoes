@@ -3,7 +3,6 @@ class SkinsController < ApplicationController
   before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite]
   before_action :validate_owner, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
-  before_action :set_favouriting_user, only: %i[add_favourite remove_favourite]
 
   def index
     @gallery_params = gallery_params
@@ -63,21 +62,21 @@ class SkinsController < ApplicationController
 
   def add_favourite
     respond_to do |format|
-      if Favourite.create(skin: @skin, user: @user)
-        format.html { redirect_to gallery_path(gallery_params), notice: "Added skin to favourites." }
+      if Favourite.create(skin: @skin, user: current_user)
+        format.html { redirect_to params[:redirect], notice: "Added skin to favourites." }
       else
-        format.html { redirect_to gallery_path(gallery_params), alert: "Error favouriting skin." }
+        format.html { redirect_to params[:redirect], alert: "Error favouriting skin." }
       end
     end
   end
 
   def remove_favourite
-    favourite = Favourite.find_by(skin: @skin, user: @user)
+    favourite = Favourite.find_by(skin: @skin, user: current_user)
     respond_to do |format|
       if favourite.delete
-        format.html { redirect_to gallery_path(gallery_params), notice: "Removed skin from favourites." }
+        format.html { redirect_to params[:redirect], notice: "Removed skin from favourites." }
       else
-        format.html { redirect_to gallery_path(gallery_params), alert: "Error removing favourite skin." }
+        format.html { redirect_to params[:redirect], alert: "Error removing favourite skin." }
       end
     end
   rescue ActiveRecord::RecordNotFound
@@ -88,15 +87,6 @@ class SkinsController < ApplicationController
 
   def set_skin
     @skin = Skin.find(params[:id])
-
-  rescue ActiveRecord::RecordNotFound
-    redirect_to gallery_path 
-  end
-
-  def set_favouriting_user
-    @user = User.find(params[:user_id])
-    return if @user == current_user
-    redirect_to gallery_path
 
   rescue ActiveRecord::RecordNotFound
     redirect_to gallery_path 

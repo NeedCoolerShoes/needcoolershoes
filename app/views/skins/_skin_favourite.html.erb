@@ -1,11 +1,11 @@
 <%
   size ||= 24
-  user ||= nil
   show_guests ||= false
+  redirect ||= gallery_path
 %>
-<% if user.present? %>
+<% if current_user.present? %>
   <div>
-    <% if skin.favourited_by?(user) %>
+    <% if skin.favourited_by?(current_user) %>
       <%= form_with url: destroy_skin_favourite_path(skin), method: :delete do |form| %>
         <div class="flex flex-col items-center">
           <%= form.button aria: { label: "Remove from Favourites" } do %>
@@ -15,7 +15,7 @@
             <%= simple_number skin.favourites.count if skin.favourites.any? %>
           </span>
         </div>
-        <%= form.hidden_field :user_id, value: user.id %>
+        <%= form.hidden_field :redirect, value: redirect %>
       <% end %>
     <% else %>
       <%= form_with url: create_skin_favourite_path(skin) do |form| %>
@@ -27,7 +27,7 @@
             <%= simple_number skin.favourites.count if skin.favourites.any? %>
           </span>
         </div>
-        <%= form.hidden_field :user_id, value: user.id %>
+        <%= form.hidden_field :redirect, value: redirect %>
       <% end %>
     <% end %>
   </div>

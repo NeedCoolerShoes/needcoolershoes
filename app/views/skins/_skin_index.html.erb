@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <div class="absolute top-0 right-0 p-2">
-    <%= render partial: "skin_favourite", locals: { skin: skin, user: current_user, show_guests: true } %>
+    <%= render partial: "skin_favourite", locals: { skin: skin, show_guests: true, redirect: gallery_path(@gallery_params) } %>
   </div>
   <div class="flex items-center justify-center bg-ncs-grid rounded p-4 px-8">
     <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data, slim: skin.slim? } %>

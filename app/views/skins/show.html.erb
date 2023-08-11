@@ -53,7 +53,7 @@
       <div class="flex justify-between">
         <h2 class="text-4xl font-bold"><%= @skin.name %></h2>
         <div>
-          <%= render partial: "skin_favourite", locals: { skin: @skin, user: current_user, size: 32 } %>
+          <%= render partial: "skin_favourite", locals: { skin: @skin, size: 32, redirect: skin_path(@skin) } %>
         </div>
       </div>
       <div class="flex flex-col font-bold">
