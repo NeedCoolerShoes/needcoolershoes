@@ -7,7 +7,8 @@ class Skin < ApplicationRecord
     date_offset: "created_after_days",
     tag: "tagged_with",
     favourited_by: "favourited_by_user_name",
-    search: "search"
+    search: "search",
+    order: "ordered_by"
   }
   KARMA = 5
   include PgSearch::Model
@@ -25,15 +26,26 @@ class Skin < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
   validates :data, uniqueness: true
 
-  scope :by_user_name, ->(name) { includes(:user).where(user: { name: name } ) }
-  scope :order_by_updated, -> { order(updated_at: :desc) }
-  scope :order_by_created, -> { order(created_at: :desc) }
+  scope :by_user_name, ->(name) { joins(:user).where(user: { name: name } ) }
+  scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
+  scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
+  scope :order_by_favourites, -> { left_joins(:favourites).group(:id).order('COUNT(favourites.id) DESC') }
   scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
-  scope :by_part_name, ->(name) { includes(:skin_part).where(skin_part: { name: name }) }
-  scope :by_category_name, ->(name) { includes(:skin_category).where(skin_category: { name: name }) }
+  scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: { name: name }) }
+  scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: { name: name }) }
   scope :by_model, ->(model) { where(model: model) }
   scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
-  scope :favourited_by_user_name, ->(name) { includes(:favourites).where(favourites: { user: User.where(name: name) }) }
+  scope :favourited_by_user_name, ->(name) { joins(:favourites).where(favourites: { user: User.where(name: name) }) }
+  
+  scope :ordered_by, ->(ordering) {
+    case ordering
+    when 'favourite' then order_by_favourites
+    when 'old' then order_by_created(:asc)
+    when 'new_updated' then order_by_updated
+    when 'old_updated' then order_by_updated(:asc)
+    else order_by_created
+    end
+  }
 
   scope :with_params, ->(params) { with_params_query(params) }
 

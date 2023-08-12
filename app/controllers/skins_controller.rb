@@ -6,7 +6,8 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
-    skins = Skin.order_by_created.with_params(@gallery_params)
+    skins = Skin.with_params(@gallery_params)
+    skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     if current_user.present?
       skins = skins.merge(Skin.visible_to_user(current_user))
     else
@@ -114,7 +115,7 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order)
   end
 
   def transform_tags(tags)
