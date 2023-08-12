@@ -38,7 +38,7 @@
           <%= t("skins.editor") %>
         </button>
         <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
-        <button onclick="download('<%= @skin.data %>', 'download.png')" class="download btn-ncs"><%= t "skins.download"  %></button>
+        <%= link_to "Download to Computer", skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
         <% if @skin.user == current_user %>
           <%= form_with model: current_user, url: update_profile_path do |form| %>
             <%= form.hidden_field :featured_skin_id, value: @skin.id %>
@@ -89,5 +89,12 @@
         </div>
       <% end %>
     </div>
+    <% if @skin.user == current_user %>
+      <div class="bg-white p-4 mt-2">
+        <h4 class="font-bold text-lg">My Stats</h4>
+        <p>Total Favourites: <%= @skin.favourites.count %></p>
+        <p>Total Downloads: <%= @skin.download_count || 0 %></p>
+      </div>
+    <% end %>
   </div>
 </div>
