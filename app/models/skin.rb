@@ -29,7 +29,7 @@ class Skin < ApplicationRecord
   scope :by_user_name, ->(name) { joins(:user).where(user: { name: name } ) }
   scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
   scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
-  scope :order_by_favourites, -> { left_joins(:favourites).group(:id).order('COUNT(favourites.id) DESC') }
+  scope :order_by_favourites, ->(direction = :desc) { order(favourites_count: direction) }
   scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: { name: name }) }
   scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: { name: name }) }

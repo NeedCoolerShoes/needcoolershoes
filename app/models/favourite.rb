@@ -1,6 +1,6 @@
 class Favourite < ApplicationRecord
   belongs_to :user
-  belongs_to :skin
+  belongs_to :skin, counter_cache: true
 
   before_create :set_karma_from_user
 
