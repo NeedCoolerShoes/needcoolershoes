@@ -111,6 +111,9 @@ App.LayerModel = function (a) {
     });
   }
   function q(a, b) {
+    if (!b.visible) {
+      return new THREE.Color().setAlpha();
+    }
     return (b = b || c()), b.faces[parseInt(a.userData.uid)] || new THREE.Color().setRGB(0, 0, 0);
   }
   function r(a) {
