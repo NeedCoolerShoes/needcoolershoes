@@ -111,10 +111,11 @@ App.LayerModel = function (a) {
     });
   }
   function q(a, b) {
+    b = b || c()
     if (!b.visible) {
       return new THREE.Color().setAlpha();
     }
-    return (b = b || c()), b.faces[parseInt(a.userData.uid)] || new THREE.Color().setRGB(0, 0, 0);
+    return b.faces[parseInt(a.userData.uid)] || new THREE.Color().setRGB(0, 0, 0);
   }
   function r(a) {
     var d = parseInt(a.userData.uid);
