@@ -80,6 +80,9 @@ App.Editor = function (a, b, c, d) {
       h.model.scale(70);
       h.model.position(0,-1);
     }),
+    h.keys.bind(["g", "G"], function () {
+      h.model.toggleGrid();
+    }),
     h.model.$dom
       .mousedown(function (a) {
         a.originalEvent.preventDefault();

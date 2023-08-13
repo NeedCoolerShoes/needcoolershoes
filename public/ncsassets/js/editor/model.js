@@ -219,13 +219,18 @@ App.Model = function (canvas, _deps) {
   function turnOffGrid() {
     y[0] = new THREE.MeshBasicMaterial({ visible: !1 });
   }
+  function toggleGrid() {
+    y[0].visible = !y[0].visible
+    render()
+  }
   var v = canvas.width(),
     w = canvas.height(),
     x = !1,
     y = [
       new THREE.MeshBasicMaterial({
         color: 4473924,
-        wireframe: !0,
+        visible: true,
+        wireframe: true,
         wireframeLinewidth: 0.3,
       }),
       new THREE.MeshBasicMaterial({
@@ -325,9 +330,11 @@ App.Model = function (canvas, _deps) {
     cursorOffset: cursorOffset,
     render: render,
     turnOffGrid: turnOffGrid,
+    toggleGrid: toggleGrid,
     animateTo: animateTo,
     animateExact: animateExact,
     scale: scale,
+    fov: () => { return perspectiveCamera.fov; },
     addScale: addScale,
     addPosition: addPosition,
     position: position,
