@@ -51,17 +51,17 @@ App.Editor = function (a, b, c, d) {
     h.keys.bind("s", function () {
       h.model.animateTo({ x: 1.57079633, y: 0 });
     }),
-    h.keys.bind("-", function () {
+    h.keys.bind(["-", "_"], function () {
       h.model.addScale(5);
+      if (h.model.fov() >= 180) {
+        h.model.scale(175);
+      }
     }),
-    h.keys.bind("_", function () {
-      h.model.addScale(5);
-    }),
-    h.keys.bind("=", function () {
+    h.keys.bind(["=", "+"], function () {
       h.model.addScale(-5);
-    }),
-    h.keys.bind("+", function () {
-      h.model.addScale(-5);
+      if (h.model.fov() <= 0) {
+        h.model.scale(5);
+      }
     }),
     h.keys.bind("left", function () {
       h.model.addPosition(1,0);
