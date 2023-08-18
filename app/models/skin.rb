@@ -26,6 +26,8 @@ class Skin < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
   validates :data, uniqueness: true
 
+  attribute :favourites_count, :integer, default: 0
+
   scope :by_user_name, ->(name) { joins(:user).where(user: { name: name } ) }
   scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
   scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
