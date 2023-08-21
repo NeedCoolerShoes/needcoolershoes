@@ -228,9 +228,13 @@ App.ImportTool = function (a, b) {
             a(h),
             a(e)
           ).always(c));
-    }));
+    })),
+    k = $('<hr class="my-2">'),
+    l = new App.ReferenceImgButton(f, b);
   return (
     f.append(j),
+    f.append(k),
+    f.append(l),
     d.append(e),
     d.append(f),
     a.append(d),

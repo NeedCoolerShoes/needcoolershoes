@@ -1,3 +1,6 @@
+var jsFrame = new JSFrame({
+  parentElement:document.body,//Set the parent element to which the jsFrame is attached here
+});
 var App = App || {};
 var drawingPanel = document.getElementById("drawing");
 
