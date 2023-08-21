@@ -19,7 +19,7 @@ App.ReferenceImgButton = function (a, b) {
       });
       let reader = new FileReader();
       reader.onload = function(e) {
-        frame.setHTML(`<div class="w-full h-full bg-center bg-contain bg-no-repeat z-100" style="background-image: url('${e.target.result}')"></div>`)
+        frame.setHTML(`<div class="w-full h-full bg-center bg-cover bg-no-repeat z-100" style="background-image: url('${e.target.result}')"></div>`)
         frame.show();
       }
       reader.readAsDataURL(file);
