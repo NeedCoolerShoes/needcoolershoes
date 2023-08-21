@@ -13,7 +13,7 @@
               selected = (part.name == params[:part])
             %>
             <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-              <%= link_to part.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+              <%= link_to part.name, gallery_path(gallery_params), title: "#{part.name} - #{part.skins.count}", class: "#{ selected ? "font-bold" : nil }" %>
             </span>
           <% end %>
         </div>
@@ -27,7 +27,7 @@
               selected = (category.name == params[:category])
             %>
             <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-              <%= link_to category.name, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+              <%= link_to category.name, gallery_path(gallery_params), title: "#{category.name} - #{category.skins.count}", class: "#{ selected ? "font-bold" : nil }" %>
             </span>
           <% end %>
         </div>
@@ -47,9 +47,10 @@
               <%
                 gallery_params = @gallery_params.merge({model: model})
                 selected = (model == params[:model])
+                count = Skin.by_model(model).count
               %>
               <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-                <%= link_to model.titleize, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+                <%= link_to model.titleize, gallery_path(gallery_params), title: "#{model.titleize} - #{count}", class: "#{ selected ? "font-bold" : nil }" %>
               </span>
             <% end %>
           </div>
@@ -64,13 +65,14 @@
                 today: 0, last_7_days: 7, last_30_days: 30, last_90_days: 90, last_year: 365
               }
             %>
-            <% date_ranges.each do |title, count| %>
+            <% date_ranges.each do |title, offset| %>
               <%
-                gallery_params = @gallery_params.merge({date_offset: count})
-                selected = (count.to_s == params[:date_offset])
+                gallery_params = @gallery_params.merge({date_offset: offset})
+                selected = (offset.to_s == params[:date_offset])
+                count = Skin.created_after_days(offset).count
               %>
               <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
-                <%= link_to title.to_s.titleize, gallery_path(gallery_params), class: "#{ selected ? "font-bold" : nil }" %>
+                <%= link_to title.to_s.titleize, gallery_path(gallery_params), title: "#{title.to_s.titleize} - #{count}", class: "#{ selected ? "font-bold" : nil }" %>
               </span>
             <% end %>
           </div>
@@ -124,11 +126,11 @@
             <div class="flex flex-wrap items-center gap-1 text-gray-600">
               <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
                 <% gallery_params = @gallery_params.merge(user: current_user.name); gallery_params.delete(:favourited_by) %>
-                <%= link_to "My Skins", gallery_path(gallery_params), class: "#{ params[:user] == current_user.name ? "font-bold" : nil }" %>
+                <%= link_to "My Skins", gallery_path(gallery_params), title: "#{current_user.display_name} - #{current_user.skins.count}", class: "#{ params[:user] == current_user.name ? "font-bold" : nil }" %>
               </span>
               <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
                 <% gallery_params = @gallery_params.merge(favourited_by: current_user.name); gallery_params.delete(:user) %>
-                <%= link_to "My Favourites", gallery_path(gallery_params), class: "#{ params[:favourited_by] == current_user.name ? "font-bold" : nil }" %>
+                <%= link_to "My Favourites", gallery_path(gallery_params), title: "My Favourites - #{current_user.favourites.count}", class: "#{ params[:favourited_by] == current_user.name ? "font-bold" : nil }" %>
               </span>
             </div>
           </div>
