@@ -19,11 +19,14 @@ App.ReferenceImgButton = function (a, b) {
       });
       let reader = new FileReader();
       reader.onload = function(e) {
-        frame.setHTML(`<div class="w-full h-full bg-center bg-cover bg-no-repeat z-100" style="background-image: url('${e.target.result}')"></div>`)
+        frame.setHTML(`<div class="w-full h-full" style="overflow:clip"><div id="ref" class="w-full h-full bg-center bg-cover bg-no-repeat z-100" style="background-image: url('${e.target.result}');"></div></div>`)
         frame.show();
       }
+      frame.on('frame', 'focus', (data) => {
+        let el = document.querySelector('#ref'); panzoom(el, { bounds: true, smoothScroll: false }) 
+      });
       reader.readAsDataURL(file);
     }),
     button
   );
-};
+}; 
