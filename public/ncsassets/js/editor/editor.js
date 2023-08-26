@@ -31,6 +31,7 @@ App.Editor = function (a, b, c, d) {
     (h.transporter = new App.Transporter(h)),
     (h.modelToggles = new App.ModelToggles(a, h)),
     (h.undo = new App.Undo(a, h)),
+    (h.redo = new App.Redo(a, h)),
     h.transporter.loadFromLocalStorage(),
     h.toolbar.changeToStart(),
     (App.dep = h);
