@@ -1,0 +1,3 @@
+<%= form_with url: otp_path, method: :delete, class: "w-full" do |form| %>
+  <%= form.submit "Disable One-time Password", class: "underline cursor-pointer", data: { "turbo-confirm": "Are you sure you want to disable OTP?" } %>
+<% end %>

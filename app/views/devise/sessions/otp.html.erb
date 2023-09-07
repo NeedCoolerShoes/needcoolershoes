@@ -1,0 +1,8 @@
+<% content_for :extra_session_fields do %>
+  <div class="flex flex-col">
+    <%= label :user, :otp_attempt, "One-time Password" %>
+    <%= text_field :user, :otp_attempt, autofocus: true, autocomplete: "one-time-code", class: "text-black" %>
+  </div>
+<% end %>
+
+<%= render template: "devise/sessions/new" %>

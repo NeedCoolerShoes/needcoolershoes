@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { sessions: "sessions" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -18,6 +18,14 @@ Rails.application.routes.draw do
   resources :skins, only: %i[create show edit destroy update]
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
+
+  scope :users do
+    resource :otp, controller: "otp", only: %i[update destroy] do
+      get "backup_codes"
+      get "verify"
+    end
+  end
+
   resources :users, only: %i[show edit destroy update] do
     get "export", to: "users#export"
   end

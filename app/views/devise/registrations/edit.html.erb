@@ -33,9 +33,15 @@
     </div>
 
     <div class="actions mt-2 flex gap-2">
-      <%= f.submit "Update", class: "btn-ncs" %>
-      <%= link_to "Back", :back, class: "btn-ncs" %>
+      <%= f.submit "Save", class: "btn-ncs" %>
+      <%= link_to "Cancel", :back, class: "btn-ncs no-underline" %>
     </div>
+  <% end %>
+
+  <% if resource.otp_enabled? %>
+    <%= render partial: "with_otp" %>
+  <% else %>
+    <%= render partial: "without_otp" %>
   <% end %>
 
   <h3>Cancel my account</h3>

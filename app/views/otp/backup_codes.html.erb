@@ -1,0 +1,23 @@
+<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white overflow-clip">
+  <div class="flex justify-center w-full p-4">
+    <div class="w-full max-w-xl prose-lg">
+      <h3>Backup these codes</h3>
+      <p>
+        If you lose access to your one-time passwords, these codes will provide
+        a single use login each. Print them out, or write them down, and store
+        them somewhere safe and secure.
+      </p>
+      <div class="flex items-center justify-center">
+        <div class="flex flex-wrap justify-center gap-2 p-4 max-w-2xl bg-ncs-gray-600 rounded">
+          <% @backup_codes.each do |code| %>
+            <code><%= code %></code>
+          <% end %>
+        </div>
+      </div>
+      <div class="flex flex-col-reverse xs:flex-row items-center justify-between gap-2 pt-4">
+        <%= link_to "Cancel", edit_user_registration_path, class: "btn-ncs no-underline" %>
+        <%= link_to "Continue", verify_otp_path, class: "btn-ncs no-underline" %>
+      </div>
+    </div>
+  </div>
+</div>
