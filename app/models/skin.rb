@@ -17,7 +17,7 @@ class Skin < ApplicationRecord
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part
-  has_many :favourites
+  has_many :favourites, dependent: :destroy
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
