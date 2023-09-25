@@ -124,6 +124,7 @@ GEM
     ffi (1.15.5)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    honeypot-captcha (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.5)
       domain_name (~> 0.5)
@@ -294,6 +295,7 @@ DEPENDENCIES
   devise
   discordrb (~> 3.4)
   dockerfile-rails (>= 1.2)
+  honeypot-captcha (~> 1.0, >= 1.0.1)
   importmap-rails
   jbuilder
   pagy (~> 6.0)

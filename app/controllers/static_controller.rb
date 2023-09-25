@@ -1,4 +1,6 @@
 class StaticController < ApplicationController
+  prepend_before_action :protect_from_spam, :only => [:send_message]
+
   def editor
   end
 

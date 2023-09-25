@@ -1,8 +1,21 @@
+<%
+  contact_link = contact_path(
+    title: "Requesting Password Reset",
+    message: "I am having trouble logging in. My account's email is: "
+    )
+%>
+
 <div class="prose prose-invert">
   <h2>Forgot your password?</h2>
   <p>
-    Please contact me via email at <strong>dev (at) moxvallix.com</strong> to reset your password.
-    Please use the same email you signed up with, to contact me.
+    Please use the <%= link_to "Contact Form", contact_link %> to request a password reset. Make sure to fill out the
+    email you used in the message.
+  </p>
+
+  <p>
+    Optionally, you can email
+    <code>dev&nbsp;(at)&nbsp;moxvallix.com</code>,
+    from the address you signed up with.
   </p>
 
   <h3>Please Note:</h3>

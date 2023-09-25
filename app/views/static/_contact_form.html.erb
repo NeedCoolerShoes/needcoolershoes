@@ -1,25 +1,25 @@
-<%= form_with(url: send_message_path) do |f| %>
+<%= form_with(url: send_message_path, html: { honeypot: true }) do |f| %>
 
   <div class="flex gap-2">
     <div class="flex flex-col grow">
       <%= f.label :name %>
-      <%= f.text_field :name, placeholder: "Your username (optional)", value: current_user&.display_name, maxlength: 128, size: nil %>
+      <%= f.text_field :name, placeholder: "Your username (optional)", value: params[:name] || current_user.try(:display_name), maxlength: 128, size: nil %>
     </div>
 
     <div class="flex flex-col grow">
       <%= f.label :contact %>
-      <%= f.text_field :contact, placeholder: "How should we contact you (optional)", maxlength: 128, size: nil %>
+      <%= f.text_field :contact, value: params[:contact], placeholder: "How should we contact you (optional)", maxlength: 128, size: nil %>
     </div>
   </div>
 
   <div class="flex flex-col">
     <%= f.label :title, "Title *" %>
-    <%= f.text_field :title, autofocus: true, placeholder: "Title of your message", maxlength: 128, required: true %>
+    <%= f.text_field :title, value: params[:title], autofocus: true, placeholder: "Title of your message", maxlength: 128, required: true %>
   </div>
 
   <div class="flex flex-col">
     <%= f.label :message, "Message *" %>
-    <%= f.text_area :message, required: true, maxlength: 1024 %>
+    <%= f.text_area :message, value: params[:message], required: true, maxlength: 1024 %>
   </div>
 
   <div class="mt-2">
