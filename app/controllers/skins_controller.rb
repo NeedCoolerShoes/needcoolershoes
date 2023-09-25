@@ -68,6 +68,13 @@ class SkinsController < ApplicationController
   def add_favourite
     respond_to do |format|
       if Favourite.create(skin: @skin, user: current_user)
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace(
+            "favourite_skin_#{@skin.id}",
+            partial: "skins/skin_favourite",
+            locals: { skin: @skin, size: params[:size], redirect: params[:redirect] }
+          )
+        }
         format.html { redirect_to params[:redirect], notice: "Added skin to favourites." }
       else
         format.html { redirect_to params[:redirect], alert: "Error favouriting skin." }
@@ -79,6 +86,13 @@ class SkinsController < ApplicationController
     favourite = Favourite.find_by(skin: @skin, user: current_user)
     respond_to do |format|
       if favourite.delete
+        format.turbo_stream { 
+          render turbo_stream: turbo_stream.replace(
+            "favourite_skin_#{@skin.id}",
+            partial: "skins/skin_favourite",
+            locals: { skin: @skin, size: params[:size], redirect: params[:redirect] }
+          )
+        }
         format.html { redirect_to params[:redirect], notice: "Removed skin from favourites." }
       else
         format.html { redirect_to params[:redirect], alert: "Error removing favourite skin." }
