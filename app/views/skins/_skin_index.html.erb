@@ -5,6 +5,7 @@
     is_unlisted: "link",
     is_private: "eye-slash"
   }
+  redirect = gallery_path + "/#{params[:page]}?" + URI.encode_www_form(@gallery_params.to_h)
 %>
 <div class="relative flex flex-col basis-[32%] rounded bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
   <% if show_visibility%>
@@ -13,7 +14,7 @@
     </div>
   <% end %>
   <div class="absolute top-0 right-0 p-2">
-    <%= render partial: "skin_favourite", locals: { skin: skin, show_guests: true, redirect: gallery_path(@gallery_params) } %>
+    <%= render partial: "skin_favourite", locals: { skin: skin, show_guests: true, redirect: redirect } %>
   </div>
   <div class="flex items-center justify-center bg-ncs-grid rounded p-4 px-8">
     <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data, slim: skin.slim? } %>
