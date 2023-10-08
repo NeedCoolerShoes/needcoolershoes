@@ -12,6 +12,8 @@ class Skin < ApplicationRecord
   }
   KARMA = 5
   include PgSearch::Model
+  delegate :url_helpers, to: 'Rails.application.routes'
+
   pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
 
   belongs_to :user
@@ -62,6 +64,26 @@ class Skin < ApplicationRecord
       end
       query
     end
+
+    def export_to_zip(skins = all)
+      zip_file = Tempfile.new
+      metadata_file = Tempfile.new
+      metadata_file.open
+      files = []
+      Zip::File.open(zip_file.path, Zip::File::CREATE) do |zip|
+        skins.each do |skin|
+          file = Tempfile.new
+          files << file
+          File.open(file, 'wb') { |file| file.write(skin.to_png) }
+          File.open(metadata_file, 'a') { |file| file.write(skin.metadata.to_json + "\n") }
+          zip.add(skin.filename, file.path)
+        end
+        zip.add("metadata.jsonl", metadata_file.path)
+      end
+      files.each { |f| f.unlink }
+      metadata_file.unlink
+      zip_file
+    end
   end
 
   acts_as_taggable_on :tags
@@ -87,7 +109,15 @@ class Skin < ApplicationRecord
   end
 
   def filename
-    "#{name.parameterize}_#{created_at.strftime("%Y%m%d")}.png"
+    "#{name.parameterize}_#{created_at.strftime("%Y%m%d")}_#{id}.png"
+  end
+
+  def metadata
+    {
+      file: filename,
+      name: name, description: description,author: "#{user.display_name} (#{user.name})",
+      url: router.skin_url(self), created_at: created_at, updated_at: updated_at, tags: tag_list
+    }
   end
 
   private

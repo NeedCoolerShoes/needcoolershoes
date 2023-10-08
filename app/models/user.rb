@@ -56,20 +56,7 @@ class User < ApplicationRecord
   end
 
   def export_skins_to_zip
-    zip_file = Tempfile.new
-    files = []
-    Zip::File.open(zip_file.path, Zip::File::CREATE) do |zip|
-      skins.each do |skin|
-        file = Tempfile.new
-        files << file
-        File.open(file, 'wb') do |file|
-          file.write(skin.to_png)
-        end
-        zip.add(skin.filename, file.path)
-      end
-    end
-    files.each { |f| f.unlink }
-    zip_file
+    Skin.export_to_zip(skins)
   end
 
   private
