@@ -1,5 +1,9 @@
 App.ColorPickerTool = function (a, b) {
   "use strict";
+  var shiftHeld = false;
+  function handleShift(e) { shiftHeld = e.shiftKey }
+  document.addEventListener("keydown", handleShift, true);
+  document.addEventListener("keyup", handleShift, true);
   function c() {
     o.addClass("active"), (m = true);
   }
@@ -9,12 +13,28 @@ App.ColorPickerTool = function (a, b) {
       n.removeClass("transparent-active"),
       a && f(a);
   }
+  function addPaletteColor(color) {
+    if (blendPalette.includes(color)) { return; }
+    blendPalette.push(color);
+    localStorage.blendPalette = JSON.stringify(blendPalette);
+    t.append('<div data-color = "' + color + '" style = "background:#' + color + '"></div>' )
+  }
+  function getPaletteColor() {
+    if (blendPalette.length < 1) { return k; }
+    var colorPool = [k];
+    blendPalette.forEach(e => {
+      var rgb = $.fn.wheelColorPicker.strToColor(e);
+      colorPool.push(new THREE.Color().setRGB(rgb.r, rgb.g, rgb.b));
+    })
+    return colorPool[Math.floor(Math.random() * colorPool.length)];
+  }
   function e(a) {
-    if (!a || k.isAlpha()) return k;
-    var b = k.getHSL();
+    var color = getPaletteColor();
+    if (!a || color.isAlpha()) return color;
+    var b = color.getHSL();
     return b.l >= 0.5
-      ? new THREE.Color(k).setHSL(b.h, b.s, b.l - Math.random() / 8)
-      : new THREE.Color(k).setHSL(b.h, b.s, b.l + Math.random() / 10);
+      ? new THREE.Color(color).setHSL(b.h, b.s, b.l - Math.random() / 8)
+      : new THREE.Color(color).setHSL(b.h, b.s, b.l + Math.random() / 10);
   }
   function f(a) {
     a.isAlpha()
@@ -48,6 +68,13 @@ App.ColorPickerTool = function (a, b) {
           l[b] +
           '"> </div>');
     q.html(a), (localStorage.recentColors = JSON.stringify(l));
+  }
+  function showBlendPalette() {
+    if (null === localStorage.getItem("blendPalette")) { return; }
+    var colors = JSON.parse(localStorage.blendPalette)
+    colors.forEach( e => {
+      addPaletteColor(e)
+    })
   }
   function i(a) {
     n.addClass("transparent-active"),
@@ -103,19 +130,22 @@ App.ColorPickerTool = function (a, b) {
       "ff00ff",
       "800080",
     ];
-  else var l = JSON.parse(localStorage.getItem("recentColors"));
+    else var l = JSON.parse(localStorage.getItem("recentColors"));
   var m = false,
     n = $('<div class = "colorpicker" ></div>'),
     o = $('<div title = "Color Picker" class = "dropper"></div>'),
     p = $('<div class = "absolute z-50 top-2 left-2 p-1 btn-ncs w-6 h-6 cursor-pointer" title = "eraser" ></div>'),
     q = $('<div class = "recent" ></div>'),
     r = $('<input class="hex-input" type="text" value="#ff0000">'),
-    s = $('<img src="/ncsassets/img/eraser.svg">');
+    s = $('<img src="/ncsassets/img/eraser.svg">'),
+    t = $('<div class = "recent blend empty:hidden" ></div>');
+  var blendPalette = [];
   return (
     n.append(p),
     n.append(o),
     n.append(r),
     n.append(q),
+    n.append(t),
     a.append(n),
     p.append(s),
     r.wheelColorPicker({
@@ -129,6 +159,12 @@ App.ColorPickerTool = function (a, b) {
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);
     }),
+    r.on("sliderup", function (e) {
+      if (shiftHeld) {
+        var color = $(this).wheelColorPicker('getValue');
+        addPaletteColor(color.replace("#", ""));
+      }
+    }),
     r.on("change", function () {
       var a = r.wheelColorPicker("getColor"),
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
@@ -138,11 +174,25 @@ App.ColorPickerTool = function (a, b) {
     o.mouseup(function () {
       c();
     }),
-    q.on("click", "div", function () {
-      var a = parseInt("0x" + $(this).attr("data-color"), 16);
+    q.on("click", "div", function (event) {
+      var color = $(this).attr("data-color");
+      var a = parseInt("0x" + color, 16);
       f(new THREE.Color(a).protectAlpha());
+      if (event.shiftKey) {
+        addPaletteColor(color)
+      }
+    }),
+    t.on("click", "div", function () {
+      var color = $(this).attr("data-color");
+      var index = blendPalette.indexOf(color);
+      if (index > -1) {
+        blendPalette.splice(index, 1);
+        localStorage.blendPalette = JSON.stringify(blendPalette);
+      }
+      this.remove();
     }),
     h(),
+    showBlendPalette(),
     f(new THREE.Color().setRGB(1, 0, 0)),
     console.log(a),
     $(".jQWCP-wWidget").width(a.width()),
