@@ -2186,13 +2186,21 @@ ul.button-group.top-heavy li.active {
 .colorpicker.transparent-active .jQWCP-wPreview canvas {
   display: none;
 }
-#undo {
+#undo, #redo {
   position: absolute;
   top: 5px;
-  right: 5px;
   cursor: pointer;
 }
+#undo { right: 30px; }
+#redo {
+  right: 5px;
+  transform: scaleX(-1);
+}
 #undo:after {
+  font-family: "icon";
+  content: "\e808";
+}
+#redo:after {
   font-family: "icon";
   content: "\e808";
 }
