@@ -20,7 +20,7 @@ App.ColorPickerTool = function (a, b) {
     t.append('<div data-color = "' + color + '" style = "background:#' + color + '"></div>' )
   }
   function getPaletteColor() {
-    if (blendPalette.length < 1) { return k; }
+    if (blendPalette.length < 1 || k.isAlpha()) { return k; }
     var colorPool = [];
     blendPalette.forEach(e => {
       var rgb = $.fn.wheelColorPicker.strToColor(e);
