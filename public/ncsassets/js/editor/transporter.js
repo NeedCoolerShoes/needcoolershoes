@@ -242,7 +242,7 @@ App.Transporter = function (a) {
   }
   function downloadLayers() {
     let data = JSON.stringify(
-      {version: 1, model: App.UVMAP.current, data: localStorage.getItem(`layerJson-${App.UVMAP.current}`)}
+      {version: 2, model: App.UVMAP.current, data: localStorage.getItem(`layerJson-${App.UVMAP.current}`), blendPalette: localStorage.getItem("blendPalette")}
     );
     download(`data:text/json;,${data}`, "download.ncrs");
   }
@@ -268,6 +268,9 @@ App.Transporter = function (a) {
       if (window.confirm(warning)) {
         localStorage.setItem(`layerJson-${data.model}`, data.data);
         localStorage.setItem("model", data.model);
+        if (data.blendPalette) {
+          localStorage.setItem("blendPalette", data.blendPalette);
+        }
         location.reload();
       }
     })
