@@ -21,15 +21,15 @@ App.ColorPickerTool = function (a, b) {
   }
   function getPaletteColor() {
     if (blendPalette.length < 1) { return k; }
-    var colorPool = [k];
+    var colorPool = [];
     blendPalette.forEach(e => {
       var rgb = $.fn.wheelColorPicker.strToColor(e);
       colorPool.push(new THREE.Color().setRGB(rgb.r, rgb.g, rgb.b));
     })
     return colorPool[Math.floor(Math.random() * colorPool.length)];
   }
-  function e(a) {
-    var color = getPaletteColor();
+  function e(a, fromPalette) {
+    var color = (fromPalette ? getPaletteColor() : k);
     if (!a || color.isAlpha()) return color;
     var b = color.getHSL();
     return b.l >= 0.5
@@ -164,8 +164,15 @@ App.ColorPickerTool = function (a, b) {
         var color = $(this).wheelColorPicker('getValue');
         addPaletteColor(color.replace("#", ""));
       }
+      var a = r.wheelColorPicker("getColor"),
+        b = new THREE.Color().setRGB(a.r, a.g, a.b);
+      b.protectAlpha(), f(b);
     }),
     r.on("change", function () {
+      if (shiftHeld) {
+        var color = $(this).wheelColorPicker('getValue');
+        addPaletteColor(color.replace("#", ""));
+      }
       var a = r.wheelColorPicker("getColor"),
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);

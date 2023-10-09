@@ -30,7 +30,10 @@ App.SquareMode = function (a, b) {
     }
     a.model.setFaceColor(
       b,
-      a.toolbox.refs.colorPicker.getColor(a.toolbox.refs.noise.isEnabled())
+      a.toolbox.refs.colorPicker.getColor(
+        a.toolbox.refs.noise.isEnabled(),
+        a.toolbox.refs.blendPalette.isEnabled()
+      )
     );
   }
   function f() {
@@ -64,7 +67,7 @@ App.SquareMode = function (a, b) {
       return "move";
     },
     showTools: function () {
-      a.toolbox.show(["colorPicker", "noise", "mirror"]);
+      a.toolbox.show(["colorPicker", "noise", "mirror", "blendPalette"]);
     },
   };
 };

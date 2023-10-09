@@ -8,14 +8,16 @@ App.PaintMode = function (a) {
       (a.layerModel.setFaceColor(
         intersectingObjects[0].face,
         a.toolbox.refs.colorPicker.getColor(
-          a.toolbox.refs.noise.isEnabled()
+          a.toolbox.refs.noise.isEnabled(),
+          a.toolbox.refs.blendPalette.isEnabled()
         )
       ),
       a.toolbox.refs.mirror.isEnabled() &&
         a.layerModel.setFaceColor(
           a.model.getMirroredFace(intersectingObjects[0]),
           a.toolbox.refs.colorPicker.getColor(
-            a.toolbox.refs.noise.isEnabled()
+            a.toolbox.refs.noise.isEnabled(),
+            a.toolbox.refs.blendPalette.isEnabled()
           )
         ),
       "size2" == a.toolbox.refs.brushSize.getSize() ||
@@ -32,7 +34,8 @@ App.PaintMode = function (a) {
               (a.layerModel.setFaceColor(
                 b[0].face,
                 a.toolbox.refs.colorPicker.getColor(
-                  a.toolbox.refs.noise.isEnabled()
+                  a.toolbox.refs.noise.isEnabled(),
+                  a.toolbox.refs.blendPalette.isEnabled()
                 )
               ),
               a.toolbox.refs.mirror.isEnabled()))
@@ -42,7 +45,8 @@ App.PaintMode = function (a) {
               a.layerModel.setFaceColor(
                 a.model.getMirroredFace(b[0]),
                 a.toolbox.refs.colorPicker.getColor(
-                  a.toolbox.refs.noise.isEnabled()
+                  a.toolbox.refs.noise.isEnabled(),
+                  a.toolbox.refs.blendPalette.isEnabled()
                 )
               );
           }
@@ -71,7 +75,7 @@ App.PaintMode = function (a) {
       return "crosshair";
     },
     showTools: function () {
-      a.toolbox.show(["colorPicker", "brushSize", "mirror", "noise"]);
+      a.toolbox.show(["colorPicker", "brushSize", "mirror", "noise", "blendPalette"]);
     },
   };
 };

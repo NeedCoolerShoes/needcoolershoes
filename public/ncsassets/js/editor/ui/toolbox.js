@@ -20,6 +20,10 @@ App.Toolbox = function (a, b) {
       "noise",
       App.ToggleButtonTool(a, "noise", "Add a 'camo' effect to the stroke.")
     ),
+    c(
+      "blendPalette",
+      App.ToggleButtonTool(a, "blend-palette", "Pick colors from the blend palette at random.\nAdd colors to the blend palette by shift+clicking the color wheel.")
+    ),
     c("share", App.ShareTool(a, b)),
     c("import", App.ImportTool(a, b)),
     c("filter", App.FilterTool(a, b)),

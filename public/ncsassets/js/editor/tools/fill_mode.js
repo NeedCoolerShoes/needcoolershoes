@@ -14,7 +14,8 @@ App.FillMode = function (a) {
         (a.layerModel.setFaceColor(
           e[g],
           a.toolbox.refs.colorPicker.getColor(
-            a.toolbox.refs.noise.isEnabled()
+            a.toolbox.refs.noise.isEnabled(),
+            a.toolbox.refs.blendPalette.isEnabled()
           )
         ),
         e[g].touched || c(e[g], d));
@@ -43,7 +44,7 @@ App.FillMode = function (a) {
       return "crosshair";
     },
     showTools: function () {
-      a.toolbox.show(["colorPicker", "noise"]);
+      a.toolbox.show(["colorPicker", "noise", "blendPalette"]);
     },
   };
 };

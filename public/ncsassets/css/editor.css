@@ -2014,6 +2014,9 @@ ul.button-group.top-heavy li.active {
 #toolbox #noise:after {
   content: "\e821";
 }
+#toolbox #blend-palette:after {
+  content: "\e810";
+}
 #toolbox .recent {
   padding: 2px;
   width: 100%;
