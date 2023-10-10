@@ -106,7 +106,8 @@ App.LayerPresenter = function (toolbar, app) {
           }
         );
       }),
-      n.on("click", ".eye", function () {
+      n.on("click", ".eye", function (event) {
+        event.stopImmediatePropagation();
         app.layerModel.toggleVisibility($(this).parent().attr("data-id")),
           render(),
           app.layerModel.renderModel(),
