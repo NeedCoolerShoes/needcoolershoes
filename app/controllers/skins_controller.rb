@@ -13,7 +13,8 @@ class SkinsController < ApplicationController
     else
       skins = skins.merge(Skin.is_public)
     end
-    @pagy, @skins = pagy(skins, items: 12)
+    items = (gallery_params[:items] || 12).to_i.clamp(1, 50)
+    @pagy, @skins = pagy(skins, items: items)
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end
@@ -133,7 +134,7 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order)
+    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items)
   end
 
   def transform_tags(tags)

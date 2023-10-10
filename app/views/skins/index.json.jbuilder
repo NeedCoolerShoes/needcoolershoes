@@ -1,0 +1,1 @@
+json.partial! 'skin', collection: @skins, as: :skin
