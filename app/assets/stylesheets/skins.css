@@ -4,6 +4,12 @@
   image-rendering: pixelated;
 }
 
+.scaled-sm {
+  scale: 3;
+  transform-origin: left top;
+  image-rendering: pixelated;
+}
+
 .face {
   width: 8px;
   height: 8px;

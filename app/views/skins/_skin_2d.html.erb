@@ -1,6 +1,11 @@
-<% suffix = slim ? "-slim" : "" %>
-<div style="height: 192px; width: 204px;">
-  <div class="scaled" style="display: flex; gap: 2px; width: fit-content;">
+<%
+  suffix ||= slim ? "-slim" : ""
+  classes ||= "scaled"
+  width ||= "192px"
+  height ||= "204px"
+%>
+<div class="skin" data-id="<%= id %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
+  <div class="<%= classes %>" style="display: flex; gap: 2px; width: fit-content;">
     <div>
       <div class="face display-<%= id %>" style="margin-left: 4px;">
         <div class="face-overlay display-<%= id %>"></div>

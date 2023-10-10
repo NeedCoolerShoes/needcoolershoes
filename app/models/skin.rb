@@ -47,6 +47,7 @@ class Skin < ApplicationRecord
     when 'old' then order_by_created(:asc)
     when 'new_updated' then order_by_updated
     when 'old_updated' then order_by_updated(:asc)
+    when 'random' then order('RANDOM()')
     else order_by_created
     end
   }

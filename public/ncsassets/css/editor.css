@@ -1830,11 +1830,11 @@ ul.button-group.top-heavy li.active {
 #toolbox .panel .skins {
   width: 100%;
 }
-#toolbox .panel .skins img {
+#toolbox .panel .skins .skin {
   display: inline-block;
   width: 50%;
   height: auto;
-  padding: 3.5%;
+  margin: 0.5rem;
   cursor: pointer;
 }
 #toolbox .panel img {
