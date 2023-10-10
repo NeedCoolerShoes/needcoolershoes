@@ -16,10 +16,9 @@ App.ImportTool = function (a, b) {
     })
   );
 
-  // Disable randomiser button, as it no longer functions
   var j =
     (new App.FileButton(f, b),
-    $("<button>Generate Random</button>").mousedown(function () {
+    $("<button disabled>Generate Random</button>").mousedown(function () {
       function a(a) {
         var c = Math.floor(Math.random() * a.length),
           d = a[c].split(",");
