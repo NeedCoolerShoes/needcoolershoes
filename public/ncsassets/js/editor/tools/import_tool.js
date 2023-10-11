@@ -71,9 +71,9 @@ App.ImportTool = function (a, b) {
               setTimeout(a.resolve, 1e3);
             }),
             setFromRandomSkin({part: "Face/Hair"}),
+            setFromRandomSkin({part: "Shoes/Footwear"}),
             setFromRandomSkin({part: "Shirt"}),
             setFromRandomSkin({part: "Pants"}),
-            setFromRandomSkin({part: "Shoes/Footwear"}),
             setFromRandomSkin({part: "Base"})
           ).always(c));
     })),

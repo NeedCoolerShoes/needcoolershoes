@@ -17,10 +17,19 @@ App.SearchPanel = function (a, b) {
       })
     );
   }
+  function formatText(text, format = {}) {
+    for (const [key, value] of Object.entries(format)) {
+      text = text.replaceAll(`%${key}%`, value.toString())
+    }
+    return text;
+  }
   function getSkin2d(skinData) {
-    var text = skinTemplate.replaceAll("%id%", skinData.id)
-    text = text.replaceAll("%suffix%", skinData.model == "slim" ? "-slim" : "")
-    return text.replaceAll("%data%", skinData.image)
+    var format = {
+      id: skinData.id, suffix: (skinData.model == "slim" ? "-slim" : ""),
+      data: skinData.image, name: skinData.name,
+      author: skinData.author.display_name
+    }
+    return formatText(skinTemplate, format)
   }
   function e(result) {
     var b = "";

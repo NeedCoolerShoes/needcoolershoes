@@ -4,7 +4,7 @@
   width ||= "192px"
   height ||= "204px"
 %>
-<div class="skin" data-id="<%= id %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
+<div class="relative skin group" data-id="<%= id %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
   <div class="<%= classes %>" style="display: flex; gap: 2px; width: fit-content;">
     <div>
       <div class="face display-<%= id %>" style="margin-left: 4px;">
@@ -55,6 +55,7 @@
       </div>
     </div>
   </div>
+  <%= yield %>
 </div>
 
 <style>

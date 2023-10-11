@@ -80,7 +80,15 @@
   </script>
 
   <template id="skin-2d">
-    <%= render partial: 'skins/skin_2d', locals: {id: "%id%", suffix: "%suffix%", data: "%data%", classes: "scaled-sm", width: "102px", height: "96px"}%>
+    <% skin_config = {id: "%id%", suffix: "%suffix%", data: "%data%", classes: "scaled-sm", width: "102px", height: "96px"} %>
+    <%= render layout: 'skins/skin_2d', locals: skin_config do |foo| %>
+      <div class="absolute bottom-0 hidden group-hover:block w-full h-12 bg-black/60">
+        <div class="p-1">
+          <span class="text-white line-clamp-2" title="%name%">%name%</span>
+          <span class="text-xs text-white line-clamp-1" title="by %author%">by %author%</span>
+        </div>
+      </div>
+    <% end %>
   </template>
 
   <div id="editor">
