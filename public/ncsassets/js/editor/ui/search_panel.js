@@ -1,12 +1,13 @@
 App.SearchPanel = function (a, b) {
   "use strict";
+  var currentModel = (App.UVMAP.current == "skinAlex" ? "slim" : "classic")
   function c() {
     "" != n.val() &&
       (o.html('<div class = "message" > Searching.... </div>'),
       d({
         type: "get",
         url: window.location.origin + "/gallery.json",
-        data: { search: n.val(), items: 8, page: 1 },
+        data: { search: n.val(), items: 8, page: 1, model: currentModel },
       }));
   }
   function d(a) {
@@ -85,7 +86,7 @@ App.SearchPanel = function (a, b) {
         b.transporter
           .setUVImage(
             $(this).attr("data-save"),
-            "skin",
+            App.UVMAP.current,
             $(this).attr("data-id")
           )
           .done(function () {
@@ -98,7 +99,7 @@ App.SearchPanel = function (a, b) {
     ((i = {
       type: "get",
       url: window.location.origin + "/gallery.json",
-      data: { items: 8, page: 1, order: 'random' },
+      data: { items: 8, page: 1, order: 'random', model: currentModel },
     }),
     d(i).done(function (a) {
       h = a;
