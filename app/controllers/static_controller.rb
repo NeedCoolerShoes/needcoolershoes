@@ -19,6 +19,7 @@ class StaticController < ApplicationController
   end
 
   def send_message
+    send_request_webhook
     respond_to do |format|
       if Discord::SiteMessageWebhook.send_webhook(**contact_params.to_h.symbolize_keys)
         format.html { redirect_to root_path, notice: "Message was sent successfully!" }
@@ -29,6 +30,12 @@ class StaticController < ApplicationController
   end
 
   private
+
+  def send_request_webhook
+    Discord::SiteMessageRequestWebhook.send_webhook(request)
+  rescue
+    nil
+  end
 
   def contact_params
     params.reject! { |_, value| !value.to_s.strip.present? }

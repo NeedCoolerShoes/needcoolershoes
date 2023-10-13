@@ -134,7 +134,7 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.permit(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items)
+    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items).permit!
   end
 
   def transform_tags(tags)
