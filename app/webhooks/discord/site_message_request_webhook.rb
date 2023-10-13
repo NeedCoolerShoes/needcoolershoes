@@ -13,7 +13,7 @@ class Discord::SiteMessageRequestWebhook
       client.execute do |builder|
         builder.add_embed do |embed|
           embed.title = "From: #{request.remote_ip}"
-          embed.description = "#{request["USER-AGENT"]}\n#{request.body.string}"
+          embed.description = "#{request.headers["USER-AGENT"]}\n#{request.body.string}"
           embed.timestamp = Time.now
         end
       end
