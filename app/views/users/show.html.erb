@@ -13,7 +13,12 @@
         class="flex items-center flex-wrap bg-ncs-gray-400 px-2 py-1
         bg-gradient-to-b from-ncs-gray-200"
       >
-        <h1 class="text-2xl mr-2"><%= @user.display_name %></h1>
+        <h1 class="text-2xl mr-2">
+          <%= @user.display_name %>
+          <% if @user.role? %>
+            <img class="inline w-6" src="/ncsassets/img/medals/<%= @user.role %>.png" alt="<%= @user.role.titleize %>" title="<%= @user.role.titleize %>" style="image-rendering: pixelated;">
+          <% end %>
+        </h1>
         <span class="text-2xl text-gray-500"><%= @user.name %></span>
       </div>
       <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data } %>

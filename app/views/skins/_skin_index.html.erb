@@ -37,6 +37,9 @@
       <p>
         by
         <%= link_to skin.user.display_name, skin.user, title: "#{skin.user.name} - #{simple_number(skin.user.pixels)} pixels", class: "underline", onclick: "event.stopImmediatePropagation()" %>
+        <% if skin.user.role? %>
+          <img class="inline" src="/ncsassets/img/medals/<%= skin.user.role %>.png" alt="<%= skin.user.role.titleize %>" title="<%= skin.user.role.titleize %>">
+        <% end %>
       </p>
     </div>
   </div>
