@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_06_114111) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_17_023548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_06_114111) do
     t.integer "consumed_timestep"
     t.boolean "otp_required_for_login"
     t.text "otp_backup_codes", array: true
+    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
     t.index ["name"], name: "index_users_on_name", unique: true

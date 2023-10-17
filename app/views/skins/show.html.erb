@@ -33,7 +33,7 @@
       <div>
         <button
           onclick="editSkin('<%= @skin.data %>', <%= @skin.id %>, '/', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
-          class="edit btn-ncs" <%= @skin.can_user_edit?(current_user) ? nil : "disabled" %>
+          class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
           <%= t("skins.editor") %>
         </button>
@@ -66,7 +66,7 @@
             <% end %>
           </div>
         <% end %>
-        <% if !@skin.can_user_edit?(current_user) %>
+        <% if !@skin.can_user_open_in_editor?(current_user) %>
           <p><%= t "skins.status.unlisted_guest" %></p>
         <% elsif @skin.is_unlisted? %>
           <p><%= t "skins.status.unlisted_owner" %></p>
@@ -80,7 +80,7 @@
           <%= markdown @skin.description %>
         </div>
       <% end %>
-      <% if @skin.user == current_user %>
+      <% if @skin.can_user_edit?(current_user) %>
         <div class="flex gap-2 pt-2">
           <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <%= form_with url: skin_path(@skin), method: :delete, class: "w-full" do |form| %>

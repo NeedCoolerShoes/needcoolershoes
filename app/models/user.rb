@@ -7,6 +7,8 @@ class User < ApplicationRecord
   FAVOURITE_RATIO = 0.02
   FAVOURITE_MAX = 25
   PIXEL_CACHE = 5.minutes
+  ROLES = %i[moderator admin owner]
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -24,6 +26,19 @@ class User < ApplicationRecord
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
     exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current otp), message: "%{value} is reserved" }
+  
+  enum :role, ROLES
+  
+  ROLES.each_with_index do |role, level|
+    define_method :"#{role}?" do
+      permission_level >= level
+    end
+  end
+  
+  def permission_level
+    return -1 unless role.is_a? String
+    ROLES.find_index(role.to_sym)
+  end
 
   def pixels
     if @pixels

@@ -89,9 +89,15 @@ class Skin < ApplicationRecord
 
   acts_as_taggable_on :tags
 
-  def can_user_edit?(some_user)
+  def can_user_open_in_editor?(some_user)
     return true if is_public?
     return false unless some_user.present?
+    return true if some_user.id == user_id
+    false
+  end
+
+  def can_user_edit?(some_user)
+    return true if some_user.moderator?
     return true if some_user.id == user_id
     false
   end

@@ -1,7 +1,7 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[edit destroy]
   before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite]
-  before_action :validate_owner, only: %i[edit update destroy]
+  before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
 
   def index
@@ -121,9 +121,9 @@ class SkinsController < ApplicationController
     redirect_to gallery_path unless current_user.id == @skin.user_id
   end
 
-  def validate_owner
+  def validate_can_edit
     if current_user.present?
-      return true if current_user.id == @skin.user.id
+      return true if @skin.can_user_edit?(current_user)
     end
     redirect_to gallery_path
   end
