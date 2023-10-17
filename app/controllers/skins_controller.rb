@@ -115,16 +115,14 @@ class SkinsController < ApplicationController
   def check_visibility
     return true unless @skin.is_private?
     unless current_user.present?
-      redirect_to gallery_path unless current_user.present?
+      redirect_to gallery_path
       return false
     end
     redirect_to gallery_path unless current_user.id == @skin.user_id
   end
 
   def validate_can_edit
-    if current_user.present?
-      return true if @skin.can_user_edit?(current_user)
-    end
+    return true if @skin.can_user_edit?(current_user)
     redirect_to gallery_path
   end
 
