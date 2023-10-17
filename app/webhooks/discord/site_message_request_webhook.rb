@@ -12,7 +12,7 @@ class Discord::SiteMessageRequestWebhook
       return unless request.is_a? ActionDispatch::Request
       client.execute do |builder|
         builder.add_embed do |embed|
-          embed.title = "From: #{request.remote_ip}"
+          embed.title = "From: #{request.headers["X-Forwarded-For"] || request.remote_ip}"
           embed.description = "#{request.headers["USER-AGENT"]}\n#{request.body.string}"
           embed.timestamp = Time.now
         end
