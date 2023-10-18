@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get "contact", to: "static#contact", as: "contact"
   post "contact", to: "static#send_message", as: "send_message"
   get "open_letter", to: "static#open_letter"
+  get "rules", to: "static#rules"
   get 'sitemap', to: 'static#sitemap', defaults: {format: 'xml'}
   get "gallery", to: "skins#index"
   get "gallery/:page", to: "skins#index"

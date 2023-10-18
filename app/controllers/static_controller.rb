@@ -22,6 +22,9 @@ class StaticController < ApplicationController
   def sitemap
   end
 
+  def rules
+  end
+
   def send_message
     send_request_webhook
     respond_to do |format|
