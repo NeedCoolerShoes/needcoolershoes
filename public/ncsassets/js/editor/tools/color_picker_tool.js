@@ -136,7 +136,8 @@ App.ColorPickerTool = function (a, b) {
     o = $('<div title = "Color Picker" class = "dropper"></div>'),
     p = $('<div class = "absolute z-50 top-2 left-2 p-1 btn-ncs w-6 h-6 cursor-pointer" title = "eraser" ></div>'),
     q = $('<div class = "recent" ></div>'),
-    r = $('<input class="hex-input" type="text" value="#ff0000">'),
+    r = $('<input class="hex-input inline" type="text" value="#ff0000">'),
+    ra = $('<input type="color" class="p-0 !w-8 !inline border-ncs-gray-200" value="#ff0000" title="System color picker.">'),
     s = $('<img src="/ncsassets/img/eraser.svg">'),
     t = $('<div class = "recent blend empty:hidden" ></div>');
   var blendPalette = [];
@@ -144,6 +145,7 @@ App.ColorPickerTool = function (a, b) {
     n.append(p),
     n.append(o),
     n.append(r),
+    n.append(ra),
     n.append(q),
     n.append(t),
     a.append(n),
@@ -154,6 +156,7 @@ App.ColorPickerTool = function (a, b) {
       preview: true,
       format: "css",
     }),
+    $(r[0].parentElement).append(ra),
     r.on("slidermove", function () {
       var a = r.wheelColorPicker("getColor"),
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
@@ -174,6 +177,11 @@ App.ColorPickerTool = function (a, b) {
         addPaletteColor(color.replace("#", ""));
       }
       var a = r.wheelColorPicker("getColor"),
+        b = new THREE.Color().setRGB(a.r, a.g, a.b);
+      b.protectAlpha(), f(b);
+    }),
+    ra.on("change", function (event) {
+      var a = $.fn.wheelColorPicker.strToColor(event.target.value),
         b = new THREE.Color().setRGB(a.r, a.g, a.b);
       b.protectAlpha(), f(b);
     }),

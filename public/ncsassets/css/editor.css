@@ -2505,10 +2505,12 @@ button:disabled:active {
 
 .hex-input {
   color: black;
-  width: 94% !important;
+  width: 85% !important;
   background-color: #ff0000;
-  display: inherit !important;
+  display: inline !important;
   border-radius: .25rem;
+  margin-left: -18px;
+  margin-right: 4px;
 }
 
 .colorpicker .jQWCP-wWidget.jQWCP-block{
@@ -2521,4 +2523,8 @@ button:disabled:active {
 
 .colorpicker.transparent-active .hex-input {
   background: #fff url(../img/transparent-grid.png) repeat !important;
+}
+
+#import > .panel {
+  min-width: 270px;
 }
