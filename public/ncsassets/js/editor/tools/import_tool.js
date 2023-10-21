@@ -1,7 +1,7 @@
 App.ImportTool = function (a, b) {
   "use strict";
   var c = false,
-    d = $('<div id = "import" ></div>'),
+    d = $('<div id = "import" class = "flex flex-row-reverse" ></div>'),
     e = $('<div class = "panel" ></div>'),
     f = $('<div class = "square" ></div>'),
     g =
