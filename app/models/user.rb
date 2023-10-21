@@ -28,6 +28,8 @@ class User < ApplicationRecord
     exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current otp), message: "%{value} is reserved" },
     uniqueness: true
   
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  
   enum :role, ROLES
   
   ROLES.each_with_index do |role, level|
