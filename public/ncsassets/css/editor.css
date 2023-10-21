@@ -2528,3 +2528,22 @@ button:disabled:active {
 #import > .panel {
   min-width: 270px;
 }
+
+.blend-add {
+  background-image: linear-gradient(to top, #313436, #3f4244);
+  border: 2px solid #232428;
+  border-bottom-color: #1f2326;
+  font-weight: bold;
+  font-size: large;
+  color: white;
+}
+
+.blend-remove {
+  color: transparent;
+  font-weight: bold;
+  font-size: large;
+}
+
+.blend-remove:hover {
+  color: white;
+}

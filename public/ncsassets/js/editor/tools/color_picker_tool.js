@@ -17,7 +17,11 @@ App.ColorPickerTool = function (a, b) {
     if (blendPalette.includes(color)) { return; }
     blendPalette.push(color);
     localStorage.blendPalette = JSON.stringify(blendPalette);
-    t.append('<div data-color = "' + color + '" style = "background:#' + color + '"></div>' )
+    t.prepend(
+      '<div title = "Remove color from blend palette."' +
+      'class = "blend-remove" data-color = "' + color +
+      '" style = "background:#' + color + '">-</div>'
+      )
   }
   function getPaletteColor() {
     if (blendPalette.length < 1 || k.isAlpha()) { return k; }
@@ -139,7 +143,8 @@ App.ColorPickerTool = function (a, b) {
     r = $('<input class="hex-input inline" type="text" value="#ff0000">'),
     ra = $('<input type="color" class="p-0 !w-8 !inline border-ncs-gray-200" value="#ff0000" title="System color picker.">'),
     s = $('<img src="/ncsassets/img/eraser.svg">'),
-    t = $('<div class = "recent blend empty:hidden" ></div>');
+    t = $('<div class = "recent blend empty:hidden" ></div>'),
+    ta = $('<div class = "blend-add" title = "Add current color to blend palette." >+</div>');
   var blendPalette = [];
   return (
     n.append(p),
@@ -147,6 +152,7 @@ App.ColorPickerTool = function (a, b) {
     n.append(r),
     n.append(ra),
     n.append(q),
+    t.append(ta),
     n.append(t),
     a.append(n),
     p.append(s),
@@ -198,13 +204,18 @@ App.ColorPickerTool = function (a, b) {
       }
     }),
     t.on("click", "div", function () {
-      var color = $(this).attr("data-color");
-      var index = blendPalette.indexOf(color);
-      if (index > -1) {
-        blendPalette.splice(index, 1);
-        localStorage.blendPalette = JSON.stringify(blendPalette);
+      if (this.classList.contains("blend-add")) { 
+        var color = r.wheelColorPicker('getValue');
+        addPaletteColor(color.replace("#", ""));
+      } else {
+        var color = $(this).attr("data-color");
+        var index = blendPalette.indexOf(color);
+        if (index > -1) {
+          blendPalette.splice(index, 1);
+          localStorage.blendPalette = JSON.stringify(blendPalette);
+        }
+        this.remove();
       }
-      this.remove();
     }),
     h(),
     showBlendPalette(),
