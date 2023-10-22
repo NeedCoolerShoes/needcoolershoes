@@ -1,13 +1,13 @@
 .scaled {
-  scale: 6;
   transform-origin: left top;
   image-rendering: pixelated;
+  transform: scale(6, 6);
 }
 
 .scaled-sm {
-  scale: 3;
   transform-origin: left top;
   image-rendering: pixelated;
+  transform: scale(3, 3);
 }
 
 .face {
