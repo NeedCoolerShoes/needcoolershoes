@@ -80,6 +80,7 @@ class User < ApplicationRecord
   private
 
   def setup_username
+    return errors.add(:name, :invalid, message: "may not be an email") if self.name.include? "@"
     self.display_name = self.name
     self.name = self.name.to_s.parameterize
   end
