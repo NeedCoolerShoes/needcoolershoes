@@ -26,7 +26,7 @@ class StaticController < ApplicationController
   end
 
   def send_message
-    send_request_webhook
+    send_request_webhook if params[:question].present?
     respond_to do |format|
       if !params[:question].to_s.match?(CAPTCHA_REGEX)
         format.html { redirect_to root_path, notice: "Message was sent successfully!" }
