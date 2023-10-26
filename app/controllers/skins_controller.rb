@@ -1,6 +1,6 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[edit destroy]
-  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite]
+  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
 
@@ -20,6 +20,10 @@ class SkinsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
+      format.any { render }
+    end
   end
 
   def create

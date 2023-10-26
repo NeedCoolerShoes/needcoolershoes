@@ -11,7 +11,11 @@ class Skin < ApplicationRecord
     order: "ordered_by"
   }
   KARMA = 5
+  PREVIEW_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/previews")
+
   include PgSearch::Model
+  include SkinTransformations
+
   delegate :url_helpers, to: 'Rails.application.routes'
 
   pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
@@ -116,6 +120,20 @@ class Skin < ApplicationRecord
     Base64.decode64(data.delete_prefix("data:image/png;base64,"))
   end
 
+  def to_preview_img(scale = 10)
+    src = ChunkyPNG::Image.from_data_url(data)
+    map_to_image(src, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
+  end
+
+  def preview_img
+    PREVIEW_CACHE_PATH.mkpath unless PREVIEW_CACHE_PATH.exist?
+    path = PREVIEW_CACHE_PATH.join(filename)
+    return path.read if path.exist?
+    img_data = to_preview_img.to_datastream
+    cache_image_file(path, img_data)
+    img_data
+  end
+
   def filename
     "#{name.parameterize}_#{created_at.strftime("%Y%m%d")}_#{id}.png"
   end
@@ -134,5 +152,9 @@ class Skin < ApplicationRecord
     Discord::NewSkinWebhook.send_webhook(self)
   rescue
     nil
+  end
+
+  def cache_image_file(img_path, data)
+    img_path.open('wb') { |file| file << data }
   end
 end

@@ -4,6 +4,7 @@ class Discord::NewSkinWebhook
   
   class << self
     include Routing
+
     def client
       @@client ||= Discordrb::Webhooks::Client.new(url: WEBHOOK_URL)
     end
@@ -15,6 +16,7 @@ class Discord::NewSkinWebhook
           embed.title = "New Skin: **#{skin.name}** by **#{skin.user.name}**."
           embed.description = "[Link to skin](#{skin_url(skin)})\n#{skin.description}"
           embed.timestamp = skin.created_at
+          embed.image = Discordrb::Webhooks::EmbedImage.new(url: skin_url(skin, format: :png))
         end
       end
     end
