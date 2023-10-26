@@ -86,7 +86,7 @@ class SkinsController < ApplicationController
   def remove_favourite
     favourite = Favourite.find_by(skin: @skin, user: current_user)
     respond_to do |format|
-      if favourite.delete
+      if favourite.destroy
         format.turbo_stream { 
           render turbo_stream: turbo_stream.replace(
             "favourite_skin_#{@skin.id}",
