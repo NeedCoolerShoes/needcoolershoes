@@ -2513,8 +2513,8 @@ button:disabled:active {
   margin-right: 4px;
 }
 
-.colorpicker .jQWCP-wWidget.jQWCP-block{
-  height: 240px;
+.colorpicker .jQWCP-wWidget.jQWCP-block {
+  height: fit-content;
 }
 
 .jQWCP-wPreview {
