@@ -20,5 +20,8 @@ module Needcoolershoes
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Filter skin data to save on log storage.
+    config.filter_parameters += ['skin.data']
   end
 end
