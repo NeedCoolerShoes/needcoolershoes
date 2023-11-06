@@ -82,13 +82,13 @@ Rails.application.configure do
   # require "syslog/logger"
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new "app-name")
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV["BETTERSTACK_SOURCE_TOKEN"].present?
+    config.logger    = Logtail::Logger.create_default_logger(ENV["BETTERSTACK_SOURCE_TOKEN"])
+    
+  elsif ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
-    
-  elsif ENV["BETTERSTACK_SOURCE_TOKEN"].present?
-    config.logger    = Logtail::Logger.create_default_logger(ENV["BETTERSTACK_SOURCE_TOKEN"])
   end
 
   # Do not dump schema after migrations.
