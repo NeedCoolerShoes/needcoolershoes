@@ -1,4 +1,5 @@
 json.id skin.id
+json.url skin_url(skin)
 json.image skin.data
 json.name skin.name
 json.description skin.description

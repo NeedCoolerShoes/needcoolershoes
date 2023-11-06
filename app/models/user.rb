@@ -69,8 +69,9 @@ class User < ApplicationRecord
     count.clamp(0..)
   end
 
-  def favourite_grant
-    (pixel_count * FAVOURITE_RATIO).floor.clamp(0, FAVOURITE_MAX)
+  def favourite_grant(count = pixel_count)
+    x = (count * FAVOURITE_RATIO)
+    (Math.log(x + 1, 2) * 3).round
   end
 
   def export_skins_to_zip
