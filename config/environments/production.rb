@@ -86,6 +86,9 @@ Rails.application.configure do
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
+    
+  elsif ENV["BETTERSTACK_SOURCE_TOKEN"].present?
+    config.logger    = Logtail::Logger.create_default_logger(ENV["BETTERSTACK_SOURCE_TOKEN"])
   end
 
   # Do not dump schema after migrations.
