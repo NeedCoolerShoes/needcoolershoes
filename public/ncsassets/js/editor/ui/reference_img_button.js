@@ -18,13 +18,57 @@ App.ReferenceImgButton = function (a, b) {
         }
       });
       let reader = new FileReader();
-      reader.onload = function(e) {
-        frame.setHTML(`<div class="w-full h-full" style="overflow:clip"><div id="ref" class="w-full h-full bg-center bg-cover bg-no-repeat z-100" style="background-image: url('${e.target.result}');"></div></div>`)
+
+      reader.onload = function(e) {        
+        frame.setHTML('<div class="ref w-full h-full" style="overflow:clip; image-rendering: pixelated"><canvas></canvas></div>');
+
+        let ref = frame.$('.ref');
+        let canvas = frame.$('canvas');
+        let pz = panzoom(canvas, {
+          bounds: true,
+          smoothScroll: false
+        });
+        let image = new Image;
+        
+        image.addEventListener('load', event => {
+          canvas.width = event.target.naturalWidth;
+          canvas.height = event.target.naturalHeight;
+
+          let ctx = canvas.getContext('2d');
+          ctx.imageSmoothingEnabled = false;
+          ctx.drawImage(image, 0, 0);
+
+
+          let offsetX = (ref.clientWidth / 2)
+          let offsetY = (ref.clientHeight / 2)
+          let offsetZoom = ref.clientHeight / canvas.height
+
+          pz.moveTo(
+            -(canvas.width / 2) + offsetX,
+            -(canvas.height / 2) + offsetY
+          )
+          pz.zoomAbs(offsetX, offsetY, offsetZoom)
+        })
+
+        ref.addEventListener('mouseover', () => {
+          if (b.toolbox.refs.colorPicker.isDropperActive()) {
+            ref.classList.add("cursor-crosshair")
+          } else {
+            ref.classList.remove("cursor-crosshair")
+          }
+        })
+
+        canvas.addEventListener('click', event => {
+          if (!b.toolbox.refs.colorPicker.isDropperActive()) { return; }
+          let ctx = canvas.getContext('2d');
+          let imgData = ctx.getImageData(event.offsetX, event.offsetY, 1, 1).data
+          let color = new THREE.Color().setRGB(imgData[0] / 255, imgData[1] / 255, imgData[2] / 255)
+          b.toolbox.refs.colorPicker.dropperDeactivate(color)
+        })
+
+        image.src = e.target.result;
         frame.show();
       }
-      frame.on('frame', 'focus', (data) => {
-        let el = document.querySelector('#ref'); panzoom(el, { bounds: true, smoothScroll: false }) 
-      });
       reader.readAsDataURL(file);
     }),
     button
