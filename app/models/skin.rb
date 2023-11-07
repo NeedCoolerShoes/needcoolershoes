@@ -15,6 +15,7 @@ class Skin < ApplicationRecord
 
   include PgSearch::Model
   include SkinTransformations
+  include Routing
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
@@ -59,6 +60,7 @@ class Skin < ApplicationRecord
   scope :with_params, ->(params) { with_params_query(params) }
 
   after_create :send_creation_webhook, if: :is_public?
+  after_create :embed_watermark!, unless: :parse_watermark
 
   class << self
     def with_params_query(params)
@@ -120,9 +122,12 @@ class Skin < ApplicationRecord
     Base64.decode64(data.delete_prefix("data:image/png;base64,"))
   end
 
+  def to_img
+    ChunkyPNG::Image.from_data_url(data)
+  end
+
   def to_preview_img(scale = 10)
-    src = ChunkyPNG::Image.from_data_url(data)
-    map_to_image(src, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
+    map_to_image(to_img, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
   end
 
   def preview_img
@@ -142,8 +147,32 @@ class Skin < ApplicationRecord
     {
       file: filename,
       name: name, description: description,author: "#{user.display_name} (#{user.name})",
-      url: router.skin_url(self), created_at: created_at, updated_at: updated_at, tags: tag_list
+      url: skin_url(self), created_at: created_at, updated_at: updated_at, tags: tag_list
     }
+  end
+
+  def embed_watermark!(src = nil)
+    img = to_img
+    img.replace!(to_watermark_img(src), 0, 0)
+    update!(data: img.to_data_url)
+  end
+
+  def to_watermark_img(src = nil)
+    src ||= skin_url(self)
+    data = src.ljust(192, "\u0000")[..192]
+    ChunkyPNG::Image.from_rgb_stream 8, 8, data
+  end
+
+  def parse_watermark(uri = true)
+    region = to_img.crop(0, 0, 8, 8)
+    string = region.to_rgb_stream.tr("\u0000", '')
+    return string unless uri
+    return unless string.start_with? /https?:\/\//
+    begin
+      URI.parse(string)
+    rescue URI::InvalidURIError
+      nil
+    end
   end
 
   private
@@ -152,6 +181,23 @@ class Skin < ApplicationRecord
     Discord::NewSkinWebhook.send_webhook(self)
   rescue
     nil
+  end
+
+  def group_by_count(data, count, default = nil)
+    output = []
+    data.each_with_index do |item, index|
+      output << [] if index % count == 0
+      output[-1] << item
+    end
+    output[-1] = fit_data_to_size(output[-1], count, default) if default && output[-1].is_a?(Array)
+    output
+  end
+
+  def fit_data_to_size(data, size, padding = nil)
+    return data[..size] if data.size >= size
+    output = data.dup
+    (size - output.size).times { output << padding }
+    output
   end
 
   def cache_image_file(img_path, data)

@@ -34,13 +34,15 @@ App.Transporter = function (a) {
           (32 == b.height && App.UVMAP.current == c && (g = App.UVMAP.skinLT18),
           a.layerModel && a.layerModel.add)
         )
-          var f = a.layerModel.add(d);
-        o.setImage(b),
-          a.model.loopOverMap(g.commands, function (b, c, d) {
-            a.layerModel.setFaceColor(d, o.getPixelColor(b, c));
-          }),
-          e.resolve("complete"),
-          a.layerPresenter && a.layerPresenter.updateLayerThumbnail(f);
+        o.setImage(b);
+        let id = getWatermarkData(o.context) || d;
+        console.log(id)
+        var f = a.layerModel.add(id);
+        a.model.loopOverMap(g.commands, function (b, c, d) {
+          a.layerModel.setFaceColor(d, o.getPixelColor(b, c));
+        }),
+        e.resolve("complete"),
+        a.layerPresenter && a.layerPresenter.updateLayerThumbnail(f);
       },
       i = function () {},
       j = function (a) {
@@ -276,6 +278,29 @@ App.Transporter = function (a) {
     })
   }
   function n() {}
+
+  // NCRS Additions
+  function bytesToString(bytea) {
+    let i = 0;
+    return bytea.map(byte => {
+      i ++;
+      if (byte == 0 || i % 4 == 0) {
+        return '';
+      }
+      return String.fromCharCode(byte);
+    }).join('');
+  }
+
+  function getWatermarkData(context) {
+    let imgData = context.getImageData(0, 0, 8, 8);
+    let str = bytesToString(Array.from(imgData.data));
+    if (/https?/.test(str)) {
+      return str;
+    } else {
+      return false;
+    }
+  }
+  
   var o = new App.Canvas(),
     p = {};
   return {
