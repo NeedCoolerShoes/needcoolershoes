@@ -22,7 +22,7 @@ class SkinsController < ApplicationController
   def show
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
-      format.any { render }
+      format.html { render }
     end
   end
 
