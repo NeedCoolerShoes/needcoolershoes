@@ -1,5 +1,5 @@
 class SkinsController < ApplicationController
-  before_action :authenticate_user!, only: %i[edit destroy]
+  before_action :authenticate_user!, only: %i[create update edit destroy]
   before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
@@ -30,6 +30,7 @@ class SkinsController < ApplicationController
     params = skin_params.dup
     params.delete(:tags)
     params[:tag_list] = transform_tags(skin_params[:tags])
+    params[:user] = current_user
     @skin = Skin.new(params)
 
     respond_to do |format|
@@ -131,7 +132,7 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :user_id, :terms_and_conditions)
+    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions)
   end
 
   def gallery_params
