@@ -28,7 +28,6 @@ class UsersController < ApplicationController
   end
 
   def export
-    puts @user.export_skins_to_zip.class
     send_file @user.export_skins_to_zip, filename: "#{@user.name}_#{Date.today.strftime "%Y%m%d"}.zip"
   end
 

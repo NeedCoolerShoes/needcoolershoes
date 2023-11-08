@@ -13,10 +13,12 @@ Rails.application.routes.draw do
   get 'sitemap', to: 'static#sitemap', defaults: {format: 'xml'}
   get "gallery", to: "skins#index"
   get "gallery/:page", to: "skins#index"
+  get "skins", to: redirect('/gallery')
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
+  get "users", to: redirect("/")
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 
