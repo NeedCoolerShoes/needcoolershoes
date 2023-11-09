@@ -136,11 +136,7 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-<<<<<<< HEAD
-    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions)
-=======
     params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: [])
->>>>>>> watermarking
   end
 
   def gallery_params
