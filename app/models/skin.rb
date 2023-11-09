@@ -61,8 +61,8 @@ class Skin < ApplicationRecord
   scope :with_params, ->(params) { with_params_query(params) }
 
   after_create :send_creation_webhook, if: :is_public?
-  after_create :embed_watermark!
-
+  after_create :embed_watermark!, unless: -> { user.watermark_disabled? }
+  
   class << self
     def with_params_query(params)
       query = all
