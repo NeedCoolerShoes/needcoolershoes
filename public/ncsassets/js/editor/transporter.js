@@ -36,7 +36,6 @@ App.Transporter = function (a) {
         )
         o.setImage(b);
         let id = getWatermarkData(o.context) || d;
-        console.log(id)
         var f = a.layerModel.add(id);
         a.model.loopOverMap(g.commands, function (b, c, d) {
           a.layerModel.setFaceColor(d, o.getPixelColor(b, c));
@@ -293,6 +292,7 @@ App.Transporter = function (a) {
 
   function getWatermarkData(context) {
     let imgData = context.getImageData(0, 0, 8, 8);
+    console.log(imgData)
     let str = bytesToString(Array.from(imgData.data));
     if (/https?/.test(str)) {
       return str;

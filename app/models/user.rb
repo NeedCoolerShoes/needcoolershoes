@@ -29,6 +29,7 @@ class User < ApplicationRecord
     uniqueness: true
   
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :attribution_message, length: { maximum: 64 }, format: { with: /\A[ -~]+\z/ }
   
   enum :role, ROLES
   
@@ -36,6 +37,10 @@ class User < ApplicationRecord
     define_method :"#{role}?" do
       permission_level >= level
     end
+  end
+
+  def attribution_message
+    read_attribute(:attribution_message) || name[..64]
   end
   
   def permission_level

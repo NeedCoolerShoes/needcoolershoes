@@ -54,7 +54,7 @@
 
     <%= form.hidden_field :user_id, value: current_user.id %>
     <%= form.hidden_field :data %>
-
+    
     <div class="flex flex-col items-start" id="terms-and-conditions">
       <p class="text-xs">
         Submitting this skin as "Public" means that you agree to license it under the terms
@@ -73,7 +73,22 @@
 <% end %>
 
 <script>
-  skinDataField = document.getElementById("skin_data")
-  skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src
-  document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic")
+  let skinDataField = document.getElementById("skin_data");
+  skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
+  document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
+
+  let attributions = [];
+  App.dep.layerModel.loop(layer => {
+    if (!layer.skinId) { return; }
+    attributions.push(layer.skinId);
+  })
+  
+  let form = document.getElementById("new_skin")
+  attributions.forEach(element => {
+    let field = document.createElement('input');
+    field.type = 'hidden';
+    field.name = 'skin[attributions][]';
+    field.value = element;
+    form.append(field);
+  });
 </script>

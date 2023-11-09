@@ -18,7 +18,7 @@ App.ImportTool = function (a, b) {
 
   var j =
     (new App.FileButton(f, b),
-    $("<button disabled>Generate Random</button>").mousedown(function () {
+    $("<button>Generate Random</button>").mousedown(function () {
       function a(a) {
         var c = Math.floor(Math.random() * a.length),
           d = a[c].split(",");
@@ -44,8 +44,8 @@ App.ImportTool = function (a, b) {
         return $.ajax(query).done(function (result) {
           var skin = result.skins[0]
           if (!skin) { return; }
-          i.push(skin.id);
-          b.transporter.setUVImage(skin.image, App.UVMAP.current, skin.id);
+          i.push(skin.url);
+          b.transporter.setUVImage(skin.image, App.UVMAP.current, skin.url);
         })
       }
       function c() {

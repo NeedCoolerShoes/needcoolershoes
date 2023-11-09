@@ -32,7 +32,7 @@
       ></div>
       <div>
         <button
-          onclick="editSkin('<%= @skin.data %>', <%= @skin.id %>, '/', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
+          onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
           <%= t("skins.editor") %>
@@ -100,6 +100,23 @@
         <p>Total Favourites: <%= @skin.favourites.count %></p>
         <p>Total Downloads: <%= @skin.download_count || 0 %></p>
       </div>
+    <% end %>
+    <% attributions = @skin.attributions.with_attributed_skin %>
+    <% if attributions.any? %>
+      <div class="bg-white p-4 mt-2">
+        <h4 class="font-bold text-lg">Parts Used</h4>
+        <div class="flex flex-wrap gap-2 items-start">
+          <%= render partial: "attribution", collection: attributions, as: :attribution %>
+        </div>
+      </div>
+    <% end %>
+    <% if @skin.variants.any? %>
+    <div class="bg-white p-4 mt-2">
+      <h4 class="font-bold text-lg">Used In</h4>
+      <div class="flex flex-wrap gap-2 items-start">
+        <%= render partial: "attribution", collection: @skin.variants, as: :attribution, locals: {variant: true} %>
+      </div>
+    </div>
     <% end %>
   </div>
 </div>

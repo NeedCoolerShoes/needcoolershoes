@@ -25,13 +25,14 @@ class Skin < ApplicationRecord
   belongs_to :skin_category
   belongs_to :skin_part
   has_many :favourites, dependent: :destroy
+  has_many :attributions, class_name: "SkinAttribution", dependent: :destroy
+  has_many :variants, class_name: "SkinAttribution", foreign_key: "attributed_skin_id", dependent: :nullify
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :terms_and_conditions, acceptance: true
-  validates :data, uniqueness: true
 
   attribute :favourites_count, :integer, default: 0
 
@@ -60,7 +61,7 @@ class Skin < ApplicationRecord
   scope :with_params, ->(params) { with_params_query(params) }
 
   after_create :send_creation_webhook, if: :is_public?
-  after_create :embed_watermark!, unless: :parse_watermark
+  after_create :embed_watermark!
 
   class << self
     def with_params_query(params)
@@ -117,6 +118,15 @@ class Skin < ApplicationRecord
     favourites.where(user: user).any?
   end
 
+  def url
+    skin_url(self)
+  end
+
+  def attribution_string(js_safe = false)
+    seperator = js_safe ? "\\n" : "\n"
+    "#{url}#{seperator}#{user.attribution_message}"
+  end
+
   def to_png
     raise "Skin has invalid data!" unless data.start_with? "data:image/png;base64,"
     Base64.decode64(data.delete_prefix("data:image/png;base64,"))
@@ -146,8 +156,9 @@ class Skin < ApplicationRecord
   def metadata
     {
       file: filename,
-      name: name, description: description,author: "#{user.display_name} (#{user.name})",
-      url: skin_url(self), created_at: created_at, updated_at: updated_at, tags: tag_list
+      name: name, description: description, author: "#{user.display_name} (#{user.name})",
+      attribution_message: user.attribution_message, url: skin_url(self),
+      created_at: created_at, updated_at: updated_at, tags: tag_list
     }
   end
 
@@ -158,21 +169,14 @@ class Skin < ApplicationRecord
   end
 
   def to_watermark_img(src = nil)
-    src ||= skin_url(self)
+    src ||= skin_url(self) + "\n#{user.attribution_message.present? ? user.attribution_message : user.name}"
     data = src.ljust(192, "\u0000")[..192]
     ChunkyPNG::Image.from_rgb_stream 8, 8, data
   end
 
-  def parse_watermark(uri = true)
+  def parse_watermark
     region = to_img.crop(0, 0, 8, 8)
-    string = region.to_rgb_stream.tr("\u0000", '')
-    return string unless uri
-    return unless string.start_with? /https?:\/\//
-    begin
-      URI.parse(string)
-    rescue URI::InvalidURIError
-      nil
-    end
+    region.to_rgb_stream.tr("\u0000", '').split("\n")
   end
 
   private
@@ -181,23 +185,6 @@ class Skin < ApplicationRecord
     Discord::NewSkinWebhook.send_webhook(self)
   rescue
     nil
-  end
-
-  def group_by_count(data, count, default = nil)
-    output = []
-    data.each_with_index do |item, index|
-      output << [] if index % count == 0
-      output[-1] << item
-    end
-    output[-1] = fit_data_to_size(output[-1], count, default) if default && output[-1].is_a?(Array)
-    output
-  end
-
-  def fit_data_to_size(data, size, padding = nil)
-    return data[..size] if data.size >= size
-    output = data.dup
-    (size - output.size).times { output << padding }
-    output
   end
 
   def cache_image_file(img_path, data)

@@ -26,8 +26,8 @@ App.SearchPanel = function (a, b) {
   }
   function getSkin2d(skinData) {
     var format = {
-      id: skinData.id, suffix: (skinData.model == "slim" ? "-slim" : ""),
-      data: skinData.image, name: skinData.name,
+      id: skinData.id, url: skinData.url, attribution: skinData.author.attribution_message,
+      suffix: (skinData.model == "slim" ? "-slim" : ""), data: skinData.image, name: skinData.name,
       author: skinData.author.display_name
     }
     return formatText(skinTemplate, format)
