@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_023548) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_09_065047) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_023548) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
+
+  create_table "skin_attributions", force: :cascade do |t|
+    t.bigint "skin_id", null: false
+    t.bigint "attributed_skin_id"
+    t.string "url"
+    t.string "author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attributed_skin_id"], name: "index_skin_attributions_on_attributed_skin_id"
+    t.index ["skin_id"], name: "index_skin_attributions_on_skin_id"
   end
 
   create_table "skin_categories", force: :cascade do |t|
@@ -135,6 +146,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_023548) do
     t.boolean "otp_required_for_login"
     t.text "otp_backup_codes", array: true
     t.integer "role"
+    t.string "attribution_message"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
     t.index ["name"], name: "index_users_on_name", unique: true
@@ -143,6 +155,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_023548) do
 
   add_foreign_key "favourites", "skins"
   add_foreign_key "favourites", "users"
+  add_foreign_key "skin_attributions", "skins"
+  add_foreign_key "skin_attributions", "skins", column: "attributed_skin_id"
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"

@@ -15,6 +15,7 @@ class Skin < ApplicationRecord
 
   include PgSearch::Model
   include SkinTransformations
+  include Routing
 
   delegate :url_helpers, to: 'Rails.application.routes'
 
@@ -24,13 +25,14 @@ class Skin < ApplicationRecord
   belongs_to :skin_category
   belongs_to :skin_part
   has_many :favourites, dependent: :destroy
+  has_many :attributions, class_name: "SkinAttribution", dependent: :destroy
+  has_many :variants, class_name: "SkinAttribution", foreign_key: "attributed_skin_id", dependent: :nullify
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :terms_and_conditions, acceptance: true
-  validates :data, uniqueness: true
 
   attribute :favourites_count, :integer, default: 0
 
@@ -59,6 +61,7 @@ class Skin < ApplicationRecord
   scope :with_params, ->(params) { with_params_query(params) }
 
   after_create :send_creation_webhook, if: :is_public?
+  after_create :embed_watermark!
 
   class << self
     def with_params_query(params)
@@ -115,14 +118,26 @@ class Skin < ApplicationRecord
     favourites.where(user: user).any?
   end
 
+  def url
+    skin_url(self)
+  end
+
+  def attribution_string(js_safe = false)
+    seperator = js_safe ? "\\n" : "\n"
+    "#{url}#{seperator}#{user.attribution_message}"
+  end
+
   def to_png
     raise "Skin has invalid data!" unless data.start_with? "data:image/png;base64,"
     Base64.decode64(data.delete_prefix("data:image/png;base64,"))
   end
 
+  def to_img
+    ChunkyPNG::Image.from_data_url(data)
+  end
+
   def to_preview_img(scale = 10)
-    src = ChunkyPNG::Image.from_data_url(data)
-    map_to_image(src, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
+    map_to_image(to_img, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
   end
 
   def preview_img
@@ -141,9 +156,27 @@ class Skin < ApplicationRecord
   def metadata
     {
       file: filename,
-      name: name, description: description,author: "#{user.display_name} (#{user.name})",
-      url: router.skin_url(self), created_at: created_at, updated_at: updated_at, tags: tag_list
+      name: name, description: description, author: "#{user.display_name} (#{user.name})",
+      attribution_message: user.attribution_message, url: skin_url(self),
+      created_at: created_at, updated_at: updated_at, tags: tag_list
     }
+  end
+
+  def embed_watermark!(src = nil)
+    img = to_img
+    img.replace!(to_watermark_img(src), 0, 0)
+    update!(data: img.to_data_url)
+  end
+
+  def to_watermark_img(src = nil)
+    src ||= skin_url(self) + "\n#{user.attribution_message.present? ? user.attribution_message : user.name}"
+    data = src.ljust(192, "\u0000")[..192]
+    ChunkyPNG::Image.from_rgb_stream 8, 8, data
+  end
+
+  def parse_watermark
+    region = to_img.crop(0, 0, 8, 8)
+    region.to_rgb_stream.tr("\u0000", '').split("\n")
   end
 
   private

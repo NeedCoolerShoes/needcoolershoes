@@ -85,7 +85,7 @@ App.ShareTool = function (a, b) {
   return (
     f.append($("<h2> Choose an option for export</h2>")),
     f.append(j),
-    f.append(h),
+    // f.append(h), Disable "Change Minecraft.Net Skin" button
     f.append(i),
     f.append(ii),
     d.append(e.hide()),

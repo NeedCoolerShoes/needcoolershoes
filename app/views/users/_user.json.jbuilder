@@ -1,5 +1,6 @@
 json.name user.name
 json.display_name user.display_name
+json.attribution_message user.attribution_message
 json.biography user.biography
 json.pixels user.pixels
 json.joined_at user.created_at

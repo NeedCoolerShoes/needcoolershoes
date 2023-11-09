@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  skin: one
+  attributed_skin: one
+  url: MyString
+  author: MyString
+
+two:
+  skin: two
+  attributed_skin: two
+  url: MyString
+  author: MyString

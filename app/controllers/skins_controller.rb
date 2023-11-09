@@ -23,6 +23,7 @@ class SkinsController < ApplicationController
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }
+      format.any { render }
     end
   end
 
@@ -30,14 +31,17 @@ class SkinsController < ApplicationController
     params = skin_params.dup
     params.delete(:tags)
     params[:tag_list] = transform_tags(skin_params[:tags])
-    params[:user] = current_user
-    @skin = Skin.new(params)
+    @skin = Skin.new(params.except(:attributions))
+    @skin.user = current_user
 
     respond_to do |format|
       if @skin.save
+        if params[:attributions].is_a? Array
+          params[:attributions].each { |url| SkinAttribution.create_from_url(@skin, *url.split(/\r\n|\r|\n/)) }
+        end
         format.html { redirect_to root_path, notice: "Skin was successfully created." }
       else
-        format.html { redirect_to root_path, alert: "Error saving skin." }
+        format.html { redirect_to root_path, alert: "Error saving skin. #{@skin.errors.messages}" }
       end
     end
   end
@@ -132,7 +136,11 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
+<<<<<<< HEAD
     params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions)
+=======
+    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: [])
+>>>>>>> watermarking
   end
 
   def gallery_params
