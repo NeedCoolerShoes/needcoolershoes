@@ -80,7 +80,7 @@ App.ImportTool = function (a, b) {
     k = $('<hr class="my-2">'),
     l = new App.ReferenceImgButton(f, b);
   return (
-    f.append(j),
+    // f.append(j),
     f.append(k),
     f.append(l),
     d.append(e),
