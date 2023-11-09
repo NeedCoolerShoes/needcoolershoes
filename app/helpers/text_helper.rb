@@ -8,7 +8,7 @@ module TextHelper
 
   def markdown(text)
     return '' if text.nil?
-    renderer = Redcarpet::Render::HTML.new(render_options = {filter_html: true, hard_wrap: true})
+    renderer = Redcarpet::Render::HTML.new(render_options = {filter_html: true, hard_wrap: true, link_attributes: {rel: :nofollow}})
   
     extensions = %i[
       hard_wrap autolink no_intra_emphasis tables fenced_code_blocks
@@ -28,11 +28,11 @@ module TextHelper
 
   def simple_number(number)
     number = number.to_i
-    return number.to_s if number < 1000
-    return "#{number / 1000.0}k" if number < 9999
-    return "#{number / 1000}k" if number < 1000000
-    return "#{number / 1000000.0}m" if number < 9999999
-    return "#{number / 1000000}m" if number < 1000000000
+    return number.to_s if number < 1_000
+    return "#{(number / 1_000.0).round(2)}K" if number < 9_999
+    return "#{number / 1_000}K" if number < 1_000_000
+    return "#{(number / 1_000_000.0).round(2)}M" if number < 9_999_999
+    return "#{number / 1_000_000}M" if number < 1_000_000_000
     return "1B+"
   end
 end
