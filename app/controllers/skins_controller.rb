@@ -119,7 +119,7 @@ class SkinsController < ApplicationController
 
   rescue ActiveRecord::RecordNotFound
     respond_to do |format|
-      format.png { send_data File.read("public/ncsassets/img/missing_img.png"), type: "image/png", disposition: "inline", status: 404 }
+      format.png { send_data File.read("public/ncsassets/img/missing_img.png"), type: "image/png", disposition: "inline", status: 200 }
       format.json { render json: {error: 404, message: "Skin not found."}, status: 404 }
       format.any { redirect_to gallery_path }
     end
