@@ -114,24 +114,26 @@ class SkinsController < ApplicationController
 
   private
 
-  def set_skin
-    @skin = Skin.find(params[:id])
+  def render_img_missing
+    img = File.read("public/ncsassets/img/missing_img.png")
 
-  rescue ActiveRecord::RecordNotFound
     respond_to do |format|
-      format.png { send_data File.read("public/ncsassets/img/missing_img.png"), type: "image/png", disposition: "inline", status: 200 }
+      format.png { send_data img, type: "image/png", disposition: "inline", status: 200 }
       format.json { render json: {error: 404, message: "Skin not found."}, status: 404 }
       format.any { redirect_to gallery_path }
     end
   end
 
+  def set_skin
+    @skin = Skin.find(params[:id])
+
+  rescue ActiveRecord::RecordNotFound
+    render_img_missing
+  end
+
   def check_visibility
     return true unless @skin.is_private?
-    unless current_user.present?
-      redirect_to gallery_path
-      return false
-    end
-    redirect_to gallery_path unless current_user.id == @skin.user_id
+    render_img_missing unless current_user.present? && current_user.id == @skin.user_id
   end
 
   def validate_can_edit
