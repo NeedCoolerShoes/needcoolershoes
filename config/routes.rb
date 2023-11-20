@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
   get "contact", to: "static#contact", as: "contact"
+  get "donate", to: "static#donate", as: "donate"
   post "contact", to: "static#send_message", as: "send_message"
   get "open_letter", to: "static#open_letter"
   get "rules", to: "static#rules"
@@ -36,7 +37,6 @@ Rails.application.routes.draw do
   # API
   scope :api do
     get 'skin/:id', to: "api#skin"
-    get 'skins', to: "api#skins"
     get 'tags', to: "api#tags"
   end
 end

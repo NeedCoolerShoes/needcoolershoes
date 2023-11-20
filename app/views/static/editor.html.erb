@@ -47,8 +47,9 @@
 
 <% content_for :message do %>
   <p class="p-2 bg-ncs-yellow-200 mb-2">
-    Want to stay up-to-date with the latest changes?
-    <%= link_to "Join our Discord server!", "https://discord.gg/FEfbZYvQUa", class: "text-black underline" %>
+    Love the project? Want to support it's development?
+    <%= link_to "We now accept donations!", donate_path, class: "text-black underline" %>
+    <%= heroicon "heart", variant: "solid", class: "inline text-red-500", size: 16 %>
   </p>
 <% end %>
 
