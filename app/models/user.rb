@@ -48,6 +48,13 @@ class User < ApplicationRecord
     ROLES.find_index(role.to_sym)
   end
 
+  def can_user_edit?(some_user)
+    return false unless some_user.is_a? User
+    return true if some_user.admin?
+    return true if some_user.id == id
+    false
+  end
+
   def pixels
     if @pixels
       return @pixels[:count] unless @pixels[:expires] < Time.now

@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def validates_current_user
-    return true if @user == current_user
+    return true if @user.can_user_edit?(current_user)
     redirect_to root_path, alert: "You cannot edit another user."
   end
 

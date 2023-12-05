@@ -70,7 +70,7 @@
         </div>
       <% end %>
       <div>
-        <% if current_user.present? && current_user.id == @user.id %>
+        <% if @user.can_user_edit?(current_user) %>
           <%= render partial: "actions_owner", locals: { user: @user } %>
         <% else %>
           <%= render partial: "actions_visitor", locals: { user: @user } %>
