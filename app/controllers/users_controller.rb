@@ -19,10 +19,10 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if current_user.update(user_params)
-        format.html { redirect_to current_user_path, notice: "User updated successfully!" }
+      if @user.update(user_params)
+        format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
       else
-        format.html { redirect_to current_user_path, alert: "Error updating user!" }
+        format.html { redirect_to user_path(@user), alert: "Error updating user!" }
       end
     end
   end

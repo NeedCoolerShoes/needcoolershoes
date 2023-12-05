@@ -40,7 +40,7 @@
         <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
         <%= link_to "Download to Computer", skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
         <% if @skin.user == current_user %>
-          <%= form_with model: current_user, url: update_profile_path do |form| %>
+          <%= form_with model: current_user, url: user_path(current_user) do |form| %>
             <%= form.hidden_field :featured_skin_id, value: @skin.id %>
             <%= form.submit t("skins.feature"), class: "btn-ncs", title: t("skins.feature_tooltip") %>
           <% end %>
