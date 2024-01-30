@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  username: MyString
+  skin: MyText
+  uuid: 
+  userhash: MyString
+  xsts: MyString
+
+two:
+  user: two
+  username: MyString
+  skin: MyText
+  uuid: 
+  userhash: MyString
+  xsts: MyString

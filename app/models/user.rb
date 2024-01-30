@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :badges, through: :user_badges
   has_many :favourites
   has_many :skin_favourites, through: :skins, source: :favourites
+  has_many :minecraft_accounts
 
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },

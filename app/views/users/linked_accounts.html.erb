@@ -1,0 +1,15 @@
+<% content_for :title do %>
+  <%= @user.display_name %>'s Linked Accounts
+<% end %>
+
+<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded min-h-[600px]">
+  <div class="text-white p-4">
+    <div class="flex justify-between">
+      <h2 class="text-2xl">Minecraft Accounts</h2>
+      <div>
+        <%= link_to "Add New", "", class: "btn-ncs px-2" %>
+      </div>
+    </div>
+    <%= render partial: "minecraft_account", collection: @user.minecraft_accounts, as: :minecraft_account %>
+  </div>
+</div>

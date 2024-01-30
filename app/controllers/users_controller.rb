@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update export]
-  before_action :set_user, only: %i[show edit update export]
+  before_action :set_user, only: %i[show edit update export linked_accounts]
   before_action :validates_current_user, only: %i[edit update export]
 
   def show
@@ -29,6 +29,9 @@ class UsersController < ApplicationController
 
   def export
     send_file @user.export_skins_to_zip, filename: "#{@user.name}_#{Date.today.strftime "%Y%m%d"}.zip"
+  end
+
+  def linked_accounts
   end
 
   private

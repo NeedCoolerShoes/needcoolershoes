@@ -40,3 +40,4 @@
 /config/credentials/live.key
 
 /**/.directory
+/config/credentials/development.key

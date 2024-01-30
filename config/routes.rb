@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 
+  scope :webhooks do
+    get "minecraftauth", to: "webhooks#minecraftauth"
+  end
+
   scope :users do
     resource :otp, controller: "otp", only: %i[update destroy] do
       get "backup_codes"
@@ -32,6 +36,7 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show edit destroy update] do
     get "export", to: "users#export"
+    get "linked_accounts", to: "users#linked_accounts"
   end
 
   # API
