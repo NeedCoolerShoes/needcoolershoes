@@ -26,10 +26,12 @@ class User < ApplicationRecord
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
     exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current otp), message: "%{value} is reserved" },
-    uniqueness: true
+    uniqueness: true,
+    length: { maximum: 64 }
   
-  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 256 }
   validates :attribution_message, length: { maximum: 64 }, format: { with: /\A[ -~]+\z/ }
+  validates :biography, length: { maximum: 1024 }
   
   enum :role, ROLES
   

@@ -32,6 +32,8 @@ class Skin < ApplicationRecord
   enum :model, %i[classic slim], default: :classic
   
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
+  validates :name, length: { maximum: 128 }
+  validates :description, length: { maximum: 1024 }
   validates :terms_and_conditions, acceptance: true
 
   attribute :favourites_count, :integer, default: 0

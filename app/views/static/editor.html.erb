@@ -90,7 +90,7 @@
     <%= render layout: 'skins/skin_2d', locals: skin_config do |foo| %>
       <div class="absolute bottom-0 hidden group-hover:block w-full h-12 bg-black/60">
         <div class="p-1">
-          <span class="text-white line-clamp-2" title="%name%">%name%</span>
+          <span class="text-white line-clamp-2" style="overflow-wrap: break-word;" title="%name%">%name%</span>
           <span class="text-xs text-white line-clamp-1" title="by %author%">by %author%</span>
         </div>
       </div>

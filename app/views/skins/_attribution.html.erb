@@ -11,7 +11,7 @@
   <%= render partial: "skins/skin_2d", locals: skin_config %>
   <div class="absolute left-0 bottom-0 hidden group-hover:block w-full h-14 bg-black/60">
     <div class="p-1 leading-4 text-center">
-      <span class="text-white line-clamp-2 text-base leading-4" title="<%= skin.name %>"><%= skin.name %></span>
+      <span class="text-white line-clamp-2 text-base leading-4" style="overflow-wrap: break-word;" title="<%= skin.name %>"><%= skin.name %></span>
       <span class="text-xs text-white line-clamp-1" title="by <%= skin.user.display_name %>">by <%= skin.user.display_name %></span>
     </div>
   </div>

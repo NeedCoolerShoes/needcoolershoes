@@ -27,7 +27,7 @@
         <% end %>
       </div>
     <% end %>
-    <%= link_to skin.name, skin, class: "text-2xl font-bold" %>
+    <%= link_to skin.name, skin, class: "text-2xl font-bold line-clamp-2 max-w-[280px]", style: "overflow-wrap: break-word;" %>
     <div class="flex flex-col font-bold">
       <p class="text-gray-500 text-sm">
         <%= link_to skin.skin_part.name, gallery_path(@gallery_params.merge(part: skin.skin_part.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
