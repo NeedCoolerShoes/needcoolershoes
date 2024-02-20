@@ -1,4 +1,4 @@
-<% content_for :title do "#{@skin.name} by #{@skin.user.display_name}" end %>
+<% content_for :title do "#{@skin.name.truncate(32)} by #{@skin.user.display_name}" end %>
 <% 
   content_for :meta_description do
     if @skin.description.present?
