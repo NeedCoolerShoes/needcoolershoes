@@ -11,8 +11,11 @@
     </div>
 
     <div class="flex flex-col">
-      <%= f.label :name, "Username" %>
-      <%= f.text_field :name, placeholder: "Steve", autocomplete: "username", class: "text-black w-full" %>
+      <div>
+        <%= f.label :name, "Username" %>
+        <em>(Cannot be your email address)</em>
+      </div>
+      <%= f.text_field :name, placeholder: "Steve", autocomplete: "username", pattern: '[^@]+', class: "text-black w-full" %>
     </div>
 
     <div class="flex flex-col">
