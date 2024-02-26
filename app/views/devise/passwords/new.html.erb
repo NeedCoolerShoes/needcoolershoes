@@ -1,18 +1,32 @@
+<% disabled = ENV["EMAIL_DISABLED"].present? %>
+
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <h2 class="text-4xl text-center">Reset Password</h2>
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-col">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "text-black" %>
-    </div>
 
-    <div class="actions">
-      <%= f.submit "Send reset password instructions", class: "btn-ncs" %>
+  <% if disabled %>
+    <p class="bg-red-700 text-white p-4 rounded my-2">
+      Email functionality is currently in maintenance. Please <%= link_to "Contact Support", contact_path, class: "underline" %>
+      to reset your password.
+    </p>
+  <% end %>
+
+  <fieldset <%= disabled ? 'disabled="disabled"' : nil %>>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "text-black" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send reset password instructions", class: "btn-ncs" %>
+      </div>
     </div>
-  </div>
+  </fieldset>
+
 <% end %>
+
 
 <h4 class="mt-2">Please Note:</h4>
 <p class="text-sm">
@@ -23,5 +37,5 @@
   <strong>it will not exist here!</strong> If you haven't already, please create a new account.
 </p>
 <p class="text-sm">
-  If you have any troubles resetting your password, please <%= link_to "Contact Support", contact_path, class: "underline" %>
+  If you have any troubles resetting your password, please <%= link_to "Contact Support", contact_path, class: "underline" %>.
 </p>
