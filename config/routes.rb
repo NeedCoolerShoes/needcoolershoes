@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 
+  get 'badges', to: redirect('/hall-of-fame'), as: ''
+  get 'hall-of-fame', to: "badges#index", as: 'badges'
+  resources :badges, except: :index
+
   scope :users do
     resource :otp, controller: "otp", only: %i[update destroy] do
       get "backup_codes"

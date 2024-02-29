@@ -1,0 +1,22 @@
+<div class="rounded p-2 bg-amber-400 max-w-xl w-full text-black">
+  <div class="flex flex-col items-center sm:items-start sm:flex-row gap-2">
+    <img src="<%= badge.url %>" alt="" width=64 height=64 class="mt-1" style="image-rendering: pixelated;">
+    <div>
+      <h2 class="font-bold text-2xl text-center sm:text-left"><%= badge.name %></h2>
+      <p><%= badge.description %></p>
+      <% if badge.user_badges.count > 1 %>
+        <details>
+          <summary class="select-none"><strong>Awarded to <%= badge.user_badges.count %> users.</strong></summary>
+          <div class="flex flex-wrap gap-2">
+            <% badge.user_badges.each do |ub| %>
+              <%= link_to ub.user.display_name, ub.user, class: "underline" %>
+            <% end %>
+          </div>
+        </details>
+      <% else %>
+        <% user = badge.user_badges.first.user %>
+        <strong>Awarded to:</strong> <%= link_to user.display_name, user, class: "underline" %>
+      <% end %>
+    </div>
+  </div>
+</div>

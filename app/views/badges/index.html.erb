@@ -1,0 +1,13 @@
+<div class="flex flex-col items-center gap-2 p-4 bg-ncs-tweed rounded text-white pb-12">
+  <div class="text-center mb-4 space-y-2 max-w-3xl">
+    <h1 class="text-3xl font-bold">The NeedCoolerShoes Hall of Fame</h1>
+    <p>
+      The following is a list of badges granted to users of the site, for various milestones and achievements.
+    </p>
+    <p>
+      Badges show up on your profile, and usually add to your pixel total. Badges may be granted to active members
+      of the community as part of special events, site milestones, or other occasions.
+    </p>
+  </div>
+  <%= render partial: "badge", collection: @badges, as: :badge %>
+</div>
