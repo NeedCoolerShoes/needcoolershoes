@@ -4,6 +4,10 @@ class StaticController < ApplicationController
 
   prepend_before_action :protect_from_spam, :only => [:send_message]
 
+  def legacy
+    render layout: "legacy"
+  end
+
   def editor
   end
 

@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "static#editor"
+  root "static#legacy"
+  get "editor", to: "static#editor", as: "editor"
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
   get "contact", to: "static#contact", as: "contact"
