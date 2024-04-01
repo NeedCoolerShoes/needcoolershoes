@@ -14,8 +14,12 @@ class NCRSSkinEditor extends EventTarget {
   renderContext;
   currentColor = "#ffffff";
   camo = false;
-  #picker = false;
   dragging = false;
+  historyMax = 100;
+
+  #picker = false;
+  #history = [];
+  #redoHistory = [];
 
   #setupCanvas() {
     this.textureCanvas = new OffscreenCanvas(64, 32);
@@ -26,12 +30,26 @@ class NCRSSkinEditor extends EventTarget {
   loadSkin(skin) {
     const img = new Image;
     img.onload = event => {
-      this.textureContext.reset();
-      this.textureContext.drawImage(event.target, 0, 0);
+      this.drawTexture(event.target);
+      this.resetHistory();
       this.renderTexture();
       img.remove;
     }
     img.src = skin;
+  }
+
+  resetSkin() {
+    localStorage.removeItem('ncrs-legacy');
+    this.loadSkin(this.skin);
+  }
+
+  drawTexture(imageSource) {
+    this.textureContext.reset();
+    if (imageSource instanceof ImageData) {
+      this.textureContext.putImageData(imageSource, 0, 0);
+    } else {
+      this.textureContext.drawImage(imageSource, 0, 0);
+    }
   }
 
   renderTexture() {
@@ -39,6 +57,54 @@ class NCRSSkinEditor extends EventTarget {
     this.renderContext.imageSmoothingEnabled = false;
     this.renderContext.drawImage(this.textureCanvas, 0, 0, 64, 32, 0, 0, 512, 256);
     this.dispatchEvent(new CustomEvent("render", {detail: {canvas: this.textureCanvas}}));
+  }
+
+  resetHistory() {
+    this.#history = [];
+    this.#redoHistory = [];
+    this.addToHistory();
+  }
+
+  addToHistory() {
+    if (this.#history.length >= this.historyMax) {
+      this.#history.shift();
+    }
+    this.#redoHistory = [];
+    this.#history.push(this.textureContext.getImageData(0, 0, 64, 32));
+    this.saveToLocalStorage();
+  }
+
+  loadFromLocalStorage() {
+    const storage = localStorage.getItem('ncrs-legacy');
+    if (!storage) { return false; }
+    const arr = JSON.parse(storage);
+    if (!arr) { return false; }
+    const data = new Uint8ClampedArray(arr);
+    const imgData = new ImageData(data, 64)
+    this.drawTexture(imgData);
+    this.renderTexture();
+    return true;
+  }
+
+  saveToLocalStorage() {
+    const data = this.textureContext.getImageData(0, 0, 64, 32).data;
+    localStorage.setItem('ncrs-legacy', JSON.stringify(Array.from(data)));
+  }
+
+  undo() {
+    if (this.#history.length <= 1) { return; }
+    this.#redoHistory.push(this.#history.pop());
+    this.drawTexture(this.#history.at(-1));
+    this.saveToLocalStorage();
+    this.renderTexture();
+  }
+
+  redo() {
+    if (this.#redoHistory.length < 1) { return; }
+    this.#history.push(this.#redoHistory.pop());
+    this.drawTexture(this.#history.at(-1));
+    this.saveToLocalStorage();
+    this.renderTexture();
   }
 
   drawPixel(color, x, y, xWidth = 1, xHeight = 1) {
@@ -76,11 +142,12 @@ class NCRSSkinEditor extends EventTarget {
     });
   }
 
-  onMouseClick(event) {
+  onMouseDown(event) {
     const xPos = Math.floor(event.offsetX / 8);
     const yPos = Math.floor(event.offsetY / 8);
     if (!this.#picker) {
       this.drawPixel(this.getColor(), xPos, yPos);
+      this.addToHistory();
       return;
     } 
     const data = this.textureContext.getImageData(xPos, yPos, 1, 1).data;
@@ -92,31 +159,41 @@ class NCRSSkinEditor extends EventTarget {
     }, 200)
   }
 
-  onMouseDown(event) {
-    this.dragging = true;
-    this.onMouseClick(event);
-  }
-
   onMouseMove(event) {
-    if (this.dragging) {
-      this.onMouseClick(event);
+    const xPos = Math.floor(event.offsetX / 8);
+    const yPos = Math.floor(event.offsetY / 8);
+    if (event.buttons == 1) {
+      this.dragging = true;
+      this.drawPixel(this.getColor(), xPos, yPos);
     }
   }
 
   onMouseUp() {
+    if (this.dragging) {
+      this.addToHistory();
+    }
     this.dragging = false;
   }
 
   initialize() {
     this.#setupCanvas();
-    this.loadSkin(this.skin);
-    this.renderCanvas.addEventListener("click", this.onMouseClick.bind(this))
     this.renderCanvas.addEventListener("mousedown", this.onMouseDown.bind(this))
     this.renderCanvas.addEventListener("mousemove", this.onMouseMove.bind(this))
+    window.addEventListener("load", () => {      
+      if (!this.loadFromLocalStorage()) {
+        this.loadSkin(this.skin);
+      }
+    })
     document.addEventListener("mouseup", this.onMouseUp.bind(this))
     document.addEventListener("keydown", event => {
       if (this.#picker && event.key == "Escape") {
-        this.disablePicker();
+        return this.disablePicker();
+      }
+      if (event.key == 'z') {
+        return this.undo();
+      }
+      if (event.key == 'y') {
+        this.redo();
       }
     })
   }

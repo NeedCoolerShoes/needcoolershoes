@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: %i[featured_skin_id])
   end
 
+  def root_path
+    editor_path
+  end
+
   def db_connection_error
     respond_to do |format|
       format.html { render layout: "plain", template: "errors/connect", status: 202 }

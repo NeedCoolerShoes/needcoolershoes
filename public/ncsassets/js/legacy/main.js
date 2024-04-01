@@ -40,6 +40,7 @@ uploadButton.addEventListener("click", event => {
 upload.addEventListener("change", event => {
   const fileURL = URL.createObjectURL(event.target.files[0]);
   NCRSEditor.loadSkin(fileURL);
+  NCRSEditor.saveToLocalStorage();
 })
 
 const downloadButton = document.getElementById("downloadButton");
@@ -47,4 +48,23 @@ downloadButton.addEventListener("click", event => {
   NCRSEditor.export().then(url => {
     download(url, "download.png")
   })
+})
+
+const resetButton = document.getElementById("reset");
+resetButton.addEventListener("click", event => {
+  const confirmText = "This will delete your current skin (in this editor only).\nDo you wish to continue?"
+  if (window.confirm(confirmText)) {
+    NCRSEditor.resetSkin();
+  }
+})
+
+const undoButton = document.getElementById("undo");
+const redoButton = document.getElementById("redo");
+
+undoButton.addEventListener("click", () => {
+  NCRSEditor.undo();
+})
+
+redoButton.addEventListener("click", () => {
+  NCRSEditor.redo();
 })
