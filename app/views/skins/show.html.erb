@@ -17,13 +17,15 @@
 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
   <div class="max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
-      <div class="checker-border bg-ncs-grid">
+      <div class="relative checker-border bg-ncs-grid">
         <%= render partial: "skin_3d", locals: { data: @skin.data } %>
         <% if current_user.present? %>
           <script>
             skinViewer.nameTag = "<%= current_user.name %>"
           </script>
         <% end %>
+        <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
         <script src="/ncsassets/js/skins.js"></script>
       </div>
       <div
@@ -48,7 +50,7 @@
       </div>
     </div>
   </div>
-  <div class="grow">
+  <div class="grow max-w-[364px] w-full sm:max-w-none">
     <div class="bg-white p-4">
       <div class="flex justify-between">
         <h2 class="text-4xl font-bold max-w-lg line-clamp-2" style="overflow-wrap: break-word;" title="<%= @skin.name %>"><%= @skin.name %></h2>
