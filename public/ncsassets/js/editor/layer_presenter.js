@@ -39,28 +39,26 @@ App.LayerPresenter = function (toolbar, app) {
       a && app.layerPresenter.render(),
       app.model.render();
     var c = app.layerModel.stringify();
-    localStorage.setItem(`layerJson-${App.UVMAP.current}`, c), h.push(c), r.push(c);
+    localStorage.setItem(`layerJson-${App.UVMAP.current}`, c), undoStack.push(c), redoStack = [];
   }
   function undo() {
-    h.length > 1 &&
-      (r.push(h.pop()),
-      app.layerModel.parse(h[h.length - 1]),
-      app.layerPresenter && app.layerPresenter.updateAllLayerThumbnails(),
-      app.layerModel.renderModel(),
-      app.model.render());
+    if (undoStack.length <= 1) { return; }
+    redoStack.push(undoStack.pop());
+    app.layerModel.parse(undoStack[undoStack.length - 1]);
+    app.layerPresenter && app.layerPresenter.updateAllLayerThumbnails();
+    app.layerModel.renderModel();
+    app.model.render();
   }
   function redo() {
-    r.length > 1 &&
-      (r.pop(),
-     // console.log(h),
-     // console.log(r),
-      app.layerModel.parse(r[r.length - 1]),
-      app.layerPresenter && app.layerPresenter.updateAllLayerThumbnails(),
-      app.layerModel.renderModel(),
-      app.model.render());
+    if (redoStack.length < 1) { return; }
+    undoStack.push(redoStack.pop());
+    app.layerModel.parse(undoStack[undoStack.length - 1]);
+    app.layerPresenter && app.layerPresenter.updateAllLayerThumbnails();
+    app.layerModel.renderModel();
+    app.model.render();
   }
-  var h = [],
-      r = [],
+  var undoStack = [],
+    redoStack = [],
     images = {},
     j = $('<div id = "layers" ></div>'),
     k = $('<li title="Add a new layer" class= "add"></li>'),
