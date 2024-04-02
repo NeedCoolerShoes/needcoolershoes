@@ -32,7 +32,7 @@
       ></div>
       <div>
         <button
-          onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
+          onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
           <%= t("skins.editor") %>

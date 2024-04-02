@@ -38,6 +38,11 @@ Rails.application.routes.draw do
     get "export", to: "users#export"
   end
 
+  scope :editor do
+    get "/", to: redirect("/")
+    get "2010", to: "static#editor_2010", as: "editor_2010"
+  end
+
   # API
   scope :api do
     get 'skin/:id', to: "api#skin"
