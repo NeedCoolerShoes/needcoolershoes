@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "static#legacy"
-  get "editor", to: "static#editor", as: "editor"
+  root "static#editor"
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
   get "contact", to: "static#contact", as: "contact"
@@ -37,6 +36,11 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show edit destroy update] do
     get "export", to: "users#export"
+  end
+
+  scope :editor do
+    get "/", to: redirect("/")
+    get "2010", to: "static#editor_2010", as: "editor_2010"
   end
 
   # API

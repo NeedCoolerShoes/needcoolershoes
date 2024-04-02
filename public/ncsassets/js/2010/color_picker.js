@@ -5,7 +5,7 @@ const canvas = document.getElementById('colorpicker');
 const ctx = canvas.getContext("2d");
 const eye = new Image(10, 10);
 eye.style = "position: absolute; top: 0px; left: 0px; pointer-events: none;";
-eye.src = "/ncsassets/img/legacy/editor/8_ColorPicker_eye.png";
+eye.src = "/ncsassets/img/2010/editor/8_ColorPicker_eye.png";
 canvas.insertAdjacentElement("beforebegin", eye);
 
 canvas.addEventListener('click', event => {

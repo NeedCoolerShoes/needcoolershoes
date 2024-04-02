@@ -11,7 +11,7 @@ img.onload = event => {
   ctx.drawImage(event.target, 0, 0)
   img.remove
 }
-img.src = "/ncsassets/img/legacy/editor/12_ColorPicker_swatch.jpg"
+img.src = "/ncsassets/img/2010/editor/12_ColorPicker_swatch.jpg"
 
 const camo = document.getElementById("camo")
 camo.addEventListener('click', event => {

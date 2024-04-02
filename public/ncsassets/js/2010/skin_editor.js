@@ -119,7 +119,7 @@ class NCRSSkinEditor extends EventTarget {
   }
 
   enablePicker() {
-    this.renderCanvas.style.cursor = "url('/ncsassets/img/legacy/editor/1_PixelMap_dropperIcon.png') 1 17, crosshair";
+    this.renderCanvas.style.cursor = "url('/ncsassets/img/2010/editor/1_PixelMap_dropperIcon.png') 1 17, crosshair";
     this.#picker = true;
   }
 

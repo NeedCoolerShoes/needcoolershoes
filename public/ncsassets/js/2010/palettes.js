@@ -24,7 +24,7 @@ class NCRSRecentPalette extends HTMLElement {
       firstColor.select();
       const eraser = document.createElement('ncrs-palette-color');
       eraser.setColor("transparent");
-      eraser.style.backgroundImage = "url('/ncsassets/img/legacy/editor/5_Pixel_patch.png')";
+      eraser.style.backgroundImage = "url('/ncsassets/img/2010/editor/5_Pixel_patch.png')";
       this.append(eraser);
     })
 
@@ -111,7 +111,7 @@ class NCRSPaletteEraser extends HTMLElement {
 
   connectedCallback() {
     this.classList.add('block', 'w-[32px]', 'h-[32px]', 'box-border', 'cursor-pointer', 'border-4', 'border-black');
-    this.style.backgroundImage = "url('/ncsassets/img/legacy/editor/5_Pixel_patch.png')";
+    this.style.backgroundImage = "url('/ncsassets/img/2010/editor/5_Pixel_patch.png')";
   }
 
   select() {

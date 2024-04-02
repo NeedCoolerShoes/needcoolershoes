@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'SilkscreenNormal';
+  src: url("/ncsassets/vendor/fonts/2010/slkscr-webfont.woff") format('woff2');
+}
+
+body {
+  background-image: url("/ncsassets/img/2010/bg.jpg");
+  font-family: 'SilkscreenNormal', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.legacy-header {
+  background: url('/ncsassets/img/2010/header.png') no-repeat scroll left top;
+  margin-left: -106px;
+}
