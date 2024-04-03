@@ -24,13 +24,17 @@ App.LayerPresenter = function (toolbar, app) {
   }
   function d(a) {
     (a = a || app.layerModel.active()),
-      (images[a.id] = app.transporter.getUVImage("frontBack", a).src);
+    (images[a.id] = app.transporter.getUVImage("frontBack", a).src);
   }
   function updateAllLayerThumbnails() {
-    render(),
-      app.layerModel.loop(function (a) {
-        d(a, true);
-      });
+    app.layerModel.loop(function (a) {
+      // Patch: remember layer visibility, then force layer as visible to display thumbnail.
+      let visibility = a.visible;
+      a.visible = true;
+      d(a, true);
+      a.visible = visibility;
+    });
+    render()
   }
   function f(a) {
     a === true
