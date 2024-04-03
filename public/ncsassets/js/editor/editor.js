@@ -91,9 +91,9 @@ App.Editor = function (a, b, c, d) {
           intersectingObjects = h.model.pingIntersects(cursorOffset);
         if (h.toolbox.refs.colorPicker.isDropperActive()) {
           if (intersectingObjects.length && intersectingObjects.length > 0) {
-            let color = h.layerModel.getFaceColor(intersectingObjects[0].face);
+            let color = h.layerModel.getFaceColorFromAll(intersectingObjects[0].face);
             if (color.r == 0 && color.g == 1 && color.b == 0 && intersectingObjects.length > 1) {
-              color = h.layerModel.getFaceColor(intersectingObjects[1].face);
+              color = h.layerModel.getFaceColorFromAll(intersectingObjects[1].face);
             }
             h.toolbox.refs.colorPicker.dropperDeactivate(color)
           } else {
@@ -126,9 +126,9 @@ App.Editor = function (a, b, c, d) {
             l = "dropper";
             g("crosshair");
             if (intersectingObjects.length && intersectingObjects.length > 0) {
-              let color = h.layerModel.getFaceColor(intersectingObjects[0].face);
+              let color = h.layerModel.getFaceColorFromAll(intersectingObjects[0].face);
               if (color.r == 0 && color.g == 1 && color.b == 0 && intersectingObjects.length > 1) {
-                color = h.layerModel.getFaceColor(intersectingObjects[1].face);
+                color = h.layerModel.getFaceColorFromAll(intersectingObjects[1].face);
               }
               h.toolbox.refs.colorPicker.previewColor(color);
             }
