@@ -1,7 +1,8 @@
 class MinecraftApi < BaseApi
   class << self
     def username_to_uuid(name)
-      response = get("https://api.mojang.com/users/profiles/minecraft/#{name}")
+      safe_name = URI.encode_www_form_component(name)
+      response = get("https://api.mojang.com/users/profiles/minecraft/#{safe_name}")
       return false unless response.is_a?(Net::HTTPSuccess)
       data = JSON.parse(response.body)
       data["id"]
