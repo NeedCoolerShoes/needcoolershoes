@@ -129,7 +129,7 @@ App.Model = function (canvas, _deps) {
     var c = b.geometry.widthSegments,
       d = b.geometry.heightSegments;
     // Fix for Alex skins, with mirroring
-    if (App.UVMAP.current == "skinAlex" && a.faceIndex <= 95 && ["armR", "armR2", "armL", "armL2"].includes(a.object.name)) {
+    if (App.UVMAP.getCurrent().slim && a.faceIndex <= 95 && ["armR", "armR2", "armL", "armL2"].includes(a.object.name)) {
       c += 1
     }
     if (
@@ -241,8 +241,8 @@ App.Model = function (canvas, _deps) {
     ],
     z = {},
     skinObject = new THREE.Object3D();
-  var armWidth = App.UVMAP.current == "skinAlex" ? 3 : 4
-  var armOffset = App.UVMAP.current == "skinAlex" ? 5.65 : 6
+  var armWidth = App.UVMAP.getCurrent().slim ? 3 : 4
+  var armOffset = App.UVMAP.getCurrent().slim ? 5.65 : 6
   c("hat", { width: 8, height: 8, depth: 8 }, { x: 0, y: 10, z: 0 }, 0.5),
     c(
       "torso2",

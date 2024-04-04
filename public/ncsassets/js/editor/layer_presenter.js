@@ -24,7 +24,7 @@ App.LayerPresenter = function (toolbar, app) {
   }
   function d(a) {
     (a = a || app.layerModel.active()),
-    (images[a.id] = app.transporter.getUVImage("frontBack", a).src);
+    (images[a.id] = app.transporter.getUVImage("frontBackAlex", a).src);
   }
   function updateAllLayerThumbnails() {
     app.layerModel.loop(function (a) {
