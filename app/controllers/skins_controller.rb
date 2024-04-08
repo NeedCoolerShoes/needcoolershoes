@@ -3,6 +3,7 @@ class SkinsController < ApplicationController
   before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
+  nav_section :gallery
 
   def index
     @gallery_params = gallery_params

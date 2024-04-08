@@ -3,6 +3,8 @@ class StaticController < ApplicationController
   CAPTCHA_REGEX = /gun\s*powder/i
 
   prepend_before_action :protect_from_spam, :only => [:send_message]
+  nav_section :editor, only: %i[editor editor_2010]
+  nav_section :banner, only: :banner
   
   def editor
   end

@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
 
+  def self.nav_section(nav, **options)
+    before_action -> { @nav_section = nav }, options
+  end
+
   def configure_devise_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
     devise_parameter_sanitizer.permit(:sign_in, keys: %i[otp_attempt])
