@@ -3,6 +3,7 @@ class SkinAttribution < ApplicationRecord
   belongs_to :attributed_skin, class_name: "Skin", optional: true
 
   scope :with_attributed_skin, -> { where.not(attributed_skin_id: nil) }
+  scope :visible_to_user, ->(user) { where(attributed_skin_id: Skin.visible_to_user(user)) }
 
   def self.create_from_url(skin, url, author = nil, *_)
     base_url = Routing.skins_url + "/"

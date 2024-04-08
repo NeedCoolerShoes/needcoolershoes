@@ -103,13 +103,16 @@
         <p>Total Downloads: <%= @skin.download_count || 0 %></p>
       </div>
     <% end %>
-    <% attributions = @skin.attributions.with_attributed_skin %>
-    <% if attributions.any? %>
+    <% if @attributions.any? %>
       <div class="bg-white p-4 mt-2">
         <h4 class="font-bold text-lg">Parts Used</h4>
         <div class="flex flex-wrap gap-2 items-start">
-          <%= render partial: "attribution", collection: attributions, as: :attribution %>
+          <%= render partial: "attribution", collection: @attributions, as: :attribution %>
         </div>
+        <details>
+          <summary class="text-sm cursor-pointer select-none">Attribution Text</summary>
+          <%= render partial: "attribution_text", collection: @attributions, as: :attribution %>
+        </details>
       </div>
     <% end %>
     <% if @skin.variants.any? %>

@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_150301) do
     t.integer "model"
     t.integer "download_count"
     t.integer "favourites_count"
+    t.integer "license"
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"

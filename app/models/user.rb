@@ -44,6 +44,12 @@ class User < ApplicationRecord
   def attribution_message
     read_attribute(:attribution_message) || name[..64]
   end
+
+  def authorized?(role)
+    return false unless User::ROLES.include?(role)
+    level = User::ROLES.index(role)
+    permission_level >= level
+  end
   
   def permission_level
     return -1 unless role.is_a? String

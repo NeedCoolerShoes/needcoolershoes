@@ -31,6 +31,9 @@ class StaticController < ApplicationController
   def rules
   end
 
+  def mncs_terms
+  end
+
   def send_message
     send_request_webhook if params[:question].present?
     respond_to do |format|

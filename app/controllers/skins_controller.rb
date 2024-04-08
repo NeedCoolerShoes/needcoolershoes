@@ -21,6 +21,7 @@ class SkinsController < ApplicationController
   end
 
   def show
+    @attributions = @skin.attributions.visible_to_user(current_user).with_attributed_skin
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }
@@ -34,6 +35,7 @@ class SkinsController < ApplicationController
     params[:tag_list] = transform_tags(skin_params[:tags])
     @skin = Skin.new(params.except(:attributions))
     @skin.user = current_user
+    @skin.license = :cc_by_sa_4
 
     respond_to do |format|
       if @skin.save
@@ -143,7 +145,9 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: [])
+    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: []]
+    permit.append(:license) if current_user.authorized?(:moderator)
+    params.require(:skin).permit(permit)
   end
 
   def gallery_params

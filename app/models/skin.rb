@@ -10,6 +10,12 @@ class Skin < ApplicationRecord
     search: "search",
     order: "ordered_by"
   }
+  LICENSES = {
+    cc0: "CC0 1.0",
+    cc_by_sa_4: "CC-BY-SA 4.0",
+    mncs: "MNCS Terms",
+    arr: "All Rights Reserved"
+  }
   KARMA = 5
   PREVIEW_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/previews")
 
@@ -30,6 +36,7 @@ class Skin < ApplicationRecord
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
+  enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
   
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :name, length: { maximum: 128 }

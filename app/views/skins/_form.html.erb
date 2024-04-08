@@ -1,6 +1,7 @@
 <%
   visibilities = Skin.visibilities.keys.map { |key| [key.to_s.delete_prefix("is_").titleize, key] }
   models = Skin.models.keys.map { |key| [key.to_s.titleize, key] }
+  licenses = Skin::LICENSES.map { |id, name| [name, id] }
 %>
 <%= form_with model: skin do |form| %>
   <div class="flex flex-col gap-2">
@@ -38,6 +39,13 @@
       <%= form.label :model %>
       <%= form.select :model, models, {}, class: "text-black p-1" %>
     </div>
+
+    <% if authorized?(:moderator) %>
+      <div class="flex flex-col gap-1">
+        <%= form.label :license %>
+        <%= form.select :license, licenses, {}, class: "text-black p-1" %>
+      </div>
+    <% end %>
 
     <div class="flex gap-2">
       <%= form.submit "Save", class: "btn-ncs" %>

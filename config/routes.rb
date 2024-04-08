@@ -23,6 +23,11 @@ Rails.application.routes.draw do
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 
+  scope :terms do
+    get "/", to: redirect("/rules")
+    get "mncs_archive", to: "static#mncs_terms", as: "mncs_terms"
+  end
+
   get 'badges', to: redirect('/hall-of-fame'), as: ''
   get 'hall-of-fame', to: "badges#index", as: 'badges'
   resources :badges, except: :index
