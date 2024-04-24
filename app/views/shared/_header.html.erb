@@ -2,10 +2,10 @@
   <div class="flex justify-between max-w-ncs-content w-full font-normal">
     <div class="grow navbar">
       <div class="flex justify-between px-3 sm:px-0">
-        <div class="flex items-center gap-2 h-[47px] py-4">
-          <a href="/"><img src="/ncsassets/img/header.png" /></a>
-          <a href="/" class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</a>
-        </div>
+        <a href="/" class="flex items-center gap-2 h-[47px] py-4">
+          <img src="/ncsassets/img/header.png" alt="Site Logo"/>
+          <p class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
+        </a>
         <div class="flex items-center gap-2">
           <% if current_user.present? %>
             <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>

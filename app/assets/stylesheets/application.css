@@ -10,7 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_directory .
  *= require_self
  */
 
@@ -204,7 +204,7 @@
 }
 
 body {
-  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom;
+  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom, linear-gradient(#17213c, #f4f0c1);
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;

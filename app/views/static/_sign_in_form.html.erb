@@ -23,11 +23,17 @@
     <% end %>
   </div>
 
-  <div class="text-sm">
-    <p class="!mb-0">
-      Don't have an account?
-      <%= link_to "Register here!", new_user_registration_path, class: "text-white underline" %>
-    </p>
-    <p>(Your skin will still be here when you return)</p>
+  <div>
+    <div class="text-sm">
+      <p class="!mb-0">
+        Don't have an account?
+        <%= link_to "Register here!", new_user_registration_path, class: "text-white underline" %>
+      </p>
+      <p>(Your skin will still be here when you return)</p>
+    </div>
+
+    <div class="text-left">
+      <%= render partial: "devise/sessions/new_site_warning" %>
+    </div>
   </div>
 </div>
