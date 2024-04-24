@@ -14,8 +14,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
   
-  before_validation :setup_username, unless: :id?
-
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   has_many :skins
   has_many :user_badges
@@ -96,13 +94,5 @@ class User < ApplicationRecord
 
   def export_skins_to_zip
     Skin.export_to_zip(skins)
-  end
-
-  private
-
-  def setup_username
-    return errors.add(:name, :invalid, message: "may not be an email") if self.name.include? "@"
-    self.display_name = self.name
-    self.name = self.name.to_s.parameterize
   end
 end

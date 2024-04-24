@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_devise_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name display_name])
     devise_parameter_sanitizer.permit(:sign_in, keys: %i[otp_attempt])
     devise_parameter_sanitizer.permit(:account_update, keys: %i[featured_skin_id])
   end
