@@ -20,6 +20,10 @@ class StaticController < ApplicationController
     render layout: "application"
   end
 
+  def faq
+    render layout: "application"
+  end
+
   def contact
     @question = CAPTCHA_QUESTION
     render layout: "application"
