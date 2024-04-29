@@ -203,8 +203,12 @@
   src: url("/ncsassets/vendor/fonts/minecraft/minecraft.woff2") format('woff2');
 }
 
+html {
+  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom, no-repeat linear-gradient(180deg, rgba(7,16,45,1) 0%, rgba(92,160,183,1) 160px, rgba(247,243,195,1) 800px, rgba(247,243,195,1) 100%);
+  height: 100%;
+}
+
 body {
-  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom, linear-gradient(#17213c, #f4f0c1);
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;

@@ -15,6 +15,7 @@ class SkinsController < ApplicationController
       skins = skins.merge(Skin.is_public)
     end
     items = (gallery_params[:items] || 12).to_i.clamp(1, 50)
+    params[:page].to_i > 0 ? nil : params[:page] = 1
     @pagy, @skins = pagy(skins, items: items)
   rescue Pagy::OverflowError
     redirect_to gallery_path
