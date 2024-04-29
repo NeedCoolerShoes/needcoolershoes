@@ -22,9 +22,7 @@
   <div class="p-4 pt-2">
     <% if skin.tags.any? %>
       <div class="line-clamp-1 text-gray-500 text-sm">
-        <% skin.tags.each do |tag| %>
-          <%= link_to tag.name, gallery_path(@gallery_params.merge(tag: tag.name)), title: "#{tag.name} - #{tag.taggings_count}", onclick: "event.stopImmediatePropagation()" %>
-        <% end %>
+        <%= render partial: "skins/tag_link", collection: skin.tags.to_a, as: :tag, locals: { params: @gallery_params } %>
       </div>
     <% end %>
     <%= link_to skin.name, skin, class: "text-2xl font-bold line-clamp-2 max-w-[280px]", style: "overflow-wrap: break-word;" %>

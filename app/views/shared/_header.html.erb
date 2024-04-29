@@ -8,6 +8,10 @@
         </a>
         <div class="flex items-center gap-2">
           <% if current_user.present? %>
+            <% if current_user.authorized?(:admin) %>
+              <%= link_to "Admin", "/admin", class: "text-white underline" %>
+              <span class="text-white">|</span>
+            <% end %>
             <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
             <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
           <% else %>

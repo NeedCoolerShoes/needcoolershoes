@@ -12,6 +12,12 @@
   </div>
 <% end %>
 
+<% if @jam.present? %>
+  <div class="mt-2">
+    <%= render partial: "jam_info", locals: { jam: @jam } %>
+  </div>
+<% end %>
+
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
 <div class="flex justify-center gap-4 flex-wrap">
   <% @skins.each do |skin| %>

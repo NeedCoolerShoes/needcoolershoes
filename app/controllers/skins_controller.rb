@@ -7,6 +7,7 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
+    set_jam_info
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     if current_user.present?
@@ -133,6 +134,11 @@ class SkinsController < ApplicationController
 
   rescue ActiveRecord::RecordNotFound
     render_img_missing
+  end
+
+  def set_jam_info
+    return unless params[:tag].present?
+    @jam = SkinJam.find_by(tag: params[:tag])
   end
 
   def check_visibility

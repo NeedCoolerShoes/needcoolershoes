@@ -11,7 +11,11 @@ class ApiController < ApplicationController
 
   def tags
     list = Skin.tags_on("tags").named_like(params[:query] || "").limit(20)
-    render json: list.map { |tag| tag.name }
+    render json: list.map {|tag|
+      has_jam = SkinJam.where(tag: tag.name).any?
+      title = has_jam ? "Belongs to a Jam" : ""
+      {value: tag.name, has_jam: has_jam, title: title}
+    }
   end
 
 end

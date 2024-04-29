@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_09_150301) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_29_041727) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_150301) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "skin_jam_winners", force: :cascade do |t|
+    t.bigint "skin_jam_id", null: false
+    t.bigint "skin_id", null: false
+    t.integer "place", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skin_id"], name: "index_skin_jam_winners_on_skin_id"
+    t.index ["skin_jam_id"], name: "index_skin_jam_winners_on_skin_jam_id"
+  end
+
+  create_table "skin_jams", force: :cascade do |t|
+    t.string "tag", null: false
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag"], name: "index_skin_jams_on_tag", unique: true
   end
 
   create_table "skin_parts", force: :cascade do |t|
@@ -159,6 +178,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_150301) do
   add_foreign_key "favourites", "users"
   add_foreign_key "skin_attributions", "skins"
   add_foreign_key "skin_attributions", "skins", column: "attributed_skin_id"
+  add_foreign_key "skin_jam_winners", "skin_jams"
+  add_foreign_key "skin_jam_winners", "skins"
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"

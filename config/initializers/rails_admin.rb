@@ -43,4 +43,8 @@ RailsAdmin.config do |config|
   config.authorize_with do
     redirect_to main_app.root_path unless current_user&.authorized?(:admin)
   end
+
+  config.model 'SkinJam' do
+    configure :description, :text
+  end
 end
