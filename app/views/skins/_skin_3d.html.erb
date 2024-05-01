@@ -16,4 +16,25 @@
     height: <%= height %>,
     skin: "<%= data %>"
   });
+
+  let canvas = document.getElementById("skin_container")
+  let parent = canvas.parentElement
+
+  function updateSize(width, height) {
+    canvas.width = width
+    canvas.height = height
+    skinViewer.width = width
+    skinViewer.height = height
+  }
+
+  updateSize(parent.clientWidth, parent.clientHeight)
+
+  let resizeObserver = new ResizeObserver(
+    entries => {
+      const entry = entries[0]
+      updateSize(entry.contentRect.width, entry.contentRect.height)
+    }
+  )
+
+  resizeObserver.observe(parent)
 </script>
