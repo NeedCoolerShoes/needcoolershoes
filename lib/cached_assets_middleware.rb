@@ -1,6 +1,6 @@
 class CachedAssetsMiddleware
   CACHED_PATH = "/assets"
-  CACHE_CONTROL = "public, max-age=30672000"
+  CACHE_CONTROL = "public, max-age=30672000, immutable"
 
   def initialize(app)
     @app = app
