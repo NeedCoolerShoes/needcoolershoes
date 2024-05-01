@@ -7,6 +7,7 @@ class StaticController < ApplicationController
   nav_section :banner, only: :banner
   
   def editor
+    @message = SiteMessage.latest&.message
   end
   
   def editor_2010

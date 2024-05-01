@@ -47,4 +47,8 @@ RailsAdmin.config do |config|
   config.model 'SkinJam' do
     configure :description, :text
   end
+
+  config.model 'SiteMessage' do
+    configure :message, :markdown
+  end
 end

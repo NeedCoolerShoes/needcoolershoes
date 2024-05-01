@@ -284,6 +284,9 @@ GEM
       nested_form (~> 0.3)
       rails (>= 6.0, < 8)
       turbo-rails (~> 1.0)
+    rails_admin_markdown (0.0.4)
+      rails (>= 3.2)
+      redcarpet (~> 3.4)
     rails_heroicon (2.2.0)
       actionview
       railties
@@ -420,6 +423,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
   rails_admin (~> 3.0)
+  rails_admin_markdown (= 0.0.4)
   rails_heroicon (~> 2.1)
   redcarpet (~> 3.6)
   redis (~> 4.0)
