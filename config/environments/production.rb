@@ -23,7 +23,10 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+  if ENV["RAILS_SERVE_STATIC_FILES"].present?
+    config.public_file_server.enabled = true
+    config.middleware.insert_before ::ActionDispatch::Static, ::CachedAssetsMiddleware
+  end
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -99,6 +102,4 @@ Rails.application.configure do
   config.action_mailer.postmark_settings = {
     api_token: ENV["POSTMARK_API_TOKEN"]
   }
-
-  config.middleware.use ::CachedAssetsMiddleware
 end
