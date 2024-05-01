@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  root "static#editor"
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   devise_for :users, controllers: { sessions: "sessions" }
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "static#editor"
   get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
   get "faq", to: "static#faq", as: "faq"
