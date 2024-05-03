@@ -24,6 +24,12 @@ class SkinsController < ApplicationController
 
   def show
     @attributions = @skin.attributions.visible_to_user(current_user).with_attributed_skin
+    @meta_social = {
+      title: "#{@skin.name&.truncate(32)} :: Miners Need Cooler Shoes",
+      image: skin_social_url(@skin, format: :png),
+      image_alt: "#{@skin.name&.truncate(32)} - Minecraft Skin",
+      description: "Skin by #{@skin.user.display_name}. Create, modify and share skins on NeedCoolerShoes.com"
+    }
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }

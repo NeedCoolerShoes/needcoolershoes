@@ -1,18 +1,26 @@
 <%= canonical_tag -%>
+<%
+  config = @meta_social || {
+    title: "Miners Need Cooler Shoes :: Skin Editor",
+    image: "#{root_url}ncsassets/img/social.png",
+    image_alt: "Page image for Miners Need Cooler Shoes",
+    description: "A Restoration of needcoolshoes.com, also known as Miners Need Cool Shoes."
+  }
+%>
 <meta charset="utf-8">
 <meta
   name="description"
   content="<%= content_for?(:meta_description) ? yield(:meta_description) : "Miners Need Cool Shoes Minecraft skin editor restoration. Edit, upload and share your creations made with our Skin Editor, or create banners with our Banner Editor." %>"
 >
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:url" content="<%= request.original_url %>">
 <meta property="og:site_name" content="Miners Need Cooler Shoes">
-<meta property="og:title" content="Miners Need Cooler Shoes :: Skin Editor">
 <meta property="og:type" content="website">
 <meta property="twitter:card" content="summary_large_image">
-<meta property="og:image" content="<%= root_url %>ncsassets/img/social.png">
-<meta property="twitter:image" content="<%= root_url %>ncsassets/img/social.png">
-<meta property="og:image:alt" content="Page image for Miners Need Cooler Shoes">
-<meta property="twitter:image:alt" content="Page image for Miners Need Cooler Shoes">
-<meta name="og:description" content="A Restoration of needcoolshoes.com, also known as Miners Need Cool Shoes.">
-<meta name="twitter:description" content="A Restoration of needcoolshoes.com, also known as Miners Need Cool Shoes.">
+<meta property="og:title" content="<%= config[:title] %>">
+<meta property="og:image" content="<%= config[:image] %>">
+<meta property="twitter:title" content="<%= config[:title] %>">
+<meta property="twitter:image" content="<%= config[:image] %>">
+<meta property="og:image:alt" content="<%= config[:image_alt] %>">
+<meta property="twitter:image:alt" content="<%= config[:image_alt] %>">
+<meta name="og:description" content="<%= config[:description] %>">
+<meta name="twitter:description" content="<%= config[:description] %>">

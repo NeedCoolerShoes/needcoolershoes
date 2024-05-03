@@ -16,7 +16,7 @@
     <%= content_for?(:scripts) ? yield(:scripts) : nil %>
 
     <%= render partial: "shared/favicons" %>
-    <%= render partial: "shared/plausible" %>
+    <%= render partial: "shared/analytics" %>
   </head>
 
   <body id="unlogged" class="flex flex-col justify-center" data-turbo="false">
