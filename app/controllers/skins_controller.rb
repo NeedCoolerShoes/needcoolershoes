@@ -1,6 +1,6 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview]
+  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview social]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
   nav_section :gallery
@@ -28,6 +28,12 @@ class SkinsController < ApplicationController
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }
       format.any { render }
+    end
+  end
+
+  def social
+    respond_to do |format|
+      format.png { send_data @skin.social_img, type: "image/png", disposition: "inline" }
     end
   end
 

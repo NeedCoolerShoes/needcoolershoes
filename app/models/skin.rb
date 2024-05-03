@@ -18,6 +18,7 @@ class Skin < ApplicationRecord
   }
   KARMA = 5
   PREVIEW_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/previews")
+  SOCIAL_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/social-cards")
 
   include PgSearch::Model
   include SkinTransformations
@@ -149,6 +150,10 @@ class Skin < ApplicationRecord
     map_to_image(to_img, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
   end
 
+  def to_all_sides_img(scale = 10)
+    map_to_image(to_img, *ALL_SIDES_MODEL_TO_UV[model.to_sym], size: [60, 32], scale: scale)
+  end
+
   def preview_img
     PREVIEW_CACHE_PATH.mkpath unless PREVIEW_CACHE_PATH.exist?
     path = PREVIEW_CACHE_PATH.join(filename)
@@ -156,6 +161,16 @@ class Skin < ApplicationRecord
     img_data = to_preview_img.to_datastream
     cache_image_file(path, img_data)
     img_data
+  end
+
+  def social_img
+    SOCIAL_CACHE_PATH.mkpath unless SOCIAL_CACHE_PATH.exist?
+    path = SOCIAL_CACHE_PATH.join(filename)
+    return path.read if path.exist?
+    template_data = ChunkyPNG::Image.from_file("lib/assets/social-preview-#{model}.png")
+    img_data = template_data.compose(to_all_sides_img, 90, 20).to_datastream
+    cache_image_file(path, template_data)
+    template_data
   end
 
   def filename

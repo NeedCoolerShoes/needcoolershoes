@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "gallery/:page", to: "skins#index"
   get "skins", to: redirect('/gallery')
   get "skins/:id/download", to: "skins#download", as: "skin_download"
+  get "skins/:id/social", to: "skins#social", as: "skin_social"
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
