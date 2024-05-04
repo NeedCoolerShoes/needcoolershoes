@@ -21,6 +21,8 @@
   let parent = canvas.parentElement
 
   function updateSize(width, height) {
+    width = Math.floor(width)
+    height = Math.floor(height)
     canvas.width = width
     canvas.height = height
     skinViewer.width = width
