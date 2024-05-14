@@ -16,6 +16,11 @@ class Skin < ApplicationRecord
     mncs: "MNCS Terms",
     arr: "All Rights Reserved"
   }
+  CREATOR = {
+    self: "I made this skin.",
+    archive: "I archived it from the old site (needcoolshoes.com).",
+    arr: "The skin is copyrighted (All Rights Reserved)."
+  }
   KARMA = 5
   PREVIEW_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/previews")
   SOCIAL_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/social-cards")
@@ -38,6 +43,7 @@ class Skin < ApplicationRecord
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
+  enum :creator, CREATOR.keys, prefix: :created_by, default: :self
   
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :name, length: { maximum: 128 }

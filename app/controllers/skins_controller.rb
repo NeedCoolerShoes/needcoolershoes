@@ -49,7 +49,11 @@ class SkinsController < ApplicationController
     params[:tag_list] = transform_tags(skin_params[:tags])
     @skin = Skin.new(params.except(:attributions))
     @skin.user = current_user
-    @skin.license = :cc_by_sa_4
+
+    license = :cc_by_sa_4
+    license = :mncs if @skin.created_by_archive?
+    license = :arr if @skin.created_by_arr?
+    @skin.license = license
 
     respond_to do |format|
       if @skin.save
@@ -164,7 +168,7 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: []]
+    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
     permit.append(:license) if current_user.authorized?(:moderator)
     params.require(:skin).permit(permit)
   end
