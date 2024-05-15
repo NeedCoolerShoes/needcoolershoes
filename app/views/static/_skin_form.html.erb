@@ -97,24 +97,36 @@
 </div>
 
 <script>
-  let skinDataField = document.getElementById("skin_data");
-  skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
-  document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
+  const form = document.getElementById("new_skin");
 
-  let attributions = [];
-  App.dep.layerModel.loop(layer => {
-    if (!layer.skinId) { return; }
-    attributions.push(layer.skinId);
-  })
+  function updateSkinData() {
+    let skinDataField = document.getElementById("skin_data");
+    skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
+    document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
   
-  let form = document.getElementById("new_skin")
-  attributions.forEach(element => {
-    let field = document.createElement('input');
-    field.type = 'hidden';
-    field.name = 'skin[attributions][]';
-    field.value = element;
-    form.append(field);
-  });
+    let attributions = [];
+    let attributionsInput = form.querySelector('[name="skin[attributions][]"]');
+    if (attributionsInput) { attributionsInput.remove(); }
+
+    App.dep.layerModel.loop(layer => {
+      if (!layer.skinId) { return; }
+      attributions.push(layer.skinId);
+    })
+
+    attributions.forEach(element => {
+      let field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = 'skin[attributions][]';
+      field.value = element;
+      form.append(field);
+    });
+  }
+  
+  updateSkinData();
+
+  form.addEventListener('submit', _ => {
+    updateSkinData();
+  })
 
   const licenseInfo = {
     self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.",
