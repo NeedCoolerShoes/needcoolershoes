@@ -12,7 +12,8 @@ Rails.application.routes.draw do
   get "contact", to: "static#contact", as: "contact"
   get "donate", to: "static#donate", as: "donate"
   post "contact", to: "static#send_message", as: "send_message"
-  get "open_letter", to: "static#open_letter"
+  get "open-letter", to: "static#open_letter"
+  get "open_letter", to: redirect("open-letter")
   get "rules", to: "static#rules"
   get 'sitemap', to: 'static#sitemap', defaults: {format: 'xml'}
   get "gallery", to: "skins#index"
@@ -29,7 +30,8 @@ Rails.application.routes.draw do
 
   scope :terms do
     get "/", to: redirect("/rules")
-    get "mncs_archive", to: "static#mncs_terms", as: "mncs_terms"
+    get "mncs-archive", to: "static#mncs_terms", as: "mncs_terms"
+    get "mncs_archive", to: redirect("/terms/mncs-archive")
   end
 
   get 'badges', to: redirect('/hall-of-fame'), as: ''
@@ -38,7 +40,7 @@ Rails.application.routes.draw do
 
   scope :users do
     resource :otp, controller: "otp", only: %i[update destroy] do
-      get "backup_codes"
+      get "backup-codes", to: "otp#backup_codes", as: "backup_codes"
       get "verify"
     end
   end
