@@ -233,3 +233,9 @@ body {
 .tagify__dropdown__item[has_jam=true] {
   background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%);
 }
+
+.hidden-fade {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
+}

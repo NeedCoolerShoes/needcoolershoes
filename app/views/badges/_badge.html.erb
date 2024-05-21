@@ -6,7 +6,7 @@
       <p><%= badge.description %></p>
       <% if badge.user_badges.count > 1 %>
         <details>
-          <summary class="select-none"><strong>Awarded to <%= badge.user_badges.count %> users.</strong></summary>
+          <summary class="select-none cursor-pointer"><strong>Awarded to <%= badge.user_badges.count %> users.</strong></summary>
           <div class="flex flex-wrap gap-2">
             <% badge.user_badges.each do |ub| %>
               <%= link_to ub.user.display_name, ub.user, class: "underline" %>

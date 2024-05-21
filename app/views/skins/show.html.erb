@@ -1,4 +1,4 @@
-<% content_for :title do "#{@skin.name.truncate(32)} by #{@skin.user.display_name}" end %>
+<% content_for :title, "#{@skin.name.truncate(32)} by #{@skin.user.display_name}" %>
 <% 
   content_for :meta_description do
     if @skin.description.present?
@@ -15,7 +15,7 @@
 <% end %>
 
 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
-  <div class="max-w-[364px] w-full">
+  <div class="max-w-[364px] sm:max-w-[250px] lg:max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
       <div class="relative checker-border bg-ncs-grid">
         <%= render partial: "skin_3d", locals: { data: @skin.data } %>
@@ -87,8 +87,25 @@
           <%= markdown @skin.description %>
         </div>
       <% end %>
+      <details>
+        <summary class="select-none cursor-pointer font-bold">Attribution</summary>
+        <div class="flex gap-2">
+          <div id="attribution">
+            <%= render partial: "attribution_text", locals: {skin: @skin, attribution: nil, icons: false} %>
+          </div>
+          <div class="relative">
+            <button title="Copy" onclick="copyAttribution()">
+              <%= heroicon "document-duplicate" %>
+            </button>
+            <span id="copy-text" class="hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+              Copied!
+            </span>
+          </div>
+        </div>
+      </details>
+      
       <% if @skin.can_user_edit?(current_user) %>
-        <div class="flex gap-2 pt-2">
+        <div class="flex flex-col md:flex-row gap-2 pt-2">
           <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <%= form_with url: skin_path(@skin), method: :delete, class: "w-full" do |form| %>
             <%= form.submit t("skins.delete"), class: "btn-ncs", data: { "turbo-confirm": t("skins.delete_confirmation") } %>
@@ -125,3 +142,21 @@
     <% end %>
   </div>
 </div>
+<script>
+  // https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
+  function copyAttribution() {
+    var range = document.createRange();
+    range.selectNode(document.getElementById("attribution"));
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+
+    const copied = document.getElementById("copy-text");
+    copied.classList.remove("hidden", "hidden-fade");
+
+    setTimeout(() => {
+      copied.classList.add("hidden-fade");
+    }, 200);
+  }
+</script>
