@@ -25,8 +25,8 @@
       show_visibility = false
       show_visibility = true if current_user.present? && skin.user == current_user
     %>
-    <div class="basis-[32%]">
-      <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility  }%>
+    <div class="w-[230px]">
+      <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility }%>
     </div>
   <% end %>
 </div>
