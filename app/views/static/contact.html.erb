@@ -4,11 +4,8 @@
   <h1>Contact Us</h1>
   <p>Feel free to message us with any bug reports, feature requests, or to contact us for any reason.</p>
   <p>
-    <p>
-      <strong>Please consult the <a href="/faq">FAQ</a> prior to contacting us</strong>.
-    </p>
     <strong>Please Note:</strong> The message will be sent to a private Discord channel, only the team can see.
-    If you are not comfortable with your message being sent there, please contact us via email: <strong>dev (at) moxvallix.com</strong>.
+    If you are not comfortable with your message being sent there, please contact us via email: <strong>dev (at) needcoolershoes.com</strong>.
   </p>
   <p>
     If you are looking for support, or are reporting a bug, please consider filling out the Name and Contact fields.
@@ -19,5 +16,12 @@
     You may prefer to contact us through our
     <%= link_to "Discord Server.", "https://discord.gg/FEfbZYvQUa" %>
   </p>
+  <div id="info-card" class="flex gap-2 items-center border-2 border-amber-500 rounded p-2 mb-2 not-prose">
+    <%= heroicon "exclamation-triangle", class: "text-amber-500 w-[74px]" %>
+    <p class="font-bold leading-none">
+      If you are having trouble signing in to your account, before contacting us, please know that this site
+      is a restoration project, and does not have any accounts from needcoolshoes.com. Please refer to the <a href="/faq#restoration-info" class="underline">FAQ</a> for more information.
+    </p>
+  </div>
   <%= render partial: "contact_form"%>
 </div>
