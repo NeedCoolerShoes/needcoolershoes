@@ -4,90 +4,149 @@
 %>
 
 <h2 class="text-xl text-white">Upload Skin</h2>
-<%= form_for(Skin.new, url: skins_path) do |form| %>
-  <div class="flex flex-col gap-2">
-    <div class="flex flex-col gap-2">
-      <%= form.label :name, nil, class: "!m-0" %>
-      <%= form.text_field :name, autofocus: 1 %>
-    </div>
+<div class="flex justify-center">
+  <div class="max-w-lg">
+    <%= form_for(Skin.new, url: skins_path) do |form| %>
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2">
+          <%= form.label :name, nil, class: "!m-0" %>
+          <%= form.text_field :name, autofocus: 1 %>
+        </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :description, "Description (Optional)", class: "!m-0" %>
-      <%= form.text_area :description %>
-    </div>
+        <div class="flex flex-col gap-2">
+          <%= form.label :description, "Description (Optional)", class: "!m-0" %>
+          <%= form.text_area :description %>
+        </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :tags, nil, class: "!m-0" %>
-      <%= form.text_field :tags, value: "", data: { controller: "tagify" } %>
-    </div>
+        <div class="flex flex-col gap-2">
+          <%= form.label :tags, nil, class: "!m-0" %>
+          <%= form.text_field :tags, value: "", data: { controller: "tagify" } %>
+        </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :visibility, nil, class: "!m-0" %>
-      <%= form.select :visibility, visibilities, {}, class: "text-black !p-1" %>
-    </div>
+        <div class="flex gap-2">
+          <div class="flex flex-col gap-2 grow shrink basis-0">
+            <%= form.label :visibility, nil, class: "!m-0" %>
+            <%= form.select :visibility, visibilities, {}, class: "text-black !p-1" %>
+          </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :skin_part_id, nil, class: "!m-0" %>
-      <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
-    </div>
+          <div class="flex flex-col gap-2 grow shrink basis-0">
+            <%= form.label :model, nil, class: "!m-0" %>
+            <%= form.select :model, models, {}, class: "text-black !p-1" %>
+          </div>
+        </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :skin_category_id, nil, class: "!m-0" %>
-      <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
-    </div>
+        <div class="flex gap-2">
+          <div class="flex flex-col gap-2 grow shrink basis-0">
+            <%= form.label :skin_part_id, nil, class: "!m-0" %>
+            <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+          </div>
 
-    <div class="flex flex-col gap-2">
-      <%= form.label :model, nil, class: "!m-0" %>
-      <%= form.select :model, models, {}, class: "text-black !p-1" %>
-    </div>
+          <div class="flex flex-col gap-2 grow shrink basis-0">
+            <%= form.label :skin_category_id, nil, class: "!m-0" %>
+            <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+          </div>
+        </div>
 
-    <div>
-      <%= form.check_box :terms_and_conditions, class: "!w-4 !h-4 !inline-block" %>
-      <%= form.label :terms_and_conditions, class: "!m-0 !inline !text-sm" do %>
-        I accept the terms and conditions <%= link_to "as below", "#terms-and-conditions", class: "text-white underline" %>
-      <% end %>
-    </div>
 
-    <div>
-      <%= form.submit "Upload Skin", class: "btn !h-auto !leading-normal" %>
-    </div>
 
-    <%= form.hidden_field :data %>
-    
-    <div class="flex flex-col items-start" id="terms-and-conditions">
-      <p class="text-xs">
-        Submitting this skin as "Public" means that you agree to license it under the terms
-        of the <%= link_to "CC0 License", "https://creativecommons.org/licenses/by-sa/4.0/legalcode", class: "text-white underline" %>.
-      </p>
-      <p class="text-xs">
-        This allows for other users of the site to use your skin, or parts of it, to create their own.
-        If you do not wish to license it as such, or do not have the rights to do so, please set it to "Unlisted" or "Private".
-      </p>
-      <p class="text-xs">
-        Submitting any skin to the site means you agree to abide by the
-        <%= link_to "Site Rules", rules_path, class: "text-white underline"%>.
-      </p>
-    </div>
+        <div class="flex flex-col gap-2">
+          <%= form.label :creator, "Creator / License info", class: "!m-0" %>
+          <div class="flex flex-col">
+            <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black !p-1", onchange: "onCreatorChange(event)" %>
+            <span id="license_info" class="text-sm text-white">
+              The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.
+            </span>
+          </div>
+        </div>
+
+        <div>
+          <%= form.check_box :terms_and_conditions, class: "!w-4 !h-4 !inline-block" %>
+          <%= form.label :terms_and_conditions, class: "!m-0 !inline !text-sm" do %>
+            I accept the terms and conditions <%= link_to "as below", "#terms-and-conditions", class: "text-white underline" %>
+          <% end %>
+        </div>
+
+        <div>
+          <%= form.submit "Upload Skin", class: "btn !h-auto !leading-normal" %>
+        </div>
+
+        <%= form.hidden_field :data %>
+        
+        <div class="flex flex-col items-start" id="terms-and-conditions">
+          <h2 class="text-white">Terms and Conditions</h2>
+          <p class="text-xs">
+            Submitting this skin with the creator field set to "I made this skin", means that you agree to license it under the terms
+            of the <%= link_to "CC BY-SA 4.0 License", "https://creativecommons.org/licenses/by-sa/4.0/", class: "text-white underline" %>.
+          </p>
+          <p class="text-xs">
+            This allows for other users of the site to use your skin, or parts of it, to create their own.
+            If you do not wish to license it as such, or do not have the rights to do so, please set it to "The skin is copyrighted (All Rights Reserved)".
+          </p>
+          <p class="text-xs">
+            If you downloaded the skin from the old site (needcoolshoes.com), and are re-uploading it for archival means,
+            please set the creator field to "I downloaded it from the old site".
+          </p>
+          <p class="text-xs">
+            Submitting any skin to the site means you agree to abide by the
+            <%= link_to "Site Rules", rules_path, class: "text-white underline"%>.
+          </p>
+        </div>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
 
 <script>
-  let skinDataField = document.getElementById("skin_data");
-  skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
-  document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
+  const form = document.getElementById("new_skin");
 
-  let attributions = [];
-  App.dep.layerModel.loop(layer => {
-    if (!layer.skinId) { return; }
-    attributions.push(layer.skinId);
-  })
+  function updateSkinData() {
+    let skinDataField = document.getElementById("skin_data");
+    skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
+    document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
   
-  let form = document.getElementById("new_skin")
-  attributions.forEach(element => {
-    let field = document.createElement('input');
-    field.type = 'hidden';
-    field.name = 'skin[attributions][]';
-    field.value = element;
-    form.append(field);
-  });
+    let attributions = [];
+    let attributionsInput = form.querySelector('[name="skin[attributions][]"]');
+    if (attributionsInput) { attributionsInput.remove(); }
+
+    App.dep.layerModel.loop(layer => {
+      if (!layer.skinId) { return; }
+      attributions.push(layer.skinId);
+    })
+
+    attributions.forEach(element => {
+      let field = document.createElement('input');
+      field.type = 'hidden';
+      field.name = 'skin[attributions][]';
+      field.value = element;
+      form.append(field);
+    });
+  }
+  
+  updateSkinData();
+
+  form.addEventListener('submit', _ => {
+    updateSkinData();
+  })
+
+  const licenseInfo = {
+    self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.",
+    archive: "The skin can be shared to the gallery, but will be marked as archived, and will follow the license terms of needcoolshoes.com.",
+    arr: "The gallery is for sharing skins free for others to remix. This skin must be unlisted or private."
+  }
+
+  function onCreatorChange(event) {
+    const visibility = document.getElementById("skin_visibility")
+    const info = document.getElementById("license_info")
+
+    info.innerText = licenseInfo[event.target.value]
+
+    if (event.target.value === "arr") {
+      if (visibility.value === "is_public") {
+        visibility.value = "is_unlisted"
+      }
+      visibility.querySelector('[value="is_public"]').classList.add('hidden')
+    } else {
+      visibility.querySelector('[value="is_public"]').classList.remove('hidden')
+    }
+  }
 </script>

@@ -7,7 +7,7 @@
   <script src="/ncsassets/js/skinview3d.bundle.js"></script>
 <% end %>
 
-<canvas class="!w-full !h-auto" id="skin_container"></canvas>
+<canvas id="skin_container"></canvas>
 
 <script>
   let skinViewer = new skinview3d.SkinViewer({
@@ -16,4 +16,27 @@
     height: <%= height %>,
     skin: "<%= data %>"
   });
+
+  let canvas = document.getElementById("skin_container")
+  let parent = canvas.parentElement
+
+  function updateSize(width, height) {
+    width = Math.floor(width)
+    height = Math.floor(height)
+    canvas.width = width
+    canvas.height = height
+    skinViewer.width = width
+    skinViewer.height = height
+  }
+
+  updateSize(parent.clientWidth, parent.clientHeight)
+
+  let resizeObserver = new ResizeObserver(
+    entries => {
+      const entry = entries[0]
+      updateSize(entry.contentRect.width, entry.contentRect.height)
+    }
+  )
+
+  resizeObserver.observe(parent)
 </script>

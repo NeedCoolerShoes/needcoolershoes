@@ -1,0 +1,22 @@
+<div class="grow p-4 bg-ncs-yellow-200 max-w-none w-full prose prose-base prose-headings:mb-1 prose-headings:mt-0 rounded">
+  <details>
+    <summary class="select-none cursor-pointer">
+      <h2 class="inline"><span class="text-gray-500"><%= jam.tag %></span> <%= jam.name %></h2>
+    </summary>
+    <%= markdown jam.description %>
+  </details>
+</div>
+
+<% if jam.winners.any? %>
+  <h2 class="font-bold text-2xl text-black my-2 text-center">Jam Winners</h2>
+  <div class="flex justify-center content-stretch gap-4 flex-wrap">
+    <% jam.winners.order_by_place.each_with_index do |winner, index| %>
+      <div class="w-[230px] relative">
+        <h3 class="absolute top-1 left-1 z-10 text-4xl text-amber-500">#<%= index + 1 %></h3>
+        <%= render partial: "skin_index", locals: { skin: winner.skin, show_visibility: false } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<h2 class="font-bold text-2xl text-black mt-2 text-center">Jam Contestants</h2>

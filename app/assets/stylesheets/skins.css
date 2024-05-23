@@ -4,6 +4,12 @@
   transform: scale(6, 6);
 }
 
+.scaled-md {
+  transform-origin: left top;
+  image-rendering: pixelated;
+  transform: scale(5, 5);
+}
+
 .scaled-sm {
   transform-origin: left top;
   image-rendering: pixelated;

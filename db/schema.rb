@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_01_005137) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,12 +38,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
     t.string "username"
     t.text "skin"
     t.uuid "uuid"
-    t.string "oid"
     t.string "userhash"
     t.string "xbl"
     t.string "xsts"
     t.string "mcjwt"
-    t.boolean "default"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_minecraft_accounts_on_user_id"
@@ -56,6 +54,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+  end
+
+  create_table "site_messages", force: :cascade do |t|
+    t.string "message", null: false
+    t.datetime "active_at", precision: nil, null: false
+    t.datetime "expires_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "skin_attributions", force: :cascade do |t|
@@ -73,6 +79,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "skin_jam_winners", force: :cascade do |t|
+    t.bigint "skin_jam_id", null: false
+    t.bigint "skin_id", null: false
+    t.integer "place", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["skin_id"], name: "index_skin_jam_winners_on_skin_id"
+    t.index ["skin_jam_id"], name: "index_skin_jam_winners_on_skin_jam_id"
+  end
+
+  create_table "skin_jams", force: :cascade do |t|
+    t.string "tag", null: false
+    t.string "name", null: false
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag"], name: "index_skin_jams_on_tag", unique: true
   end
 
   create_table "skin_parts", force: :cascade do |t|
@@ -95,6 +120,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
     t.integer "model"
     t.integer "download_count"
     t.integer "favourites_count"
+    t.integer "license"
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"
@@ -175,6 +201,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_16_093513) do
   add_foreign_key "minecraft_accounts", "users"
   add_foreign_key "skin_attributions", "skins"
   add_foreign_key "skin_attributions", "skins", column: "attributed_skin_id"
+  add_foreign_key "skin_jam_winners", "skin_jams"
+  add_foreign_key "skin_jam_winners", "skins"
   add_foreign_key "skins", "skin_categories"
   add_foreign_key "skins", "skin_parts"
   add_foreign_key "skins", "users"

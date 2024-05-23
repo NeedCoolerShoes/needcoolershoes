@@ -14,8 +14,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
   
-  before_validation :setup_username, unless: :id?
-
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   has_many :skins
   has_many :user_badges
@@ -27,10 +25,12 @@ class User < ApplicationRecord
   validates :name,
     format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
     exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current otp), message: "%{value} is reserved" },
-    uniqueness: true
+    uniqueness: true,
+    length: { maximum: 64 }
   
-  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 256 }
   validates :attribution_message, length: { maximum: 64 }, format: { with: /\A[ -~]+\z/ }
+  validates :biography, length: { maximum: 1024 }
   
   enum :role, ROLES
   
@@ -42,6 +42,12 @@ class User < ApplicationRecord
 
   def attribution_message
     read_attribute(:attribution_message) || name[..64]
+  end
+
+  def authorized?(role)
+    return false unless User::ROLES.include?(role)
+    level = User::ROLES.index(role)
+    permission_level >= level
   end
   
   def permission_level
@@ -89,13 +95,5 @@ class User < ApplicationRecord
 
   def export_skins_to_zip
     Skin.export_to_zip(skins)
-  end
-
-  private
-
-  def setup_username
-    return errors.add(:name, :invalid, message: "may not be an email") if self.name.include? "@"
-    self.display_name = self.name
-    self.name = self.name.to_s.parameterize
   end
 end

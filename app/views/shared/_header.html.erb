@@ -2,12 +2,16 @@
   <div class="flex justify-between max-w-ncs-content w-full font-normal">
     <div class="grow navbar">
       <div class="flex justify-between px-3 sm:px-0">
-        <div class="flex items-center gap-2 h-[47px] py-4">
-          <a href="/"><img src="/ncsassets/img/header.png" /></a>
-          <a href="/"><h1 class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</h1></a>
-        </div>
+        <a href="/" class="flex items-center gap-2 h-[47px] py-4">
+          <img src="/ncsassets/img/header.png" alt="Site Logo"/>
+          <p class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
+        </a>
         <div class="flex items-center gap-2">
           <% if current_user.present? %>
+            <% if current_user.authorized?(:admin) %>
+              <%= link_to "Admin", "/admin", class: "text-white underline" %>
+              <span class="text-white">|</span>
+            <% end %>
             <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
             <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
           <% else %>
@@ -17,7 +21,7 @@
         </div>
       </div>
 
-      <div class="h-[53px] relative z-50 overflow-x-clip sm:overflow-x-visible">
+      <div class="h-[53px] bg-[#edce14] relative z-50 overflow-x-clip sm:overflow-x-visible">
         <div class="flex items-center justify-between gap-2 relative z-50 bg-ncs-flourish h-full px-3 sm:px-0">
           <%= render partial: "shared/header_nav" %>
           <div class="hidden md:block">

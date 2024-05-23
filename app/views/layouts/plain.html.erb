@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>
       <%= content_for?(:title) ? "#{yield(:title)} -" : nil %>
@@ -16,7 +16,7 @@
     <%= javascript_importmap_tags %>
     <%= content_for?(:scripts) ? yield(:scripts) : nil %>
     <%= render partial: "shared/favicons" %>
-    <%= render partial: "shared/plausible" %>
+    <%= render partial: "shared/analytics" %>
   </head>
 
   <body class="flex flex-col min-h-screen">

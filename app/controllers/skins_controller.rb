@@ -1,11 +1,13 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview]
+  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview social]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
+  nav_section :gallery
 
   def index
     @gallery_params = gallery_params
+    set_jam_info
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     if current_user.present?
@@ -13,17 +15,31 @@ class SkinsController < ApplicationController
     else
       skins = skins.merge(Skin.is_public)
     end
-    items = (gallery_params[:items] || 12).to_i.clamp(1, 50)
+    items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
+    params[:page].to_i > 0 ? nil : params[:page] = 1
     @pagy, @skins = pagy(skins, items: items)
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end
 
   def show
+    @attributions = @skin.attributions.visible_to_user(current_user).with_attributed_skin
+    @meta_social = {
+      title: "#{@skin.name&.truncate(32)} :: Miners Need Cooler Shoes",
+      image: skin_social_url(@skin, format: :png),
+      image_alt: "#{@skin.name&.truncate(32)} - Minecraft Skin",
+      description: "Skin by #{@skin.user.display_name}. Create, modify and share skins on NeedCoolerShoes.com"
+    }
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }
       format.any { render }
+    end
+  end
+
+  def social
+    respond_to do |format|
+      format.png { send_data @skin.social_img, type: "image/png", disposition: "inline" }
     end
   end
 
@@ -33,6 +49,11 @@ class SkinsController < ApplicationController
     params[:tag_list] = transform_tags(skin_params[:tags])
     @skin = Skin.new(params.except(:attributions))
     @skin.user = current_user
+
+    license = :cc_by_sa_4
+    license = :mncs if @skin.created_by_archive?
+    license = :arr if @skin.created_by_arr?
+    @skin.license = license
 
     respond_to do |format|
       if @skin.save
@@ -131,6 +152,11 @@ class SkinsController < ApplicationController
     render_img_missing
   end
 
+  def set_jam_info
+    return unless params[:tag].present?
+    @jam = SkinJam.find_by(tag: params[:tag])
+  end
+
   def check_visibility
     return true unless @skin.is_private?
     render_img_missing unless current_user.present? && current_user.id == @skin.user_id
@@ -142,7 +168,9 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    params.require(:skin).permit(:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :terms_and_conditions, attributions: [])
+    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
+    permit.append(:license) if current_user.authorized?(:moderator)
+    params.require(:skin).permit(permit)
   end
 
   def gallery_params

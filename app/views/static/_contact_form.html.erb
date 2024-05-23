@@ -1,6 +1,6 @@
 <%= form_with(url: send_message_path, html: { honeypot: true }) do |f| %>
 
-  <div class="flex gap-2">
+  <div class="flex flex-col sm:flex-row gap-2">
     <div class="flex flex-col grow">
       <%= f.label :name %>
       <%= f.text_field :name, placeholder: "Your username (optional)", value: params[:name] || current_user.try(:display_name), maxlength: 128, size: nil %>

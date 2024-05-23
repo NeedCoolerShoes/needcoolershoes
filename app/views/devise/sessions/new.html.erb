@@ -28,12 +28,6 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
-
-<h4 class="mt-2">Please Note:</h4>
-<p class="text-sm">
-  This is a fan-made restoration of NeedCoolShoes.
-</p>
-<p class="text-sm">
-  If you made an account on the old site,
-  <strong>it will not exist here!</strong> If you haven't already, please create a new account.
-</p>
+<div class="mt-2">
+  <%= render partial: "devise/sessions/new_site_warning" %>
+</div>

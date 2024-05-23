@@ -7,7 +7,7 @@
   }
   redirect = gallery_path + "/#{params[:page]}?" + URI.encode_www_form(@gallery_params.to_h)
 %>
-<div class="relative flex flex-col basis-[32%] rounded bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
+<div class="relative flex flex-col justify-between rounded h-full bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
   <% if show_visibility%>
     <div class="absolute top-0 left-0 p-2">
       <%= heroicon icons[skin.visibility.to_sym], class: "text-gray-500", title: skin.visibility.titleize %>
@@ -17,19 +17,17 @@
     <%= render partial: "skin_favourite", locals: { skin: skin, show_guests: true, redirect: redirect } %>
   </div>
   <div class="flex items-center justify-center bg-ncs-grid rounded p-4 px-8">
-    <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data, slim: skin.slim? } %>
+    <%= render partial: "skin_2d", locals: { id: skin.id, data: skin.data, slim: skin.slim?, classes: "scaled-md", width: "170px", height: "160px" } %>
   </div>
   <div class="p-4 pt-2">
     <% if skin.tags.any? %>
-      <div class="line-clamp-1 text-gray-500 text-sm">
-        <% skin.tags.each do |tag| %>
-          <%= link_to tag.name, gallery_path(@gallery_params.merge(tag: tag.name)), title: "#{tag.name} - #{tag.taggings_count}", onclick: "event.stopImmediatePropagation()" %>
-        <% end %>
+      <div class="line-clamp-1 text-gray-500 text-xs">
+        <%= render partial: "skins/tag_link", collection: skin.tags.to_a, as: :tag, locals: { params: @gallery_params } %>
       </div>
     <% end %>
-    <%= link_to skin.name, skin, class: "text-2xl font-bold" %>
+    <%= link_to skin.name, skin, class: "text-xl font-bold leading-none line-clamp-2 max-w-[280px]", style: "overflow-wrap: break-word;" %>
     <div class="flex flex-col font-bold">
-      <p class="text-gray-500 text-sm">
+      <p class="text-gray-500 text-xs">
         <%= link_to skin.skin_part.name, gallery_path(@gallery_params.merge(part: skin.skin_part.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
         -
         <%= link_to skin.skin_category.name, gallery_path(@gallery_params.merge(category: skin.skin_category.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>

@@ -12,6 +12,12 @@
   </div>
 <% end %>
 
+<% if @jam.present? %>
+  <div class="mt-2">
+    <%= render partial: "jam_info", locals: { jam: @jam } %>
+  </div>
+<% end %>
+
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
 <div class="flex justify-center gap-4 flex-wrap">
   <% @skins.each do |skin| %>
@@ -19,7 +25,9 @@
       show_visibility = false
       show_visibility = true if current_user.present? && skin.user == current_user
     %>
-    <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility  }%>
+    <div class="w-[230px]">
+      <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility }%>
+    </div>
   <% end %>
 </div>
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>

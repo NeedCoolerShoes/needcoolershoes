@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+      <%= content_for?(:title) ? "#{yield(:title)} -" : nil %>
+      Miners Need Cooler Shoes :: Skin Editor
+    </title>
+
+    <%= render partial: "shared/meta" %>
+    <%= stylesheet_link_tag "tailwind", "inter-font" %>
+    <%= stylesheet_link_tag "editor/2010" %>
+
+    <%= javascript_importmap_tags %>
+
+    <%= content_for?(:styles) ? yield(:styles) : nil %>
+    <%= content_for?(:scripts) ? yield(:scripts) : nil %>
+
+    <%= render partial: "shared/favicons" %>
+    <%= render partial: "shared/analytics" %>
+  </head>
+
+  <body id="unlogged" class="flex flex-col justify-center" data-turbo="false">
+    <%= render partial: "shared/flash" %>
+    <%= yield :attention if content_for?(:attention) %>
+
+    <div class="flex flex-col items-center mx-3 sm:mx-16">
+      <div class="w-[837px] mt-[80px]">
+        <div class="relative h-[100px]">
+          <img src="/ncsassets/img/2010/header.png" class="absolute top-0 -left-[109px] max-w-none" alt="">
+          <div class="absolute bottom-2 left-20 z-10 space-x-1">
+            <a class="bg-[#257EC6] p-0.5 text-white hover:text-black" href="<%= root_path %>">Skin Editor</a>
+            <a class="bg-[#257EC6] p-0.5 text-white hover:text-black" href="<%= gallery_path %>">Gallery</a>
+            <a class="bg-[#257EC6] p-0.5 text-white hover:text-black" href="<%= banner_path %>">Banner Editor</a>
+          </div>
+          <div class="absolute bottom-2 right-4 z-10 space-x-1">
+            <% if current_user.present? %>
+              <a class="bg-black p-0.5 text-white hover:text-[#257EC6]" href="<%= user_path(current_user) %>">Profile</a>
+              <%= button_to "Sign Out", destroy_user_session_path, method: :delete, form_class: "inline p-0.5", class: "bg-black text-white hover:text-[#257EC6] leading-[21px]" %>
+            <% else %>
+              <a class="bg-black p-0.5 text-white hover:text-[#257EC6]" href="<%= new_user_registration_path %>">Sign Up</a>
+              <a class="bg-black p-0.5 text-white hover:text-[#257EC6]" href="<%= new_user_session_path %>">Log In</a>
+            <% end %>
+          </div>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full bg-[#FFFAEF]">
+          <% if content_for?(:message) %>
+            <%= yield :message %>
+          <% else %>
+            <div class="h-3.5">
+            </div>
+          <% end %>
+
+          <%= yield %>
+
+          <div class="w-full px-4 py-1">
+            <details>
+              <summary class="cursor-pointer select-none">About</summary>
+              <div class="font-sans space-y-2">
+                <p>
+                  This is a recreation of the Miners Need Cool Shoes editor, as it was between 2010 to 2014.
+                  The site did a re-design in 2014, as to support the Minecraft 1.8 skin overhaul.
+                  That redesign persisted ever since, becoming the editor most people remember.
+                </p>
+                <p>
+                  This editor was originally written in Flash. As Flash was discontinued, and the editor ran poorly in
+                  Flash emulators, it has been re-written from the ground up in vanilla Javascript.
+                </p>
+                <p>
+                  While not 100% accurate to the original, as some tweaks were made to improve the general experience,
+                  most elements have been kept as they originally were.
+                </p>
+                <p>
+                  This recreated editor was originally used as part of an April Fools joke for April 1, 2024.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

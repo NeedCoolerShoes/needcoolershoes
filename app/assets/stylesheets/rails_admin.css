@@ -1,0 +1,7 @@
+:root {
+  --bs-primary-rgb: 0, 0, 0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}

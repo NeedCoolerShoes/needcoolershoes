@@ -2,19 +2,23 @@
   <div class="flex flex-col gap-2 items-center sm:flex-row sm:justify-between text-sm max-w-ncs-content w-full">
     <div>
       <ul class="flex items-center flex-col sm:flex-row flex-wrap gap-2">
+        <li><%= link_to "FAQ", faq_path, class: "text-black underline" %></li>
         <li><%= link_to "About", about_path, class: "text-black underline" %></li>
         <li><%= link_to "Contact", contact_path, class: "text-black underline" %></li>
         <li><%= link_to "Rules", rules_path, class: "text-black underline" %></li>
         <li><%= link_to "Donate", donate_path, class: "text-black underline" %></li>
-        <li><%= link_to "To the Original Devs", "/open_letter", class: "text-black underline" %></li>
-        <li><%= link_to "Join the Official Forum", "https://sopuli.xyz/c/needcoolershoes", target: "_blank", class: "text-black underline" %></li>
+        <li><%= link_to "Hall of Fame", badges_path, class: "text-black underline" %></li>
+        <li><%= link_to "To the Original Devs", "/open-letter", class: "text-black underline" %></li>
+        <span class="hidden sm:inline">|</span>
+        <hr class="sm:hidden w-full border-black">
+        <li><%= link_to "Official Forum", "https://sopuli.xyz/c/needcoolershoes", target: "_blank", class: "text-black underline" %></li>
         <li><%= link_to "Join our Discord", "https://discord.gg/FEfbZYvQUa", target: "_blank", class: "text-black underline" %></li>
       </ul>
     </div>
     <div>
       <p class="text-center">
         by the
-        <a href="/humans.txt" target="_blank" class="text-black underline">Miners Need Cool Shoes Restoration Team</a>
+        <a href="/humans.txt" target="_blank" class="text-black underline">MNCS Restoration Team</a>
       </p>
     </div>
   </div>

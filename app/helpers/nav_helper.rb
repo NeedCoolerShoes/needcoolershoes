@@ -4,8 +4,8 @@ module NavHelper
     ""
   end
 
-  def class_on_path(path, classes, default = "")
-    return classes if request.path.end_with?(path)
+  def class_on_nav(nav, classes, default = "")
+    return classes if @nav_section == nav
     default
   end
 end

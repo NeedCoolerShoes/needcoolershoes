@@ -1,45 +1,41 @@
-<%
-  contact_link = contact_path(
-    title: "Requesting Password Reset",
-    message: "I am having trouble logging in. My account's email is: "
-    )
-%>
+<% disabled = ENV["EMAIL_DISABLED"].present? %>
 
-<div class="prose prose-invert">
-  <h2>Forgot your password?</h2>
-  <p>
-    Please use the <%= link_to "Contact Form", contact_link %> to request a password reset. Make sure to fill out the
-    email you used in the message.
-  </p>
-
-  <p>
-    Optionally, you can email
-    <code>dev&nbsp;(at)&nbsp;moxvallix.com</code>,
-    from the address you signed up with.
-  </p>
-
-  <h3>Please Note:</h3>
-  <p>
-    This site is a <strong>restoration</strong> of NeedCoolShoes, it is <strong>not</strong> the same site.
-  </p>
-  <p>As such, if you had an account on the old site, you will need to create a new one here.</p>
-
-  <div class="not-prose">
-    <%= render "devise/shared/links" %>
-  </div>
-</div>
-<!--
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <h2 class="text-4xl text-center">Reset Password</h2>
 
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
+  <% if disabled %>
+    <p class="bg-red-700 text-white p-4 rounded my-2">
+      Email functionality is currently in maintenance. Please <%= link_to "Contact Support", contact_path, class: "underline" %>
+      to reset your password.
+    </p>
+  <% end %>
+
+  <fieldset <%= disabled ? 'disabled="disabled"' : nil %>>
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "text-black" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send reset password instructions", class: "btn-ncs" %>
+      </div>
+    </div>
+  </fieldset>
+
 <% end %>
--->
 
+
+<h4 class="mt-2">Please Note:</h4>
+<p class="text-sm">
+  This is a fan-made restoration of NeedCoolShoes.
+</p>
+<p class="text-sm">
+  If you made an account on the old site,
+  <strong>it will not exist here!</strong> If you haven't already, please create a new account.
+</p>
+<p class="text-sm">
+  If you have any troubles resetting your password, please <%= link_to "Contact Support", contact_path, class: "underline" %>.
+</p>

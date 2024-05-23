@@ -117,6 +117,18 @@ App.LayerModel = function (a) {
     }
     return b.faces[parseInt(a.userData.uid)] || new THREE.Color().setRGB(0, 0, 0);
   }
+  function getFaceColorFromAll(part) {
+    let outColor = new THREE.Color().setAlpha();
+    let colorFound = false;
+    d(layer => {
+      if (colorFound) { return; }
+      let color = q(part, layer)
+      if (color.r == 0 && color.g == 1 && color.b == 0) { return; }
+      outColor = color;
+      colorFound = true;
+    })
+    return outColor;
+  }
   function r(a) {
     var d = parseInt(a.userData.uid);
     return b(t[d]) || c();
@@ -135,6 +147,7 @@ App.LayerModel = function (a) {
     toggleVisibility: j,
     renderModel: p,
     getFaceColor: q,
+    getFaceColorFromAll: getFaceColorFromAll,
     setFaceColor: n,
     getTopLayerOf: r,
     parse: l,

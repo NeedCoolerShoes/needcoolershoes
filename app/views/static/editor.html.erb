@@ -12,6 +12,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jsframe.js/lib/jsframe.min.js"></script>
   <script src="ncsassets/js/canvas.js"></script>
   <script src="ncsassets/js/editor.js"></script>
+  <script src="/ncsassets/js/editor/uvmap.js" type="text/javascript"></script>
   <script src="/ncsassets/js/editor/transporter.js" type="text/javascript"></script>
   <script src="/ncsassets/js/editor/model.js" type="text/javascript"></script>
   <script src="/ncsassets/js/editor/layer_model.js" type="text/javascript"></script>
@@ -46,11 +47,17 @@
 <% end %>
 
 <% content_for :message do %>
-  <p class="p-2 bg-ncs-yellow-200 mb-2">
-    Love the project? Want to support it's development?
-    <%= link_to "We now accept donations!", donate_path, class: "text-black underline" %>
-    <%= heroicon "heart", variant: "solid", class: "inline text-red-500", size: 16 %>
-  </p>
+  <% if @message %>
+    <div id="message" class="p-2 bg-ncs-yellow-200 mb-2">
+      <%= markdown @message %>
+    </div>
+    <style>
+      #message a {
+        text-decoration: underline;
+        color: black;
+      }
+    </style>
+  <% end %>
 <% end %>
 
 <div id="content">
@@ -90,7 +97,7 @@
     <%= render layout: 'skins/skin_2d', locals: skin_config do |foo| %>
       <div class="absolute bottom-0 hidden group-hover:block w-full h-12 bg-black/60">
         <div class="p-1">
-          <span class="text-white line-clamp-2" title="%name%">%name%</span>
+          <span class="text-white line-clamp-2" style="overflow-wrap: break-word;" title="%name%">%name%</span>
           <span class="text-xs text-white line-clamp-1" title="by %author%">by %author%</span>
         </div>
       </div>

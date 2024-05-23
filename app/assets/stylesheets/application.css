@@ -10,7 +10,7 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_directory .
  *= require_self
  */
 
@@ -203,8 +203,12 @@
   src: url("/ncsassets/vendor/fonts/minecraft/minecraft.woff2") format('woff2');
 }
 
+html {
+  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom, no-repeat linear-gradient(180deg, rgba(7,16,45,1) 0%, rgba(92,160,183,1) 160px, rgba(247,243,195,1) 800px, rgba(247,243,195,1) 100%);
+  height: 100%;
+}
+
 body {
-  background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom;
   font-family: 'Lato', sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -218,4 +222,20 @@ body {
 
 .ncs-selectable:focus .overlay {
   display: inherit;
+}
+
+.tagify__tag[has_jam=true] {
+  --tag-bg: transparent;
+  background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%)red;
+  border-radius: 3px;
+}
+
+.tagify__dropdown__item[has_jam=true] {
+  background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%);
+}
+
+.hidden-fade {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 1s, opacity 1s linear;
 }

@@ -3,14 +3,25 @@ class StaticController < ApplicationController
   CAPTCHA_REGEX = /gun\s*powder/i
 
   prepend_before_action :protect_from_spam, :only => [:send_message]
-
+  nav_section :editor, only: %i[editor editor_2010]
+  nav_section :banner, only: :banner
+  
   def editor
+    @message = SiteMessage.latest&.message
+  end
+  
+  def editor_2010
+    render layout: "editor/2010", template: "static/editor/2010"
   end
 
   def banner
   end
 
   def about
+    render layout: "application"
+  end
+
+  def faq
     render layout: "application"
   end
 
@@ -23,6 +34,9 @@ class StaticController < ApplicationController
   end
 
   def rules
+  end
+
+  def mncs_terms
   end
 
   def send_message

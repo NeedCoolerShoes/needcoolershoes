@@ -1,13 +1,4 @@
 @charset "UTF-8";
-html,
-body {
-  background: repeat-x url("../img/bg-top-tile.jpg") center top, repeat url(../img/bg-tile.jpg) center bottom;
-  font-family: 'Lato', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  line-height: 1.3em;
-  margin: 0;
-}
 div,
 span,
 applet,
@@ -2546,4 +2537,26 @@ button:disabled:active {
 
 .blend-remove:hover {
   color: white;
+}
+
+#share {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#share > .panel {
+  height: auto;
+  width: auto;
+  float: none;
+  max-height: 496px;
+}
+
+#share > .square {
+  float: none;
+  width: auto;
+}
+
+#share > .square > .button-group {
+  display: flex;
+  gap: 0.5rem;
 }
