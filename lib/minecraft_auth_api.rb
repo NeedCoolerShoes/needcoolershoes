@@ -4,7 +4,7 @@ class MinecraftAuthApi < BaseApi
     def ms_auth(client_id, client_secret, code, redirect_uri)
       body = {
         client_id: client_id,
-        scope: "XboxLive.signin offline_access User.Read",
+        scope: "XboxLive.signin offline_access",
         code: code,
         redirect_uri: redirect_uri,
         grant_type: "authorization_code",

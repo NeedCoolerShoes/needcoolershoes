@@ -6,19 +6,20 @@ class MinecraftAccount < ApplicationRecord
   validates :oid, presence: true
 
   def self.create_or_update(user, code)
-    ms_auth = MinecraftAuthApi.ms_auth(ENV["AZURE_APP_ID"], ENV["AZURE_APP_SECRET"], code, "http://localhost:3000/webhooks/minecraftauth")
+    ms_auth = MinecraftAuthApi.ms_auth(ENV["MS_AZURE_CLIENT_ID"], ENV["MS_AZURE_CLIENT_SECRET"], code, "http://localhost:3000/webhooks/minecraftauth")
     ms_auth_json = JSON.parse(ms_auth.body)
-    ms_profile = MinecraftAuthApi.ms_profile(ms_auth_json["access_token"])
-    ms_profile_json = JSON.parse(ms_profile.body)
-    raise "Check: #{ms_profile_json}"
+    token = ms_auth_json["access_token"]
+    # ms_profile = MinecraftAuthApi.ms_profile(token)
+    # ms_profile_json = JSON.parse(ms_profile.body)
+    # raise "Check: #{ms_profile_json}"
     response = MinecraftAuthApi.xbox_auth(token)
     response_json = JSON.parse(response.body)
-    raise "Missing OID" unless oid = id_token["oid"]
+    # raise "Missing OID" unless oid = id_token["oid"]
     raise "Missing XBL Token" unless xbl = response_json["Token"]
     raise "Missing Userhash" unless uhs = response_json.dig("DisplayClaims", "xui", 0, "uhs")
-    mcaccount = find_by(oid: oid)
-    return mcaccount.update(xbl: xbl, userhash: uhs) if mcaccount.present?
-    create(user: user, userhash: uhs, oid: oid, xbl: xbl)
+    # mcaccount = find_by(oid: oid)
+    # return mcaccount.update(xbl: xbl, userhash: uhs) if mcaccount.present?
+    create(user: user, userhash: uhs, xbl: xbl)
   end
 
   def update_profile!
@@ -34,3 +35,5 @@ class MinecraftAccount < ApplicationRecord
     update!(xsts: xsts, mcjwt: mcjwt, username: profile_json["name"], uuid: profile_json["id"], skin: profile_json.dig("skins", 0, "url"))
   end
 end
+
+# https://login.microsoftonline.com/consumers/oauth2/v2.0/authorize?client_id=39156656-92ba-4265-8772-9a8e406e6906&response_type=code&scope=XboxLive.signin&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fwebhooks%2Fminecraftauth&response_mode=query&prompt=select_account
