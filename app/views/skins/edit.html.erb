@@ -6,8 +6,8 @@
   <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <% end %>
 <div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white overflow-clip">
-  <div class="flex gap-2 w-full p-4">
-    <div class="basis-1/3">
+  <div class="flex flex-col items-center md:flex-row gap-2 w-full p-4">
+    <div class="max-w-[320px] w-full h-[700px]">
       <%= render partial: "skin_3d", locals: { data: @skin.data, width: 300, height: 400 } %>
     </div>
     <script>
