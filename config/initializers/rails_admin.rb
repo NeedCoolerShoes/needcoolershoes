@@ -1,4 +1,10 @@
+require_relative '../../lib/needcoolershoes/admin/actions/bump_site_message'
+
 RailsAdmin.config do |config|
+  RailsAdmin::Config::Actions.register(
+    Needcoolershoes::Admin::Actions::BumpSiteMessage
+  )
+
   config.asset_source = :sprockets
 
   ### Popular gems integration
@@ -34,6 +40,7 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+    bump_site_message
 
     ## With an audit adapter, you can add:
     # history_index
@@ -50,5 +57,9 @@ RailsAdmin.config do |config|
 
   config.model 'SiteMessage' do
     configure :message, :markdown
+    list do
+      sort_by :bumped_at
+      sort_reverse true
+    end
   end
 end

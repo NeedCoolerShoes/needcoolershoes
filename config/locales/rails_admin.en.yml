@@ -1,0 +1,9 @@
+en:
+  admin:
+    actions:
+      bump_site_message:
+        title: "Bump %{model_label} '%{object_label}'"
+        menu: "Bump"
+        breadcrumb: "Bump"
+        link: "Bump this %{model_label}"
+        done: "bumped"
