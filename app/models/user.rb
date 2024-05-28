@@ -70,8 +70,8 @@ class User < ApplicationRecord
   end
 
   def featured_skin_data
-    return featured_skin.data if featured_skin.present?
-    return skins.last.data if skins.any?
+    return featured_skin.data if featured_skin.present? && featured_skin.visible
+    return skins.visible.last.data if skins.visible.any?
     "/ncsassets/img/mncs_mascot_skin.png"
   end
   

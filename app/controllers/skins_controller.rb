@@ -11,9 +11,13 @@ class SkinsController < ApplicationController
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     if current_user.present?
-      skins = skins.merge(Skin.visible_to_user(current_user))
+      if @gallery_params[:hidden] && current_user.authorized?(:moderator)
+        skins = skins.merge(Skin.hidden)
+      else
+        skins = skins.merge(Skin.visible_to_user(current_user))
+      end
     else
-      skins = skins.merge(Skin.is_public)
+      skins = skins.merge(Skin.visible.is_public)
     end
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     params[:page].to_i > 0 ? nil : params[:page] = 1
@@ -158,8 +162,11 @@ class SkinsController < ApplicationController
   end
 
   def check_visibility
-    return true unless @skin.is_private?
-    render_img_missing unless current_user.present? && current_user.id == @skin.user_id
+    return true unless @skin.is_private? || @skin.hidden
+    if @skin.is_private? && !current_user.present? && current_user.id != @skin.user_id
+      return render_img_missing
+    end
+    render_img_missing unless current_user.authorized?(:moderator)
   end
 
   def validate_can_edit
@@ -168,14 +175,14 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
+    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, :hidden, attributions: []]
     permit.append(:license) if current_user.authorized?(:moderator)
     params.require(:skin).permit(permit)
   end
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items).permit!
+    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden).permit!
   end
 
   def transform_tags(tags)

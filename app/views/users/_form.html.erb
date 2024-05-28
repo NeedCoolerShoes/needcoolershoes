@@ -1,5 +1,5 @@
 <%
-  recent_skins = user.skins.order_by_updated.first(10).pluck(:name, :id)
+  recent_skins = user.skins.visible.order_by_updated.first(10).pluck(:name, :id)
 %>
 <%= form_with model: user do |form| %>
   <div class="flex flex-col gap-2">

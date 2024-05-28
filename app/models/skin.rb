@@ -56,7 +56,9 @@ class Skin < ApplicationRecord
   scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
   scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
   scope :order_by_favourites, ->(direction = :desc) { order(favourites_count: direction) }
-  scope :visible_to_user, ->(user) { is_public.or(where(user: user)) }
+  scope :hidden, -> { where(hidden: true) }
+  scope :visible, -> { where.not(hidden: true) }
+  scope :visible_to_user, ->(user) { visible.is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: { name: name }) }
   scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: { name: name }) }
   scope :by_model, ->(model) { where(model: model) }
@@ -124,6 +126,10 @@ class Skin < ApplicationRecord
     return true if some_user.moderator?
     return true if some_user.id == user_id
     false
+  end
+
+  def visible
+    !hidden
   end
 
   def tag_js

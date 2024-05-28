@@ -132,6 +132,12 @@
                 <% gallery_params = @gallery_params.merge(favourited_by: current_user.name); gallery_params.delete(:user) %>
                 <%= link_to "My Favourites", gallery_path(gallery_params), title: "My Favourites - #{current_user.favourites.count}", class: "#{ params[:favourited_by] == current_user.name ? "font-bold" : nil }" %>
               </span>
+              <% if current_user.authorized?(:moderator) %>
+                <span class="flex items-center gap-1 before:content-['●'] first:before:content-none before:text-[0.5rem]">
+                  <% gallery_params = @gallery_params.merge(hidden: true) %>
+                  <%= link_to "Hidden Skins", gallery_path(gallery_params), title: "Hidden Skins", class: "#{ params[:hidden] == "true" ? "font-bold" : nil }" %>
+                </span>
+              <% end %>
             </div>
           </div>
         </div>
