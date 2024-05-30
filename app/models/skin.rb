@@ -194,7 +194,8 @@ class Skin < ApplicationRecord
       file: filename,
       name: name, description: description, author: "#{user.display_name} (#{user.name})",
       attribution_message: user.attribution_message, url: skin_url(self),
-      created_at: created_at, updated_at: updated_at, tags: tag_list
+      created_at: created_at, updated_at: updated_at, tags: tag_list,
+      license: LICENSES[(license || :arr).to_sym]
     }
   end
 

@@ -9,7 +9,7 @@ namespace :export_skins do
   end
 
   def export_in_range(date_start, date_end)
-    skins = Skin.is_public.where(created_at: date_start..(date_end + 1.day)).order(created_at: :asc)
+    skins = Skin.visible.is_public.where(created_at: date_start..(date_end + 1.day)).order(created_at: :asc)
     return false unless skins.any?
     zip = Skin.export_to_zip(skins)
     FileUtils.cp(zip.path, "mncs_archive_#{date_start.strftime("%Y%m%d")}_#{date_end.strftime("%Y%m%d")}.zip")
