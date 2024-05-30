@@ -37,7 +37,8 @@ module.exports = {
 
         },
         'ncs-yellow': {
-          200: "#f5f8cc"
+          200: "#f5f8cc",
+          500: "#eece19"
         },
         'ncs-blue': {
           800: '#0f1e3a'

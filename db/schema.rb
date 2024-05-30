@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_28_040206) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_29_064430) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -178,7 +178,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_28_040206) do
     t.integer "role"
     t.string "attribution_message"
     t.boolean "watermark_disabled"
+    t.bigint "featured_badge_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -196,5 +198,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_28_040206) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_badges", "badges"
   add_foreign_key "user_badges", "users"
+  add_foreign_key "users", "badges", column: "featured_badge_id"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end

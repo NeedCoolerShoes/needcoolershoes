@@ -61,9 +61,15 @@
       <div class="flex flex-col font-bold">
         <p><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
         <p>
-          by <%= link_to @skin.user.display_name, @skin.user, class: "underline" %>
-          <% if @skin.user.role? %>
-            <img class="inline" src="/ncsassets/img/medals/<%= @skin.user.role %>.png" alt="<%= @skin.user.role.titleize %>" title="<%= @skin.user.role.titleize %>">
+          by <%= link_to @skin.user do %>
+            <span class="underline"><%= @skin.user.display_name %></span>
+            <% if (badge = @skin.user.featured_badge).present? %>
+                <img class="inline w-4 border rounded-full box-content border-ncs-yellow-500 bg-ncs-yellow-500"
+                src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
+            <% end %>
+            <% if @skin.user.role? %>
+              <img class="inline" src="/ncsassets/img/medals/<%= @skin.user.role %>.png" alt="<%= @skin.user.role.titleize %>" title="<%= @skin.user.role.titleize %>">
+            <% end %>
           <% end %>
         </p>
         <% if @skin.tags.any? %>
