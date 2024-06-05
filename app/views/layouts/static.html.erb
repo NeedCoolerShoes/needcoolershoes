@@ -23,6 +23,9 @@
   <body id="unlogged" class="flex flex-col !overflow-visible" data-turbo="false">
     <%= render partial: "shared/flash" %>
     <%= yield :attention if content_for?(:attention) %>
+    <% if Time.current.month == 6 %>
+      <div id="pride" class="w-full h-[1px]"></div>
+    <% end %>
     <div class="grow sm:mx-16">
       <%= render partial: "shared/header" %>
     </div>

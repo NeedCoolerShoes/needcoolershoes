@@ -239,3 +239,7 @@ body {
   opacity: 0;
   transition: visibility 0s 1s, opacity 1s linear;
 }
+
+#pride {
+  background: linear-gradient(90deg,#E30303,#FF8C00,#FFED00,#008026,#004DFF,#750787);
+}
