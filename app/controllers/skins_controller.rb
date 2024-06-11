@@ -163,10 +163,11 @@ class SkinsController < ApplicationController
 
   def check_visibility
     return true unless @skin.is_private? || @skin.hidden
-    if @skin.is_private? && !current_user.present? && current_user.id != @skin.user_id
-      return render_img_missing
+    if current_user.present?
+      return true if current_user.id == @skin.user_id
+      return true if current_user.authorized?(:moderator)
     end
-    render_img_missing unless current_user.authorized?(:moderator)
+    render_img_missing
   end
 
   def validate_can_edit

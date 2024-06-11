@@ -79,13 +79,12 @@
             <% end %>
           </div>
         <% end %>
-        <% if !@skin.can_user_open_in_editor?(current_user) %>
-          <p><%= t "skins.status.unlisted_guest" %></p>
-        <% elsif @skin.is_unlisted? %>
-          <p><%= t "skins.status.unlisted_owner" %></p>
-        <% end %>
         <% if @skin.is_private? %>
           <p><%= t "skins.status.private" %></p>
+        <% elsif !@skin.can_user_open_in_editor?(current_user) %>
+          <p><%= t "skins.status.unlisted_guest" %></p>
+        <% else @skin.is_unlisted? %>
+          <p><%= t "skins.status.unlisted_owner" %></p>
         <% end %>
       </div>
       <% if @skin.description.present? %>
