@@ -21,12 +21,16 @@ Rails.application.routes.draw do
   get "skins", to: redirect('/gallery')
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   get "skins/:id/social", to: "skins#social", as: "skin_social"
+  get "skins/:id/moderate", to: "skins#moderator_edit", as: "skin_moderate"
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
+  patch "skins/:id/moderate", to: "skins#moderator_update", as: "update_skin_moderate"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
   get "users", to: redirect("/")
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
+
+  get "modlog", to: "site#modlog", as: "modlog"
 
   scope :terms do
     get "/", to: redirect("/rules")

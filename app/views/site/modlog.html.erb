@@ -1,0 +1,11 @@
+<h1 class="text-3xl font-bold text-white"><%= t "modlog.title" %></h1>
+
+<div id="warning" class="border border-red-500 bg-red-200 rounded p-2 font-bold mt-2"><%= t "modlog.warning" %></div>
+
+<div class="w-full mt-2">
+  <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } if @pagy.pages > 1 %>
+  <div class="space-y-2">
+    <%= render partial: "modlog", collection: @modlogs, as: :modlog %>
+  </div>
+  <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } if @pagy.pages > 1 %>
+</div>

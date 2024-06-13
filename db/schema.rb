@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_29_064430) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_064430) do
     t.datetime "updated_at", null: false
     t.index ["skin_id"], name: "index_favourites_on_skin_id"
     t.index ["user_id"], name: "index_favourites_on_user_id"
+  end
+
+  create_table "modlogs", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "target_type", null: false
+    t.bigint "target_id", null: false
+    t.jsonb "changelog"
+    t.string "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["target_type", "target_id"], name: "index_modlogs_on_target"
+    t.index ["user_id"], name: "index_modlogs_on_user_id"
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -188,6 +200,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_29_064430) do
 
   add_foreign_key "favourites", "skins"
   add_foreign_key "favourites", "users"
+  add_foreign_key "modlogs", "users"
   add_foreign_key "skin_attributions", "skins"
   add_foreign_key "skin_attributions", "skins", column: "attributed_skin_id"
   add_foreign_key "skin_jam_winners", "skin_jams"

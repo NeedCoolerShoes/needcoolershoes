@@ -79,7 +79,13 @@
             <% end %>
           </div>
         <% end %>
-        <% if @skin.is_private? %>
+        <% if @skin.hidden? %>
+          <p>
+            <%= t "skins.status.hidden.pt1" %>
+            <%= link_to t("skins.status.hidden.modlog"), modlog_path(id: @skin.id, type: "Skin"), class: "underline" %>
+            <%= t "skins.status.hidden.pt2" %>
+          </p>
+        <% elsif @skin.is_private? %>
           <p><%= t "skins.status.private" %></p>
         <% elsif @skin.is_unlisted? %>
           <% if !@skin.can_user_open_in_editor?(current_user) %>
@@ -113,21 +119,13 @@
       
       <% if @skin.can_user_edit?(current_user) %>
         <div class="flex flex-col md:flex-row gap-2 pt-2">
-          <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <% if @skin.user == current_user %>
+            <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
             <%= form_with url: skin_path(@skin), method: :delete, class: "w-full" do |form| %>
               <%= form.submit t("skins.delete"), class: "btn-ncs", data: { "turbo-confirm": t("skins.delete_confirmation") } %>
             <% end %>
           <% else %>
-            <%= form_with model: @skin, method: :patch, class: "w-full" do |form| %>
-              <% if @skin.hidden %>
-                <%= form.hidden_field :hidden, value: false %>
-                <%= form.submit t("skins.unhide"), class: "btn-ncs", data: { "turbo-confirm": t("skins.unhide_confirmation") } %>
-              <% else %>
-                <%= form.hidden_field :hidden, value: true %>
-                <%= form.submit t("skins.hide"), class: "btn-ncs", data: { "turbo-confirm": t("skins.hide_confirmation") } %>
-              <% end %>
-            <% end %>
+            <%= link_to t("skins.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
           <% end %>
         </div>
       <% end %>
@@ -137,6 +135,9 @@
         <h4 class="font-bold text-lg">My Stats</h4>
         <p>Total Favourites: <%= @skin.favourites.count %></p>
         <p>Total Downloads: <%= @skin.download_count || 0 %></p>
+        <% if @skin.modlogs.any? %>
+          <%= link_to "See moderation log", modlog_path(id: @skin.id, type: "Skin"), class: "underline text-gray-600 text-xs" %>
+        <% end %>
       </div>
     <% end %>
     <% if @attributions.any? %>

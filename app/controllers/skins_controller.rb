@@ -1,8 +1,9 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit update download destroy add_favourite remove_favourite preview social]
+  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download destroy add_favourite remove_favourite preview social]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
+  require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
 
   def index
@@ -71,6 +72,9 @@ class SkinsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
   def update
     params = skin_params.dup
     params.delete(:tags)
@@ -80,6 +84,33 @@ class SkinsController < ApplicationController
         format.html { redirect_to @skin, notice: "Skin was successfully updated." }
       else
         format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
+      end
+    end
+  end
+
+  def moderator_edit
+  end
+
+  def moderator_update
+    old_attr = @skin.attributes
+    reason = params[:reason]
+    params = skin_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(skin_params[:tags])
+    
+    respond_to do |format|
+      begin
+        skin, modlog = nil
+        ActiveRecord::Base.transaction do
+          skin = @skin.update!(params)
+          new_attr = @skin.reload.attributes
+          modlog = Modlog.generate!(@skin, current_user, old_attr, new_attr, reason)
+        end
+        raise "Error saving skin or modlog" unless skin && modlog
+
+        format.html { redirect_to @skin, notice: "Skin was successfully updated." }
+      rescue
+        format.html { redirect_to skin_moderate_path(@skin), alert: "Error saving skin." }
       end
     end
   end

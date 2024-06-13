@@ -38,13 +38,17 @@ en:
     feature: "Feature Skin on Profile"
     feature_tooltip: "Display skin as your avatar on your profile."
     edit: "Edit Information"
+    moderate: "Moderate Skin"
     delete: "Delete Skin"
     delete_confirmation: "Are you sure you want to delete this skin? It will be gone forever."
-    hide: "Hide Skin"
-    hide_confirmation: "Are you sure you want to hide this skin? Use only if it has violated the rules."
-    unhide: "Restore Skin"
-    unhide_confirmation: "Are you sure you want to restore this skin?"
     status:
+      hidden:
+        pt1: "This skin has been hidden by the moderators. Check the"
+        modlog: "modlog"
+        pt2: "for more information."
       unlisted_guest: "This skin is marked as unlisted, and cannot be edited."
       unlisted_owner: "This skin is marked as unlisted. It can be accessed by the link, but will not show up in the Gallery."
       private: "This skin is marked as private. Only you can view it."
+  modlog:
+    title: "Moderation Log"
+    warning: "Warning: Content here has been moderated for a reason, and could contain disturbing or unpleasant material. Proceed at own risk."

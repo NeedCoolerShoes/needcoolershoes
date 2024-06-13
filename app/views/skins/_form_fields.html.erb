@@ -1,0 +1,39 @@
+<%
+  visibilities = Skin.visibilities.keys.map { |key| [key.to_s.delete_prefix("is_").titleize, key] }
+  models = Skin.models.keys.map { |key| [key.to_s.titleize, key] }
+%>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :name %>
+  <%= form.text_field :name, class: "text-black" %>
+</div>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :description, "Description (Optional, Markdown Formatted)" %>
+  <%= form.text_area :description, class: "text-black" %>
+</div>
+
+<div class="flex flex-col gap-2">
+  <%= form.label :tags %>
+  <%= form.text_field :tags, value: skin.tag_js, data: { controller: "tagify" } %>
+</div>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :visibility %>
+  <%= form.select :visibility, visibilities, {}, class: "text-black p-1" %>
+</div>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :skin_part_id %>
+  <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+</div>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :skin_category_id %>
+  <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+</div>
+
+<div class="flex flex-col gap-1">
+  <%= form.label :model %>
+  <%= form.select :model, models, {}, class: "text-black p-1" %>
+</div>

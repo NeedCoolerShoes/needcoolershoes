@@ -1,0 +1,23 @@
+
+  <div class="bg-ncs-yellow-200 rounded-sm">
+    <details class="w-full p-1 group">
+      <summary class="cursor-pointer relative">
+        <div class="absolute top-0 left-[1.0625rem] line-clamp-1 group-open:line-clamp-none group-open:static group-open:inline">
+          <span><%= modlog.created_at.strftime("%d/%m/%Y %H:%M") %>:</span>
+          <%= link_to modlog.target_name, modlog.target, class: "inline underline" %> was updated by
+          <span title="<%= modlog.user.name%>"><%= link_to modlog.user.display_name, modlog.user, class: "inline underline" %></span>
+          <span>with reason: <code><%= modlog.reason %></code></span>
+        </div>
+      </summary>
+      <p class="font-bold">Attributes Changed</p>
+      <table>
+        <% modlog.changelog.each do |key, value| %>
+          <tr>
+            <th class="pr-2"><%= key %></th>
+            <td class="pr-2"><%= value[0].nil? ? "nil" : value[0] %></td>
+            <td><%= value[1] %></td>
+          </tr>
+        <% end %>
+      </table>
+    </details>
+  </div>
