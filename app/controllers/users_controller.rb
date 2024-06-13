@@ -1,12 +1,17 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update export]
-  before_action :set_user, only: %i[show edit update export]
+  before_action :set_user, only: %i[show edit moderator_edit update moderator_update export]
   before_action :validates_current_user, only: %i[edit update export]
+
+  require_role :moderator, only: %i[moderator_edit moderator_update]
 
   def show
   end
 
   def edit
+  end
+
+  def moderator_edit
   end
 
   def current
@@ -22,6 +27,26 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
       else
+        format.html { redirect_to user_path(@user), alert: "Error updating user!" }
+      end
+    end
+  end
+
+  def moderator_update
+    old_attr = @user.attributes
+    reason = params[:reason]
+    respond_to do |format|
+      begin
+        user, modlog = nil
+        ActiveRecord::Base.transaction do
+          user = @user.update(user_params)
+          new_attr = @user.reload.attributes
+          modlog = Modlog.generate!(@user, current_user, old_attr, new_attr, reason)
+        end
+        raise "Error saving skin or modlog" unless skin && modlog
+
+        format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
+      rescue
         format.html { redirect_to user_path(@user), alert: "Error updating user!" }
       end
     end
@@ -46,6 +71,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:display_name, :biography, :featured_skin_id, :featured_badge_id, :password, :password_confirmation, :attribution_message, :watermark_disabled)
+    params.except(:reason).require(:user).permit(:display_name, :biography, :featured_skin_id, :featured_badge_id, :password, :password_confirmation, :attribution_message, :watermark_disabled)
   end
 end

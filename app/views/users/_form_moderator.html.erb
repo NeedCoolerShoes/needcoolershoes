@@ -1,0 +1,13 @@
+<%= form_with model: user, url: update_profile_moderate_path(user)  do |form| %>
+  <%= render partial: "form_fields", locals: { form: form, user: user } %>
+
+  <div class="flex flex-col gap-1">
+    <%= label_tag :reason %>
+    <%= text_field_tag :reason, "", class: "text-black" %>
+  </div>
+
+  <div class="flex gap-2">
+    <%= form.submit "Save", class: "btn-ncs" %>
+    <%= link_to "Cancel", user, class: "btn-ncs" %>
+  </div>
+<% end %>

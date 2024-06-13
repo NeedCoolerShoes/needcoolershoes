@@ -47,6 +47,8 @@ Rails.application.routes.draw do
       get "backup-codes", to: "otp#backup_codes", as: "backup_codes"
       get "verify"
     end
+    get ":id/moderate", to: "users#moderator_edit", as: "edit_profile_moderate"
+    patch ":id/moderate", to: "users#moderator_update", as: "update_profile_moderate"
   end
 
   resources :users, only: %i[show edit destroy update] do
