@@ -101,17 +101,17 @@
         </div>
       <% end %>
       <details>
-        <summary class="select-none cursor-pointer font-bold">Attribution</summary>
+        <summary class="select-none cursor-pointer font-bold"><%= t "skins.attributions.self" %></summary>
         <div class="flex gap-2">
           <div id="attribution">
             <%= render partial: "attribution_text", locals: {skin: @skin, attribution: nil, icons: false} %>
           </div>
           <div class="relative">
-            <button title="Copy" onclick="copyAttribution()">
+            <button title="<%= t "actions.copy" %>" onclick="copyAttribution()">
               <%= heroicon "document-duplicate" %>
             </button>
             <span id="copy-text" class="hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
-              Copied!
+              <%= t "actions.copied" %>
             </span>
           </div>
         </div>

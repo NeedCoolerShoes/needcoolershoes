@@ -4,9 +4,9 @@
 %>
 <% if skin.cc_by_sa_4_license? %>
   <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
-    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> by
+    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> <%= t "skins.attributions.cc_by_sa_4.by" %>
     <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="<%= user_url(skin.user) %>" class="underline"><%= skin.user.display_name %></a>
-    is licensed under
+    <%= t "skins.attributions.cc_by_sa_4.attribute" %>
     <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
       <span class="underline">CC BY-SA 4.0</span>
       <% if icons %>
@@ -18,9 +18,9 @@
   </p>
 <% elsif skin.cc0_license? %>
   <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/">
-    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> by
+    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> <%= t "skins.attributions.cc0.by" %>
     <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="<%= user_url(skin.user) %>" class="underline"><%= skin.user.display_name %></a>
-    is marked as
+    <%= t "skins.attributions.cc0.attribute" %>
     <a href="http://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
       <span class="underline">CC0 1.0</span>
       <% if icons %>
@@ -31,15 +31,15 @@
   </p>
 <% elsif skin.mncs_license? %>
   <p>
-    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> uploaded by
+    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> <%= t "skins.attributions.mncs.by" %>
     <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="<%= user_url(skin.user) %>" class="underline"><%= skin.user.display_name %></a>
-    was originally uploaded to Miners Need Cool Shoes, and is all rights reserved under the
-    <a href="<%= mncs_terms_url %>" rel="license" class="underline">terms of that site</a>.
+    <%= t "skins.attributions.mncs.attribute" %>
+    <a href="<%= mncs_terms_url %>" rel="license" class="underline"><%= t "skins.attributions.mncs.link" %></a>.
   </p>
 <% else %>
   <p>
-    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> uploaded by
+    <a property="dct:title" rel="cc:attributionURL" href="<%= skin_url(skin) %>" class="underline"><%= skin.name %></a> <%= t "skins.attributions.arr.by" %>
     <a rel="cc:attributionURL dct:creator" property="cc:attributionName" href="<%= user_url(skin.user) %>" class="underline"><%= skin.user.display_name %></a>
-    is all rights reserved.
+    <%= t "skins.attributions.arr.attribute" %>
   </p>
 <% end %>
