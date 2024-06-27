@@ -10,6 +10,10 @@ App.ShareTool = function (a, b) {
     downloadLayersButton = $("<button>Export with Layers (NCRS)</button>").mousedown(function (a) {
       b.transporter.downloadLayers();
     }),
+    shareURLButton = $("<button>Get Sharable Link</button>").mousedown(function (a) {
+      const dialog = document.getElementById("link-share");
+      dialog.showModal();
+    }),
     form = $("<div></div>"),
     buttonGroup = $('<div class="button-group"></div>');
   window.addEventListener("load", _ => {
@@ -21,6 +25,7 @@ App.ShareTool = function (a, b) {
     square.append(buttonGroup),
     buttonGroup.append(downloadButton),
     buttonGroup.append(downloadLayersButton),
+    buttonGroup.append(shareURLButton),
     panel.append(message.hide()),
     panel.append(form),
     share.append(panel),

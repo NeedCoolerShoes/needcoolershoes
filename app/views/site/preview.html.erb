@@ -1,0 +1,62 @@
+<%
+  author = params[:author] || "Anonymous"
+  title = params[:name] || "Untitled"
+%>
+
+<div class="max-w-ncs-content w-full bg-ncs-gray-900">
+  <div class="flex justify-between gap-2 bg-ncs-gray-400 px-2 py-1 bg-gradient-to-b from-ncs-gray-200">
+    <div
+      class="flex items-center flex-wrap">
+      <h1 class="text-2xl mr-2 text-white">
+        <%= title %>
+      </h1>
+      <span class="text-2xl text-gray-500">by <%= author %></span>
+    </div>
+    <div class="flex gap-2">
+      <div class="relative">
+        <span id="copy-text" class="hidden absolute -top-4 -right-12 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+            <%= t "actions.copied" %>
+        </span>
+        <button class="btn-ncs px-2 leading-normal w-28" onclick="copyLink()">Copy Link</button>
+      </div>
+      <button class="btn-ncs px-2 leading-normal" onclick="download()">Download</button>
+    </div>
+  </div>
+  <div class="relative h-[600px]">
+    <%= render partial: "skins/skin_3d", locals: { data: params[:skin] } %>
+    <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
+    <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
+  </div>
+</div>
+
+<script>
+  function download() {
+    const link = document.createElement("a");
+    link.href = "<%= params[:skin] %>";
+    link.download = encodeURI("<%= author.downcase %>_<%= title.downcase %>_<%= (Random.rand * 100000).to_i %>") + ".png";
+    link.click();
+  }
+
+  function copyLink() {
+    let span = document.createElement("span");
+    document.body.append(span)
+    span.innerText = window.location;
+
+    var range = document.createRange();
+    range.selectNode(span);
+
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+
+    const copied = document.getElementById("copy-text");
+    copied.classList.remove("hidden", "hidden-fade");
+
+    span.remove();
+
+    setTimeout(() => {
+      copied.classList.add("hidden-fade");
+    }, 200);
+  }
+</script>

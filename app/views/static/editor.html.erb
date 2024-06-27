@@ -87,6 +87,46 @@
     </div>
   </script>
 
+  <dialog id="link-share" class="backdrop:bg-black/40">
+    <div class="bg-ncs-gray-900 rounded p-2">
+      <fieldset class="border-2 border-ncs-gray-400 rounded p-2">
+        <legend class="text-xl text-white font-bold">Create Sharable Link</legend>
+        <div class="flex gap-2">
+          <div class="flex flex-col">
+            <label for="link-share-name" class="text-white mb-1">Name</label>
+            <input type="text" id="link-share-name" placeholder="Untitled">
+          </div>
+          <div class="flex flex-col">
+            <label for="link-share-author" class="text-white mb-1">Author</label>
+            <input type="text" id="link-share-author" placeholder="Anonymous" value="<%= current_user&.display_name %>">
+          </div>
+        </div>
+        <div class="flex gap-2 mt-2">
+          <button class="grow" onclick="getShareableLink()">Get Link</button>
+          <button class="px-2" onclick="document.getElementById('link-share').close()">Cancel</button>
+        </div>
+      </fieldset>
+    </div>
+
+    <script>
+      function getShareableLink() {
+        let link = "/preview"
+        const nameField = document.getElementById("link-share-name")
+        const authorField = document.getElementById("link-share-author")
+        let params = {}
+        if (nameField.value) { params.name = nameField.value }
+        if (authorField.value) { params.author = authorField.value }
+        params.skin = App.dep.transporter.getUVImage(App.UVMAP.current, true).src
+        link += "?" + new URLSearchParams(params).toString()
+        const a = document.createElement("a");
+        a.href = link;
+        a.target = "_blank";
+        a.click();
+        a.remove();
+      }
+    </script>
+  </dialog>
+
   <template id="skin-2d">
     <%
       skin_config = {

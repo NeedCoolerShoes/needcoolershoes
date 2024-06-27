@@ -46,7 +46,6 @@ dd,
 ol,
 ul,
 li,
-fieldset,
 form,
 label,
 legend,
@@ -2548,15 +2547,23 @@ button:disabled:active {
   height: auto;
   width: auto;
   float: none;
-  max-height: 496px;
+  max-height: 450px;
 }
 
 #share > .square {
   float: none;
   width: auto;
+  padding: 0.5rem;
+  padding-bottom: 0.125rem;
 }
 
 #share > .square > .button-group {
   display: flex;
-  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+#share > .square > .button-group button {
+  max-width: 288px;
 }

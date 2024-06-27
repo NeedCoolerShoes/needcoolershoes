@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   patch "profile", to: "users#update", as: "update_profile"
 
   get "modlog", to: "site#modlog", as: "modlog"
+  get "preview", to: "site#preview", as: "preview"
 
   scope :terms do
     get "/", to: redirect("/rules")
