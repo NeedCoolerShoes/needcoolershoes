@@ -1,31 +1,51 @@
 class StaticController < ApplicationController
   CAPTCHA_QUESTION = "What item does a Creeper drop? (in English)"
-  CAPTCHA_REGEX = /gun\s*powder/i
+  CAPTCHA_REGEX = /(gun)?\s*po(w|u)der/i
 
   prepend_before_action :protect_from_spam, :only => [:send_message]
   nav_section :editor, only: %i[editor editor_2010]
   nav_section :banner, only: :banner
-  
+
   def editor
     @message = SiteMessage.latest&.message
   end
   
   def editor_2010
+    meta_config do |config|
+      config.title = "Skin Editor (2010)"
+      config.description = "Legacy version of the Miners Need Cool Shoes editor, rewritten entirely in JS."
+    end
     render layout: "editor/2010", template: "static/editor/2010"
   end
 
   def banner
+    meta_config do |config|
+      config.title = "Banner Editor"
+      config.description = "Banner Editor for Minecraft Banners. Create and share banners with your friends."
+    end
   end
 
   def about
+    meta_config do |config|
+      config.title = "About"
+      config.description = "About the site Miners Need Cooler Shoes."
+    end
     render layout: "application"
   end
 
   def faq
+    meta_config do |config|
+      config.title = "Frequently Asked Questions"
+      config.description = "Frequently Asked Questions regarding Miners Need Cooler Shoes."
+    end
     render layout: "application"
   end
 
   def contact
+    meta_config do |config|
+      config.title = "Contact Us"
+      config.description = "Contact Miners Need Cooler Shoes for support or suggestions."
+    end
     @question = CAPTCHA_QUESTION
     render layout: "application"
   end
@@ -34,9 +54,29 @@ class StaticController < ApplicationController
   end
 
   def rules
+    meta_config do |config|
+      config.title = "Site Rules"
+      config.description = "Site rules and terms for Miners Need Cooler Shoes."
+    end
+  end
+
+  def open_letter
+    meta_config do |config|
+      config.title = "An Open Letter to the Original Developers"
+      config.description = "The original NeedCoolShoes.com site went down, and never returned."
+      config.description << " This is an open letter to its original developer."
+    end
   end
 
   def mncs_terms
+    meta_config { |conf| conf.title = "Terms - MNCS Archive" }
+  end
+
+  def donate
+    meta_config do |config|
+      config.title = "Donate to the Project"
+      config.description = "Donate to Miners Need Cooler Shoes, to help keep the site running."
+    end
   end
 
   def send_message

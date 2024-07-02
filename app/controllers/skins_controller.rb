@@ -9,6 +9,7 @@ class SkinsController < ApplicationController
   def index
     @gallery_params = gallery_params
     set_jam_info
+    index_meta_config
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     if current_user.present?
@@ -28,13 +29,9 @@ class SkinsController < ApplicationController
   end
 
   def show
-    @attributions = @skin.attributions.visible_to_user(current_user).with_attributed_skin
-    @meta_social = {
-      title: "#{@skin.name&.truncate(32)} :: Miners Need Cooler Shoes",
-      image: skin_social_url(@skin, format: :png),
-      image_alt: "#{@skin.name&.truncate(32)} - Minecraft Skin",
-      description: "Skin by #{@skin.user.display_name}. Create, modify and share skins on NeedCoolerShoes.com"
-    }
+    show_meta_config
+    @attributions = @skin.attributions.attributed_visible_to_user(current_user).with_attributed_skin
+    @variants = @skin.variants.visible_to_user(current_user)
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }
       format.html { render }
@@ -73,6 +70,7 @@ class SkinsController < ApplicationController
   end
 
   def edit
+    meta_config {|config| config.title = "Editing Skin" }
   end
 
   def update
@@ -89,6 +87,7 @@ class SkinsController < ApplicationController
   end
 
   def moderator_edit
+    meta_config {|config| config.title = "Moderating Skin" }
   end
 
   def moderator_update
@@ -169,6 +168,41 @@ class SkinsController < ApplicationController
   end
 
   private
+
+  def index_meta_config
+    meta_config do |config|
+      config.title = if params[:user].present?
+        "Skins by #{params[:user].titleize}"
+      elsif params[:favourited_by].present?
+        "#{params[:favourited_by].titleize}'s Favourites"
+      else
+        "Gallery"
+      end
+      config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
+      config.description = "Search and browse Minecraft skins created with our Skin Editor, by part, category or tag."
+
+      if @jam.present?
+        config.title = @jam.name
+        config.description = @jam.description.to_s.split("\n").first.strip
+      end
+    end
+  end
+
+  def show_meta_config
+    if @skin.description.present?
+      desc = @skin.description.tr("\n", " ").delete_suffix(".").strip
+    else
+      desc = "Skin by #{@skin.user.display_name}"
+    end
+    desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
+    
+    meta_config do |config|
+      config.title = "#{@skin.name.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
+      config.image = skin_social_url(@skin, format: :png)
+      config.image_alt = "#{config.title} - Minecraft Skin"
+      config.description = desc.truncate(130)
+    end
+  end
 
   def render_img_missing
     img = File.read("public/ncsassets/img/missing_img.png")

@@ -1,15 +1,3 @@
-<% content_for :title, "#{@skin.name.truncate(32)} by #{@skin.user.display_name}" %>
-<% 
-  content_for :meta_description do
-    if @skin.description.present?
-      desc = @skin.description.delete_suffix(".")
-    else
-      desc = "Skin by #{@skin.user.display_name}"
-    end
-    desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
-    desc[0, 130]
-  end
-%>
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>
@@ -152,11 +140,11 @@
         </details>
       </div>
     <% end %>
-    <% if @skin.variants.any? %>
+    <% if @variants.any? %>
     <div class="bg-white p-4 mt-2">
       <h4 class="font-bold text-lg">Used In</h4>
       <div class="flex flex-wrap gap-2 items-start">
-        <%= render partial: "attribution", collection: @skin.variants, as: :attribution, locals: {variant: true} %>
+        <%= render partial: "attribution", collection: @variants, as: :attribution, locals: {variant: true} %>
       </div>
     </div>
     <% end %>

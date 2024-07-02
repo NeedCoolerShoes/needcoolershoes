@@ -6,9 +6,14 @@ class UsersController < ApplicationController
   require_role :moderator, only: %i[moderator_edit moderator_update]
 
   def show
+    meta_config do |config|
+      config.title = "#{@user.display_name}'s Profile".truncate(32)
+      config.description = @user.biography&.tr("\n", " ")&.strip || "A Miner in Need of Cooler Shoes."
+    end
   end
 
   def edit
+    meta_config { |config| config.title = "Editing Profile".truncate(32) }
   end
 
   def moderator_edit

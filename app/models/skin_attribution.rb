@@ -3,7 +3,9 @@ class SkinAttribution < ApplicationRecord
   belongs_to :attributed_skin, class_name: "Skin", optional: true
 
   scope :with_attributed_skin, -> { where.not(attributed_skin_id: nil) }
-  scope :visible_to_user, ->(user) { where(attributed_skin_id: Skin.visible_to_user(user)) }
+  scope :visible_to_user, ->(user) { where(skin_id: Skin.visible_to_user(user)) }
+  scope :attributed_visible_to_user, ->(user) { where(attributed_skin_id: Skin.visible_to_user(user)) }
+
 
   validates :attributed_skin, uniqueness: { scope: :skin }
 
