@@ -2,3 +2,7 @@
 User-agent: *
 Disallow: /users/sign_in
 Disallow: /users/sign_up
+
+# Prevent Amazon from getting stuck on the gallery
+User-agent: Amazonbot
+Disallow: /gallery/
