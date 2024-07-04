@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "skins", to: redirect('/gallery')
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   get "skins/:id/social", to: "skins#social", as: "skin_social"
+  get "skins/:id/embed", to: "skins#embed", as: "skin_embed"
   get "skins/:id/moderate", to: "skins#moderator_edit", as: "skin_moderate"
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
   patch "skins/:id/moderate", to: "skins#moderator_update", as: "update_skin_moderate"

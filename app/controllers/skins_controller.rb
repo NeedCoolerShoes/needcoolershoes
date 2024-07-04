@@ -1,10 +1,12 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download destroy add_favourite remove_favourite preview social]
+  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download destroy add_favourite remove_favourite preview social embed]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download]
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
+
+  after_action :allow_iframe, only: :embed
 
   def index
     @gallery_params = gallery_params
@@ -84,6 +86,10 @@ class SkinsController < ApplicationController
         format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
       end
     end
+  end
+
+  def embed
+    render layout: false
   end
 
   def moderator_edit
@@ -256,5 +262,9 @@ class SkinsController < ApplicationController
     json.map { |tag| tag["value"] }
   rescue
     []
+  end
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
   end
 end

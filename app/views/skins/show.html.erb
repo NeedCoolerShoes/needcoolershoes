@@ -88,21 +88,48 @@
           <%= markdown @skin.description %>
         </div>
       <% end %>
-      <details>
+      <details class="space-y-2">
         <summary class="select-none cursor-pointer font-bold"><%= t "skins.attributions.self" %></summary>
-        <div class="flex gap-2">
-          <div id="attribution">
-            <%= render partial: "attribution_text", locals: {skin: @skin, attribution: nil, icons: false} %>
-          </div>
-          <div class="relative">
-            <button title="<%= t "actions.copy" %>" onclick="copyAttribution()">
-              <%= heroicon "document-duplicate" %>
-            </button>
-            <span id="copy-text" class="hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
-              <%= t "actions.copied" %>
-            </span>
-          </div>
+        <div class="relative">
+          <button type="button" class="underline" onclick="copyText('<%= skin_url(@skin) %>', true)">
+            Copy Link to this Skin
+            <%= heroicon "document-duplicate", class: "inline" %>
+          </button>
+          <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+            <%= t "actions.copied" %>
+          </span>
         </div>
+        <fieldset class="border border-black p-2 rounded">
+          <legend class="font-bold">Attribution</legend>
+          <div class="flex gap-2">
+            <div id="attribution" class="break-words">
+              <%= render partial: "attribution_text", locals: {skin: @skin, attribution: nil, icons: false} %>
+            </div>
+            <div class="relative">
+              <button title="<%= t "actions.copy" %>" onclick="copyText('attribution')">
+                <%= heroicon "document-duplicate" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset class="border border-black p-2 rounded">
+          <legend class="font-bold">Embed Skin</legend>
+          <p>Add the following HTML to your site, to embed a preview of this skin.</p>
+          <div class="flex gap-2">
+            <textarea readonly="true" cols="5" name="embed" id="embed" class="grow resize" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
+            <div class="relative">
+              <button title="<%= t "actions.copy" %>" onclick="copyText('embed')">
+                <%= heroicon "document-duplicate" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
       </details>
       
       <% if @skin.can_user_edit?(current_user) %>
@@ -152,16 +179,26 @@
 </div>
 <script>
   // https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
-  function copyAttribution() {
+  function copyText(id, createText = false) {
+    let element;
+    if (createText) {
+      element = document.createElement('span');
+      element.innerText = id;
+      document.body.append(element);
+    } else {
+      element = document.getElementById(id);
+    }
     var range = document.createRange();
-    range.selectNode(document.getElementById("attribution"));
+    range.selectNode(element);
     window.getSelection().removeAllRanges(); // clear current selection
     window.getSelection().addRange(range); // to select text
     document.execCommand("copy");
     window.getSelection().removeAllRanges();// to deselect
 
-    const copied = document.getElementById("copy-text");
+    const copied = element.parentElement.querySelector(".copy-text");
     copied.classList.remove("hidden", "hidden-fade");
+
+    if (createText) { element.remove(); }
 
     setTimeout(() => {
       copied.classList.add("hidden-fade");

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <script src="/ncsassets/js/skinview3d.bundle.js"></script>
+  </head>
+
+  <body>
+    <canvas id="skin"></canvas>
+    <div id="link">
+      <a href="<%= skin_path(@skin) %>">
+        <img src="/ncsassets/img/lilmeowmeow.png" alt="Mascot of NeedCoolerShoes" width="32">
+        <span>View it on <strong>NeedCoolerShoes</strong></span>
+      </a>
+    </div>
+  </body>
+
+  <script>
+    const canvas = document.getElementById("skin")
+    const parent = canvas.parentElement
+    const skinViewer = new skinview3d.SkinViewer({
+      canvas: canvas,
+      width: parent.clientWidth,
+      height: parent.clientHeight,
+      skin: "<%= @skin.data %>"
+    });
+
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      skinViewer.zoom = 0.7
+    }
+
+    function updateSize(width, height) {
+      width = Math.floor(width)
+      height = Math.floor(height)
+      if (width == canvas.width && height == canvas.height) { return; }
+      canvas.width = width
+      canvas.height = height
+      skinViewer.width = width
+      skinViewer.height = height
+    }
+
+    let resizeObserver = new ResizeObserver(
+      entries => {
+        const entry = entries[0]
+        console.log(entry.target.clientHeight, canvas.height)
+        updateSize(entry.target.clientWidth, entry.target.clientHeight)
+      }
+    )
+
+    resizeObserver.observe(parent)
+  </script>
+
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0px;
+      overflow: clip;
+    }
+
+    #link {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      font-size: 14px;
+      font-family: Lato, sans-serif;
+    }
+
+    @media (min-width: 600px) {
+      #link {
+        font-size: 18px;
+      }
+    }
+
+    #link > a {
+      display: flex;
+      align-items: end;
+      gap: 0.25rem;
+      color: black;
+    }
+  </style>
+</html>
