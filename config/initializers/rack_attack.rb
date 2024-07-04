@@ -64,8 +64,14 @@ class Rack::Attack
 
   ### Block spammy bots ###
 
+  # Block content grabbers
   Rack::Attack.blocklist('block bad UA') do |req|
-    req.user_agent.match? /facebookexternalhit|ClaudeBot|GPTBot/
+    req.user_agent.match?(/ClaudeBot|GPTBot|FriendlyCrawler/)
+  end
+
+  # Prevent broken bots from getting stuck in query hell
+  Rack::Attack.blocklist('block broken UA') do |req|
+    req.user_agent.match?(/facebookexternalhit|Amazonbot/) && !req.query_string.empty?
   end
 
   ### Custom Throttle Response ###
