@@ -45,7 +45,9 @@ App.Toolbar = function (a, b) {
       i[l].getName() +
       '" class = "' +
       i[l].getName() +
-      '" ><button ></button></li>'),
+      '" ><button aria-label="'
+      + i[l].getTitle()
+      + '"></button></li>'),
       (function (a) {
         b.keys.bind(a + 1 + "", function () {
           d(i[a].getName());
