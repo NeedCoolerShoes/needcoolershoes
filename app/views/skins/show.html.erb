@@ -117,7 +117,8 @@
         </fieldset>
         <fieldset class="border border-black p-2 rounded">
           <legend class="font-bold">Embed Skin</legend>
-          <p>Add the following HTML to your site, to embed a preview of this skin.</p>
+          <p>Add the following HTML to your site, to embed a preview of this skin. For more info, see
+          <%= link_to "the guide", embeds_guide_path, class: "underline", target: "_blank" %>.</p>
           <div class="flex gap-2">
             <textarea readonly="true" cols="5" name="embed" id="embed" class="grow resize" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
             <div class="relative">

@@ -1,0 +1,89 @@
+<div class="prose bg-ncs-yellow-200 p-4 rounded shadow max-w-none">
+  <h1>Working with Embeds</h1>
+  <p>
+    NeedCoolerShoes allows users to embed a 3D preview of any public / unlisted skin, on to their own site.
+  </p>
+  <p>
+    This guide assumes that the reader is familiar with basic HTML. We will be working with
+    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe"  target="_blank">iframes</a>.
+  </p>
+  <h2 id="step-1">Step 1: Getting the iframe Code</h2>
+  <p>
+    First, browse to the skin you want to embed. Visit its page, and then click the <strong>Sharing & Attribution</strong>
+    button.
+  </p>
+  <figure>
+    <img src="https://res.cloudinary.com/moxvallix/image/upload/v1720160386/NeedCoolerShoes/guides/working-with-embeds-1_jd0qdc.png" alt="Skin Page">
+    <figcaption>The open Sharing & Attribution menu</figcaption>
+  </figure>
+  <p>
+    Where it says '<strong>Embed Skin</strong>', copy the iframe code from within the text area.
+  </p>
+  <h2 id="step-2">Step 2: Embedding it on your Own Site</h2>
+  <p>
+    The next step is to paste the iframe in to the code of your website.
+    In the next step, we'll discuss making it look good, but for now we just want something that works.
+  </p>
+  <figure>
+    <img src="https://res.cloudinary.com/moxvallix/image/upload/v1720160527/NeedCoolerShoes/guides/working-with-embeds-2_nzt5ma.png" alt="Example HTML">
+    <figcaption>Some example code, with the iframe.</figcaption>
+  </figure>
+  <p>
+    Once you have added it to your HTML, open it in your browser and confirm the skin is loading correctly. If it is, move to
+    <a href="#step-3">Step 3</a>.
+  </p>
+  <h3>Help! The iframe is just showing an error message!</h3>
+  <p>Firstly, make sure the skin is not set to private. Private skins cannot be embedded.</p>
+  <p>
+    If it's not private, it's likely you have CSP on your website. Explaining CSP is out of scope for this guide,
+    but <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank">here is a great MDN article on the topic</a>.
+  </p>
+  <p>You will need to add the following policy to your CSP:</p>
+  <code>frame-src needcoolershoes.com;</code>
+  <h2 id="step-3">Step 3: Customization</h2>
+  <p>
+    The iframe itself can be styled much like any other element. You can resize it to any size you like; the skin will scale to fit the given size.
+  </p>
+  <p>
+    Unfortunately, due to limitations with iframes that exist for security reasons, CSS on your site cannot style content within the iframe.
+  </p>
+  <p>
+    As such, the embed URL has some
+    <a href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#parameters" target="_blank">parameters</a>
+    that can be set to change the style of the embed. They are as follows.
+  </p>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Values</th>
+      <th>Description</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>color</td>
+        <td><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color" target="_blank">A CSS Color</a>.</td>
+        <td>Changes the text color of the link to NeedCoolerShoes.</td>
+      </tr>
+      <tr>
+        <td>scale</td>
+        <td>A decimal number, recommended to be between 0 and 1.</td>
+        <td>Changes the initial zoom level of the skin.</td>
+      </tr>
+      <tr>
+        <td>username</td>
+        <td>Any text.</td>
+        <td>Sets the username to be displayed on the skin.</td>
+      </tr>
+      <tr>
+        <td>position</td>
+        <td><code>top-left</code>, <code>top-right</code>, <code>bottom-left</code> or <code>bottom-right</code>.</td>
+        <td>Configures where the link should be placed.</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>An Example:</h3>
+  <code>https://needcoolershoes.com/skins/1/embed?color=green&username=Moxvallix</code>
+  <p>
+    Using the URL above in the iframe will render the NeedCoolerShoes link in green, and set the skin's username to Moxvallix.
+  </p>
+</div>

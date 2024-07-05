@@ -40,6 +40,12 @@ Rails.application.routes.draw do
     get "mncs_archive", to: redirect("/terms/mncs-archive")
   end
 
+  scope :guides do
+    get "/", to: "guides#index", as: "guides"
+    get "working-with-embeds", to: "guides#embeds", as: "embeds_guide"
+    get "creating-your-first-skin", to: "guides#editor", as: "editor_guide"
+  end
+
   get 'badges', to: redirect('/hall-of-fame'), as: ''
   get 'hall-of-fame', to: "badges#index", as: 'badges'
   resources :badges, except: :index
