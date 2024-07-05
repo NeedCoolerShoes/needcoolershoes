@@ -22,6 +22,7 @@
   </body>
 
   <script>
+    const config = new URLSearchParams(window.location.search)
     const canvas = document.getElementById("skin")
     const parent = canvas.parentElement
     const skinViewer = new skinview3d.SkinViewer({
@@ -31,11 +32,27 @@
       skin: "<%= @skin.data %>"
     });
 
+    function ifConfig(key, callback) {
+      const value = config.get(key)
+      if (value) { callback(value) }
+    }
+
     if (window.matchMedia("(max-width: 600px)").matches) {
       skinViewer.zoom = 0.7
     }
 
-    <%= params[:scale] ? "skinViewer.zoom = #{params[:scale]}" : nil  %>
+    ifConfig('color', value => document.body.style.setProperty('--color', value))
+    ifConfig('scale', value => skinViewer.zoom = value)
+    ifConfig('username', value => skinViewer.nameTag = value)
+    ifConfig('position', value => {
+      const link = document.getElementById('link')
+      switch (value) {
+        case 'top-left': link.classList.add('tl'); break;
+        case 'top-right': link.classList.add('tr'); break;
+        case 'bottom-right': link.classList.add('br'); break;
+        default: break;
+      }
+    })
 
     function updateSize(width, height) {
       width = Math.floor(width)
@@ -50,7 +67,6 @@
     let resizeObserver = new ResizeObserver(
       entries => {
         const entry = entries[0]
-        console.log(entry.target.clientHeight, canvas.height)
         updateSize(entry.target.clientWidth, entry.target.clientHeight)
       }
     )
@@ -59,6 +75,10 @@
   </script>
 
   <style>
+    :root {
+      --color: black;
+    }
+
     html, body {
       height: 100%;
       width: 100%;
@@ -74,6 +94,21 @@
       font-family: Lato, sans-serif;
     }
 
+    #link.tl {
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+
+    #link.tr {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+
+    #link.br {
+      bottom: 0.5rem;
+      right: 0.5rem;
+    }
+
     @media (min-width: 600px) {
       #link {
         font-size: 18px;
@@ -82,9 +117,9 @@
 
     #link > a {
       display: flex;
-      align-items: end;
-      gap: 0.25rem;
-      color: <%= params[:color] || "black"  %>;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--color);
     }
   </style>
 </html>
