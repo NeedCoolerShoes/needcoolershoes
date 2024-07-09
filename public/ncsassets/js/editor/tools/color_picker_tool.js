@@ -34,27 +34,41 @@ App.ColorPickerTool = function (a, b) {
   }
   function e(a, fromPalette) {
     var color = (fromPalette ? getPaletteColor() : k);
-    if (!a || color.isAlpha()) return color;
+    if (!a || color.isAlpha()) return color.clone();
     var b = color.getHSL();
     return b.l >= 0.5
       ? new THREE.Color(color).setHSL(b.h, b.s, b.l - Math.random() / 8)
       : new THREE.Color(color).setHSL(b.h, b.s, b.l + Math.random() / 10);
   }
   function f(a) {
-    a.isAlpha()
-      ? k.isAlpha() || n.addClass("transparent-active")
-      : (r.wheelColorPicker("setValue", a.getHexString()),
-        k.isAlpha() && n.removeClass("transparent-active")),
-      (k = a.clone()),
-      (localStorage.currentColor = JSON.stringify(k));
-      r[0].value = `#${a.getHexString()}`;
-      r[0].style.backgroundColor = `#${a.getHexString()}`;
+    if (a.isAlpha()) {
+      if (!k.isAlpha()) { n.addClass("transparent-active"); }
+    } else {
+      r.wheelColorPicker("setValue", a.getHexString());
+
+      if (k.isAlpha()) {
+        n.removeClass("transparent-active")
+      }
+    }
+
+    k = a.clone();
+    localStorage.currentColor = JSON.stringify(k);
+    r[0].value = `#${k.getHexString()}`;
+    r[0].style.backgroundColor = `#${k.getHexString()}`;
   }
   function g(a) {
-    a || (a = k.getHexString()),
-      l.indexOf(a) != -1 ||
-        k.isAlpha() ||
-        (l.push(a), l.length > 24 && l.shift(), h());
+    let hex = a || k.getHexString();
+    if (hex == "00ff00") { return; }
+
+    let colorInt = parseInt("0x" + hex, 16);
+    let color = new THREE.Color(colorInt).getHexString()
+    
+    if (l.indexOf(color) != -1) { return; }
+    l.push(color);
+
+    if (l.length > 24) { l.shift(); }
+
+    h();
   }
   function h() {
     var a = "";
@@ -197,8 +211,8 @@ App.ColorPickerTool = function (a, b) {
     }),
     q.on("click", "div", function (event) {
       var color = $(this).attr("data-color");
-      var a = parseInt("0x" + color, 16);
-      f(new THREE.Color(a).protectAlpha());
+      var colorInt = parseInt("0x" + color, 16);
+      f(new THREE.Color(colorInt).protectAlpha());
       if (event.shiftKey) {
         addPaletteColor(color)
       }
@@ -220,7 +234,6 @@ App.ColorPickerTool = function (a, b) {
     h(),
     showBlendPalette(),
     f(new THREE.Color().setRGB(1, 0, 0)),
-    console.log(a),
     $(".jQWCP-wWidget").width(a.width()),
     {
       enableDropper: c,
