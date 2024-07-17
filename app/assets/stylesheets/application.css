@@ -227,9 +227,19 @@
   font-display: swap;
 }
 
-html {
+/* html {
   background: repeat-x url("/ncsassets/img/bg-top-tile.jpg") center top, repeat url(/ncsassets/img/bg-tile.jpg) center bottom, no-repeat linear-gradient(180deg, rgba(7,16,45,1) 0%, rgba(92,160,183,1) 160px, rgba(247,243,195,1) 800px, rgba(247,243,195,1) 100%);
   height: 100%;
+} */
+
+html {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/ncsassets/img/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  image-rendering: pixelated;
 }
 
 body {
