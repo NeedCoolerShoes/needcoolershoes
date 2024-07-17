@@ -394,9 +394,6 @@ class NCRSBannerColorList extends HTMLElement {
     if (!this.getAttribute("selected")) {
       this.setAttribute("selected", color)
     }
-  }
-  
-  connectedCallback() {
     this._setupDom(this.getAttribute("selected"))
   }
 
@@ -414,9 +411,6 @@ class NCRSBannerColorList extends HTMLElement {
 class NCRSBannerPatternList extends HTMLElement {
   constructor() {
     super()
-  }
-  
-  connectedCallback() {
     this._setupDom()
   }
 
