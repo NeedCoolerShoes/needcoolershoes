@@ -1,0 +1,472 @@
+:root {
+  --ncs-banner-scale: 1;
+}
+
+[is=ncrs-banner-color] {
+  all: unset;
+  width: 1.5rem;
+  height: 1.5rem;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+[is=ncrs-banner-color][selected] {
+  box-shadow: 0 0 5px black;
+  border: 1px solid white;
+  cursor: revert;
+}
+
+[is=ncrs-banner-color][color="#ffffff"] {
+  border: 1px solid black;
+}
+
+[is=ncrs-banner-pattern], .pattern-preview {
+  all: unset;
+  background-image: url("/ncsassets/img/banner/banner_bg.png");
+  cursor: pointer;
+}
+
+ncrs-banner-pattern-preview {
+  display: block;
+  image-rendering: pixelated;
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+  background-color: var(--ncs-banner-color);
+  mask-image: url("/ncsassets/img/banner/banner_sprites.png");
+  -webkit-mask-image: url("/ncsassets/img/banner/banner_sprites.png");
+  mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
+  -webkit-mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
+  mask-size: calc(100px * var(--ncs-banner-scale)) auto;
+  -webkit-mask-size: calc(100px * var(--ncs-banner-scale)) auto;
+}
+
+ncrs-banner-layer {
+  display: block;
+  position: relative;
+}
+
+ncrs-banner-layer[hidden]::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.5);
+  pointer-events: none;
+  z-index: 5;
+}
+
+ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.layer-container {
+  flex-grow: 1;
+  display: flex;
+  align-content: stretch;
+  gap: 0.25rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-right: 0.5rem;
+}
+
+#layers-container {
+  background-color: white;
+  min-height: 343px;
+}
+
+#layers {
+  margin: 0px;
+  padding: 0px;
+}
+
+#layers li {
+  list-style: none;
+  border-color: rgba(0, 0, 0, 0.05);
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+  background-color: white;
+}
+
+#layers li:nth-child(7) {
+  border-top: 1px solid red;
+}
+
+#layers li:nth-child(n + 7) {
+  background-color: #faeeee;
+}
+
+.pattern-preview {
+  position: relative;
+}
+
+#base {
+  border-color: rgba(0, 0, 0, 0.05);
+  border-style: solid;
+  border-width: 0px 0px 1px 0px;
+}
+
+#base .pattern-preview {
+  width: 20px;
+  height: 40px;
+  box-sizing: border-box;
+  background-image: url(/ncsassets/img/banner/banner_overlay.png);
+  background-color: var(--ncs-banner-color);
+  border: 1px solid var(--ncs-banner-color);
+}
+
+#base ncrs-banner-patternset[color="#ffffff"] .pattern-preview {
+  border-color: black;
+}
+
+.pattern-preview:hover > .layer-selector, .pattern-preview:focus > .layer-selector {
+  display: flex;
+}
+
+.layer-selector {
+  position: absolute;
+  display: none;
+  align-items: start;
+  gap: 0.5rem;
+  top: 20px;
+  left: -80px;
+  z-index: 10;
+}
+
+.layer-selector > ncrs-banner-color-list, .layer-selector > ncrs-banner-pattern-list {
+  background-color: white;
+  padding: 0.25rem;
+  border: 1px solid black;
+}
+
+.layer-selector > ncrs-banner-color-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.125rem;
+}
+
+.layer-selector > ncrs-banner-pattern-list {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.125rem;
+}
+
+.layer-color {
+  width: 0.25rem;
+  background-color: var(--ncs-banner-color);
+  border: 1px solid rgba(153, 153, 153, 0.53);
+}
+
+.layer-spacer {
+  flex-grow: 1;
+}
+
+.layer-handle {
+  background: url(/ncsassets/img/banner/handle.png) no-repeat 50% 50%;
+  width: 18px;
+  height: 40px;
+  cursor: move;
+  display: inline-block;
+}
+
+#app .header {
+  background: #f5e9b7;
+  color: black;
+  border-bottom: none;
+  overflow: hidden;
+  padding: 5px 10px;
+}
+
+#app .header > h2 {
+  font-size: medium;
+  font-weight: normal;
+  font-family: sans-serif;
+  margin: 0px;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 998px;
+}
+
+@media screen and (min-width: 484px) {
+  #app {
+    display: grid;
+    grid-template-areas:
+      "a b b"
+      "c c c";
+  }  
+}
+
+@media screen and (min-width: 893px) {
+  #app {
+    grid-template-areas: "a b c";
+    grid-template-columns: 1fr 1fr 2fr;
+  }  
+}
+
+#preview-area {
+  grid-area: a;
+}
+
+#layers-area {
+  grid-area: b;
+}
+
+#patterns-area {
+  grid-area: c;
+}
+
+#app section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#layer-picker {
+  background-color: white;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+#layer-picker > ncrs-banner-color-list {
+  display: flex;
+  gap: 0.25rem;
+}
+
+#layer-picker > hr {
+  width: 100%;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+#layer-picker > ncrs-banner-pattern-list {
+  max-width: 460px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+#preview-container {
+  --ncs-banner-scale: 8;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
+  image-rendering: pixelated;
+}
+
+#preview {
+  border-right: 3px solid rgba(163, 163, 162, 0.5);
+}
+
+.preview-base {
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+  background-color: var(--ncs-banner-color);
+  background-image: url(/ncsassets/img/banner/banner_overlay.png);
+  background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
+}
+
+ncrs-banner-preview {
+  position: relative;
+  display: block;
+}
+
+ncrs-banner-preview > ncrs-banner-pattern-preview {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+#preview-overlay {
+  display: none;
+  position: absolute;
+  left: 0px;
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+}
+
+.preview-skew {
+  transform: rotateY(-7deg);
+  transform-origin: 100% 50%;
+  transform-style: preserve-3d;
+  perspective: 1400px;
+  position: relative;
+  perspective-origin: 200% 20%;
+}
+
+.preview-wave {
+  display: flex;
+  justify-content: center;
+  transform-origin: 50% 0%;
+  position: relative;
+  animation: wave 5s ease-in-out infinite;
+}
+
+.layer-toggle {
+  all: unset;
+  background-image: url(/ncsassets/img/banner/eye.png);
+  width: 16px;
+  height: 16px;
+  align-self: center;
+  position: relative;
+  cursor: pointer;
+  z-index: 5;
+}
+
+ncrs-banner-layer[hidden] .layer-toggle {
+  background-image: url(/ncsassets/img/banner/eye_closed.png);
+}
+
+.layer-remove {
+  all: unset;
+  background-image: url(/ncsassets/img/banner/remove.png);
+  width: 16px;
+  height: 16px;
+  align-self: center;
+  cursor: pointer;
+}
+
+.layer-move {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.layer-move-up, .layer-move-down {
+  all: unset;
+  background-image: url(/ncsassets/img/banner/arrow_up.png);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.layer-move-down {
+  background-image: url(/ncsassets/img/banner/arrow_down.png);
+}
+
+#layers li:first-child .layer-move-up {
+  display: none;
+}
+
+#layers li:last-child .layer-move-down {
+  display: none;
+}
+
+#url, #saved-banners-url {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#url-banners, #saved-banners {
+  padding: 0.25rem;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+#save-button {
+  all: unset;
+  cursor: pointer;
+  user-select: none;
+  width: 20px;
+  height: 40px;
+  text-align: center;
+}
+
+.url-banner {
+  all: unset;
+  cursor: pointer;
+  position: relative;
+}
+
+.saved-banner-delete {
+  all: unset;
+  display: none;
+  position: absolute;
+  background-image: url(/ncsassets/img/banner/remove.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  padding: 0.125rem;
+  top: -16px;
+}
+
+.url-banner:hover .saved-banner-delete {
+  display: block;
+}
+
+.banner-container {
+  background-color: white;
+}
+
+.banner-container h3 {
+  all: unset;
+  font-size: small;
+  font-family: sans-serif;
+  padding-left: 0.25rem;
+  color: #444;
+}
+
+ncrs-banner-command {
+  display: block;
+  padding: 0.25rem;
+}
+
+ncrs-banner-command > textarea {
+  width: 100%;
+  min-height: 80px;
+  box-sizing: border-box;
+  resize: none;
+  font-family: monospace;
+  font-size: medium;
+  word-break: break-all;
+}
+
+.command-button {
+  font-size: 12px;
+  height: 22px;
+  color: white;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.3) inset;
+  user-select: none;
+  padding: 0 6px;
+  line-height: 20px;
+  vertical-align: middle;
+  background: #368d2f;
+  text-decoration: none;
+  margin-left: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+[type="text"], textarea {
+  padding: 0.25rem;
+}
+
+[hidden] {
+  display: block;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotateX(1deg);
+  }
+  50% {
+    transform: rotateX(-6deg);
+  }
+  100% {
+    transform: rotateX(1deg);
+  }
+}

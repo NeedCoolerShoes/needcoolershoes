@@ -1,0 +1,241 @@
+<% content_for :styles do %>
+  <link href="/ncsassets/css/banner.css" rel="stylesheet" />
+<% end %>
+<% content_for :scripts do %>
+  <div id="skin-add-bar">
+    <div class="skins"></div>
+  </div>
+  
+  <script src="/ncsassets/js/banner.js"></script>
+<% end %>
+<% content_for :message do %>
+  <div class="p-2 bg-ncs-yellow-200 !mb-2 shadow">
+    Credits to <%= link_to "Algoinde", "https://algoinde.ru/", class: "text-black underline" %> for the banner generator!
+  </div>
+<% end %>
+<div id="content">
+  <div id="banner" class="bg">
+    <div id="hidey" class=""></div>
+    <div class="fix" id="main">
+      <div class="canvas-cont epic">
+        <div class="header"><div>Preview</div></div>
+        <div id="canvas-skew">
+          <div id="canvas-wave">
+            <div id="canvas">
+              <i ptn="base" id="base" clr="15"></i>
+            </div>
+            <div id="base-overlay"></div>
+            <div id="preview"></div>
+          </div>
+        </div>
+        <div class="canv-tool">
+          <div class="btn" onmousedown="chaos()">Randomize!</div>
+          <div class="btn" onmousedown="clearAll()">Clear All</div>
+        </div>
+        <div id="saved-gal-cont" class="hidden">
+          <div class="header">
+            <div>URL Banner</div>
+            <div
+              class="header-button bchestex"
+              onmousedown="exportChest(1)"
+            >
+              Export to chest
+            </div>
+          </div>
+          <div id="saved-gal" onmousedown="savedGalHandler(event)"></div>
+        </div>
+      </div>
+      <div class="layers-cont" id="layers-cont">
+        <div class="header"><div>Layers</div></div>
+        <div id="layers">
+          <div class="layer vis">
+            <div class="layer-color white"></div>
+            <div class="layer-pattern">
+              <div class="layer-hover">
+                <div class="layer-color-container">
+                  <div class="tb-color black" title="black"></div>
+                  <div class="tb-color dark_gray" title="dark_gray"></div>
+                  <div class="tb-color gray" title="gray"></div>
+                  <div class="tb-color white" title="white"></div>
+                  <div class="tb-color pink" title="pink"></div>
+                  <div class="tb-color magenta" title="magenta"></div>
+                  <div class="tb-color purple" title="purple"></div>
+                  <div class="tb-color blue" title="blue"></div>
+                  <div class="tb-color cyan" title="cyan"></div>
+                  <div
+                    class="tb-color light_blue"
+                    title="light_blue"
+                  ></div>
+                  <div class="tb-color green" title="green"></div>
+                  <div class="tb-color lime" title="lime"></div>
+                  <div class="tb-color yellow" title="yellow"></div>
+                  <div class="tb-color orange" title="orange"></div>
+                  <div class="tb-color brown" title="brown"></div>
+                  <div class="tb-color red" title="red"></div>
+                </div>
+              </div>
+              <i class="tb-ptn" clr="15" ptn="base"></i>
+            </div>
+            <div class="layer-craft"></div>
+          </div>
+        </div>
+        <div id="total"></div>
+      </div>
+
+      <div class="toolbar-cont">
+        <div class="header"><div>Layer Creation</div></div>
+        <div id="toolbar">
+          <div id="toolbar-colors" onmousedown="colorsHandler(event)">
+            <div class="tb-color black sel" title="black"></div>
+            <div class="tb-color dark_gray" title="dark_gray"></div>
+            <div class="tb-color gray" title="gray"></div>
+            <div
+              class="tb-color white"
+              style="border: 1px solid #999"
+            ></div>
+            <div class="tb-color pink" title="pink"></div>
+            <div class="tb-color magenta" title="magenta"></div>
+            <div class="tb-color purple" title="purple"></div>
+            <div class="tb-color blue" title="blue"></div>
+            <div class="tb-color cyan" title="cyan"></div>
+            <div class="tb-color light_blue" title="light_blue"></div>
+            <div class="tb-color green" title="green"></div>
+            <div class="tb-color lime" title="lime"></div>
+            <div class="tb-color yellow" title="yellow"></div>
+            <div class="tb-color orange" title="orange"></div>
+            <div class="tb-color brown" title="brown"></div>
+            <div class="tb-color red" title="red"></div>
+          </div>
+          <div
+            id="toolbar-patterns"
+            onmousedown="patternsHandler(event)"
+            onmouseover="showPreview(event)"
+            onmouseout="hidePreview(event)"
+          >
+            <div class="tbc">
+              <i class="tb-ptn" ptn="gra" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="gru" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="bri" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="hh" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="hhb" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="vh" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="vhr" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="ts" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="bs" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="ls" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="rs" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="ld" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="rud" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="lud" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="rd" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="cr" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="dls" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="drs" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="sc" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="cs" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="ms" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="tl" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="bl" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="tr" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="br" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="tt" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="bt" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="mr" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="mc" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="bts" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="tts" clr="0"></i>
+            </div>
+            <div class="tbc"><i class="tb-ptn" ptn="ss" clr="0"></i></div>
+            <div class="tbc"><i class="tb-ptn" ptn="bo" clr="0"></i></div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="cbo" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="flo" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="cre" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="sku" clr="0"></i>
+            </div>
+            <div class="tbc">
+              <i class="tb-ptn" ptn="moj" clr="0"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="overtool">
+          <div class="header">
+            <div>Share link</div>
+            <!--         <div class="header-button" style = "text-decoration: none;">
+    Have a great banner? 
+    Share it on the community
+    <a href = "http://www.reddit.com/r/minecraftbanners"> subreddit! </a>
+  </div> -->
+          </div>
+          <input type="text" id="url" onclick="this.select()" />
+        </div>
+
+        <div class="header"><div>Generate Code</div></div>
+        <div class="generate">
+          <div class="button" onclick="jsonOutput(0)">/give</div>
+          <div class="button" onclick="jsonOutput(1)">/setblock</div>
+          <div class="button" onclick="jsonOutput(2)">/replaceitem</div>
+          |
+          <div
+            class="button"
+            style="background: #ce893a"
+            onclick="screenshot()"
+          >
+            Screenshot
+          </div>
+          |
+          <div class="button" onclick="jsonInput()">Import Code</div>
+          <span id="scrdl"><span></span></span>
+          <textarea id="code" onclick="this.select()"></textarea>
+        </div>
+        <div class="header">
+          <div>Saved Banners</div>
+          <div
+            class="header-button bchestex"
+            onmousedown="exportChest(0)"
+          >
+            Export to chest
+          </div>
+          <div class="header-button bchestex" onmousedown="clearSaved()">
+            Delete all
+          </div>
+        </div>
+        <div id="saved" onmousedown="savedHandler(event)">
+          <div class="saved-add" id="saved-add">+</div>
+          <div class="saved-addall hidden" id="saved-addall">+</div>
+        </div>
+        <div class="undertool">
+          <span class="url-desc">Share saved banners:</span
+          ><input type="text" id="url-gal" onclick="this.select()" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

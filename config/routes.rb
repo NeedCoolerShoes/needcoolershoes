@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  get "banner", to: "static#banner", as: "banner"
   get "about", to: "static#about", as: "about"
   get "faq", to: "static#faq", as: "faq"
   get "contact", to: "static#contact", as: "contact"
@@ -66,6 +65,11 @@ Rails.application.routes.draw do
   scope :editor do
     get "/", to: redirect("/")
     get "2010", to: "static#editor_2010", as: "editor_2010"
+  end
+
+  scope :banner do
+    get "/", to: "static#banner", as: "banner"
+    get "2014", to: "static#banner_2014", as: "banner_2014"
   end
 
   # API

@@ -23,6 +23,15 @@ class StaticController < ApplicationController
       config.title = "Banner Editor"
       config.description = "Banner Editor for Minecraft Banners. Create and share banners with your friends."
     end
+    render layout: "application"
+  end
+
+  def banner_2014
+    meta_config do |config|
+      config.title = "Banner Editor (2015)"
+      config.description = "This is the legacy Banner Editor circa 2015."
+    end
+    render layout: "static", template: "static/banner/2014"
   end
 
   def about
