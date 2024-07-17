@@ -83,7 +83,7 @@ class NCRSBannerPatternSet extends HTMLElement {
   #selectedColor
 
   selectColorByValue(value) {
-    let query = `[is=ncrs-banner-color][color="${value}"]`
+    let query = `ncrs-banner-color[color="${value}"]`
     const color = this.querySelector(query)
     if (!color) { return false }
     if (this.#selectedColor == color) { return true }
@@ -96,7 +96,7 @@ class NCRSBannerPatternSet extends HTMLElement {
     this.#selectedColor = newColor
     this.setAttribute("color", newColor.getAttribute("color"))
     this.style.setProperty("--ncs-banner-color", this.getAttribute("color"))
-    this.querySelectorAll("button[is=ncrs-banner-color]").forEach(color => {
+    this.querySelectorAll("ncrs-banner-color").forEach(color => {
       if (color == newColor) { return }
       color.removeAttribute("selected")
     })
