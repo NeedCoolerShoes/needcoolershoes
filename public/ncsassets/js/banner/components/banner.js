@@ -140,7 +140,7 @@ class NCRSBannerPatternSet extends HTMLElement {
   }
 }
 
-class NCRSBannerColor extends HTMLButtonElement {
+class NCRSBannerColor extends HTMLElement {
   static observedAttributes = ["color", "selected"];
 
   constructor() {
@@ -222,7 +222,7 @@ class NCRSBannerPatternPreview extends HTMLElement {
   }
 }
 
-class NCRSBannerPattern extends HTMLButtonElement {
+class NCRSBannerPattern extends HTMLElement {
   static observedAttributes = ["sprite"];
   constructor() {
     super()
@@ -394,6 +394,9 @@ class NCRSBannerColorList extends HTMLElement {
     if (!this.getAttribute("selected")) {
       this.setAttribute("selected", color)
     }
+  }
+  
+  connectedCallback() {
     this._setupDom(this.getAttribute("selected"))
   }
 
@@ -411,6 +414,9 @@ class NCRSBannerColorList extends HTMLElement {
 class NCRSBannerPatternList extends HTMLElement {
   constructor() {
     super()
+  }
+  
+  connectedCallback() {
     this._setupDom()
   }
 
@@ -470,8 +476,8 @@ class NCRSBannerPreview extends HTMLElement {
 }
 
 window.customElements.define('ncrs-banner-patternset', NCRSBannerPatternSet)
-window.customElements.define('ncrs-banner-color', NCRSBannerColor, {extends: "button"})
-window.customElements.define('ncrs-banner-pattern', NCRSBannerPattern, {extends: "button"})
+window.customElements.define('ncrs-banner-color', NCRSBannerColor)
+window.customElements.define('ncrs-banner-pattern', NCRSBannerPattern)
 window.customElements.define('ncrs-banner-pattern-preview', NCRSBannerPatternPreview)
 window.customElements.define('ncrs-banner-layer', NCRSBannerLayer)
 window.customElements.define('ncrs-banner-preview', NCRSBannerPreview)

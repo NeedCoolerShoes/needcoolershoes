@@ -2,7 +2,7 @@
   --ncs-banner-scale: 1;
 }
 
-[is=ncrs-banner-color] {
+ncrs-banner-color {
   all: unset;
   width: 1.5rem;
   height: 1.5rem;
@@ -10,17 +10,17 @@
   cursor: pointer;
 }
 
-[is=ncrs-banner-color][selected] {
+ncrs-banner-color[selected] {
   box-shadow: 0 0 5px black;
   border: 1px solid white;
   cursor: revert;
 }
 
-[is=ncrs-banner-color][color="#ffffff"] {
+ncrs-banner-color[color="#ffffff"] {
   border: 1px solid black;
 }
 
-[is=ncrs-banner-pattern], .pattern-preview {
+ncrs-banner-pattern, .pattern-preview {
   all: unset;
   background-image: url("/ncsassets/img/banner/banner_bg.png");
   cursor: pointer;
@@ -123,6 +123,13 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 
 .pattern-preview:hover > .layer-selector, .pattern-preview:focus > .layer-selector {
   display: flex;
+  flex-direction: column;
+}
+
+.layer-selector > ncrs-banner-color-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem;
 }
 
 .layer-selector {
@@ -131,7 +138,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   align-items: start;
   gap: 0.5rem;
   top: 20px;
-  left: -80px;
+  left: 0px;
   z-index: 10;
 }
 
@@ -141,16 +148,32 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   border: 1px solid black;
 }
 
-.layer-selector > ncrs-banner-color-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.125rem;
-}
-
 .layer-selector > ncrs-banner-pattern-list {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 0.125rem;
+}
+
+@media screen and (min-width: 484px) {
+  .layer-selector {
+    left: -80px;
+  }
+}
+
+@media screen and (min-width: 893px) {
+  .pattern-preview:hover > .layer-selector, .pattern-preview:focus > .layer-selector {
+    flex-direction: row;
+  }
+
+  .layer-selector > ncrs-banner-color-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+#base .layer-selector > ncrs-banner-color-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .layer-color {
@@ -238,6 +261,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 
 #layer-picker > ncrs-banner-color-list {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.25rem;
 }
 
