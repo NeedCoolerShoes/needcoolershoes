@@ -3,5 +3,5 @@ json.page do
   json.total @pagy.pages
 end
 json.skins do
-  json.partial! 'skin', collection: @skins, as: :skin
+  json.partial! "skin", collection: @skins, as: :skin
 end

@@ -8,7 +8,7 @@ class Modlog < ApplicationRecord
 
   scope :with_target_id, ->(id) { where(target_id: id) }
   scope :with_target_type, ->(type) { where(target_type: type) }
-  scope :with_user, ->(name) { includes(:user).where(user: { name: name }) }
+  scope :with_user, ->(name) { includes(:user).where(user: {name: name}) }
 
   scope :order_by_creation, ->(dir = :desc) { order(created_at: dir) }
 

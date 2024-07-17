@@ -7,9 +7,10 @@ module TextHelper
   end
 
   def markdown(text)
-    return '' if text.nil?
-    renderer = Redcarpet::Render::HTML.new(render_options = {filter_html: true, hard_wrap: true, link_attributes: {rel: :nofollow}})
-  
+    return "" if text.nil?
+    render_options = {filter_html: true, hard_wrap: true, link_attributes: {rel: :nofollow}}
+    renderer = Redcarpet::Render::HTML.new(render_options)
+
     extensions = %i[
       hard_wrap autolink no_intra_emphasis tables fenced_code_blocks
       disable_indented_code_blocks strikethrough lax_spacing quote
@@ -33,6 +34,6 @@ module TextHelper
     return "#{number / 1_000}K" if number < 1_000_000
     return "#{(number / 1_000_000.0).round(2)}M" if number < 9_999_999
     return "#{number / 1_000_000}M" if number < 1_000_000_000
-    return "1B+"
+    "1B+"
   end
 end

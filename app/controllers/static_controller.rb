@@ -2,14 +2,14 @@ class StaticController < ApplicationController
   CAPTCHA_QUESTION = "What item does a Creeper drop? (in English)"
   CAPTCHA_REGEX = /(gun)?\s*po(w|u)der/i
 
-  prepend_before_action :protect_from_spam, :only => [:send_message]
+  prepend_before_action :protect_from_spam, only: [:send_message]
   nav_section :editor, only: %i[editor editor_2010]
   nav_section :banner, only: :banner
 
   def editor
     @message = SiteMessage.latest&.message
   end
-  
+
   def editor_2010
     meta_config do |config|
       config.title = "Skin Editor (2010)"

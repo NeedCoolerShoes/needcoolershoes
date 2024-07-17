@@ -3,7 +3,7 @@ class SessionsController < Devise::SessionsController
 
   def otp
   end
-  
+
   private
 
   def verify_otp
@@ -13,7 +13,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def passes_otp_check?
-    return true unless self.resource = User.find_by(email: sign_in_params[:email])
+    return true unless (self.resource = User.find_by(email: sign_in_params[:email]))
     return true unless resource.otp_required_for_login
     return true if resource.verify_otp!(sign_in_params[:otp_attempt] || "")
     resource.password = sign_in_params[:password]

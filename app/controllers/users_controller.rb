@@ -41,19 +41,17 @@ class UsersController < ApplicationController
     old_attr = @user.attributes
     reason = params[:reason]
     respond_to do |format|
-      begin
-        user, modlog = nil
-        ActiveRecord::Base.transaction do
-          user = @user.update(user_params)
-          new_attr = @user.reload.attributes
-          modlog = Modlog.generate!(@user, current_user, old_attr, new_attr, reason)
-        end
-        raise "Error saving skin or modlog" unless skin && modlog
-
-        format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
-      rescue
-        format.html { redirect_to user_path(@user), alert: "Error updating user!" }
+      user, modlog = nil
+      ActiveRecord::Base.transaction do
+        user = @user.update(user_params)
+        new_attr = @user.reload.attributes
+        modlog = Modlog.generate!(@user, current_user, old_attr, new_attr, reason)
       end
+      raise "Error saving skin or modlog" unless skin && modlog
+
+      format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
+    rescue
+      format.html { redirect_to user_path(@user), alert: "Error updating user!" }
     end
   end
 
@@ -65,9 +63,8 @@ class UsersController < ApplicationController
 
   def set_user
     @user = User.find_by!(name: params[:user_id] || params[:id])
-
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path 
+    redirect_to root_path
   end
 
   def validates_current_user

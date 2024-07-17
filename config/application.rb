@@ -22,6 +22,6 @@ module Needcoolershoes
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Filter skin data to save on log storage.
-    config.filter_parameters += ['skin.data']
+    config.filter_parameters += ["skin.data"]
   end
 end

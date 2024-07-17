@@ -27,7 +27,7 @@ module OtpAuthenticatable
     false
   end
 
-  def totp(issuer = 'NeedCoolerShoes')
+  def totp(issuer = "NeedCoolerShoes")
     @totp ||= ::ROTP::TOTP.new(otp_secret, issuer: issuer)
   end
 

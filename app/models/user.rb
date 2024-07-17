@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  require 'zip'
+  require "zip"
 
   include OtpAuthenticatable
 
@@ -12,11 +12,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable
-  
+    :recoverable, :rememberable, :validatable, :trackable
+
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   belongs_to :featured_badge, class_name: "Badge", foreign_key: "featured_badge_id", optional: true
-  
+
   has_many :skins
   has_many :user_badges
   has_many :badges, through: :user_badges
@@ -25,17 +25,17 @@ class User < ApplicationRecord
   has_many :modlogs, as: :target
 
   validates :name,
-    format: { with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores" },
-    exclusion: { in: %w(sign_in sign_out password cancel sign_up edit current otp), message: "%{value} is reserved" },
+    format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},
+    exclusion: {in: %w[sign_in sign_out password cancel sign_up edit current otp], message: "%{value} is reserved"},
     uniqueness: true,
-    length: { maximum: 64 }
-  
-  validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }, length: { maximum: 256 }
-  validates :attribution_message, length: { maximum: 64 }, format: { with: /\A[ -~]+\z/ }
-  validates :biography, length: { maximum: 1024 }
-  
+    length: {maximum: 64}
+
+  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}
+  validates :attribution_message, length: {maximum: 64}, format: {with: /\A[ -~]+\z/}
+  validates :biography, length: {maximum: 1024}
+
   enum :role, ROLES
-  
+
   ROLES.each_with_index do |role, level|
     define_method :"#{role}?" do
       permission_level >= level
@@ -51,7 +51,7 @@ class User < ApplicationRecord
     level = User::ROLES.index(role)
     permission_level >= level
   end
-  
+
   def permission_level
     return -1 unless role.is_a? String
     ROLES.find_index(role.to_sym)
@@ -68,7 +68,7 @@ class User < ApplicationRecord
     if @pixels
       return @pixels[:count] unless @pixels[:expires] < Time.now
     end
-    @pixels = { count: pixel_count, expires: (Time.now + PIXEL_CACHE) }
+    @pixels = {count: pixel_count, expires: (Time.now + PIXEL_CACHE)}
     @pixels[:count]
   end
 
@@ -77,7 +77,7 @@ class User < ApplicationRecord
     return skins.visible.last.data if skins.visible.any?
     "/ncsassets/img/mncs_mascot_skin.png"
   end
-  
+
   def to_param
     name
   end

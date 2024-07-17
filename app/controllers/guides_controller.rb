@@ -1,7 +1,7 @@
 class GuidesController < ApplicationController
   def index
   end
-  
+
   def embeds
     meta_config do |config|
       config.title = "Working with Embeds"

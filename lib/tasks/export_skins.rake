@@ -1,4 +1,4 @@
-require 'fileutils'
+require "fileutils"
 
 namespace :export_skins do
   task :month, [:date] => :environment do |_task, args|

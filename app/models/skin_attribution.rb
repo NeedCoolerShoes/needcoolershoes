@@ -1,4 +1,4 @@
-class SkinAttribution < ApplicationRecord  
+class SkinAttribution < ApplicationRecord
   belongs_to :skin
   belongs_to :attributed_skin, class_name: "Skin", optional: true
 
@@ -6,13 +6,12 @@ class SkinAttribution < ApplicationRecord
   scope :visible_to_user, ->(user) { where(skin_id: Skin.visible_to_user(user)) }
   scope :attributed_visible_to_user, ->(user) { where(attributed_skin_id: Skin.visible_to_user(user)) }
 
-
-  validates :attributed_skin, uniqueness: { scope: :skin }
+  validates :attributed_skin, uniqueness: {scope: :skin}
 
   def self.create_from_url(skin, url, author = nil, *_)
     base_url = Routing.skins_url + "/"
     attribution = new(skin: skin, url: url, author: author)
-    
+
     if url.include? base_url
       begin
         attribution.attributed_skin = Skin.find(url.delete_prefix(base_url))

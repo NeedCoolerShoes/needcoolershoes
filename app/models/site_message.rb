@@ -1,5 +1,5 @@
 class SiteMessage < ApplicationRecord
-  validates :message, :active_at, presence: :true
+  validates :message, :active_at, presence: true
   attribute :bumped_at, :datetime, default: Time.current
 
   scope :order_by_bumped_at, ->(order = :desc) { order(bumped_at: order, id: order) }
@@ -10,7 +10,7 @@ class SiteMessage < ApplicationRecord
     return nil if record.expires_at && record.expires_at < Time.current
     record
   end
-  
+
   def bump!(time = Time.current)
     update!(bumped_at: time)
   end

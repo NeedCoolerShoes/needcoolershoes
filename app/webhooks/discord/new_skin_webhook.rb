@@ -1,7 +1,7 @@
 class Discord::NewSkinWebhook
   require "discordrb/webhooks"
   WEBHOOK_URL = ENV["NEW_SKIN_WEBHOOK"]
-  
+
   class << self
     include Routing
 

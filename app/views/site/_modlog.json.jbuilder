@@ -6,7 +6,7 @@ json.target do
   json.type modlog.target_type
 end
 json.moderator do
-  json.partial! 'users/user', user: modlog.user
+  json.partial! "users/user", user: modlog.user
 end
 json.reason modlog.reason
 json.changelog modlog.changelog

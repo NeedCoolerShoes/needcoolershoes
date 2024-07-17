@@ -1,7 +1,7 @@
 class Discord::SiteMessageWebhook
   require "discordrb/webhooks"
   WEBHOOK_URL = ENV["SITE_MESSAGE_WEBHOOK"]
-  
+
   class << self
     include Routing
     def client

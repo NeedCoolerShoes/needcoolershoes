@@ -1,5 +1,4 @@
 class Rack::Attack
-
   ### Configure Cache ###
 
   # If you don't want to use Rails.cache (Rack::Attack's default), then
@@ -9,7 +8,7 @@ class Rack::Attack
   # safelisting). It must implement .increment and .write like
   # ActiveSupport::Cache::Store
 
-  # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new 
+  # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
   ### Throttle Spammy Clients ###
 
@@ -40,8 +39,8 @@ class Rack::Attack
   # Throttle POST requests to /login by IP address
   #
   # Key: "rack::attack:#{Time.now.to_i/:period}:logins/ip:#{req.ip}"
-  throttle('logins/ip', limit: 5, period: 20.seconds) do |req|
-    if req.path == '/users/sign_in' && req.post?
+  throttle("logins/ip", limit: 5, period: 20.seconds) do |req|
+    if req.path == "/users/sign_in" && req.post?
       req.ip
     end
   end
@@ -54,23 +53,23 @@ class Rack::Attack
   # throttle logins for another user and force their login requests to be
   # denied, but that's not very common and shouldn't happen to you. (Knock
   # on wood!)
-  throttle('logins/email', limit: 5, period: 20.seconds) do |req|
-    if req.path == '/users/sign_in' && req.post?
+  throttle("logins/email", limit: 5, period: 20.seconds) do |req|
+    if req.path == "/users/sign_in" && req.post?
       # Normalize the email, using the same logic as your authentication process, to
       # protect against rate limit bypasses. Return the normalized email if present, nil otherwise.
-      req.params['email'].to_s.downcase.gsub(/\s+/, "").presence
+      req.params["email"].to_s.downcase.gsub(/\s+/, "").presence
     end
   end
 
   ### Block spammy bots ###
 
   # Block content grabbers
-  Rack::Attack.blocklist('block bad UA') do |req|
+  Rack::Attack.blocklist("block bad UA") do |req|
     req.user_agent.match?(/ClaudeBot|GPTBot|FriendlyCrawler/)
   end
 
   # Prevent broken bots from getting stuck in query hell
-  Rack::Attack.blocklist('block broken UA') do |req|
+  Rack::Attack.blocklist("block broken UA") do |req|
     req.user_agent.match?(/facebookexternalhit|Amazonbot/) && !req.query_string.empty?
   end
 

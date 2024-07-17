@@ -2,15 +2,17 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
 
   META_CONFIG = Struct.new(:title, :image, :image_alt, :description)
-  DEFAULT_META_CONFIG = -> {META_CONFIG.new(
-    "Skin Editor",
-    "#{Routing.root_url}ncsassets/img/social.png",
-    "Page image for Miners Need Cooler Shoes",
-    "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor."
-  )}
+  DEFAULT_META_CONFIG = -> {
+    META_CONFIG.new(
+      "Skin Editor",
+      "#{Routing.root_url}ncsassets/img/social.png",
+      "Page image for Miners Need Cooler Shoes",
+      "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor."
+    )
+  }
 
   before_action :configure_devise_parameters, if: :devise_controller?
-  
+
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
 
   def self.nav_section(nav, **options)

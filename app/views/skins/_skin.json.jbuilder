@@ -7,11 +7,11 @@ json.model skin.model
 json.favourites_count skin.favourites_count
 json.tags skin.tag_list
 json.attributions do
-  json.partial! 'skins/attribution', collection: skin.attributions, as: :attribution
+  json.partial! "skins/attribution", collection: skin.attributions, as: :attribution
 end
 json.variants do
-  json.partial! 'skins/attribution', collection: skin.variants, as: :attribution
+  json.partial! "skins/attribution", collection: skin.variants, as: :attribution
 end
 json.author do
-  json.partial! 'users/user', user: skin.user
+  json.partial! "users/user", user: skin.user
 end

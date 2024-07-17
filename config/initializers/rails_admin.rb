@@ -1,4 +1,4 @@
-require_relative '../../lib/needcoolershoes/admin/actions/bump_site_message'
+require_relative "../../lib/needcoolershoes/admin/actions/bump_site_message"
 
 RailsAdmin.config do |config|
   RailsAdmin::Config::Actions.register(
@@ -31,8 +31,8 @@ RailsAdmin.config do |config|
   # config.show_gravatar = true
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete
@@ -51,11 +51,11 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_user&.authorized?(:admin)
   end
 
-  config.model 'SkinJam' do
+  config.model "SkinJam" do
     configure :description, :text
   end
 
-  config.model 'SiteMessage' do
+  config.model "SiteMessage" do
     configure :message, :markdown
     list do
       sort_by :bumped_at

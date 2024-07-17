@@ -14,14 +14,14 @@ class SkinsController < ApplicationController
     index_meta_config
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
-    if current_user.present?
+    skins = if current_user.present?
       if @gallery_params[:hidden] && current_user.authorized?(:moderator)
-        skins = skins.merge(Skin.hidden)
+        skins.merge(Skin.hidden)
       else
-        skins = skins.merge(Skin.visible_to_user(current_user))
+        skins.merge(Skin.visible_to_user(current_user))
       end
     else
-      skins = skins.merge(Skin.visible.is_public)
+      skins.merge(Skin.visible.is_public)
     end
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     params[:page].to_i > 0 ? nil : params[:page] = 1
@@ -72,7 +72,7 @@ class SkinsController < ApplicationController
   end
 
   def edit
-    meta_config {|config| config.title = "Editing Skin" }
+    meta_config { |config| config.title = "Editing Skin" }
   end
 
   def update
@@ -93,7 +93,7 @@ class SkinsController < ApplicationController
   end
 
   def moderator_edit
-    meta_config {|config| config.title = "Moderating Skin" }
+    meta_config { |config| config.title = "Moderating Skin" }
   end
 
   def moderator_update
@@ -102,21 +102,19 @@ class SkinsController < ApplicationController
     params = skin_params.dup
     params.delete(:tags)
     params[:tag_list] = transform_tags(skin_params[:tags])
-    
-    respond_to do |format|
-      begin
-        skin, modlog = nil
-        ActiveRecord::Base.transaction do
-          skin = @skin.update!(params)
-          new_attr = @skin.reload.attributes
-          modlog = Modlog.generate!(@skin, current_user, old_attr, new_attr, reason)
-        end
-        raise "Error saving skin or modlog" unless skin && modlog
 
-        format.html { redirect_to @skin, notice: "Skin was successfully updated." }
-      rescue
-        format.html { redirect_to skin_moderate_path(@skin), alert: "Error saving skin." }
+    respond_to do |format|
+      skin, modlog = nil
+      ActiveRecord::Base.transaction do
+        skin = @skin.update!(params)
+        new_attr = @skin.reload.attributes
+        modlog = Modlog.generate!(@skin, current_user, old_attr, new_attr, reason)
       end
+      raise "Error saving skin or modlog" unless skin && modlog
+
+      format.html { redirect_to @skin, notice: "Skin was successfully updated." }
+    rescue
+      format.html { redirect_to skin_moderate_path(@skin), alert: "Error saving skin." }
     end
   end
 
@@ -139,11 +137,11 @@ class SkinsController < ApplicationController
   def add_favourite
     respond_to do |format|
       if Favourite.create(skin: @skin, user: current_user)
-        format.turbo_stream { 
+        format.turbo_stream {
           render turbo_stream: turbo_stream.replace(
             "favourite_skin_#{@skin.id}",
             partial: "skins/skin_favourite",
-            locals: { skin: @skin, size: params[:size], redirect: params[:redirect] }
+            locals: {skin: @skin, size: params[:size], redirect: params[:redirect]}
           )
         }
         format.html { redirect_to params[:redirect], notice: "Added skin to favourites." }
@@ -157,11 +155,11 @@ class SkinsController < ApplicationController
     favourite = Favourite.find_by(skin: @skin, user: current_user)
     respond_to do |format|
       if favourite.destroy
-        format.turbo_stream { 
+        format.turbo_stream {
           render turbo_stream: turbo_stream.replace(
             "favourite_skin_#{@skin.id}",
             partial: "skins/skin_favourite",
-            locals: { skin: @skin, size: params[:size], redirect: params[:redirect] }
+            locals: {skin: @skin, size: params[:size], redirect: params[:redirect]}
           )
         }
         format.html { redirect_to params[:redirect], notice: "Removed skin from favourites." }
@@ -170,7 +168,7 @@ class SkinsController < ApplicationController
       end
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_to gallery_path 
+    redirect_to gallery_path
   end
 
   private
@@ -195,13 +193,13 @@ class SkinsController < ApplicationController
   end
 
   def show_meta_config
-    if @skin.description.present?
-      desc = @skin.description.tr("\n", " ").delete_suffix(".").strip
+    desc = if @skin.description.present?
+      @skin.description.tr("\n", " ").delete_suffix(".").strip
     else
-      desc = "Skin by #{@skin.user.display_name}"
+      "Skin by #{@skin.user.display_name}"
     end
     desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
-    
+
     meta_config do |config|
       config.title = "#{@skin.name.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
       config.image = skin_social_url(@skin, format: :png)
@@ -222,7 +220,6 @@ class SkinsController < ApplicationController
 
   def set_skin
     @skin = Skin.find(params[:id])
-
   rescue ActiveRecord::RecordNotFound
     render_img_missing
   end
@@ -265,6 +262,6 @@ class SkinsController < ApplicationController
   end
 
   def allow_iframe
-    response.headers.except! 'X-Frame-Options'
+    response.headers.except! "X-Frame-Options"
   end
 end

@@ -3,5 +3,5 @@ json.page do
   json.total @pagy.pages
 end
 json.modlog do
-  json.partial! 'modlog', collection: @modlogs, as: :modlog
+  json.partial! "modlog", collection: @modlogs, as: :modlog
 end

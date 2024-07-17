@@ -29,7 +29,7 @@ class Skin < ApplicationRecord
   include SkinTransformations
   include Routing
 
-  delegate :url_helpers, to: 'Rails.application.routes'
+  delegate :url_helpers, to: "Rails.application.routes"
 
   pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
 
@@ -45,34 +45,34 @@ class Skin < ApplicationRecord
   enum :model, %i[classic slim], default: :classic
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
   enum :creator, CREATOR.keys, prefix: :created_by, default: :self
-  
+
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
-  validates :name, length: { maximum: 128 }
-  validates :description, length: { maximum: 1024 }
+  validates :name, length: {maximum: 128}
+  validates :description, length: {maximum: 1024}
   validates :terms_and_conditions, acceptance: true
 
   attribute :favourites_count, :integer, default: 0
 
-  scope :by_user_name, ->(name) { joins(:user).where(user: { name: name } ) }
+  scope :by_user_name, ->(name) { joins(:user).where(user: {name: name}) }
   scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
   scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
   scope :order_by_favourites, ->(direction = :desc) { order(favourites_count: direction) }
   scope :hidden, -> { where(hidden: true) }
   scope :visible, -> { where.not(hidden: true) }
   scope :visible_to_user, ->(user) { visible.is_public.or(where(user: user)) }
-  scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: { name: name }) }
-  scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: { name: name }) }
+  scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: {name: name}) }
+  scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: {name: name}) }
   scope :by_model, ->(model) { where(model: model) }
   scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
-  scope :favourited_by_user_name, ->(name) { joins(:favourites).where(favourites: { user: User.where(name: name) }) }
-  
+  scope :favourited_by_user_name, ->(name) { joins(:favourites).where(favourites: {user: User.where(name: name)}) }
+
   scope :ordered_by, ->(ordering) {
     case ordering
-    when 'favourite' then order_by_favourites
-    when 'old' then order_by_created(:asc)
-    when 'new_updated' then order_by_updated
-    when 'old_updated' then order_by_updated(:asc)
-    when 'random' then order('RANDOM()')
+    when "favourite" then order_by_favourites
+    when "old" then order_by_created(:asc)
+    when "new_updated" then order_by_updated
+    when "old_updated" then order_by_updated(:asc)
+    when "random" then order("RANDOM()")
     else order_by_created
     end
   }
@@ -81,7 +81,7 @@ class Skin < ApplicationRecord
 
   after_create :send_creation_webhook, if: :is_public?
   after_create :embed_watermark!, unless: -> { user.watermark_disabled? }
-  
+
   class << self
     def with_params_query(params)
       query = all
@@ -101,8 +101,8 @@ class Skin < ApplicationRecord
         skins.each do |skin|
           file = Tempfile.new
           files << file
-          File.open(file, 'wb') { |file| file.write(skin.to_png) }
-          File.open(metadata_file, 'a') { |file| file.write(skin.metadata.to_json + "\n") }
+          File.binwrite(file, skin.to_png)
+          File.open(metadata_file, "a") { |file| file.write(skin.metadata.to_json + "\n") }
           zip.add(skin.filename, file.path)
         end
         zip.add("metadata.jsonl", metadata_file.path)
@@ -182,8 +182,8 @@ class Skin < ApplicationRecord
     return path.read if path.exist?
     template_data = ChunkyPNG::Image.from_file("lib/assets/social-preview-#{model}.png")
     img_data = template_data.compose(to_all_sides_img, 90, 20).to_datastream
-    cache_image_file(path, template_data)
-    template_data
+    cache_image_file(path, img_data)
+    img_data
   end
 
   def filename
@@ -214,7 +214,7 @@ class Skin < ApplicationRecord
 
   def parse_watermark
     region = to_img.crop(0, 0, 8, 8)
-    region.to_rgb_stream.tr("\u0000", '').split("\n")
+    region.to_rgb_stream.tr("\u0000", "").split("\n")
   end
 
   private
@@ -226,6 +226,6 @@ class Skin < ApplicationRecord
   end
 
   def cache_image_file(img_path, data)
-    img_path.open('wb') { |file| file << data }
+    img_path.open("wb") { |file| file << data }
   end
 end

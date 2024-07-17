@@ -35,7 +35,7 @@ module SkinTransformations
     right_leg_overlay: [4, 36, 4, 12],
     right_leg_overlay_back: [12, 36, 4, 12],
     right_leg_right: [0, 20, 4, 12],
-    right_leg_overlay_right: [0, 36, 4, 12],
+    right_leg_overlay_right: [0, 36, 4, 12]
   }
 
   UVMAP_SLIM = {
@@ -74,7 +74,7 @@ module SkinTransformations
     right_leg_overlay: [4, 36, 4, 12],
     right_leg_overlay_back: [12, 36, 4, 12],
     right_leg_right: [0, 20, 4, 12],
-    right_leg_overlay_right: [0, 36, 4, 12],
+    right_leg_overlay_right: [0, 36, 4, 12]
   }
 
   UV_FRONTBACK_CLASSIC = [
@@ -125,7 +125,7 @@ module SkinTransformations
     {uv: %i[right_leg_right right_leg_overlay_right], coordinates: [22, 20]},
     {uv: %i[left_leg left_leg_overlay], coordinates: [8, 20]},
     {uv: %i[left_leg_back left_leg_overlay_back], coordinates: [36, 20]},
-    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]},
+    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]}
   ]
 
   UV_ALL_SIDES_SLIM = [
@@ -146,7 +146,7 @@ module SkinTransformations
     {uv: %i[right_leg_right right_leg_overlay_right], coordinates: [22, 20]},
     {uv: %i[left_leg left_leg_overlay], coordinates: [8, 20]},
     {uv: %i[left_leg_back left_leg_overlay_back], coordinates: [36, 20]},
-    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]},
+    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]}
   ]
 
   FRONTBACK_MODEL_TO_UV = {
