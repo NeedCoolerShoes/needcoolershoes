@@ -25,7 +25,7 @@
       <div>
         <%= f.label :display_name, "Display Name" %>
       </div>
-      <%= f.text_field :display_name, placeholder: "Steve", autocomplete: "username", class: "text-black w-full" %>
+      <%= f.text_field :display_name, placeholder: "Steve", autocomplete: "username", pattern: '[^@]+', class: "text-black w-full" %>
     </div>
 
     <div class="flex flex-col">
@@ -51,6 +51,6 @@
     const target = event.target
     const value = target.value
 
-    target.value = value.toLowerCase().replaceAll(/[^a-z0-9_\-]/g, "-")
+    target.value = value.toLowerCase().replaceAll(/[^a-z0-9_@\-]/g, "-")
   }
 </script>
