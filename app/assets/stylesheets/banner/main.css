@@ -289,12 +289,18 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   border-right: 3px solid rgba(163, 163, 162, 0.5);
 }
 
+#preview-texture-overlay {
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+  position: absolute;
+  background-image: url(/ncsassets/img/banner/banner_overlay.png);
+  background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
+}
+
 .preview-base {
   width: calc(20px * var(--ncs-banner-scale));
   height: calc(40px * var(--ncs-banner-scale));
   background-color: var(--ncs-banner-color);
-  background-image: url(/ncsassets/img/banner/banner_overlay.png);
-  background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
 }
 
 ncrs-banner-preview {
