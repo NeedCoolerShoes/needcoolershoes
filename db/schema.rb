@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_19_171341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,11 +25,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
 
   create_table "favourites", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "skin_id", null: false
+    t.bigint "target_id", null: false
     t.integer "karma"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["skin_id"], name: "index_favourites_on_skin_id"
+    t.string "target_type", null: false
+    t.index ["target_id"], name: "index_favourites_on_target_id"
+    t.index ["target_type"], name: "index_favourites_on_target_type"
     t.index ["user_id"], name: "index_favourites_on_user_id"
   end
 
@@ -191,6 +193,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
+    t.integer "pixels", default: 0, null: false
+    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
@@ -198,7 +202,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "favourites", "skins"
   add_foreign_key "favourites", "users"
   add_foreign_key "modlogs", "users"
   add_foreign_key "skin_attributions", "skins"

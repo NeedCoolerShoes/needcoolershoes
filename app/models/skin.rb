@@ -28,6 +28,7 @@ class Skin < ApplicationRecord
   include PgSearch::Model
   include SkinTransformations
   include Routing
+  include Favouriteable
 
   delegate :url_helpers, to: "Rails.application.routes"
 
@@ -36,7 +37,6 @@ class Skin < ApplicationRecord
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part
-  has_many :favourites, dependent: :destroy
   has_many :attributions, class_name: "SkinAttribution", dependent: :destroy
   has_many :variants, class_name: "SkinAttribution", foreign_key: "attributed_skin_id", dependent: :nullify
   has_many :modlogs, as: :target
