@@ -97,7 +97,8 @@ class User < ApplicationRecord
     count.clamp(0..)
   end
 
-  def favourite_grant(count = pixel_count)
+  def favourite_grant
+    count = update_pixel_count!
     x = (count * FAVOURITE_RATIO)
     (Math.log(x + 1, 2) * 3).round
   end
