@@ -8,6 +8,8 @@ class SkinsController < ApplicationController
 
   after_action :allow_iframe, only: :embed
 
+  layout "base", only: :index
+
   def index
     @gallery_params = gallery_params
     set_jam_info
@@ -169,6 +171,11 @@ class SkinsController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to gallery_path
+  end
+
+  def random
+    skin = Skin.visible_to_user(current_user).ordered_by("random").first
+    redirect_to skin_path(skin)
   end
 
   private

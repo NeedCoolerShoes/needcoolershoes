@@ -1,36 +1,43 @@
-<header class="flex items-center justify-center w-full">
-  <div class="flex justify-between max-w-ncs-content w-full font-normal">
-    <div class="grow navbar">
-      <div class="flex justify-between px-3 sm:px-0">
-        <a href="/" class="flex items-center gap-2 h-[47px] py-4">
-          <img src="/ncsassets/img/header.png" alt="Site Logo" width="80" height="60"/>
-          <p class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
-        </a>
-        <div class="flex items-center gap-2">
-          <% if current_user.present? %>
-            <% if current_user.authorized?(:admin) %>
-              <%= link_to "Admin", "/admin", class: "text-white underline" %>
-              <span class="text-white">|</span>
+<% if Time.current.month == 6 %>
+  <div id="pride" class="w-full h-[1px]"></div>
+<% end %>
+<%= render partial: "shared/flash" %>
+<%= yield :attention %>
+<header class="sm:mx-16">
+  <div class="flex items-center justify-center w-full">
+    <div class="flex justify-between max-w-ncs-content w-full font-normal">
+      <div class="grow navbar">
+        <div class="flex justify-between px-3 sm:px-0">
+          <a href="/" class="flex items-center gap-2 h-[47px] py-4">
+            <img src="/ncsassets/img/header-2.png" alt="Site Logo" width="80" height="60"/>
+            <p class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
+          </a>
+          <div class="flex items-center gap-2">
+            <% if current_user.present? %>
+              <% if current_user.authorized?(:admin) %>
+                <%= link_to "Admin", "/admin", class: "text-white underline" %>
+                <span class="text-white">|</span>
+              <% end %>
+              <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
+              <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
+            <% else %>
+              <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>
+              <%= link_to "Sign In", new_user_session_path, class: "text-white underline" %>
             <% end %>
-            <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
-            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
-          <% else %>
-            <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>
-            <%= link_to "Sign In", new_user_session_path, class: "text-white underline" %>
-          <% end %>
-        </div>
-      </div>
-
-      <div class="h-[53px] bg-[#edce14] relative z-50 overflow-x-clip sm:overflow-x-visible">
-        <div class="flex items-center justify-between gap-2 relative z-50 bg-ncs-flourish h-full px-3 sm:px-0">
-          <%= render partial: "shared/header_nav" %>
-          <div class="hidden md:block">
-            <%= render partial: "shared/search", locals: { classes: "max-w-[12rem] lg:max-w-none" } %>
           </div>
         </div>
 
-        <div class="absolute w-[55px] h-[73px] -top-1 left-[-43px] sm:left-[-55px] bg-ncs-flourish bg-repeat bg-bottom"></div>
-        <div class="absolute w-[55px] h-[73px] -top-1 right-[-43px] sm:right-[-55px] bg-ncs-flourish bg-repeat bg-bottom -scale-x-100"></div>
+        <div class="h-[53px] bg-[#edce14] relative z-50 overflow-x-clip sm:overflow-x-visible">
+          <div class="flex items-center justify-between gap-2 relative z-50 bg-ncs-flourish h-full px-3 sm:px-0">
+            <%= render partial: "shared/header_nav" %>
+            <div class="hidden md:block">
+              <%= render partial: "shared/search", locals: { classes: "max-w-[12rem] lg:max-w-none" } %>
+            </div>
+          </div>
+
+          <div class="absolute w-[55px] h-[73px] -top-1 left-[-43px] sm:left-[-55px] bg-ncs-flourish bg-repeat bg-bottom"></div>
+          <div class="absolute w-[55px] h-[73px] -top-1 right-[-43px] sm:right-[-55px] bg-ncs-flourish bg-repeat bg-bottom -scale-x-100"></div>
+        </div>
       </div>
     </div>
   </div>

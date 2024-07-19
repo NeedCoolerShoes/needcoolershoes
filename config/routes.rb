@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get "gallery", to: "skins#index"
   get "gallery/:page", to: "skins#index"
   get "skins", to: redirect("/gallery")
+  get "skins/random", to: "skins#random", as: "random_skin"
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   get "skins/:id/social", to: "skins#social", as: "skin_social"
   get "skins/:id/embed", to: "skins#embed", as: "skin_embed"

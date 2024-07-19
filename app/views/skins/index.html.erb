@@ -1,29 +1,52 @@
+<% content_for :scripts do %>
+  <%= stylesheet_link_tag "gallery/main" %>
+<% end %>
 <%= render partial: "shared/welcome" if params[:welcome].present? %>
-<% content_for :message do %>
-  <div>
-    <%= render partial: "skin_filters" %>
-  </div>
-  <div class="md:hidden w-full pt-2">
-    <%= render partial: "shared/search", locals: { classes: "w-full", btn_classes: "btn-ncs shrink w-auto" } %>
-  </div>
-<% end %>
 
-<% if @jam.present? %>
-  <div class="mt-2">
-    <%= render partial: "jam_info", locals: { jam: @jam } %>
-  </div>
-<% end %>
+<div id="content" class="relative px-2.5 sm:px-0 sm:mx-16 ncs-min:mx-0">
+  <section id="filters">
+    <details open id="filter-list">
+      <summary class="bg-ncs-gray-400 text-white text-2xl font-bold px-2 rounded-t-sm cursor-pointer select-none">
+        Filters
+      </summary>
+      <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, skins: @skins} %>
+    </details>
+  </section>
 
-<%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
-<div class="flex justify-center gap-4 flex-wrap">
-  <% @skins.each do |skin| %>
-    <%
-      show_visibility = false
-      show_visibility = true if current_user.present? && skin.user == current_user
-    %>
-    <div class="w-[230px]">
-      <%= render partial: "skin_index", locals: { skin: skin, show_visibility: show_visibility }%>
+  <section id="gallery">
+    <div class="md:hidden w-full pt-2">
+      <%= render partial: "shared/search", locals: { classes: "w-full", btn_classes: "btn-ncs shrink w-auto" } %>
     </div>
-  <% end %>
+
+    <% if @jam.present? %>
+      <div class="mt-2">
+        <%= render partial: "skins/index/jam_info", locals: { jam: @jam } %>
+      </div>
+    <% end %>
+    <ul class="flex flex-wrap gap-1 text-2xl mt-2 ncs-min:mt-4 font-bold">
+      <li class="bg-ncs-yellow-200 rounded-t-sm px-6"><%= link_to "Skins", "" %></li>
+      <li class="bg-[#cdceb6] rounded-t-sm px-6"><%= link_to "Banners", "" %></li>
+    </ul>
+    <div class="bg-ncs-yellow-200 p-2 rounded-tr-sm">
+      <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+      <div class="flex justify-center gap-4 flex-wrap">
+        <% @skins.each do |skin| %>
+          <%
+            show_visibility = false
+            show_visibility = true if current_user.present? && skin.user == current_user
+          %>
+          <div class="w-[230px]">
+            <%= render partial: "skins/index/skin_index", locals: { skin: skin, show_visibility: show_visibility }%>
+          </div>
+        <% end %>
+      </div>
+      <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+    </div>
+  </section>
 </div>
-<%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+
+<script>
+  if (matchMedia("(max-width: 1600px)").matches) {
+    document.getElementById("filter-list").open = false
+  }
+</script>

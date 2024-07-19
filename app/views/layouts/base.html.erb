@@ -16,19 +16,11 @@
     <%= render partial: "shared/analytics" %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body>
+    <%= render partial: "shared/flash" %>
     <%= render partial: "shared/header" %>
-    <main class="flex flex-col items-center justify-start grow mx-3 sm:mx-16">
-      <div class="flex flex-col max-w-ncs-content w-full">
-        <% if content_for?(:message) %>
-          <%= yield :message %>
-        <% else %>
-          <div class="h-3.5">
-          </div>
-        <% end %>
-        
+    <main>        
         <%= yield %>
-      </div>
     </main>
     <%= render partial: "shared/footer" %>
   </body>
