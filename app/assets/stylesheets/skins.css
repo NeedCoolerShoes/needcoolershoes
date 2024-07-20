@@ -20,12 +20,16 @@
   width: 8px;
   height: 8px;
   background-position: 56px 56px;
+
+  position: relative;
+  z-index: 1;
 }
 
 .face-overlay {
   width: 8px;
   height: 8px;
   background-position: 24px 56px;
+  transform: scale(1.12);
 }
 
 .torso {
@@ -38,6 +42,7 @@
   width: 8px;
   height: 12px;
   background-position: 44px 28px;
+  transform: scale(1.05);
 }
 
 .left-arm {
@@ -50,6 +55,7 @@
   width: 4px;
   height: 12px;
   background-position: 12px 12px;
+  transform: scale(1.15, 1.05);
 }
 
 .left-arm-slim {
@@ -62,6 +68,7 @@
   width: 3px;
   height: 12px;
   background-position: 12px 12px;
+  transform: scale(1.2, 1.05);
 }
 
 .right-arm {
@@ -74,6 +81,7 @@
   width: 4px;
   height: 12px;
   background-position: 20px 28px;
+  transform: scale(1.15, 1.05);
 }
 
 .right-arm-slim {
@@ -87,6 +95,7 @@
   width: 3px;
   height: 12px;
   background-position: 20px 28px;
+  transform: scale(1.2, 1.05);
 }
 
 .left-leg {
@@ -99,6 +108,7 @@
   width: 4px;
   height: 12px;
   background-position: 60px 12px;
+  transform: scale(1.15, 1.05);
 }
 
 .right-leg {
@@ -111,19 +121,23 @@
   width: 4px;
   height: 12px;
   background-position: 60px 28px;
+  transform: scale(1.15, 1.05);
 }
 
 .face-back {
   width: 8px;
   height: 8px;
   background-position: 40px 56px;
+
+  position: relative;
+  z-index: 1;
 }
 
 .face-overlay-back {
   width: 8px;
   height: 8px;
   background-position: 8px 56px;
-
+  transform: scale(1.12);
 }
 
 .torso-back {
@@ -136,6 +150,7 @@
   width: 8px;
   height: 12px;
   background-position: 32px 28px;
+  transform: scale(1.05);
 }
 
 .left-arm-back {
@@ -148,6 +163,7 @@
   width: 4px;
   height: 12px;
   background-position: 4px 12px;
+  transform: scale(1.15, 1.05);
 }
 
 .left-arm-slim-back {
@@ -161,6 +177,7 @@
   width: 3px;
   height: 12px;
   background-position: 5px 12px;
+  transform: scale(1.2, 1.05);
 }
 
 .right-arm-back {
@@ -173,6 +190,7 @@
   width: 4px;
   height: 12px;
   background-position: 12px 28px;
+  transform: scale(1.15, 1.05);
 }
 
 .right-arm-slim-back {
@@ -185,6 +203,7 @@
   width: 3px;
   height: 12px;
   background-position: 13px 28px;
+  transform: scale(1.2, 1.05);
 }
 
 .left-leg-back {
@@ -197,6 +216,7 @@
   width: 4px;
   height: 12px;
   background-position: 52px 12px;
+  transform: scale(1.15, 1.05);
 }
 
 .right-leg-back {
@@ -209,4 +229,5 @@
   width: 4px;
   height: 12px;
   background-position: 52px 28px;
+  transform: scale(1.15, 1.05);
 }
