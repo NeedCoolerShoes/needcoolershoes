@@ -5,7 +5,7 @@
     is_unlisted: "link",
     is_private: "eye-slash"
   }
-  redirect = gallery_path + "/#{params[:page]}?" + URI.encode_www_form(@gallery_params.to_h)
+  redirect = skins_gallery_path + "/#{params[:page]}?" + URI.encode_www_form(@gallery_params.to_h)
 %>
 <div class="relative flex flex-col justify-between rounded h-full bg-white shadow cursor-pointer" onclick="window.location='<%= skin_path(skin) %>'">
   <% if show_visibility%>
@@ -28,9 +28,9 @@
     <%= link_to skin.name, skin, class: "text-xl font-bold leading-none line-clamp-2 max-w-[280px]", style: "overflow-wrap: break-word;" %>
     <div class="flex flex-col font-bold">
       <p class="text-gray-500 text-xs">
-        <%= link_to skin.skin_part.name, gallery_path(@gallery_params.merge(part: skin.skin_part.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
+        <%= link_to skin.skin_part.name, skins_gallery_path(@gallery_params.merge(part: skin.skin_part.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
         -
-        <%= link_to skin.skin_category.name, gallery_path(@gallery_params.merge(category: skin.skin_category.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
+        <%= link_to skin.skin_category.name, skins_gallery_path(@gallery_params.merge(category: skin.skin_category.name)), class: "underline", onclick: "event.stopImmediatePropagation()" %>
       </p>
       <p>
         by

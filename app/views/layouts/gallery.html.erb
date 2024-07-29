@@ -1,0 +1,33 @@
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "gallery/main" %>
+<% end %>
+<% content_for :body do %>
+<div id="content" class="relative px-2.5 sm:px-0 sm:mx-16 ncs-min:mx-0">
+  <section id="filters">
+    <details open id="filter-list">
+      <summary class="bg-ncs-gray-400 text-white text-2xl font-bold px-2 rounded-t-sm cursor-pointer select-none">
+        Filters
+      </summary>
+      <%= yield :filters %>
+    </details>
+  </section>
+
+  <section id="gallery">
+    <%= yield :before_gallery %>
+
+    <%= render partial: "shared/gallery_tabs", locals: { selected: @gallery_tab } %>
+
+    <div class="bg-ncs-yellow-200 p-2 rounded-tr-sm h-full">
+      <%= yield %>
+    </div>
+  </section>
+</div>
+
+<script>
+  if (matchMedia("(max-width: 1600px)").matches) {
+    document.getElementById("filter-list").open = false
+  }
+</script>
+<% end %>
+
+<%= render template: "layouts/base"%>

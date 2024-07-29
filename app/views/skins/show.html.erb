@@ -63,7 +63,7 @@
         <% if @skin.tags.any? %>
           <div class="text-gray-500 text-sm flex gap-1 flex-wrap">
             <% @skin.tags.each do |tag| %>
-              <%= link_to tag.name, gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
+              <%= link_to tag.name, skins_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
             <% end %>
           </div>
         <% end %>

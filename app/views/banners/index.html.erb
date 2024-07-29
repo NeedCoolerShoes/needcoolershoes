@@ -1,0 +1,22 @@
+<% content_for :filters do %>
+  <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners} %>
+<% end %>
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "banner/components" %>
+  <style>:root {--ncs-banner-scale: 4}</style>
+<% end %>
+<% content_for :scripts do %>
+  <script type="module" src="/ncsassets/js/banner/components/banner.js"></script>
+<% end %>
+
+<%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+<div class="flex justify-center gap-4 flex-wrap">
+  <% if !@banners.any? %>
+    <div class="flex flex-col gap-2 text-center">
+      <h3 class="text-4xl font-bold">NO BANNERS?</h3>
+      <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
+    </div>
+  <% end %>
+  <%= render partial: "banners/index/banner_index", collection: @banners, as: :banner %>
+</div>
+<%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>

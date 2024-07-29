@@ -1,32 +1,32 @@
 <%
   size ||= 24
   show_guests ||= false
-  redirect ||= skins_gallery_path
+  redirect ||= banners_gallery_path
 %>
-<%= turbo_frame_tag "favourite_" + dom_id(skin) do %>
+<%= turbo_frame_tag "favourite_" + dom_id(banner) do %>
   <% if current_user.present? %>
     <div>
-      <% if skin.favourited_by?(current_user) %>
-        <%= form_with url: destroy_skin_favourite_path(skin), method: :delete do |form| %>
+      <% if banner.favourited_by?(current_user) %>
+        <%= form_with url: destroy_banner_favourite_path(banner), method: :delete do |form| %>
           <div class="flex flex-col items-center">
-            <%= form.button aria: { label: "Remove from Favourites" }, onclick: "event.stopImmediatePropagation()" do %>
+            <%= form.button aria: { label: "Remove from Favourites" } do %>
               <%= heroicon "heart", variant: "solid", size: size, class: "text-red-500 hover:text-red-800", title: "Remove from Favourites" %>
             <% end %>
             <span class="leading-none text-xs text-gray-500">
-              <%= simple_number skin.favourites.count if skin.favourites.count > 0 %>
+              <%= simple_number banner.favourites.count if banner.favourites.count > 0 %>
             </span>
           </div>
           <%= form.hidden_field :redirect, value: redirect %>
           <%= form.hidden_field :size, value: size %>
         <% end %>
       <% else %>
-        <%= form_with url: create_skin_favourite_path(skin) do |form| %>
+        <%= form_with url: create_banner_favourite_path(banner) do |form| %>
           <div class="flex flex-col items-center">
-            <%= form.button aria: { label: "Add to Favourites" }, onclick: "event.stopImmediatePropagation()" do %>
+            <%= form.button aria: { label: "Add to Favourites" } do %>
               <%= heroicon "heart", size: size, class: "text-red-500 hover:text-red-800", title: "Add to Favourites" %>
             <% end %>
             <span class="leading-none text-xs text-gray-500">
-              <%= simple_number skin.favourites.count if skin.favourites.count > 0 %>
+              <%= simple_number banner.favourites.count if banner.favourites.count > 0 %>
             </span>
           </div>
           <%= form.hidden_field :redirect, value: redirect %>
@@ -38,7 +38,7 @@
     <div class="flex flex-col items-center">
       <%= heroicon "heart", size: size, class: "text-gray-500", title: "Login to add to Favourites" %>
       <span class="leading-none text-xs text-gray-500">
-        <%= simple_number skin.favourites.count if skin.favourites.count > 0 %>
+        <%= simple_number banner.favourites.count if banner.favourites.count > 0 %>
       </span>
     </div>
   <% end %>

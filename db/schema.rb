@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_19_175254) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_20_125831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_19_175254) do
     t.integer "karma"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "banners", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "name"
+    t.string "description"
+    t.string "data"
+    t.integer "favourites_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_banners_on_user_id"
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -216,6 +227,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_19_175254) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "banners", "users"
   add_foreign_key "favourites", "users"
   add_foreign_key "minecraft_accounts", "users"
   add_foreign_key "modlogs", "users"

@@ -20,7 +20,7 @@
     <%= render partial: "shared/flash" %>
     <%= render partial: "shared/header" %>
     <main>        
-        <%= yield %>
+        <%= content_for?(:body) ? yield(:body) : yield %>
     </main>
     <%= render partial: "shared/footer" %>
   </body>

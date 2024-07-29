@@ -1,13 +1,13 @@
 <div class="flex flex-col gap-2 bg-ncs-yellow-200 p-2 rounded-b text-gray-600">
   <div>
-    <%= link_to "Clear All", gallery_path, class: "underline" %>
+    <%= link_to "Clear All", skins_gallery_path, class: "underline" %>
     <%= link_to "Random Skin", random_skin_path, class: "underline" %>
     <h3 class="font-bold text-black mt-2">Models:</h3>
     <div class="flex flex-wrap gap-1 text-gray-600">
       <div class="flex flex-wrap items-center gap-1 text-gray-600">
         <% Skin.models.keys.each do |model| %>
           <% count = Skin.by_model(model).count %>
-          <%= gallery_filter_tag params, :model, model, "#{model.titleize} - #{count}", model.titleize %>
+          <%= skins_gallery_filter_tag params, :model, model, "#{model.titleize} - #{count}", model.titleize %>
         <% end %>
       </div>
     </div>
@@ -16,7 +16,7 @@
     <h3 class="font-bold text-black">Parts:</h3>
     <div class="flex flex-wrap gap-1 text-gray-600">
       <% SkinPart.all.each do |part| %>
-        <%= gallery_filter_tag params, :part, part.name, "#{part.name} - #{part.skins.count}" %>
+        <%= skins_gallery_filter_tag params, :part, part.name, "#{part.name} - #{part.skins.count}" %>
       <% end %>
     </div>
   </div>
@@ -24,7 +24,7 @@
     <h3 class="font-bold text-black">Categories:</h3>
     <div class="flex flex-wrap items-center gap-1 text-gray-600">
       <% SkinCategory.all.each do |category| %>
-        <%= gallery_filter_tag params, :category, category.name, "#{category.name} - #{category.skins.count}" %>
+        <%= skins_gallery_filter_tag params, :category, category.name, "#{category.name} - #{category.skins.count}" %>
       <% end %>
     </div>
   </div>
@@ -34,12 +34,12 @@
       <div class="flex flex-wrap items-center gap-1 text-gray-600">
         <%
           date_ranges = {
-            today: 0, last_7_days: 7, last_30_days: 30, last_90_days: 90, last_year: 365
+            today: "0", last_7_days: "7", last_30_days: "30", last_90_days: "90", last_year: "365"
           }
         %>
         <% date_ranges.each do |title, offset| %>
           <% count = Skin.created_after_days(offset).count %>
-          <%= gallery_filter_tag params, :date_offset, offset, "#{title.to_s.titleize} - #{count}", title.to_s.titleize %>
+          <%= skins_gallery_filter_tag params, :date_offset, offset, "#{title.to_s.titleize} - #{count}", title.to_s.titleize %>
         <% end %>
       </div>
     </div>
@@ -58,7 +58,7 @@
           }
         %>
         <% orderings.each do |order, title| %>
-          <%= gallery_filter_tag params, :order, order, "", title %>
+          <%= skins_gallery_filter_tag params, :order, order, "", title %>
         <% end %>
       </div>
     </div>
@@ -68,10 +68,10 @@
       <h3 class="font-bold text-black">Relevant to Me:</h3>
       <div class="flex flex-wrap gap-1 text-gray-600">
         <div class="flex flex-wrap items-center gap-1 text-gray-600">
-          <%= gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "#{current_user.display_name} - #{current_user.skins.count}", "My Skins" %>
-          <%= gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "My Favourites - #{current_user.favourites.count}", "My Favourites" %>
+          <%= skins_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "#{current_user.display_name} - #{current_user.skins.count}", "My Skins" %>
+          <%= skins_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "My Favourites - #{current_user.favourites.count}", "My Favourites" %>
           <% if current_user.authorized?(:moderator) %>
-            <%= gallery_filter_tag params, :hidden, "true", "Hidden Skins", "Hidden Skins" %>
+            <%= skins_gallery_filter_tag params, :hidden, "true", "Hidden Skins", "Hidden Skins" %>
           <% end %>
         </div>
       </div>
@@ -82,7 +82,7 @@
     <div class="flex flex-wrap gap-1 text-gray-600">
       <div class="flex flex-wrap items-center gap-1 text-gray-600">
         <% skins.top_tags(10).each do |tag| %>
-          <%= gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+          <%= skins_gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
         <% end %>
       </div>
     </div>

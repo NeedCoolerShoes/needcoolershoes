@@ -1,0 +1,34 @@
+:root {
+  --ncs-banner-scale: 1;
+}
+
+ncrs-banner-preview {
+  position: relative;
+  display: block;
+}
+
+ncrs-banner-preview > ncrs-banner-pattern-preview {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+ncrs-banner-pattern-preview {
+  display: block;
+  image-rendering: pixelated;
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+  background-color: var(--ncs-banner-color);
+  mask-image: url("/ncsassets/img/banner/banner_sprites.png");
+  -webkit-mask-image: url("/ncsassets/img/banner/banner_sprites.png");
+  mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
+  -webkit-mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
+  mask-size: calc(100px * var(--ncs-banner-scale)) auto;
+  -webkit-mask-size: calc(100px * var(--ncs-banner-scale)) auto;
+}
+
+.preview-base {
+  width: calc(20px * var(--ncs-banner-scale));
+  height: calc(40px * var(--ncs-banner-scale));
+  background-color: var(--ncs-banner-color);
+}

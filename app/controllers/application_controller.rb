@@ -57,4 +57,10 @@ class ApplicationController < ActionController::Base
       format.html { render layout: "plain", template: "errors/forbidden", status: 403 }
     end
   end
+
+  def not_found_error
+    respond_to do |format|
+      format.html { render layout: "plain", template: "errors/not_found", status: 404 }
+    end
+  end
 end

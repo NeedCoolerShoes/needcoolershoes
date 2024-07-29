@@ -8,7 +8,7 @@ class SkinsController < ApplicationController
 
   after_action :allow_iframe, only: :embed
 
-  layout "base", only: :index
+  layout "gallery", only: :index
 
   def index
     @gallery_params = gallery_params
@@ -29,7 +29,7 @@ class SkinsController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     @pagy, @skins = pagy(skins, items: items)
   rescue Pagy::OverflowError
-    redirect_to gallery_path
+    not_found_error
   end
 
   def show
@@ -131,7 +131,7 @@ class SkinsController < ApplicationController
   def destroy
     @skin.destroy
     respond_to do |format|
-      format.html { redirect_to gallery_path, notice: "Skin was successfully destroyed." }
+      format.html { redirect_to skins_gallery_path, notice: "Skin was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -170,7 +170,7 @@ class SkinsController < ApplicationController
       end
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_to gallery_path
+    redirect_to skins_gallery_path
   end
 
   def random
@@ -187,7 +187,7 @@ class SkinsController < ApplicationController
       elsif params[:favourited_by].present?
         "#{params[:favourited_by].titleize}'s Favourites"
       else
-        "Gallery"
+        "Skin Gallery"
       end
       config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
       config.description = "Search and browse Minecraft skins created with our Skin Editor, by part, category or tag."
@@ -221,7 +221,7 @@ class SkinsController < ApplicationController
     respond_to do |format|
       format.png { send_data img, type: "image/png", disposition: "inline", status: 200 }
       format.json { render json: {error: 404, message: "Skin not found."}, status: 404 }
-      format.any { redirect_to gallery_path }
+      format.any { redirect_to skins_gallery_path }
     end
   end
 
@@ -247,7 +247,7 @@ class SkinsController < ApplicationController
 
   def validate_can_edit
     return true if @skin.can_user_edit?(current_user)
-    redirect_to gallery_path
+    redirect_to skins_gallery_path
   end
 
   def skin_params
