@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get "gallery/:page", to: "skins#index"
   get "skins", to: redirect("/gallery")
   get "skins/:id/download", to: "skins#download", as: "skin_download"
+  get "skins/:id/texture", to: "skins#texture", as: "skin_texture"
   get "skins/:id/social", to: "skins#social", as: "skin_social"
   get "skins/:id/embed", to: "skins#embed", as: "skin_embed"
   get "skins/:id/moderate", to: "skins#moderator_edit", as: "skin_moderate"

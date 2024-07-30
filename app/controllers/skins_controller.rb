@@ -1,6 +1,6 @@
 class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download destroy add_favourite remove_favourite preview social embed]
+  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download texture destroy add_favourite remove_favourite preview social embed]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
   require_role :moderator, only: %i[moderator_edit moderator_update]
@@ -123,6 +123,12 @@ class SkinsController < ApplicationController
     unless current_user == @skin.user
       @skin.download_count = (@skin.download_count || 0) + 1
       @skin.save(touch: false)
+    end
+  end
+
+  def texture
+    respond_to do |format|
+      format.png { send_data @skin.to_png, type: "image/png", disposition: "inline" }
     end
   end
 
