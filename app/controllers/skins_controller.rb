@@ -11,7 +11,6 @@ class SkinsController < ApplicationController
   def index
     @gallery_params = gallery_params
     set_jam_info
-    index_meta_config
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     skins = if current_user.present?
@@ -23,9 +22,10 @@ class SkinsController < ApplicationController
     else
       skins.merge(Skin.visible.is_public)
     end
-    items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     params[:page].to_i > 0 ? nil : params[:page] = 1
+    items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @pagy, @skins = pagy(skins, items: items)
+    index_meta_config
   rescue Pagy::OverflowError
     redirect_to gallery_path
   end
@@ -181,15 +181,17 @@ class SkinsController < ApplicationController
 
   def index_meta_config
     meta_config do |config|
-      config.title = if params[:user].present?
-        "Skins by #{params[:user].titleize}"
+      if params[:user].present?
+        config.title = "Minecraft Skins by #{params[:user].titleize}"
+        config.description = "Browse minecraft skins created by #{params[:user].titleize}."
       elsif params[:favourited_by].present?
-        "#{params[:favourited_by].titleize}'s Favourites"
+        config.title = "#{params[:favourited_by].titleize}'s Favorite Skins"
+        config.description = "Browse minecraft skins favorited by #{params[:favourited_by].titleize}."
       else
-        "Gallery"
+        config.title = "Minecraft Skins"
+        config.description = "Browse minecraft skins created with our skin editor, by part, category or tag."
       end
-      config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
-      config.description = "Search and browse Minecraft skins created with our Skin Editor, by part, category or tag."
+      config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")
 
       if @jam.present?
         config.title = @jam.name

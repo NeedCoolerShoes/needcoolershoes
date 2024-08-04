@@ -85,7 +85,7 @@ class User < ApplicationRecord
   def pixel_count
     count = badges.sum("badges.karma")
     count += skins.is_public.count * Skin::KARMA
-    count += (Time.now.year - created_at.year) * YEAR_KARMA
+    count += (Time.current.year - (created_at || Time.current).year) * YEAR_KARMA
     count += skin_favourites.is_public.sum("favourites.karma")
     count.clamp(0..)
   end
