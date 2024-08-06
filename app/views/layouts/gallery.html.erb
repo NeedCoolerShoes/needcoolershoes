@@ -4,8 +4,8 @@
 <% content_for :body do %>
 <div id="content" class="relative px-2.5 sm:px-0 sm:mx-16 ncs-min:mx-0">
   <section id="filters">
-    <details open id="filter-list">
-      <summary class="bg-ncs-gray-400 text-white text-2xl font-bold px-2 rounded-t-sm cursor-pointer select-none">
+    <details open id="filter-list" class="group">
+      <summary class="bg-ncs-gray-400 text-white text-2xl font-bold px-2 rounded group-open:rounded-b-none cursor-pointer select-none">
         Filters
       </summary>
       <%= yield :filters %>

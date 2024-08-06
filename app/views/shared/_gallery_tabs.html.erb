@@ -11,6 +11,6 @@
     <%
       classes = (selected == tab[0] ? "bg-ncs-yellow-200" : "bg-[#cdceb6]" )
     %>
-    <li class="rounded-t-sm px-6 <%= classes %>"><%= link_to tab[1], tab[2] %></li>
+    <li class="rounded-t-sm <%= classes %>"><%= link_to tab[1], tab[2], class: "px-6" %></li>
   <% end %>
 </ul>
