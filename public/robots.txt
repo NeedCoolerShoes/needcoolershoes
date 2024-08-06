@@ -3,6 +3,7 @@ User-agent: *
 Disallow: /*?*
 Disallow: /users/sign_in
 Disallow: /users/sign_up
+Disallow /skins/*/download
 
 # Prevent Amazon from getting stuck on the gallery
 User-agent: Amazonbot
