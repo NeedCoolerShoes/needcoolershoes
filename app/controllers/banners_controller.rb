@@ -1,6 +1,7 @@
 class BannersController < ApplicationController
   before_action :set_banner, only: %i[add_favourite remove_favourite]
   nav_section :gallery
+  nav_section :banner, only: :new
   layout "gallery", only: :index
 
   def index
@@ -16,6 +17,22 @@ class BannersController < ApplicationController
   def random
     banner = Banner.ordered_by("random").first
     redirect_to banner_path("" => banner.data)
+  end
+
+  def new
+    meta_config do |config|
+      config.title = "Banner Editor"
+      config.description = "Banner Editor for Minecraft Banners. Create and share banners with your friends."
+    end
+    render layout: "application"
+  end
+
+  def banner_2014
+    meta_config do |config|
+      config.title = "Banner Editor (2014)"
+      config.description = "This is the legacy Banner Editor circa 2014."
+    end
+    render layout: "static", template: "banners/2014"
   end
 
   def add_favourite

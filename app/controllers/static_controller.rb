@@ -4,7 +4,6 @@ class StaticController < ApplicationController
 
   prepend_before_action :protect_from_spam, only: [:send_message]
   nav_section :editor, only: %i[editor editor_2010]
-  nav_section :banner, only: :banner
 
   def editor
     @message = SiteMessage.latest&.message
@@ -16,22 +15,6 @@ class StaticController < ApplicationController
       config.description = "Legacy version of the Miners Need Cool Shoes editor, rewritten entirely in JS."
     end
     render layout: "editor/2010", template: "static/editor/2010"
-  end
-
-  def banner
-    meta_config do |config|
-      config.title = "Banner Editor"
-      config.description = "Banner Editor for Minecraft Banners. Create and share banners with your friends."
-    end
-    render layout: "application"
-  end
-
-  def banner_2014
-    meta_config do |config|
-      config.title = "Banner Editor (2015)"
-      config.description = "This is the legacy Banner Editor circa 2015."
-    end
-    render layout: "static", template: "static/banner/2014"
   end
 
   def about

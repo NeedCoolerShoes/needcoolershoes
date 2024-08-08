@@ -1,0 +1,103 @@
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "banner/main" %>
+  <%= stylesheet_link_tag "banner/components" %>
+<% end %>
+<% content_for :scripts do %>
+  <meta name="turbo-visit-control" content="reload">
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<% end %>
+<% content_for :message do %>
+  <div class="p-2 bg-ncs-yellow-200 !mb-2 shadow">
+    The banner editor has been updated for 1.21! If you have any feedback, please
+    <%= link_to "Contact Us", contact_path, class: "underline" %>.
+  </div>
+<% end %>
+<div id="app">
+  <section id="preview-area">
+    <div>
+      <div class="header">
+        <h2>Preview</h2>
+      </div>
+      <div id="preview-container" class="preview-skew">
+        <div class="preview-wave">
+          <ncrs-banner-preview id="preview"></ncrs-banner-preview>
+          <ncrs-banner-pattern-preview id="preview-overlay"></ncrs-banner-pattern-preview>
+          <div id="preview-texture-overlay"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button id="random" class="btn-ncs">Randomize!</button>
+      <button id="clear" class="btn-ncs">Clear All</button>
+    </div>
+    <div id="url-banners-container">
+      <div class="header">
+        <h2>URL Banner</h2>
+      </div>
+      <div id="url-banners">
+      </div>
+    </div>
+  </section>
+  <section id="layers-area">
+    <div class="banner-container">
+      <div class="header">
+        <h2>Layers</h2>
+      </div>
+      <div id="layers-container">
+        <div id="base">
+          <ncrs-banner-patternset id="base-pattern">
+            <div class="layer-color"></div>
+            <div class="layer-container">
+              <button class="pattern-preview">
+                <div class="layer-selector">
+                  <ncrs-banner-color-list selected="#ffffff"></ncrs-banner-color-list>
+                </div>
+              </button>
+            </div>
+          </ncrs-banner-patternset>
+        </div>
+        <ol id="layers">
+        </ol>
+      </div>
+    </div>
+  </section>
+  <section id="patterns-area">
+    <div>
+      <div class="header">
+        <h2>Layer Creation</h2>
+      </div>
+      <ncrs-banner-patternset id="layer-picker">
+        <ncrs-banner-color-list></ncrs-banner-color-list>
+        <hr>
+        <ncrs-banner-pattern-list></ncrs-banner-pattern-list>
+      </ncrs-banner-patternset>
+    </div>
+    <div>
+      <div class="header">
+        <h2>Share link</h2>
+      </div>
+      <input type="text" id="url" onclick="this.select()" readonly>
+    </div>
+    <div class="banner-container">
+      <div class="header">
+        <h2>Generate Command</h2>
+      </div>
+      <button class="command-button" onclick="document.getElementById('banner-command').setAttribute('mode', 'give')">/give</button>
+      <button class="command-button" onclick="document.getElementById('banner-command').setAttribute('mode', 'setblock')">/setblock</button>
+      <ncrs-banner-command id="banner-command"></ncrs-banner-command>
+    </div>
+    <div class="banner-container">
+      <div class="header">
+        <h2>Saved Banners</h2>
+      </div>
+      <div id="saved-banners">
+        <button id="save-button">+</button>
+      </div>
+      <div>
+        <h3>Share Saved Banners</h3>
+        <input type="text" id="saved-banners-url" onclick="this.select()" readonly>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="module" src="/ncsassets/js/banner/main.js"></script>
