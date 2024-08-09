@@ -1,5 +1,6 @@
 class BannersController < ApplicationController
-  before_action :set_banner, only: %i[add_favourite remove_favourite]
+  before_action :authenticate_user!, only: %i[create]
+  before_action :set_banner, only: %i[show add_favourite remove_favourite]
   nav_section :gallery
   nav_section :banner, only: :new
   layout "gallery", only: :index
@@ -16,7 +17,11 @@ class BannersController < ApplicationController
 
   def random
     banner = Banner.ordered_by("random").first
-    redirect_to banner_path("" => banner.data)
+    if banner.present?
+      redirect_to banner_path(banner)
+    else
+      not_found_error
+    end
   end
 
   def new
@@ -24,7 +29,29 @@ class BannersController < ApplicationController
       config.title = "Banner Editor"
       config.description = "Banner Editor for Minecraft Banners. Create and share banners with your friends."
     end
-    render layout: "application"
+
+    @gallery_tab = :banners
+    @banner = Banner.new
+  end
+
+  def show
+    @gallery_tab = :banners
+  end
+
+  def create
+    params = banner_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(banner_params[:tags])
+    @banner = Banner.new(params)
+    @banner.user = current_user
+
+    respond_to do |format|
+      if @banner.save
+        format.html { redirect_to banner_editor_path, notice: "Banner was successfully shared." }
+      else
+        format.html { redirect_to banner_editor_path, alert: "Error saving banner. #{format_errors @banner.errors.messages}" }
+      end
+    end
   end
 
   def banner_2014
@@ -79,10 +106,14 @@ class BannersController < ApplicationController
     params.slice(:user, :date_offset, :tag, :favourited_by, :search, :order, :items).permit!
   end
 
+  def banner_params
+    params.require(:banner).permit(:name, :description, :tags, :data, :terms_and_conditions)
+  end
+
   def set_banner
     @banner = Banner.find(params[:id])
   rescue ActiveRecord::RecordNotFound
-    render_img_missing
+    not_found_error
   end
 
   def index_meta_config

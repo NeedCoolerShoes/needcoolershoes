@@ -35,14 +35,16 @@ Rails.application.routes.draw do
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
 
-  scope :banner do
-    get "/", to: "banners#new", as: "banner"
-    get "2014", to: "banners#banner_2014", as: "banner_2014"
-  end
-
   get "banners/random", to: "banners#random", as: "random_banner"
   post "banners/:id/favourite", to: "banners#add_favourite", as: "create_banner_favourite"
   delete "banners/:id/favourite", to: "banners#remove_favourite", as: "destroy_banner_favourite"
+
+  scope :banner do
+    get "/", to: "banners#new", as: "banner_editor"
+    get "2014", to: "banners#banner_2014", as: "banner_2014"
+  end
+  
+  resources :banners, except: [:new, :index]
 
   get "users", to: redirect("/")
   get "users/current", to: "users#current", as: "current_user"

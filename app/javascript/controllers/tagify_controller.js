@@ -2,9 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 import Tagify from "@yaireo/tagify"
 
 export default class extends Controller {
+  static values = {
+    for: String
+  }
+
+  tagify
+
   connect() {
-    var input = this.element,
-      tagify = new Tagify(input, {
+    const input = this.element
+    this.tagify = new Tagify(input, {
         whitelist: [],
         dropdown: {
           maxItems: 20,           // <- mixumum allowed rendered suggestions
@@ -13,32 +19,41 @@ export default class extends Controller {
           closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected
         }  
        }
-      ),
-      controller;
-    tagify.on('input', onInput)
-    tagify.on('focus', _e => resetWhitelist())
+      )
 
-    function resetWhitelist() {
-      onInput({detail: { value: "" }})
-    }
+    this.tagify.on('input', event => this._handleInput(event))
+    this.tagify.on('focus', () => this._resetWhitelist())
+  }
 
-    function onInput(e) {
-      var value = e.detail.value
-      tagify.whitelist = null // reset the whitelist
-    
-      // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
-      controller && controller.abort()
-      controller = new AbortController()
-    
-      // show loading animation and hide the suggestions dropdown
-      tagify.loading(true).dropdown.hide()
-    
-      fetch("/api/tags?query=" + value, {signal:controller.signal})
-        .then(RES => RES.json())
-        .then(function(newWhitelist){
-          tagify.whitelist = newWhitelist // update whitelist Array in-place
-          tagify.loading(false).dropdown.show(value) // render the suggestions dropdown
-        })
-    }
+  _resetWhitelist() {
+    this._handleInput({detail: { value: "" }})
+  }
+
+  _handleInput(event) {
+    const tagify = this.tagify;
+    let value = event.detail.value, controller
+
+    tagify.whitelist = null // reset the whitelist
+  
+    // https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
+    controller && controller.abort()
+    controller = new AbortController()
+  
+    // show loading animation and hide the suggestions dropdown
+    tagify.loading(true).dropdown.hide()
+
+    const forValue = this.forValue.length < 1 ? "skin" : this.forValue
+
+    const query = "/api/tags?query="
+      + value
+      + "&for="
+      + forValue
+  
+    fetch(query, {signal:controller.signal})
+      .then(RES => RES.json())
+      .then(function(newWhitelist){
+        tagify.whitelist = newWhitelist // update whitelist Array in-place
+        tagify.loading(false).dropdown.show(value) // render the suggestions dropdown
+    })
   }
 }

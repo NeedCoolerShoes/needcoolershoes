@@ -1,0 +1,55 @@
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "banner/components" %>
+<% end %>
+<% content_for :scripts do %>
+  <script type="module" data-turbo-track="reload" src="/ncsassets/js/banner/components/banner.js"></script>
+  <script type="module" data-turbo-track="reload" src="/ncsassets/js/banner/components/commands.js"></script>
+<% end %>
+
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+  <div class="sm:col-span-1 flex flex-col gap-2">
+    <div class="flex justify-center p-4 bg-ncs-grid ">
+      <ncrs-banner-preview style="--ncs-banner-scale: 6; width: 120px; height: 240px;" banner="<%= @banner.data %>"></ncrs-banner-preview>
+    </div>
+    <%= link_to "Open in Editor", banner_editor_path("" => @banner.data), class: "btn-ncs" %>
+  </div>
+
+  <div class="sm:col-span-2 flex flex-col gap-2">
+    <div class="relative p-4 bg-white">
+      <div class="absolute right-4">
+        <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
+      </div>
+      <h1 class="text-4xl font-bold line-clamp-2 break-words"><%= @banner.name %></h1>
+      <div class="font-bold">
+        <p>Banner</p>
+        <p>by <%= profile_link @banner.user %></p>
+      </div>
+      <% if @banner.tags.any? %>
+        <div class="text-gray-500 text-sm flex gap-1 flex-wrap">
+          <% @banner.tags.each do |tag| %>
+            <%= link_to tag.name, skins_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="prose">
+        <%= markdown @banner.description %>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div class="bg-[#f5e9b7] p-1">
+        <h2>Generate Command</h2>
+      </div>
+      <button class="command-button" onclick="setCommandMode('give')">/give</button>
+      <button class="command-button" onclick="setCommandMode('setblock')">/setblock</button>
+      <ncrs-banner-command id="banner-command" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-command>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const command = document.getElementById('banner-command')
+  function setCommandMode(mode) {
+    command.setAttribute('mode', mode)
+  }
+</script>

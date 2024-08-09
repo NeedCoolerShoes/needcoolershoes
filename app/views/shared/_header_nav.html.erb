@@ -1,8 +1,9 @@
 <%
+  gallery = (@gallery_tab == :banners ? banners_gallery_path : skins_gallery_path)
   links = [
     [:editor, "Editor", root_path],
-    [:banner, "Banner", banner_path],
-    [:gallery, "Gallery", skins_gallery_path],
+    [:banner, "Banner", banner_editor_path],
+    [:gallery, "Gallery", gallery],
   ]
 %>
 

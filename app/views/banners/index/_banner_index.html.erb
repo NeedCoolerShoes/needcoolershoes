@@ -3,37 +3,24 @@
   <div class="absolute top-0 right-0 p-2">
     <%= render partial: "banner_favourite", locals: { banner: banner, show_guests: true, redirect: redirect } %>
   </div>
-<%= link_to banner_path("" => banner.data) do %>
-  <div class="flex items-center justify-center bg-ncs-grid rounded pt-4 px-8 h-[192px]">
-    <ncrs-banner-preview banner="<%= banner.data %>"></ncrs-banner-preview>
-  </div>
+  <%= link_to banner do %>
+    <div class="flex items-center justify-center bg-ncs-grid rounded pt-4 px-8 h-[192px]">
+      <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= banner.data %>"></ncrs-banner-preview>
+    </div>
+  <% end %>
   <div class="px-4 pt-2">
     <% if banner.tags.any? %>
       <div class="line-clamp-1 text-gray-500 text-xs">
-        <%= render partial: "banners/tag_link", collection: banner.tags.to_a, as: :tag, locals: { params: @gallery_params } %>
+        <% banner.tags.to_a.each do |tag| %>
+          <%= banners_gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+        <% end %>
       </div>
     <% end %>
   </div>
-<% end %>
-  <div class="h-14 cursor-auto">
-    <div class="group-hover:absolute group-hover:pt-2 bottom-0 flex flex-col font-bold px-4 pb-4 bg-white">
-      <%= link_to banner.name, banner_path("" => banner.data), class: "text-xl font-bold leading-none line-clamp-2 break-words" %>
-      <p>
-        by
-        <%= link_to banner.user, title: "#{banner.user.name} - #{simple_number(banner.user.pixels)} pixels" do %>
-          <span class="underline"><%= banner.user.display_name %></span>
-          <% if (badge = banner.user.featured_badge).present? %>
-              <img class="inline w-4 border rounded-full box-content border-ncs-yellow-500 bg-ncs-yellow-500"
-              src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
-          <% end %>
-          <% if banner.user.role? %>
-            <img class="inline" src="/ncsassets/img/medals/<%= banner.user.role %>.png" alt="<%= banner.user.role.titleize %>" title="<%= banner.user.role.titleize %>">
-          <% end %>
-        <% end %>
-      </p>
-      <div class="hidden group-hover:block h-16 overflow-auto">
-        <%= markdown banner.description %>
-      </div>
-    </div>
+  <div class="h-14 cursor-auto px-4 pb-4 font-bold bg-white">
+    <%= link_to banner.name, banner, class: "text-xl leading-none line-clamp-2 break-words" %>
+    <p class="line-clamp-1">
+      by <%= profile_link banner.user %>
+    </p>
   </div>
 </div>

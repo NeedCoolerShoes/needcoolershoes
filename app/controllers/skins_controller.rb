@@ -66,9 +66,9 @@ class SkinsController < ApplicationController
         if params[:attributions].is_a? Array
           params[:attributions].each { |url| SkinAttribution.create_from_url(@skin, *url.split(/\r\n|\r|\n/)) }
         end
-        format.html { redirect_to root_path, notice: "Skin was successfully created." }
+        format.html { redirect_to @skin, notice: "Skin was successfully created." }
       else
-        format.html { redirect_to root_path, alert: "Error saving skin. #{@skin.errors.messages}" }
+        format.html { redirect_to root_path, alert: "Error saving skin. #{format_errors @skin.errors.messages}" }
       end
     end
   end
@@ -221,7 +221,7 @@ class SkinsController < ApplicationController
     respond_to do |format|
       format.png { send_data img, type: "image/png", disposition: "inline", status: 200 }
       format.json { render json: {error: 404, message: "Skin not found."}, status: 404 }
-      format.any { redirect_to skins_gallery_path }
+      format.any { not_found_error }
     end
   end
 
@@ -259,13 +259,6 @@ class SkinsController < ApplicationController
   def gallery_params
     params.reject! { |_, value| !value.present? }
     params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden).permit!
-  end
-
-  def transform_tags(tags)
-    json = JSON.parse(tags)
-    json.map { |tag| tag["value"] }
-  rescue
-    []
   end
 
   def allow_iframe

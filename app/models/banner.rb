@@ -15,6 +15,7 @@ class Banner < ApplicationRecord
   attribute :terms_and_conditions, :boolean
 
   validates :name, :data, presence: true
+  validates :data, uniqueness: true, format: {with: /\A[a-z]a([a-z]{2})+\z/i, message: "only allows valid banner codes"}
   validates :name, length: {maximum: 128}
   validates :description, length: {maximum: 1024}
   validates :terms_and_conditions, acceptance: true

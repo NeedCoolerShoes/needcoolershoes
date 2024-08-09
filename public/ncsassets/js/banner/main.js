@@ -1,5 +1,6 @@
 import {NCRSBanner, NCRSBannerLayer, NCRSBannerPreview} from './components/banner.js'
 import './components/commands.js'
+import './components/misc.js'
 import { createWithClasses } from './util.js';
 
 const state = {
@@ -255,6 +256,24 @@ clearButton.addEventListener("click", () => {
   loadFromURL("pa")
 })
 
+const shareButton = document.getElementById("share")
+const shareModal = document.getElementById("share-form")
+const dataField = document.getElementById("banner_data")
+
+shareButton.addEventListener("click", () => {
+  if (state.urlCode.length < 2) { return }
+  if (dataField != null) {
+    dataField.value = state.urlCode
+  }
+
+  shareModal.show()
+})
+
+const shareCancelButton = document.getElementById("share-cancel")
+if (shareCancelButton != null) {
+  shareCancelButton.addEventListener("click", () => shareModal.hide())
+}
+
 function load() {
   const currentURL = new URLSearchParams(location)
   const code = currentURL.get("search")
@@ -268,6 +287,10 @@ function load() {
   renderSavedBanners()
   state.loaded = true
   updateURL(true)
+
+  if (dataField != null) {
+    dataField.value = state.urlCode
+  }
 }
 
 window.addEventListener("load", load)

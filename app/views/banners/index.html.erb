@@ -3,7 +3,6 @@
 <% end %>
 <% content_for :styles do %>
   <%= stylesheet_link_tag "banner/components" %>
-  <style>:root {--ncs-banner-scale: 4}</style>
 <% end %>
 <% content_for :scripts do %>
   <script type="module" src="/ncsassets/js/banner/components/banner.js"></script>
@@ -17,6 +16,6 @@
       <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
     </div>
   <% end %>
-  <%= render partial: "banners/index/banner_index", collection: @banners, as: :banner %>
+  <%= render partial: "banners/index/banner_index", collection: @banners, as: :banner, locals: { params: @gallery_params } %>
 </div>
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
