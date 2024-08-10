@@ -78,6 +78,10 @@ class User < ApplicationRecord
     "/ncsassets/img/mncs_mascot_skin.png"
   end
 
+  def banned?
+    ban_ends_at > Time.current
+  end
+
   def to_param
     name
   end

@@ -3,6 +3,8 @@ class SkinsController < ApplicationController
   before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download texture destroy add_favourite remove_favourite preview social embed]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
+  before_action :check_ban, only: %i[create]
+
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
 
@@ -244,6 +246,11 @@ class SkinsController < ApplicationController
       return true if current_user.authorized?(:moderator)
     end
     render_img_missing
+  end
+
+  def check_ban
+    return unless current_user.banned?
+    redirect_to root_path, alert: current_user.ban_message || "You are currently banned."
   end
 
   def validate_can_edit
