@@ -79,6 +79,7 @@ class User < ApplicationRecord
   end
 
   def banned?
+    return false unless ban_ends_at.present?
     ban_ends_at > Time.current
   end
 
