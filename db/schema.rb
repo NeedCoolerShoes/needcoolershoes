@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_10_065517) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -191,6 +191,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_11_064527) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
+    t.datetime "ban_ends_at"
+    t.string "ban_message"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
