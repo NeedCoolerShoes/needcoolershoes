@@ -246,6 +246,11 @@ class SkinsController < ApplicationController
     render_img_missing
   end
 
+  def check_ban
+    return unless current_user.banned?
+    redirect_to root_path, alert: current_user.ban_message || "You are currently banned."
+  end
+
   def validate_can_edit
     return true if @skin.can_user_edit?(current_user)
     redirect_to gallery_path
