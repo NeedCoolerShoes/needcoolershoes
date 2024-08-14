@@ -6,9 +6,9 @@
   url ||= nil
 %>
 <div class="relative skin group" data-id="<%= url %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
-  <div class="<%= classes %>" style="display: flex; gap: 2px; width: fit-content;">
+  <div class="<%= classes %> skin-preview">
     <div>
-      <div class="face display-<%= id %>" style="margin-left: 4px;">
+      <div class="face display-<%= id %>">
         <div class="face-overlay display-<%= id %>"></div>
       </div>
       <div style="display: flex;">
@@ -22,7 +22,7 @@
           <div class="left-arm<%= suffix %>-overlay display-<%= id %>"></div>
         </div>
       </div>
-      <div style="display: flex; margin-left: 4px;">
+      <div style="display: flex;">
         <div class="right-leg display-<%= id %>">
           <div class="right-leg-overlay display-<%= id %>"></div>
         </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div>
-      <div class="face-back display-<%= id %>" style="margin-left: 4px;">
+      <div class="face-back display-<%= id %>">
         <div class="face-overlay-back display-<%= id %>"></div>
       </div>
       <div style="display: flex;">
@@ -46,7 +46,7 @@
           <div class="right-arm<%= suffix %>-overlay-back display-<%= id %>"></div>
         </div>
       </div>
-      <div style="display: flex; margin-left: 4px;">
+      <div style="display: flex;">
         <div class="left-leg-back display-<%= id %>">
           <div class="left-leg-overlay-back display-<%= id %>"></div>
         </div>

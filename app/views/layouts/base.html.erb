@@ -16,10 +16,10 @@
     <%= render partial: "shared/analytics" %>
   </head>
 
-  <body>
+  <body class="flex flex-col min-h-screen">
     <%= render partial: "shared/flash" %>
     <%= render partial: "shared/header" %>
-    <main>        
+    <main class="flex flex-col grow">        
         <%= content_for?(:body) ? yield(:body) : yield %>
     </main>
     <%= render partial: "shared/footer" %>

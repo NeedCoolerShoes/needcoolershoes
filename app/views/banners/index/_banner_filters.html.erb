@@ -1,10 +1,11 @@
-<div class="flex flex-col gap-2 bg-ncs-yellow-200 p-2 rounded-b text-gray-600">
+<div class="flex flex-col gap-2 bg-ncs-dark-800 p-2 rounded-b text-ncs-dark-100">
   <div>
     <%= link_to "Clear All", banners_gallery_path, class: "underline" %>
     <%= link_to "Random Banner", random_banner_path, class: "underline" %>
-    <h3 class="font-bold text-black">Created At:</h3>
-    <div class="flex flex-wrap gap-1 text-gray-600">
-      <div class="flex flex-wrap items-center gap-1 text-gray-600">
+    <hr class="border-ncs-dark-300 my-2 border-b-0">
+    <h3 class="font-bold text-ncs-dark-100">Created At:</h3>
+    <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+      <div class="flex flex-wrap items-center gap-1 text-ncs-dark-100">
         <%
           date_ranges = {
             today: "0", last_7_days: "7", last_30_days: "30", last_90_days: "90", last_year: "365"
@@ -17,9 +18,10 @@
       </div>
     </div>
   </div>
-  <h3 class="font-bold text-black">Order By:</h3>
-  <div class="flex flex-wrap gap-1 text-gray-600">
-    <div class="flex flex-wrap items-center gap-1 text-gray-600">
+  <hr class="border-ncs-dark-300 my-2">
+  <h3 class="font-bold text-ncs-dark-100">Order By:</h3>
+  <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-100">
       <%
         orderings = {
           "favourite" => "Most Favourited",
@@ -35,20 +37,22 @@
     </div>
   </div>
   <% if current_user.present? %>
-    <h3 class="font-bold text-black">Relevant to Me:</h3>
-    <div class="flex flex-wrap gap-1 text-gray-600">
-      <div class="flex flex-wrap items-center gap-1 text-gray-600">
+    <hr class="border-ncs-dark-300 my-2">
+    <h3 class="font-bold text-ncs-dark-100">Relevant to Me:</h3>
+    <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+      <div class="flex flex-wrap items-center gap-1 text-ncs-dark-100">
         <%= banners_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "#{current_user.display_name} - #{current_user.skins.count}", "My Banners" %>
         <%= banners_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "My Favourites - #{current_user.favourites.count}", "My Favourites" %>
       </div>
     </div>
   <% end %>
   <div>
-    <h3 class="font-bold text-black">Popular Tags:</h3>
-    <div class="flex flex-wrap gap-1 text-gray-600">
-      <div class="flex flex-wrap items-center gap-1 text-gray-600">
+    <hr class="border-ncs-dark-300 my-2">
+    <h3 class="font-bold text-ncs-dark-100">Popular Tags:</h3>
+    <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+      <div class="flex flex-wrap items-center gap-1 text-ncs-dark-100">
         <% banners.top_tags(10).each do |tag| %>
-          <%= banners_gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+          <%= banners_gallery_tag_filter_tag params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
         <% end %>
       </div>
     </div>

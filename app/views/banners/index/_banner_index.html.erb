@@ -1,23 +1,23 @@
 <% redirect = banners_gallery_path + "/#{params[:page]}?" + URI.encode_www_form(@gallery_params.to_h) %>
-<div class="relative group rounded h-full bg-white shadow cursor-pointer w-full max-w-[220px]">
+<div class="relative group rounded h-full border-b-4 bg-ncs-dark-700/50 border-ncs-dark-700/50 shadow-lg cursor-pointer">
   <div class="absolute top-0 right-0 p-2">
     <%= render partial: "banner_favourite", locals: { banner: banner, show_guests: true, redirect: redirect } %>
   </div>
   <%= link_to banner do %>
-    <div class="flex items-center justify-center bg-ncs-grid rounded pt-4 px-8 h-[192px]">
+    <div class="flex items-center justify-center bg-ncs-dark-700 rounded py-4 px-8 h-[192px]">
       <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= banner.data %>"></ncrs-banner-preview>
     </div>
   <% end %>
-  <div class="px-4 pt-2">
-    <% if banner.tags.any? %>
-      <div class="line-clamp-1 text-gray-500 text-xs">
-        <% banner.tags.to_a.each do |tag| %>
-          <%= banners_gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-  <div class="h-14 cursor-auto px-4 pb-4 font-bold bg-white">
+  <div class="cursor-auto px-4 pb-4 pt-2 font-bold text-ncs-dark-100 bg-ncs-dark-500 rounded-b">
+    <div class="mb-2">
+      <% if banner.tags.any? %>
+        <div class="line-clamp-1 text-ncs-dark-300 text-xs">
+          <% banner.tags.to_a.each do |tag| %>
+            <%= banners_gallery_tag_filter_tag params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
     <%= link_to banner.name, banner, class: "text-xl leading-none line-clamp-2 break-words" %>
     <p class="line-clamp-1">
       by <%= profile_link banner.user %>

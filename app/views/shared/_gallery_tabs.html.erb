@@ -6,11 +6,11 @@
   ]
 %>
 
-<ul class="flex flex-wrap gap-1 text-2xl mt-2 ncs-min:mt-4 font-bold">
+<ul class="flex items-end gap-1 text-lg mt-2 ncs-min:mt-4 font-bold">
   <% tabs.each do |tab| %>
     <%
-      classes = (selected == tab[0] ? "bg-ncs-yellow-200" : "bg-[#cdceb6]" )
+      classes = (selected == tab[0] ? "bg-ncs-dark-800 text-ncs-dark-100 sm:py-1" : "bg-ncs-dark-700 text-ncs-dark-300 sm:py-0.5" )
     %>
-    <li class="rounded-t-sm <%= classes %>"><%= link_to tab[1], tab[2], class: "px-6" %></li>
+    <li class="rounded-t-lg <%= classes %>"><%= link_to tab[1], tab[2], class: "px-4 sm:px-6" %></li>
   <% end %>
 </ul>
