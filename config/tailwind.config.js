@@ -6,7 +6,8 @@ module.exports = {
     './public/ncsassets/**/*.js',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
-    './app/views/**/*.{erb,haml,html,slim}'
+    './app/views/**/*.{erb,haml,html,slim}',
+    './app/components/**/*.{erb,haml,html,slim}'
   ],
   theme: {
     extend: {
@@ -18,7 +19,7 @@ module.exports = {
       backgroundImage: {
         'ncs-tweed': "url('ncsassets/img/tweed.png')",
         'ncs-flourish': "url('ncsassets/img/flourish.png')",
-        'ncs-grid': "url('ncsassets/img/grid.png')",
+        'ncs-grid': "url('ncsassets/img/grid-dark.png')",
         'skin-clouds': "url('ncsassets/img/bg-clouds-temp.png')"
       },
       colors: {
@@ -40,8 +41,14 @@ module.exports = {
           100: "#D4E2F1",
           300: "#6F8498",
           500: "#374451",
+          600: "#32404E",
           700: "#222E3A",
           800: "#17222D",
+        },
+        'ncs-header': {
+          'base': "#da6d11",
+          'hover': "#be4f2f",
+          'selected': "#ac2d3a"
         },
         'ncs-yellow': {
           200: "#f5f8cc",

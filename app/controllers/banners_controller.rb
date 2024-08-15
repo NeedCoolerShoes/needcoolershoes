@@ -13,6 +13,8 @@ class BannersController < ApplicationController
     banners = banners.merge(Banner.order_by_created) unless gallery_params[:order].present?
     @pagy, @banners = pagy(banners, items: items)
     @gallery_tab = :banners
+  rescue Pagy::OverflowError
+    not_found_error
   end
 
   def random

@@ -10,14 +10,15 @@
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
 <div class="grow">
-    <% if !@banners.any? %>
-      <div class="flex flex-col gap-2 items-center">
-        <h3 class="text-4xl font-bold text-white">NO BANNERS?</h3>
-        <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
-      </div>
-    <% end %>
-  <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <%= render partial: "banners/index/banner_index", collection: @banners, as: :banner, locals: { params: @gallery_params } %>
+  <% if !@banners.any? %>
+    <div class="flex flex-col gap-2 items-center">
+      <h3 class="text-4xl font-bold text-white">NO BANNERS?</h3>
+      <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
+      <p class="text-ncs-dark-300">Current search / filters yield no results.</p>
+    </div>
+  <% end %>
+  <div class="grid grid-cols-1 mob:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <%= render Gallery::BannerCardComponent.with_collection(@banners, params: @gallery_params) %>
   </div>
 </div>
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>

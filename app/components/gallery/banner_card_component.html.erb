@@ -1,0 +1,28 @@
+<%= render Gallery::CardComponent.new(url: @banner) do |card| %>
+  <% card.with_overlay do %>
+    <div class="absolute top-0 right-0 p-2">
+      <%= render partial: "banners/banner_favourite", locals: { banner: @banner, show_guests: true, redirect: request.fullpath } %>
+    </div>
+  <% end %>
+
+  <% card.with_preview do %>
+    <div class="flex items-center justify-center bg-ncs-grid bg-center rounded py-4 px-8 h-[192px]">
+      <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+    </div>
+  <% end %>
+
+  <div class="mb-1">
+    <% if @banner.tags.any? %>
+      <div class="line-clamp-1 text-ncs-dark-300 text-xs">
+        <% @banner.tags.to_a.each do |tag| %>
+          <%= banners_gallery_tag_filter_tag @params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <%= link_to @banner.name, @banner, class: "text-xl leading-none line-clamp-2 break-words h-[2.7rem]" %>
+  <p class="text-ncs-dark-300 text-xs">Banner</p>
+  <p class="line-clamp-1">
+    by <%= profile_link @banner.user %>
+  </p>
+<% end %>

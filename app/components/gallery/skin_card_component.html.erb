@@ -1,0 +1,41 @@
+<%= render Gallery::CardComponent.new(url: @skin) do |card| %>
+  <% card.with_overlay do %>
+    <% if show_visibility? %>
+      <div class="absolute top-0 left-0 p-2">
+        <%= heroicon icon, class: "text-ncs-dark-300", title: @skin.visibility.titleize %>
+      </div>
+    <% end %>
+    <div class="absolute top-0 right-0 p-2">
+      <%= render partial: "skin_favourite", locals: { skin: @skin, show_guests: true, redirect: request.fullpath } %>
+    </div>
+  <% end %>
+
+  <% card.with_preview do %>
+    <div class="bg-ncs-grid bg-center p-4 flex justify-center">
+      <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, classes: "scaled-md", width: "170px", height: "160px" } %>
+    </div>
+  <% end %>
+
+  <div class="h-full flex flex-col justify-between">
+    <div class="mb-1">
+      <% if @skin.tags.any? %>
+        <div class="line-clamp-1 text-ncs-dark-300 text-xs">
+          <%= render partial: "skins/tag_link", collection: @skin.tags.to_a, as: :tag, locals: { params: @params } %>
+        </div>
+      <% end %>
+    </div>
+    <div>
+      <%= link_to @skin.name, @skin, class: "text-xl leading-none line-clamp-2 break-words h-[2.7rem]" %>
+      <div class="flex flex-col font-bold">
+        <p class="text-ncs-dark-300 text-xs">
+          <%= link_to @skin.skin_part.name, skins_gallery_path(@params.merge(part: @skin.skin_part.name)), class: "underline" %>
+          -
+          <%= link_to @skin.skin_category.name, skins_gallery_path(@params.merge(category: @skin.skin_category.name)), class: "underline" %>
+        </p>
+        <p class="line-clamp-1">
+          by <%= profile_link @skin.user %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

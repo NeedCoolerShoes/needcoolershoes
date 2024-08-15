@@ -16,15 +16,17 @@
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
-<div class="flex justify-center gap-4 flex-wrap">
-  <% @skins.each do |skin| %>
-    <%
-      show_visibility = false
-      show_visibility = true if current_user.present? && skin.user == current_user
-    %>
-    <div class="w-[230px]">
-      <%= render partial: "skins/index/skin_index", locals: { skin: skin, show_visibility: show_visibility }%>
+
+<div class="grow">
+  <% if !@skins.any? %>
+    <div class="flex flex-col gap-2 items-center">
+      <h3 class="text-4xl font-bold text-white">NO SKINS?</h3>
+      <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
+      <p class="text-ncs-dark-300">Current search / filters yield no results.</p>
     </div>
   <% end %>
+  <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <%= render Gallery::SkinCardComponent.with_collection(@skins, params: @gallery_params, show_visibility: current_user) %>
+  </div>
 </div>
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
