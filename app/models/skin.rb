@@ -1,14 +1,11 @@
 class Skin < ApplicationRecord
   PARAMS = {
-    user: "by_user_name",
     part: "by_part_name",
     category: "by_category_name",
     model: "by_model",
-    date_offset: "created_after_days",
     tag: "tagged_with",
     favourited_by: "favourited_by_user_name",
     search: "search",
-    order: "ordered_by"
   }
   LICENSES = {
     cc0: "CC0 1.0",
@@ -28,6 +25,10 @@ class Skin < ApplicationRecord
   include PgSearch::Model
   include SkinTransformations
   include Routing
+  include Favouriteable
+  include GalleryFilters
+
+  add_gallery_filters PARAMS
 
   delegate :url_helpers, to: "Rails.application.routes"
 
@@ -36,7 +37,6 @@ class Skin < ApplicationRecord
   belongs_to :user
   belongs_to :skin_category
   belongs_to :skin_part
-  has_many :favourites, dependent: :destroy
   has_many :attributions, class_name: "SkinAttribution", dependent: :destroy
   has_many :variants, class_name: "SkinAttribution", foreign_key: "attributed_skin_id", dependent: :nullify
   has_many :modlogs, as: :target
@@ -52,46 +52,19 @@ class Skin < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
 
   attribute :favourites_count, :integer, default: 0
-
-  scope :by_user_name, ->(name) { joins(:user).where(user: {name: name}) }
-  scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
-  scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
-  scope :order_by_favourites, ->(direction = :desc) { order(favourites_count: direction) }
+  
+  # Skin filters
   scope :hidden, -> { where(hidden: true) }
   scope :visible, -> { where.not(hidden: true) }
   scope :visible_to_user, ->(user) { visible.is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: {name: name}) }
   scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: {name: name}) }
   scope :by_model, ->(model) { where(model: model) }
-  scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
-  scope :favourited_by_user_name, ->(name) { joins(:favourites).where(favourites: {user: User.where(name: name)}) }
-
-  scope :ordered_by, ->(ordering) {
-    case ordering
-    when "favourite" then order_by_favourites
-    when "old" then order_by_created(:asc)
-    when "new_updated" then order_by_updated
-    when "old_updated" then order_by_updated(:asc)
-    when "random" then order("RANDOM()")
-    else order_by_created
-    end
-  }
-
-  scope :with_params, ->(params) { with_params_query(params) }
 
   after_create :send_creation_webhook, if: :is_public?
   after_create :embed_watermark!, unless: -> { user.watermark_disabled? }
 
   class << self
-    def with_params_query(params)
-      query = all
-      params.each do |key, value|
-        next unless PARAMS.include? key.to_sym
-        query = query.merge(send(PARAMS[key.to_sym], value))
-      end
-      query
-    end
-
     def export_to_zip(skins = all)
       zip_file = Tempfile.new
       metadata_file = Tempfile.new
@@ -135,10 +108,6 @@ class Skin < ApplicationRecord
 
   def tag_js
     tags.map { |tag| {value: tag.name} }.to_json
-  end
-
-  def favourited_by?(user)
-    favourites.where(user: user).any?
   end
 
   def url

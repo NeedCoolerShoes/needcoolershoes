@@ -1,0 +1,11 @@
+<div class="flex justify-center">
+  <div class="relative grow flex flex-col group rounded h-full border-b-4 bg-ncs-dark-700 border-ncs-dark-700 max-w-72 shadow-lg cursor-pointer">
+    <%= overlay %>
+    <%= link_to @url do %>
+      <%= preview %>
+    <% end %>
+    <div class="grow cursor-auto px-4 pb-4 pt-2 font-bold text-ncs-dark-100 bg-ncs-dark-500 rounded-b">
+      <%= content %>
+    </div>
+  </div>
+</div>

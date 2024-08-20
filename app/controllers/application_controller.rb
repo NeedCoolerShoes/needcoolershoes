@@ -57,4 +57,28 @@ class ApplicationController < ActionController::Base
       format.html { render layout: "plain", template: "errors/forbidden", status: 403 }
     end
   end
+
+  def not_found_error
+    respond_to do |format|
+      format.html { render layout: "plain", template: "errors/not_found", status: 404 }
+    end
+  end
+
+  def transform_tags(tags)
+    json = JSON.parse(tags)
+    json.map { |tag| tag["value"] }
+  rescue
+    []
+  end
+
+  def format_errors(errors)
+    return unless errors.is_a? Hash
+    output = []
+    errors.each do |key, value|
+      value.each do |entry|
+        output << "#{key.to_s.titleize}: #{entry}"
+      end
+    end
+    output.join(", ")
+  end
 end

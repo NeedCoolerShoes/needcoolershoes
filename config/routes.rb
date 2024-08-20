@@ -15,9 +15,17 @@ Rails.application.routes.draw do
   get "open_letter", to: redirect("open-letter")
   get "rules", to: "static#rules"
   get "sitemap", to: "static#sitemap", defaults: {format: "xml"}
-  get "gallery", to: "skins#index"
-  get "gallery/:page", to: "skins#index"
-  get "skins", to: redirect("/gallery")
+
+  # Gallery Routes
+  get "gallery/banners", to: "banners#index", as: "banners_gallery"
+  get "gallery/banners/:page", to: "banners#index"
+  get "gallery/skins", to: "skins#index", as: "skins_gallery"
+  get "gallery/skins/:page", to: "skins#index"
+  get "gallery", to: redirect("/gallery/skins")
+  get "gallery/:page", to: redirect("/gallery/skins/%{page}")
+
+  get "skins", to: redirect("/gallery/skins")
+  get "skins/random", to: "skins#random", as: "random_skin"
   get "skins/:id/download", to: "skins#download", as: "skin_download"
   get "skins/:id/texture", to: "skins#texture", as: "skin_texture"
   get "skins/:id/social", to: "skins#social", as: "skin_social"
@@ -27,6 +35,18 @@ Rails.application.routes.draw do
   patch "skins/:id/moderate", to: "skins#moderator_update", as: "update_skin_moderate"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
+
+  get "banners/random", to: "banners#random", as: "random_banner"
+  post "banners/:id/favourite", to: "banners#add_favourite", as: "create_banner_favourite"
+  delete "banners/:id/favourite", to: "banners#remove_favourite", as: "destroy_banner_favourite"
+
+  scope :banner do
+    get "/", to: "banners#new", as: "banner_editor"
+    get "2014", to: "banners#banner_2014", as: "banner_2014"
+  end
+  
+  resources :banners, except: [:new, :index]
+
   get "users", to: redirect("/")
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
@@ -66,11 +86,6 @@ Rails.application.routes.draw do
   scope :editor do
     get "/", to: redirect("/")
     get "2010", to: "static#editor_2010", as: "editor_2010"
-  end
-
-  scope :banner do
-    get "/", to: "static#banner", as: "banner"
-    get "2014", to: "static#banner_2014", as: "banner_2014"
   end
 
   # API

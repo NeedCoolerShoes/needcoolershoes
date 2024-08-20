@@ -110,6 +110,7 @@
 
     App.dep.layerModel.loop(layer => {
       if (!layer.skinId) { return; }
+      if (!layer.visible) { return; }
       attributions.push(layer.skinId);
     })
 

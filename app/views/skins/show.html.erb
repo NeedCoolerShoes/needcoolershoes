@@ -27,7 +27,9 @@
         >
           <%= t("skins.editor") %>
         </button>
+        <!--
         <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
+        -->
         <%= link_to "Download to Computer", skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
         <% if @skin.user == current_user %>
           <%= form_with model: current_user, url: user_path(current_user) do |form| %>
@@ -39,7 +41,7 @@
     </div>
   </div>
   <div class="grow max-w-[364px] w-full sm:max-w-none">
-    <div class="bg-white p-4">
+    <div class="bg-ncs-dark-700 p-4 text-ncs-dark-100">
       <div class="flex justify-between">
         <h2 class="text-4xl font-bold max-w-lg line-clamp-2" style="overflow-wrap: break-word;" title="<%= @skin.name %>"><%= @skin.name %></h2>
         <div>
@@ -47,7 +49,7 @@
         </div>
       </div>
       <div class="flex flex-col font-bold">
-        <p><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
+        <p class="text-ncs-dark-300"><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
         <p>
           by <%= link_to @skin.user do %>
             <span class="underline"><%= @skin.user.display_name %></span>
@@ -61,9 +63,9 @@
           <% end %>
         </p>
         <% if @skin.tags.any? %>
-          <div class="text-gray-500 text-sm flex gap-1 flex-wrap">
+          <div class="text-ncs-dark-300 text-sm flex gap-1 flex-wrap">
             <% @skin.tags.each do |tag| %>
-              <%= link_to tag.name, gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
+              <%= link_to tag.name, skins_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
             <% end %>
           </div>
         <% end %>
@@ -84,7 +86,7 @@
         <% end %>
       </div>
       <% if @skin.description.present? %>
-        <div class="prose">
+        <div class="prose prose-ncs-dark">
           <%= markdown @skin.description %>
         </div>
       <% end %>
@@ -95,11 +97,11 @@
             Copy Link to this Skin
             <%= heroicon "document-duplicate", class: "inline" %>
           </button>
-          <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+          <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
             <%= t "actions.copied" %>
           </span>
         </div>
-        <fieldset class="border border-black p-2 rounded">
+        <fieldset class="border border-ncs-dark-300 p-2 rounded">
           <legend class="font-bold">Attribution</legend>
           <div class="flex gap-2">
             <div id="attribution" class="break-words">
@@ -109,23 +111,23 @@
               <button title="<%= t "actions.copy" %>" onclick="copyText('attribution')">
                 <%= heroicon "document-duplicate" %>
               </button>
-              <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
                 <%= t "actions.copied" %>
               </span>
             </div>
           </div>
         </fieldset>
-        <fieldset class="border border-black p-2 rounded">
+        <fieldset class="border border-ncs-dark-300 p-2 rounded">
           <legend class="font-bold">Embed Skin</legend>
           <p>Add the following HTML to your site, to embed a preview of this skin. For more info, see
           <%= link_to "the guide", embeds_guide_path, class: "underline", target: "_blank" %>.</p>
-          <div class="flex gap-2">
-            <textarea readonly="true" cols="5" name="embed" id="embed" class="grow resize" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
+          <div class="flex gap-2 mt-1">
+            <textarea readonly="true" cols="5" name="embed" id="embed" class="grow resize bg-ncs-dark-800 border-ncs-dark-300" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
             <div class="relative">
               <button title="<%= t "actions.copy" %>" onclick="copyText('embed')">
                 <%= heroicon "document-duplicate" %>
               </button>
-              <span class="copy-text hidden absolute -top-4 bg-ncs-gray-200 rounded-sm p-0.5 text-white text-sm select-none">
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
                 <%= t "actions.copied" %>
               </span>
             </div>
@@ -147,17 +149,17 @@
       <% end %>
     </div>
     <% if @skin.user == current_user %>
-      <div class="bg-white p-4 mt-2">
+      <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
         <h4 class="font-bold text-lg">My Stats</h4>
         <p>Total Favourites: <%= @skin.favourites.count %></p>
         <p>Total Downloads: <%= @skin.download_count || 0 %></p>
         <% if @skin.modlogs.any? %>
-          <%= link_to "See moderation log", modlog_path(id: @skin.id, type: "Skin"), class: "underline text-gray-600 text-xs" %>
+          <%= link_to "See moderation log", modlog_path(id: @skin.id, type: "Skin"), class: "underline text-ncs-dark-300 text-xs" %>
         <% end %>
       </div>
     <% end %>
     <% if @attributions.any? %>
-      <div class="bg-white p-4 mt-2">
+      <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
         <h4 class="font-bold text-lg">Parts Used</h4>
         <div class="flex flex-wrap gap-2 items-start">
           <%= render partial: "attribution", collection: @attributions, as: :attribution %>
@@ -169,7 +171,7 @@
       </div>
     <% end %>
     <% if @variants.any? %>
-    <div class="bg-white p-4 mt-2">
+    <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
       <h4 class="font-bold text-lg">Used In</h4>
       <div class="flex flex-wrap gap-2 items-start">
         <%= render partial: "attribution", collection: @variants, as: :attribution, locals: {variant: true} %>

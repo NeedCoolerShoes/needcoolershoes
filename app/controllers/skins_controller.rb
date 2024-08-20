@@ -9,6 +9,8 @@ class SkinsController < ApplicationController
 
   after_action :allow_iframe, only: :embed
 
+  layout "gallery", only: :index
+
   def index
     @gallery_params = gallery_params
     set_jam_info
@@ -28,7 +30,7 @@ class SkinsController < ApplicationController
     @pagy, @skins = pagy(skins, items: items)
     index_meta_config
   rescue Pagy::OverflowError
-    redirect_to gallery_path
+    not_found_error
   end
 
   def show
@@ -65,9 +67,9 @@ class SkinsController < ApplicationController
         if params[:attributions].is_a? Array
           params[:attributions].each { |url| SkinAttribution.create_from_url(@skin, *url.split(/\r\n|\r|\n/)) }
         end
-        format.html { redirect_to root_path, notice: "Skin was successfully created." }
+        format.html { redirect_to @skin, notice: "Skin was successfully created." }
       else
-        format.html { redirect_to root_path, alert: "Error saving skin. #{@skin.errors.messages}" }
+        format.html { redirect_to root_path, alert: "Error saving skin. #{format_errors @skin.errors.messages}" }
       end
     end
   end
@@ -136,14 +138,14 @@ class SkinsController < ApplicationController
   def destroy
     @skin.destroy
     respond_to do |format|
-      format.html { redirect_to gallery_path, notice: "Skin was successfully destroyed." }
+      format.html { redirect_to skins_gallery_path, notice: "Skin was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def add_favourite
     respond_to do |format|
-      if Favourite.create(skin: @skin, user: current_user)
+      if Favourite.create(target: @skin, user: current_user)
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace(
             "favourite_skin_#{@skin.id}",
@@ -159,7 +161,7 @@ class SkinsController < ApplicationController
   end
 
   def remove_favourite
-    favourite = Favourite.find_by(skin: @skin, user: current_user)
+    favourite = Favourite.find_by(target: @skin, user: current_user)
     respond_to do |format|
       if favourite.destroy
         format.turbo_stream {
@@ -175,7 +177,12 @@ class SkinsController < ApplicationController
       end
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_to gallery_path
+    redirect_to skins_gallery_path
+  end
+
+  def random
+    skin = Skin.visible_to_user(current_user).ordered_by("random").first
+    redirect_to skin_path(skin)
   end
 
   private
@@ -223,7 +230,7 @@ class SkinsController < ApplicationController
     respond_to do |format|
       format.png { send_data img, type: "image/png", disposition: "inline", status: 200 }
       format.json { render json: {error: 404, message: "Skin not found."}, status: 404 }
-      format.any { redirect_to gallery_path }
+      format.any { not_found_error }
     end
   end
 
@@ -254,7 +261,7 @@ class SkinsController < ApplicationController
 
   def validate_can_edit
     return true if @skin.can_user_edit?(current_user)
-    redirect_to gallery_path
+    redirect_to skins_gallery_path
   end
 
   def skin_params
@@ -266,13 +273,6 @@ class SkinsController < ApplicationController
   def gallery_params
     params.reject! { |_, value| !value.present? }
     params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden).permit!
-  end
-
-  def transform_tags(tags)
-    json = JSON.parse(tags)
-    json.map { |tag| tag["value"] }
-  rescue
-    []
   end
 
   def allow_iframe

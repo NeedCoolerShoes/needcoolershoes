@@ -1,212 +1,311 @@
 .scaled {
   transform-origin: left top;
   image-rendering: pixelated;
-  transform: scale(6, 6);
+  /* transform: scale(6, 6); */
+  --ncs-scale: 6;
 }
 
 .scaled-md {
   transform-origin: left top;
   image-rendering: pixelated;
-  transform: scale(5, 5);
+  /* transform: scale(5, 5); */
+  --ncs-scale: 5;
 }
 
 .scaled-sm {
   transform-origin: left top;
   image-rendering: pixelated;
-  transform: scale(3, 3);
+  /* transform: scale(3, 3); */
+  --ncs-scale: 3;
+}
+
+.skin-preview {
+  display: flex;
+  gap: calc(2px * var(--ncs-scale));
+  width: fit-content;
 }
 
 .face {
-  width: 8px;
-  height: 8px;
-  background-position: 56px 56px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(8px * var(--ncs-scale));
+  background-position: calc(56px * var(--ncs-scale))
+    calc(56px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  margin-left: calc(4px * var(--ncs-scale));
+
+  position: relative;
+  z-index: 1;
 }
 
 .face-overlay {
-  width: 8px;
-  height: 8px;
-  background-position: 24px 56px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(8px * var(--ncs-scale));
+  background-position: calc(24px * var(--ncs-scale))
+    calc(56px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.12);
 }
 
 .torso {
-  width: 8px;
-  height: 12px;
-  background-position: 44px 44px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(44px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .torso-overlay {
-  width: 8px;
-  height: 12px;
-  background-position: 44px 28px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(44px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.05);
 }
 
 .left-arm {
-  width: 4px;
-  height: 12px;
-  background-position: 28px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(28px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .left-arm-overlay {
-  width: 4px;
-  height: 12px;
-  background-position: 12px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(12px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .left-arm-slim {
-  width: 3px;
-  height: 12px;
-  background-position: 28px 12px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(28px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .left-arm-slim-overlay {
-  width: 3px;
-  height: 12px;
-  background-position: 12px 12px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(12px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.2, 1.05);
 }
 
 .right-arm {
-  width: 4px;
-  height: 12px;
-  background-position: 20px 44px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(20px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .right-arm-overlay {
-  width: 4px;
-  height: 12px;
-  background-position: 20px 28px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(20px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .right-arm-slim {
-  width: 3px;
-  height: 12px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
   margin-left: 1px;
-  background-position: 20px 44px;
+  background-position: calc(20px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .right-arm-slim-overlay {
-  width: 3px;
-  height: 12px;
-  background-position: 20px 28px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(20px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.2, 1.05);
 }
 
 .left-leg {
-  width: 4px;
-  height: 12px;
-  background-position: 44px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(44px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .left-leg-overlay {
-  width: 4px;
-  height: 12px;
-  background-position: 60px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(60px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .right-leg {
-  width: 4px;
-  height: 12px;
-  background-position: 60px 44px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(60px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+
+  margin-left: calc(4px * var(--ncs-scale));
 }
 
 .right-leg-overlay {
-  width: 4px;
-  height: 12px;
-  background-position: 60px 28px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(60px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .face-back {
-  width: 8px;
-  height: 8px;
-  background-position: 40px 56px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(8px * var(--ncs-scale));
+  background-position: calc(40px * var(--ncs-scale))
+    calc(56px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  margin-left: calc(4px * var(--ncs-scale));
+
+  position: relative;
+  z-index: 1;
 }
 
 .face-overlay-back {
-  width: 8px;
-  height: 8px;
-  background-position: 8px 56px;
-
+  width: calc(8px * var(--ncs-scale));
+  height: calc(8px * var(--ncs-scale));
+  background-position: calc(8px * var(--ncs-scale))
+    calc(56px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.12);
 }
 
 .torso-back {
-  width: 8px;
-  height: 12px;
-  background-position: 32px 44px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(32px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .torso-overlay-back {
-  width: 8px;
-  height: 12px;
-  background-position: 32px 28px;
+  width: calc(8px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(32px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.05);
 }
 
 .left-arm-back {
-  width: 4px;
-  height: 12px;
-  background-position: 20px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(20px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .left-arm-overlay-back {
-  width: 4px;
-  height: 12px;
-  background-position: 4px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(4px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .left-arm-slim-back {
-  width: 3px;
-  height: 12px;
-  margin-left: 1px;
-  background-position: 21px 12px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  margin-left: calc(1px * var(--ncs-scale));
+  background-position: calc(21px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .left-arm-slim-overlay-back {
-  width: 3px;
-  height: 12px;
-  background-position: 5px 12px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(5px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.2, 1.05);
 }
 
 .right-arm-back {
-  width: 4px;
-  height: 12px;
-  background-position: 12px 44px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(12px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .right-arm-overlay-back {
-  width: 4px;
-  height: 12px;
-  background-position: 12px 28px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(12px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .right-arm-slim-back {
-  width: 3px;
-  height: 12px;
-  background-position: 13px 44px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(13px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .right-arm-slim-overlay-back {
-  width: 3px;
-  height: 12px;
-  background-position: 13px 28px;
+  width: calc(3px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(13px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.2, 1.05);
 }
 
 .left-leg-back {
-  width: 4px;
-  height: 12px;
-  background-position: 36px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(36px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  margin-left: calc(4px * var(--ncs-scale));
 }
 
 .left-leg-overlay-back {
-  width: 4px;
-  height: 12px;
-  background-position: 52px 12px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(52px * var(--ncs-scale))
+    calc(12px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }
 
 .right-leg-back {
-  width: 4px;
-  height: 12px;
-  background-position: 52px 44px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(52px * var(--ncs-scale))
+    calc(44px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 }
 
 .right-leg-overlay-back {
-  width: 4px;
-  height: 12px;
-  background-position: 52px 28px;
+  width: calc(4px * var(--ncs-scale));
+  height: calc(12px * var(--ncs-scale));
+  background-position: calc(52px * var(--ncs-scale))
+    calc(28px * var(--ncs-scale));
+  background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
+  transform: scale(1.15, 1.05);
 }

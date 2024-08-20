@@ -1,0 +1,6 @@
+<% if user.skins.any? %>
+  <%= link_to "View User's Skins", skins_gallery_path(user: user.name), class: "btn-ncs" %>
+<% end %>
+<% if user.favourites.any? %>
+  <%= link_to "View User's Favourites", skins_gallery_path(favourited_by: user.name), class: "btn-ncs" %>
+<% end %>

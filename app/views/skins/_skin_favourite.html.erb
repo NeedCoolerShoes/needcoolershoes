@@ -1,7 +1,7 @@
 <%
   size ||= 24
   show_guests ||= false
-  redirect ||= gallery_path
+  redirect ||= skins_gallery_path
 %>
 <%= turbo_frame_tag "favourite_" + dom_id(skin) do %>
   <% if current_user.present? %>

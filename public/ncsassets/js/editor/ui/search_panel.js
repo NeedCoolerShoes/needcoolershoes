@@ -98,7 +98,7 @@ App.SearchPanel = function (a, b) {
     }),
     ((i = {
       type: "get",
-      url: window.location.origin + "/gallery.json",
+      url: window.location.origin + "/gallery/skins.json",
       data: { items: 8, page: 1, order: 'random', model: currentModel },
     }),
     d(i).done(function (a) {

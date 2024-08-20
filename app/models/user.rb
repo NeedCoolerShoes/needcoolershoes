@@ -34,6 +34,8 @@ class User < ApplicationRecord
   validates :attribution_message, length: {maximum: 64}, format: {with: /\A[ -~]+\z/}
   validates :biography, length: {maximum: 1024}
 
+  scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
+
   enum :role, ROLES
 
   ROLES.each_with_index do |role, level|
@@ -59,17 +61,22 @@ class User < ApplicationRecord
 
   def can_user_edit?(some_user)
     return false unless some_user.is_a? User
-    return true if some_user.admin?
+    return true if some_user.moderator?
     return true if some_user.id == id
     false
   end
 
-  def pixels
-    if @pixels
-      return @pixels[:count] unless @pixels[:expires] < Time.now
+  def pixels!
+    if PIXEL_CACHE > (Time.current - pixels_cached_at)
+      return pixels
     end
-    @pixels = {count: pixel_count, expires: (Time.now + PIXEL_CACHE)}
-    @pixels[:count]
+    update_pixel_count!
+  end
+
+  def update_pixel_count!
+    new_count = pixel_count
+    update!(pixels: new_count, pixels_cached_at: Time.current)
+    new_count
   end
 
   def featured_skin_data
@@ -90,12 +97,13 @@ class User < ApplicationRecord
   def pixel_count
     count = badges.sum("badges.karma")
     count += skins.is_public.count * Skin::KARMA
-    count += (Time.current.year - (created_at || Time.current).year) * YEAR_KARMA
-    count += skin_favourites.is_public.sum("favourites.karma")
+    count += (Time.now.year - created_at.year) * YEAR_KARMA
+    count += skin_favourites.where(target_id: Skin.is_public).sum("favourites.karma")
     count.clamp(0..)
   end
 
-  def favourite_grant(count = pixel_count)
+  def favourite_grant
+    count = update_pixel_count!
     x = (count * FAVOURITE_RATIO)
     (Math.log(x + 1, 2) * 3).round
   end

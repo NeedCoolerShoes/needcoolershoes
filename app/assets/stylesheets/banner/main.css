@@ -1,7 +1,3 @@
-:root {
-  --ncs-banner-scale: 1;
-}
-
 ncrs-banner-color {
   all: unset;
   width: 1.5rem;
@@ -24,20 +20,6 @@ ncrs-banner-pattern, .pattern-preview {
   all: unset;
   background-image: url("/ncsassets/img/banner/banner_bg.png");
   cursor: pointer;
-}
-
-ncrs-banner-pattern-preview {
-  display: block;
-  image-rendering: pixelated;
-  width: calc(20px * var(--ncs-banner-scale));
-  height: calc(40px * var(--ncs-banner-scale));
-  background-color: var(--ncs-banner-color);
-  mask-image: url("/ncsassets/img/banner/banner_sprites.png");
-  -webkit-mask-image: url("/ncsassets/img/banner/banner_sprites.png");
-  mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
-  -webkit-mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
-  mask-size: calc(100px * var(--ncs-banner-scale)) auto;
-  -webkit-mask-size: calc(100px * var(--ncs-banner-scale)) auto;
 }
 
 ncrs-banner-layer {
@@ -283,6 +265,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   display: flex;
   justify-content: center;
   image-rendering: pixelated;
+  height: 320px;
 }
 
 #preview {
@@ -295,23 +278,6 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   position: absolute;
   background-image: url(/ncsassets/img/banner/banner_overlay.png);
   background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
-}
-
-.preview-base {
-  width: calc(20px * var(--ncs-banner-scale));
-  height: calc(40px * var(--ncs-banner-scale));
-  background-color: var(--ncs-banner-color);
-}
-
-ncrs-banner-preview {
-  position: relative;
-  display: block;
-}
-
-ncrs-banner-preview > ncrs-banner-pattern-preview {
-  position: absolute;
-  left: 0px;
-  top: 0px;
 }
 
 #preview-overlay {
@@ -450,35 +416,6 @@ ncrs-banner-layer[hidden] .layer-toggle {
 ncrs-banner-command {
   display: block;
   padding: 0.25rem;
-}
-
-ncrs-banner-command > textarea {
-  width: 100%;
-  min-height: 80px;
-  box-sizing: border-box;
-  resize: none;
-  font-family: monospace;
-  font-size: medium;
-  word-break: break-all;
-}
-
-.command-button {
-  font-size: 12px;
-  height: 22px;
-  color: white;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  display: inline-block;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 1px rgba(255, 255, 255, 0.3) inset;
-  user-select: none;
-  padding: 0 6px;
-  line-height: 20px;
-  vertical-align: middle;
-  background: #368d2f;
-  text-decoration: none;
-  margin-left: 0.25rem;
-  margin-top: 0.25rem;
 }
 
 [type="text"], textarea {

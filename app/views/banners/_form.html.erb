@@ -1,0 +1,52 @@
+<h2 class="text-xl text-white">Upload Banner</h2>
+<div class="flex justify-center" data-turbo="false">
+  <div class="max-w-lg text-white">
+    <%= form_for(banner, url: banners_path) do |form| %>
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2">
+          <%= form.label :name, nil, class: "m-0" %>
+          <%= form.text_field :name, autofocus: 1, class: "text-black" %>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <%= form.label :description, "Description (Optional)", class: "m-0" %>
+          <%= form.text_area :description, class: "text-black" %>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <%= form.label :tags, nil, class: "m-0" %>
+          <%= form.text_field :tags, value: "", data: { controller: "tagify", "tagify-for-value": "banner" } %>
+        </div>
+
+        <div>
+          <%= form.check_box :terms_and_conditions, class: "w-4 h-4 inline-block" %>
+          <%= form.label :terms_and_conditions, class: "m-0 inline text-sm" do %>
+            I accept the terms and conditions as below.
+          <% end %>
+        </div>
+
+        <%= form.hidden_field :data %>
+        
+        <div class="flex flex-col items-start" id="terms-and-conditions">
+          <h2 class="text-white">Terms and Conditions</h2>
+          <p class="text-xs mb-1">
+            Submitting this banner, means that you agree to license it under the terms
+            of the <%= link_to "CC BY-SA 4.0 License", "https://creativecommons.org/licenses/by-sa/4.0/", class: "text-white underline" %>.
+          </p>
+          <p class="text-xs mb-1">
+            This allows for other users of the site to use your banner, or parts of it, to create their own.
+          </p>
+          <p class="text-xs">
+            Submitting any banner to the site means you agree to abide by the
+            <%= link_to "Site Rules", rules_path, class: "text-white underline"%>.
+          </p>
+        </div>
+
+        <div class="flex gap-2">
+          <%= form.submit "Upload Banner", class: "btn-ncs h-auto leading-normal" %>
+          <button id="share-cancel" class="btn-ncs" type="button">Cancel</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

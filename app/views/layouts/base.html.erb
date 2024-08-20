@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= render partial: "shared/meta" %>
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= content_for?(:styles) ? yield(:styles) : nil %>
+    <%= javascript_importmap_tags %>
+    <%= content_for?(:scripts) ? yield(:scripts) : nil %>
+    <%= render partial: "shared/favicons" %>
+    <%= render partial: "shared/preloads" %>
+    <%= render partial: "shared/analytics" %>
+  </head>
+
+  <body class="flex flex-col min-h-screen">
+    <%= render partial: "shared/flash" %>
+    <%= render partial: "shared/header" %>
+    <main class="flex flex-col grow">        
+        <%= content_for?(:body) ? yield(:body) : yield %>
+    </main>
+    <%= render partial: "shared/footer" %>
+  </body>
+</html>

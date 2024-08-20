@@ -1,5 +1,7 @@
 <% content_for :styles do %>
   <%= stylesheet_link_tag "banner/main" %>
+  <%= stylesheet_link_tag "banner/components" %>
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
 <% end %>
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
@@ -28,6 +30,7 @@
     <div>
       <button id="random" class="btn-ncs">Randomize!</button>
       <button id="clear" class="btn-ncs">Clear All</button>
+      <button id="share" class="btn-ncs">Share to Gallery</button>
     </div>
     <div id="url-banners-container">
       <div class="header">
@@ -99,5 +102,13 @@
     </div>
   </section>
 </div>
-<%= %>
+<ncrs-dialog id="share-form">
+  <div class="p-4 rounded bg-ncs-gray-900 max-w-lg w-full">
+    <% if current_user.present? %>
+      <%= render partial: "form", locals: {banner: @banner} %>
+    <% else %>
+      <%= render partial: "sign_in_form" %>
+    <% end %>
+  </div>
+</ncrs-dialog>
 <script type="module" src="/ncsassets/js/banner/main.js"></script>

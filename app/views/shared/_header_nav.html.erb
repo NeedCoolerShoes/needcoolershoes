@@ -1,20 +1,21 @@
 <%
+  gallery = (@gallery_tab == :banners ? banners_gallery_path : skins_gallery_path)
   links = [
     [:editor, "Editor", root_path],
-    [:gallery, "Gallery", gallery_path],
-    [:banner, "Banner", banner_path]
+    [:banner, "Banner", banner_editor_path],
+    [:gallery, "Gallery", gallery],
   ]
 %>
 
-<nav class="flex items-center gap-2 sm:gap-4 text-ncs-brown h-full uppercase">
+<nav class="flex items-center gap-2 sm:gap-4 h-full uppercase">
   <% links.each_with_index do |item, idx| %>
     <span class="font-normal text-lg sm:text-2xl">
-      <a class="<%= class_on_nav(item[0], "font-bold text-black", "text-ncs-brown hover:text-black duration-300 transition-colors") %>" href="<%= item[2] %>">
+      <a class="<%= class_on_nav(item[0], "font-bold text-ncs-header-selected", "text-ncs-header-base hover:text-ncs-header-hover duration-300 transition-colors") %>" href="<%= item[2] %>">
         <%= item[1] %>
       </a>
     </span>
     <% if idx != (links.size - 1) %>
-      <span class="text-sm sm:text-base">●</span>
+      <span class="text-sm sm:text-base text-ncs-header-base">●</span>
     <% end %>
   <% end %>
 </nav>
