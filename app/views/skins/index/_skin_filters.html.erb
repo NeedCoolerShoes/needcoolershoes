@@ -54,6 +54,8 @@
       <% orderings.each do |order, title| %>
         <%= skins_gallery_filter_tag params, :order, order, "", title %>
       <% end %>
+      <% random = (params[:order].to_s.start_with?("random:") ? params[:order] : "random:#{seed64}" ) %>
+      <%= skins_gallery_filter_tag params, :order, random, "", "Random" %>
     </div>
   </div>
   <% if current_user.present? %>

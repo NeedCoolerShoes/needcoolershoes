@@ -8,4 +8,8 @@ module NavHelper
     return classes if @nav_section == nav
     default
   end
+
+  def seed64
+    Base64.urlsafe_encode64([rand].pack('f'), padding: false)
+  end
 end

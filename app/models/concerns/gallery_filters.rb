@@ -9,6 +9,11 @@ module GalleryFilters
     scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
     scope :with_params, ->(params) { with_params_query(params) }
 
+    scope :order_by_random_seed, ->(seed) {
+      ApplicationRecord.connection.execute("SELECT SETSEED(#{seed.to_f})")
+      order("RANDOM()")
+    }
+
     scope :ordered_by, ->(ordering) {
       case ordering
       when "favourite" then order_by_favourites
@@ -16,6 +21,9 @@ module GalleryFilters
       when "new_updated" then order_by_updated
       when "old_updated" then order_by_updated(:asc)
       when "random" then order("RANDOM()")
+      when /random:([a-zA-Z0-9_\-]+)/
+        float = Base64.urlsafe_decode64($1.to_s).unpack('f').first
+        float.is_a?(Float) ? order_by_random_seed(float) : order("RANDOM()")
       else order_by_created
       end
     }
