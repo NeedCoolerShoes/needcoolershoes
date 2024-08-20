@@ -26,7 +26,7 @@
       <p class="text-ncs-dark-300">Current search / filters yield no results.</p>
     </div>
   <% end %>
-  <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+  <div class="grid grid-cols-1 mob:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     <%= render Gallery::SkinCardComponent.with_collection(@skins, params: @gallery_params, show_visibility: current_user) %>
   </div>
 </div>
