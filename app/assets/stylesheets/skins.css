@@ -25,13 +25,21 @@
   width: fit-content;
 }
 
+.skin-model {
+  --ncs-arm-width: 4px;
+}
+
+.skin-model-slim {
+  --ncs-arm-width: 3px;
+}
+
 .face {
   width: calc(8px * var(--ncs-scale));
   height: calc(8px * var(--ncs-scale));
   background-position: calc(56px * var(--ncs-scale))
     calc(56px * var(--ncs-scale));
   background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
-  margin-left: calc(4px * var(--ncs-scale));
+  margin-left: calc(var(--ncs-arm-width) * var(--ncs-scale));
 
   position: relative;
   z-index: 1;
@@ -117,7 +125,6 @@
 .right-arm-slim {
   width: calc(3px * var(--ncs-scale));
   height: calc(12px * var(--ncs-scale));
-  margin-left: 1px;
   background-position: calc(20px * var(--ncs-scale))
     calc(44px * var(--ncs-scale));
   background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
@@ -156,7 +163,7 @@
     calc(44px * var(--ncs-scale));
   background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
 
-  margin-left: calc(4px * var(--ncs-scale));
+  margin-left: calc(var(--ncs-arm-width) * var(--ncs-scale));
 }
 
 .right-leg-overlay {
