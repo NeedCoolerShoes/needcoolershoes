@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   def can_user_edit?(some_user)
     return false unless some_user.is_a? User
-    return true if some_user.admin?
+    return true if some_user.moderator?
     return true if some_user.id == id
     false
   end

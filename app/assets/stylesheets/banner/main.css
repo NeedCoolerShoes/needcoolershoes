@@ -265,6 +265,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   display: flex;
   justify-content: center;
   image-rendering: pixelated;
+  height: 320px;
 }
 
 #preview {

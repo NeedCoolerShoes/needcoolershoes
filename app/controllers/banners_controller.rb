@@ -49,7 +49,7 @@ class BannersController < ApplicationController
 
     respond_to do |format|
       if @banner.save
-        format.html { redirect_to banner_editor_path, notice: "Banner was successfully shared." }
+        format.html { redirect_to @banner, notice: "Banner was successfully shared." }
       else
         format.html { redirect_to banner_editor_path, alert: "Error saving banner. #{format_errors @banner.errors.messages}" }
       end

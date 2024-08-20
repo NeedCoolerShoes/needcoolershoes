@@ -14,29 +14,29 @@
     <%= link_to "Open in Editor", banner_editor_path("" => @banner.data), class: "btn-ncs" %>
   </div>
 
-  <div class="sm:col-span-2 flex flex-col gap-2">
-    <div class="relative p-4 bg-white">
+  <div class="sm:col-span-2 flex flex-col gap-2 text-ncs-dark-100">
+    <div class="relative p-4 bg-ncs-dark-700">
       <div class="absolute right-4">
         <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
       </div>
       <h1 class="text-4xl font-bold line-clamp-2 break-words"><%= @banner.name %></h1>
       <div class="font-bold">
-        <p>Banner</p>
+        <p class="text-ncs-dark-300">Banner</p>
         <p>by <%= profile_link @banner.user %></p>
       </div>
       <% if @banner.tags.any? %>
-        <div class="text-gray-500 text-sm flex gap-1 flex-wrap">
+        <div class="text-ncs-dark-300 text-sm flex gap-1 flex-wrap">
           <% @banner.tags.each do |tag| %>
             <%= link_to tag.name, skins_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
           <% end %>
         </div>
       <% end %>
-      <div class="prose">
+      <div class="prose prose-ncs-dark">
         <%= markdown @banner.description %>
       </div>
     </div>
-    <div class="bg-white">
-      <div class="bg-[#f5e9b7] p-1">
+    <div class="bg-ncs-dark-700">
+      <div class="bg-ncs-dark-800 p-1">
         <h2>Generate Command</h2>
       </div>
       <button class="command-button" onclick="setCommandMode('give')">/give</button>
@@ -53,3 +53,9 @@
     command.setAttribute('mode', mode)
   }
 </script>
+
+<style>
+  ncrs-banner-command > textarea {
+    background-color: rgb(23 34 45)
+  }
+</style>

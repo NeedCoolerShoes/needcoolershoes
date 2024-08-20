@@ -3,6 +3,8 @@
 class Gallery::SkinCardComponent < ViewComponent::Base
   include UserHelper
 
+  renders_one :overlay
+
   def initialize(skin_card:, params:, show_visibility: false)
     @skin = skin_card
     @params = params

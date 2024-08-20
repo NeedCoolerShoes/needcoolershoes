@@ -8,6 +8,7 @@
     <div class="absolute top-0 right-0 p-2">
       <%= render partial: "skin_favourite", locals: { skin: @skin, show_guests: true, redirect: request.fullpath } %>
     </div>
+    <%= overlay %>
   <% end %>
 
   <% card.with_preview do %>
@@ -25,7 +26,7 @@
       <% end %>
     </div>
     <div>
-      <%= link_to @skin.name, @skin, class: "text-xl leading-none line-clamp-2 break-words h-[2.7rem]" %>
+      <%= link_to @skin.name, @skin, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
       <div class="flex flex-col font-bold">
         <p class="text-ncs-dark-300 text-xs">
           <%= link_to @skin.skin_part.name, skins_gallery_path(@params.merge(part: @skin.skin_part.name)), class: "underline" %>

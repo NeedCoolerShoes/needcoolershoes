@@ -6,7 +6,7 @@
 %>
 <%= form_with url: gallery_path, method: :get do |form| %>
   <div class="flex gap-2 w-full">
-    <%= form.text_field :search, value: params[:search], title: "Search for #{search_type}", placeholder: "Search for #{search_type}", class: "bg-ncs-yellow-200 h-8 #{classes}" %>
+    <%= form.text_field :search, value: params[:search], title: "Search for #{search_type}", placeholder: "Search for #{search_type}", class: "bg-ncs-dark-800 text-ncs-dark-100 md:text-black md:bg-ncs-yellow-200 h-8 #{classes}" %>
     <%= form.button name: "", class: "cursor-pointer btn-none #{btn_classes}", aria: {label: "Search"} do %>
       <%= heroicon "magnifying-glass", size: 25 %>
     <% end %>

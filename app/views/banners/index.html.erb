@@ -1,6 +1,13 @@
 <% content_for :filters do %>
   <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners} %>
 <% end %>
+
+<% content_for :before_gallery do %>
+  <div class="md:hidden w-full pt-2">
+    <%= render partial: "shared/search", locals: { classes: "w-full", btn_classes: "btn-ncs shrink w-auto" } %>
+  </div>
+<% end %>
+
 <% content_for :styles do %>
   <%= stylesheet_link_tag "banner/components" %>
 <% end %>
