@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_10_065517) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_21_021731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,7 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_10_065517) do
     t.string "name"
     t.string "description"
     t.string "data"
-    t.integer "favourites_count"
+    t.integer "favourites_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_banners_on_user_id"
@@ -131,7 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_10_065517) do
     t.datetime "updated_at", null: false
     t.integer "model"
     t.integer "download_count"
-    t.integer "favourites_count"
+    t.integer "favourites_count", default: 0, null: false
     t.integer "license"
     t.boolean "hidden", default: false
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
@@ -204,10 +204,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_10_065517) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.datetime "ban_ends_at"
-    t.string "ban_message"
     t.integer "pixels", default: 0, null: false
     t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
+    t.datetime "ban_ends_at"
+    t.string "ban_message"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
