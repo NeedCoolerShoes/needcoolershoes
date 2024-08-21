@@ -204,10 +204,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_21_021731) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.integer "pixels", default: 0, null: false
-    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.datetime "ban_ends_at"
     t.string "ban_message"
+    t.integer "pixels", default: 0, null: false
+    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"

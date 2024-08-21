@@ -37,6 +37,7 @@ class BannersController < ApplicationController
   end
 
   def show
+    show_meta_config
     @gallery_tab = :banners
   end
 
@@ -128,7 +129,22 @@ class BannersController < ApplicationController
         "Minecraft Banners"
       end
       config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
-      config.description = "Search and browse Minecraft banners created with our Banner Editor."
+      config.description = "Search and browse Minecraft banners created with our Banner Maker."
+    end
+  end
+
+  def show_meta_config
+    desc = if @banner.description.present?
+      @banner.description.tr("\n", " ").delete_suffix(".").strip
+    else
+      "Banner by #{@banner.user.display_name}"
+    end
+    desc << ". A Minecraft banner, created with NeedCoolerShoes Banner Maker."
+
+    meta_config do |config|
+      config.title = "#{@banner.name.truncate(32)} by #{@banner.user.display_name.truncate(32)}"
+      config.image_alt = "#{config.title} - Minecraft Banner"
+      config.description = desc.truncate(130)
     end
   end
 end

@@ -72,6 +72,12 @@ class NCRSBanner {
     const pattern = this.patterns.find(pattern => pattern.encode == patternCode)
     return {color: color, pattern: pattern}
   }
+
+  static parse(str) {
+    const params = str.match(/.{1,2}/g)
+    if (!params) { return }
+    return params.map(code => { return this.fromEncoding(code) })
+  }
 }
 
 class NCRSBannerPatternSet extends HTMLElement {

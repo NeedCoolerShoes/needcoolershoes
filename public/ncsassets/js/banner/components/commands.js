@@ -1,4 +1,5 @@
-import { NCRSBanner } from "./banner.js"
+import { BaseComponent } from "../lib/components.js"
+import { NCRSBanner, NCRSBannerPattern } from "./banner.js"
 
 class NCRSBannerCommandGenerator {
   static modes = ["give", "setblock"]
@@ -87,4 +88,48 @@ class NCRSBannerCommand extends HTMLElement {
   }
 }
 
+class NCRSBannerInstructions extends BaseComponent {
+  static {
+    this.observe("banner")
+  }
+
+  constructor() {
+    super()
+  }
+
+  _bannerData = []
+
+  onBannerChanged(_, value) {
+    this._bannerData = NCRSBanner.parse(value)
+    if (!this._bannerData) { return }
+    this._render()
+  }
+
+  _render() {
+    console.log(this._bannerData)
+    const base = this._renderBase(this._bannerData.shift())
+    const layers = this._bannerData.map(layer => {
+      return this._renderLayer(layer)
+    })
+
+    this.replaceChildren(base, ...layers)
+  }
+
+  _renderBase(data) {
+    const preview = document.createElement('ncrs-banner-pattern-preview')
+    preview.setAttribute('sprite', 0)
+    preview.style.setProperty('--ncs-banner-color', data.color.color)
+    preview.setAttribute('title', data.color.title + " Base")
+    return preview
+  }
+
+  _renderLayer(data) {
+    const preview = NCRSBannerPattern.deserialize(data.pattern)
+    preview.style.setProperty('--ncs-banner-color', data.color.color)
+    preview.setAttribute('title', data.color.title + " " + data.pattern.title)
+    return preview
+  }
+}
+
 window.customElements.define('ncrs-banner-command', NCRSBannerCommand)
+window.customElements.define('ncrs-banner-instructions', NCRSBannerInstructions)

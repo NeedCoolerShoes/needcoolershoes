@@ -32,7 +32,7 @@ class User < ApplicationRecord
 
   validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}
   validates :attribution_message, length: {maximum: 64}, format: {with: /\A[ -~]+\z/}
-  validates :biography, length: {maximum: 1024}
+  validates :biography, length: {maximum: 2048}
 
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
 

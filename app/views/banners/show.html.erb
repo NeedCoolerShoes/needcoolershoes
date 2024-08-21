@@ -19,7 +19,7 @@
       <div class="absolute right-4">
         <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
       </div>
-      <h1 class="text-4xl font-bold line-clamp-2 break-words"><%= @banner.name %></h1>
+      <h1 class="text-4xl font-bold line-clamp-2 break-words pr-8"><%= @banner.name %></h1>
       <div class="font-bold">
         <p class="text-ncs-dark-300">Banner</p>
         <p>by <%= profile_link @banner.user %></p>
@@ -35,6 +35,14 @@
         <%= markdown @banner.description %>
       </div>
     </div>
+    <% if @banner.survival_friendly? %>
+      <div class="bg-ncs-dark-700">
+        <div class="bg-ncs-dark-800 p-1">
+          <h2>Crafting Steps</h2>
+        </div>
+        <ncrs-banner-instructions id="banner-instructions" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
+      </div>
+    <% end %>
     <div class="bg-ncs-dark-700">
       <div class="bg-ncs-dark-800 p-1">
         <h2>Generate Command</h2>

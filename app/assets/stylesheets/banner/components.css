@@ -57,6 +57,10 @@ ncrs-dialog[visible] {
   align-items: center;
 }
 
+ncrs-banner-command {
+  height: 88.4px;
+}
+
 ncrs-banner-command > textarea {
   width: 100%;
   min-height: 80px;
@@ -84,4 +88,21 @@ ncrs-banner-command > textarea {
   text-decoration: none;
   margin-left: 0.25rem;
   margin-top: 0.25rem;
+}
+
+ncrs-banner-instructions {
+  height: 52.4px;
+}
+
+ncrs-banner-instructions > * + * {
+  margin-left: 0.25rem;
+}
+
+ncrs-banner-instructions > ncrs-banner-pattern {
+  background-image: url("/ncsassets/img/banner/banner_bg.png");
+  display: inline-block;
+}
+
+ncrs-banner-instructions > ncrs-banner-pattern-preview {
+  display: inline-block;
 }

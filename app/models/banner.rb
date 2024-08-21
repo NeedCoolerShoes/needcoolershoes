@@ -3,6 +3,8 @@ class Banner < ApplicationRecord
   include Favouriteable
   include GalleryFilters
 
+  SURVIVAL_FRIENDLY_LENGTH = 14
+
   add_gallery_filters({
     tag: "tagged_with",
     favourited_by: "favourited_by_user_name",
@@ -21,4 +23,8 @@ class Banner < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
 
   belongs_to :user
+
+  def survival_friendly?
+    data.size <= SURVIVAL_FRIENDLY_LENGTH
+  end
 end
