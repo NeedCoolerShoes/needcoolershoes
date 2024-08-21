@@ -45,7 +45,13 @@ ncrs-dialog {
   backdrop-filter: blur(4px);
 }
 
+body:has(ncrs-dialog[visible]) {
+  height: 100%;
+  overflow: hidden;
+}
+
 ncrs-dialog[visible] {
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -121,11 +121,11 @@ class BannersController < ApplicationController
   def index_meta_config
     meta_config do |config|
       config.title = if params[:user].present?
-        "Banners by #{params[:user].titleize}"
+        "Minecraft Banners by #{params[:user].titleize}"
       elsif params[:favourited_by].present?
-        "#{params[:favourited_by].titleize}'s Favourites"
+        "#{params[:favourited_by].titleize}'s Favourite Banners"
       else
-        "Banner Gallery"
+        "Minecraft Banners"
       end
       config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
       config.description = "Search and browse Minecraft banners created with our Banner Editor."
