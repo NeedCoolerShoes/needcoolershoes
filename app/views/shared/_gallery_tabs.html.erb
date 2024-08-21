@@ -1,8 +1,9 @@
 <%
   selected ||= :skins
+  tab_params = params.slice(:user, :favourited_by, :tag, :order, :date_offset).permit!
   tabs = [
-    [:skins, "Skins", skins_gallery_path],
-    [:banners, "Banners", banners_gallery_path],
+    [:skins, "Skins", skins_gallery_path(tab_params)],
+    [:banners, "Banners", banners_gallery_path(tab_params)],
   ]
 %>
 
