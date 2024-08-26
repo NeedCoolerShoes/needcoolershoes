@@ -18,7 +18,7 @@
   <% end %>
 
   <div class="h-full flex flex-col justify-between">
-    <div class="mb-1">
+    <div class="mb-1 h-4">
       <% if @skin.tags.any? %>
         <div class="line-clamp-1 text-ncs-dark-300 text-xs">
           <%= render partial: "skins/tag_link", collection: @skin.tags.to_a, as: :tag, locals: { params: @params } %>
@@ -33,7 +33,7 @@
           -
           <%= link_to @skin.skin_category.name, skins_gallery_path(@params.merge(category: @skin.skin_category.name)), class: "underline" %>
         </p>
-        <p class="line-clamp-1">
+        <p class="line-clamp-1 break-all">
           by <%= profile_link @skin.user %>
         </p>
       </div>

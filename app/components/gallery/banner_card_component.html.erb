@@ -16,18 +16,20 @@
     </div>
   <% end %>
 
-  <div class="mb-1">
-    <% if @banner.tags.any? %>
-      <div class="line-clamp-1 text-ncs-dark-300 text-xs">
-        <% @banner.tags.to_a.each do |tag| %>
-          <%= banners_gallery_tag_filter_tag @params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
-        <% end %>
-      </div>
-    <% end %>
+  <div class="h-full flex flex-col justify-between">
+    <div class="mb-1 h-4">
+      <% if @banner.tags.any? %>
+        <div class="line-clamp-1 text-ncs-dark-300 text-xs">
+          <% @banner.tags.to_a.each do |tag| %>
+            <%= banners_gallery_tag_filter_tag @params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <%= link_to @banner.name, @banner, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
+    <p class="text-ncs-dark-300 text-xs">Banner</p>
+    <p class="line-clamp-1 break-all">
+      by <%= profile_link @banner.user %>
+    </p>
   </div>
-  <%= link_to @banner.name, @banner, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
-  <p class="text-ncs-dark-300 text-xs">Banner</p>
-  <p class="line-clamp-1">
-    by <%= profile_link @banner.user %>
-  </p>
 <% end %>
