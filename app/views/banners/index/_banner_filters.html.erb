@@ -6,6 +6,19 @@
     <%= link_to "Random Banner", random_banner_path, class: "underline text-ncs-dark-300" %>
   </div>
   <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
+  <h3 class="font-bold text-ncs-dark-100">Compatibility:</h3>
+  <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
+      <%
+        compatibilities = %w[survival command]
+      %>
+      <% compatibilities.each do |compat| %>
+        <% count = Banner.by_compatibility(compat).count %>
+        <%= banners_gallery_filter_tag params, :compatibility, compat, "#{compat.to_s.titleize} - #{count}", compat.to_s.titleize %>
+      <% end %>
+    </div>
+  </div>
+  <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Created At:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
     <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">

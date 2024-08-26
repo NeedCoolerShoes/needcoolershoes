@@ -9,6 +9,7 @@ class Banner < ApplicationRecord
     tag: "tagged_with",
     favourited_by: "favourited_by_user_name",
     search: "search",
+    compatibility: "by_compatibility",
   })
 
   acts_as_taggable_on :tags
@@ -23,6 +24,14 @@ class Banner < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
 
   belongs_to :user
+
+  scope :survival_friendly, -> { where("LENGTH(data) <= ?", SURVIVAL_FRIENDLY_LENGTH) }
+  scope :by_compatibility, ->(type) {
+    case type
+    when "survival" then survival_friendly
+    when "command" then where.not(id: survival_friendly)
+    end
+  }
 
   def survival_friendly?
     data.size <= SURVIVAL_FRIENDLY_LENGTH

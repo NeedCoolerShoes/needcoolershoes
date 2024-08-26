@@ -106,7 +106,7 @@ class BannersController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :date_offset, :tag, :favourited_by, :search, :order, :items).permit!
+    params.slice(:user, :date_offset, :tag, :favourited_by, :search, :order, :items, :compatibility).permit!
   end
 
   def banner_params
