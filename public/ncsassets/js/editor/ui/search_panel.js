@@ -6,7 +6,7 @@ App.SearchPanel = function (a, b) {
       (o.html('<div class = "message" > Searching.... </div>'),
       d({
         type: "get",
-        url: window.location.origin + "/gallery.json",
+        url: window.location.origin + "/gallery/skins.json",
         data: { search: n.val(), items: 8, page: 1, model: currentModel },
       }));
   }
