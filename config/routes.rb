@@ -44,6 +44,11 @@ Rails.application.routes.draw do
     get "/", to: "banners#new", as: "banner_editor"
     get "2014", to: "banners#banner_2014", as: "banner_2014"
   end
+
+  scope :banners do
+    get "/:id/moderate", to: "banners#moderator_edit", as: "banner_moderate"
+    patch "/:id/moderate", to: "banners#moderator_update", as: "update_banner_moderate"
+  end
   
   resources :banners, except: [:new, :index]
 

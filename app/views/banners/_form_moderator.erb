@@ -1,8 +1,13 @@
 <div class="flex justify-center" data-turbo="false">
   <div class="max-w-lg text-white w-full">
-    <%= form_for(banner) do |form| %>
+    <%= form_for(banner, url: update_banner_moderate_path) do |form| %>
       <div class="flex flex-col gap-2">
         <%= render partial: "form_fields", locals: {form: form, banner: banner} %>
+
+        <div class="flex flex-col gap-1">
+          <%= label_tag :reason %>
+          <%= text_field_tag :reason, "", class: "text-black", placeholder: "Reason for moderating this banner.", required: true %>
+        </div>
 
         <div class="mt-2 flex flex-col xs:flex-row gap-1 xs:gap-2">
           <%= form.submit "Save", class: "btn-ncs h-auto" %>

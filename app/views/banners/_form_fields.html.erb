@@ -1,0 +1,14 @@
+<div class="flex flex-col gap-2">
+  <%= form.label :name, nil, class: "m-0" %>
+  <%= form.text_field :name, autofocus: 1, class: "text-black" %>
+</div>
+
+<div class="flex flex-col gap-2">
+  <%= form.label :description, "Description (Optional)", class: "m-0" %>
+  <%= form.text_area :description, class: "text-black" %>
+</div>
+
+<div class="flex flex-col gap-2">
+  <%= form.label :tags, nil, class: "m-0" %>
+  <%= form.text_field :tags, value: banner.tag_js, data: { controller: "tagify", "tagify-for-value": "banner" } %>
+</div>

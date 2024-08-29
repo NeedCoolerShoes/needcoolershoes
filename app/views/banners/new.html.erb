@@ -105,7 +105,8 @@
 <ncrs-dialog id="share-form">
   <div class="m-2 p-4 rounded bg-ncs-gray-900 max-w-lg w-full">
     <% if current_user.present? %>
-      <%= render partial: "form", locals: {banner: @banner} %>
+      <h2 class="text-xl text-white">Upload Banner</h2>
+      <%= render partial: "new_form", locals: {banner: @banner} %>
     <% else %>
       <%= render partial: "sign_in_form" %>
     <% end %>

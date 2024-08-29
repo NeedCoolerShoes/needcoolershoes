@@ -1,0 +1,9 @@
+<% content_for :styles do %>
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+<% end %>
+<div class="flex justify-center w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white p-4">
+  <div class="max-w-lg w-full">
+    <h1 class="text-2xl">Edit Banner</h1>
+    <%= render partial: "form", locals: { banner: @banner } %>
+  </div>
+</div>

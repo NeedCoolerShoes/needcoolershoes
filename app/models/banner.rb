@@ -24,6 +24,7 @@ class Banner < ApplicationRecord
   validates :terms_and_conditions, acceptance: true
 
   belongs_to :user
+  has_many :modlogs, as: :target
 
   scope :survival_friendly, -> { where("LENGTH(data) <= ?", SURVIVAL_FRIENDLY_LENGTH) }
   scope :by_compatibility, ->(type) {
@@ -35,5 +36,13 @@ class Banner < ApplicationRecord
 
   def survival_friendly?
     data.size <= SURVIVAL_FRIENDLY_LENGTH
+  end
+
+  def tag_js
+    tags.map { |tag| {value: tag.name} }.to_json
+  end
+
+  def can_user_edit?(some_user)
+    some_user&.id == user_id
   end
 end

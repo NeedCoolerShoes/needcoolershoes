@@ -1,0 +1,38 @@
+<div class="flex justify-center" data-turbo="false">
+  <div class="max-w-lg text-white w-full">
+    <%= form_for(banner, url: banners_path) do |form| %>
+      <div class="flex flex-col gap-2">
+        <%= render partial: "form_fields", locals: {form: form, banner: banner} %>
+
+        <%= form.hidden_field :data %>
+
+        <div>
+          <%= form.check_box :terms_and_conditions, class: "w-4 h-4 inline-block" %>
+          <%= form.label :terms_and_conditions, class: "m-0 inline text-sm" do %>
+            I accept the terms and conditions as below.
+          <% end %>
+        </div>
+
+        <div class="flex flex-col items-start" id="terms-and-conditions">
+          <h2 class="text-white">Terms and Conditions</h2>
+          <p class="text-xs mb-1">
+            Submitting this banner, means that you agree to license it under the terms
+            of the <%= link_to "CC BY-SA 4.0 License", "https://creativecommons.org/licenses/by-sa/4.0/", class: "text-white underline" %>.
+          </p>
+          <p class="text-xs mb-1">
+            This allows for other users of the site to use your banner, or parts of it, to create their own.
+          </p>
+          <p class="text-xs">
+            Submitting any banner to the site means you agree to abide by the
+            <%= link_to "Site Rules", rules_path, class: "text-white underline"%>.
+          </p>
+        </div>
+
+        <div class="mt-2 flex flex-col xs:flex-row gap-1 xs:gap-2">
+          <%= form.submit banner.new_record? ? "Upload Banner" : "Update Banner", class: "btn-ncs h-auto" %>
+          <button id="share-cancel" class="btn-ncs" type="button">Cancel</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

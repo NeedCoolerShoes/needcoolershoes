@@ -101,6 +101,7 @@ class SkinsController < ApplicationController
 
   def moderator_update
     old_attr = @skin.attributes
+    old_attr["tag_list"] = @skin.tag_list
     reason = params[:reason]
     params = skin_params.dup
     params.delete(:tags)
@@ -111,6 +112,7 @@ class SkinsController < ApplicationController
       ActiveRecord::Base.transaction do
         skin = @skin.update!(params)
         new_attr = @skin.reload.attributes
+        new_attr["tag_list"] = @skin.tag_list
         modlog = Modlog.generate!(@skin, current_user, old_attr, new_attr, reason)
       end
       raise "Error saving skin or modlog" unless skin && modlog

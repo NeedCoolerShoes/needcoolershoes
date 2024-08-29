@@ -21,6 +21,21 @@
         data-local="<%= @skin.data %>" data-save="<%= @skin.data %>"
       ></div>
       <div>
+        <% if @skin.user == current_user && @skin.user.featured_skin != @skin %>
+          <%= form_with model: current_user, url: user_path(current_user) do |form| %>
+            <%= form.hidden_field :featured_skin_id, value: @skin.id %>
+            <%= form.submit t("skins.feature"), class: "btn-ncs", title: t("skins.feature_tooltip") %>
+          <% end %>
+        <% end %>
+        <% if @skin.can_user_edit?(current_user) %>
+          <% if @skin.user == current_user %>
+            <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
+          <% else %>
+            <%= link_to t("skins.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
+          <% end %>
+        <% end %>
+      </div>
+      <div>
         <button
           onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
@@ -31,12 +46,6 @@
         <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
         -->
         <%= link_to "Download to Computer", skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
-        <% if @skin.user == current_user %>
-          <%= form_with model: current_user, url: user_path(current_user) do |form| %>
-            <%= form.hidden_field :featured_skin_id, value: @skin.id %>
-            <%= form.submit t("skins.feature"), class: "btn-ncs", title: t("skins.feature_tooltip") %>
-          <% end %>
-        <% end %>
       </div>
     </div>
   </div>
@@ -134,19 +143,6 @@
           </div>
         </fieldset>
       </details>
-      
-      <% if @skin.can_user_edit?(current_user) %>
-        <div class="flex flex-col md:flex-row gap-2 pt-2">
-          <% if @skin.user == current_user %>
-            <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
-            <%= form_with url: skin_path(@skin), method: :delete, class: "w-full" do |form| %>
-              <%= form.submit t("skins.delete"), class: "btn-ncs", data: { "turbo-confirm": t("skins.delete_confirmation") } %>
-            <% end %>
-          <% else %>
-            <%= link_to t("skins.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
-          <% end %>
-        </div>
-      <% end %>
     </div>
     <% if @skin.user == current_user %>
       <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">

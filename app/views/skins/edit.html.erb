@@ -15,6 +15,9 @@
     <div class="w-full max-w-xl">
       <h1 class="text-2xl">Edit Skin</h1>
       <%= render partial: "form", locals: { skin: @skin } %>
+      <%= form_with url: skin_path(@skin), method: :delete, class: "w-full" do |form| %>
+        <%= form.submit t("skins.delete"), class: "underline text-white cursor-pointer mt-8 float-right", data: { "turbo-confirm": t("skins.delete_confirmation") } %>
+      <% end %>
     </div>
   </div>
 </div>

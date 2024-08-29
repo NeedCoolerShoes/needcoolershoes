@@ -11,7 +11,14 @@
     <div class="flex justify-center p-4 bg-ncs-grid ">
       <ncrs-banner-preview style="--ncs-banner-scale: 6; width: 120px; height: 240px;" banner="<%= @banner.data %>"></ncrs-banner-preview>
     </div>
-    <%= link_to "Open in Editor", banner_editor_path("" => @banner.data), class: "btn-ncs" %>
+    <div>
+      <% if @banner.can_user_edit?(current_user) %>
+        <%= link_to "Edit Information", edit_banner_path(@banner), class: "btn-ncs" %>
+      <% elsif authorized?(:moderator) %>
+        <%= link_to "Moderate Banner", banner_moderate_path(@banner), class: "btn-ncs" %>
+      <% end %>
+      <%= link_to "Open in Editor", banner_editor_path("" => @banner.data), class: "btn-ncs" %>
+    </div>
   </div>
 
   <div class="sm:col-span-2 flex flex-col gap-2 text-ncs-dark-100">

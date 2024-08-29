@@ -1,6 +1,8 @@
 class BannersController < ApplicationController
-  before_action :authenticate_user!, only: %i[create]
-  before_action :set_banner, only: %i[show add_favourite remove_favourite]
+  before_action :authenticate_user!, only: %i[create edit update]
+  before_action :set_banner, only: %i[show edit update moderator_edit moderator_update add_favourite remove_favourite]
+  before_action :validate_can_edit, only: %i[edit update destroy]
+  require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
   nav_section :banner, only: :new
   layout "gallery", only: :index
@@ -57,6 +59,19 @@ class BannersController < ApplicationController
     end
   end
 
+  def update
+    params = banner_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(banner_params[:tags])
+    respond_to do |format|
+      if @banner.update(params)
+        format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+      else
+        format.html { redirect_to edit_banner_path(@banner), alert: "Error saving banner." }
+      end
+    end
+  end
+
   def banner_2014
     meta_config do |config|
       config.title = "Banner Editor (2014)"
@@ -100,6 +115,33 @@ class BannersController < ApplicationController
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to banners_gallery_path
+  end
+
+  def moderator_edit
+  end
+
+  def moderator_update
+    old_attr = @banner.attributes
+    old_attr["tag_list"] = @banner.tag_list
+    reason = params[:reason]
+    params = banner_params.dup
+    params.delete(:tags)
+    params[:tag_list] = transform_tags(banner_params[:tags])
+
+    respond_to do |format|
+      banner, modlog = nil
+      ActiveRecord::Base.transaction do
+        banner = @banner.update!(params)
+        new_attr = @banner.reload.attributes
+        new_attr["tag_list"] = @banner.tag_list
+        modlog = Modlog.generate!(@banner, current_user, old_attr, new_attr, reason)
+      end
+      raise "Error saving banner or modlog" unless banner && modlog
+
+      format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+    rescue
+      format.html { redirect_to banner_moderate_path(@banner), alert: "Error saving banner." }
+    end
   end
 
   private
@@ -146,5 +188,10 @@ class BannersController < ApplicationController
       config.image_alt = "#{config.title} - Minecraft Banner"
       config.description = desc.truncate(130)
     end
+  end
+
+  def validate_can_edit
+    return true if @banner.can_user_edit?(current_user)
+    forbidden_error
   end
 end
