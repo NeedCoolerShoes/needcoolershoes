@@ -8,8 +8,10 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
   <div class="sm:col-span-1 flex flex-col gap-2">
-    <div class="flex justify-center p-4 bg-ncs-grid ">
-      <ncrs-banner-preview style="--ncs-banner-scale: 6; width: 120px; height: 240px;" banner="<%= @banner.data %>"></ncrs-banner-preview>
+    <div class="flex justify-center p-4 bg-ncs-grid">
+      <div class="<%= @banner.shield_style? ? "min-h-44" : "min-h-40" %>">
+        <%= render Gallery::BannerPreviewComponent.new(banner: @banner, shield: @banner.shield_style?) %>
+      </div>
     </div>
     <div>
       <% if @banner.can_user_edit?(current_user) %>

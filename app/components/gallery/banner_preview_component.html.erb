@@ -1,0 +1,7 @@
+<% if @shield %>
+  <div class="shield-sprites shield-overlay p-2 bg-cover">
+    <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+  </div>
+<% else %>
+  <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+<% end %>

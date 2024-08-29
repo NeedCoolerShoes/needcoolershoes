@@ -4,10 +4,9 @@ class Gallery::BannerCardComponent < ViewComponent::Base
   include BannersHelper
   include UserHelper
 
-  def initialize(banner_card:, params:, shield: false)
+  def initialize(banner_card:, params:)
     @banner = banner_card
     @params = params
-    @use_shield = shield
   end
 
   def shield?
