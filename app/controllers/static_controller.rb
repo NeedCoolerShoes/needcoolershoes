@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
   CAPTCHA_QUESTION = "What item does a Creeper drop? (in English)"
-  CAPTCHA_REGEX = /(gun)?\s*po(w|u)der/i
+  CAPTCHA_REGEX = /gun\s*powder/i
 
   prepend_before_action :protect_from_spam, only: [:send_message]
   nav_section :editor, only: %i[editor editor_2010]
