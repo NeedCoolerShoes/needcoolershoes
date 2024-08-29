@@ -10,6 +10,7 @@ class Banner < ApplicationRecord
     favourited_by: "favourited_by_user_name",
     search: "search",
     compatibility: "by_compatibility",
+    style: "by_style",
   })
 
   acts_as_taggable_on :tags
@@ -25,6 +26,18 @@ class Banner < ApplicationRecord
 
   belongs_to :user
   has_many :modlogs, as: :target
+
+  scope :banner_compatible, -> { banner_style.or(any_style) }
+  scope :shield_compatible, -> { shield_style.or(any_style) }
+  scope :by_style, ->(style) {
+    case style
+    when "banner" then banner_compatible
+    when "shield" then shield_compatible
+    else all
+    end
+  }
+
+  enum :style, %i[banner any shield], default: :banner, suffix: :style
 
   scope :survival_friendly, -> { where("LENGTH(data) <= ?", SURVIVAL_FRIENDLY_LENGTH) }
   scope :by_compatibility, ->(type) {

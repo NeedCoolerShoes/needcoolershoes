@@ -274,6 +274,16 @@ if (shareCancelButton != null) {
   shareCancelButton.addEventListener("click", () => shareModal.hide())
 }
 
+const shieldToggle = document.getElementById("shield-preview")
+const previewArea = document.getElementById("preview-area")
+shieldToggle.addEventListener("change", event => {
+  if (event.target.checked) {
+    previewArea.classList.add("shield-sprites")
+  } else {
+    previewArea.classList.remove("shield-sprites")
+  }
+})
+
 function load() {
   const currentURL = new URLSearchParams(location)
   const code = currentURL.get("search")

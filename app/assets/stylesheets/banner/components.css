@@ -1,5 +1,6 @@
 :root {
   --ncs-banner-scale: 1;
+  --ncs-banner-sprites: url("/ncsassets/img/banner/banner_sprites.png");
 }
 
 ncrs-banner-preview {
@@ -19,8 +20,8 @@ ncrs-banner-pattern-preview {
   width: calc(20px * var(--ncs-banner-scale));
   height: calc(40px * var(--ncs-banner-scale));
   background-color: var(--ncs-banner-color);
-  mask-image: url("/ncsassets/img/banner/banner_sprites.png");
-  -webkit-mask-image: url("/ncsassets/img/banner/banner_sprites.png");
+  mask-image: var(--ncs-banner-sprites);
+  -webkit-mask-image: var(--ncs-banner-sprites);
   mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
   -webkit-mask-position: calc(var(--ncs-mask-x) * var(--ncs-banner-scale)) calc(var(--ncs-mask-y) * var(--ncs-banner-scale));
   mask-size: calc(100px * var(--ncs-banner-scale)) auto;
@@ -105,4 +106,12 @@ ncrs-banner-instructions > ncrs-banner-pattern {
 
 ncrs-banner-instructions > ncrs-banner-pattern-preview {
   display: inline-block;
+}
+
+.shield-sprites {
+  --ncs-banner-sprites: url("/ncsassets/img/banner/shield_sprites.png");
+}
+
+.shield-overlay {
+  background-image: url("/ncsassets/img/banner/shield_overlay.png");
 }

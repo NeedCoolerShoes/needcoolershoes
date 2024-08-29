@@ -12,7 +12,13 @@
 
   <% card.with_preview do %>
     <div class="flex items-center justify-center bg-ncs-grid bg-center rounded py-4 px-8 h-[192px]">
-      <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+      <% if shield? %>
+        <div class="shield-sprites shield-overlay p-1 bg-cover">
+          <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+        </div>
+      <% else %>
+        <ncrs-banner-preview style="--ncs-banner-scale: 4" banner="<%= @banner.data %>"></ncrs-banner-preview>
+      <% end %>
     </div>
   <% end %>
 

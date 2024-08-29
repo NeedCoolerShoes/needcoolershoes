@@ -1,3 +1,11 @@
+<%
+  styles = {
+    "Only looks good as a Banner" => :banner,
+    "Looks good as a Banner or Shield" => :any,
+    "Only looks good as a Shield" => :shield,
+  }
+%>
+
 <div class="flex flex-col gap-2">
   <%= form.label :name, nil, class: "m-0" %>
   <%= form.text_field :name, autofocus: 1, class: "text-black" %>
@@ -6,6 +14,16 @@
 <div class="flex flex-col gap-2">
   <%= form.label :description, "Description (Optional)", class: "m-0" %>
   <%= form.text_area :description, class: "text-black" %>
+</div>
+
+<div class="flex flex-col gap-2">
+  <%= form.label :description, "Banner Style", class: "m-0" %>
+  <%= form.select :style, styles, {}, class: "text-black p-1" %>
+  <% if banner.new_record? %>
+    <p class="text-xs">
+      You can use the toggle above the banner preview to see how the banner looks as a shield.
+    </p>
+  <% end %>
 </div>
 
 <div class="flex flex-col gap-2">

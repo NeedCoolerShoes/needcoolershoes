@@ -19,6 +19,19 @@
     </div>
   </div>
   <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
+  <h3 class="font-bold text-ncs-dark-100">Style:</h3>
+  <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
+      <%
+        styles = %w[banner shield]
+      %>
+      <% styles.each do |style| %>
+        <% count = Banner.by_style(style).count %>
+        <%= banners_gallery_filter_tag params, :style, style, "#{style.titleize} - #{count}", style.titleize %>
+      <% end %>
+    </div>
+  </div>
+  <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Created At:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
     <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
