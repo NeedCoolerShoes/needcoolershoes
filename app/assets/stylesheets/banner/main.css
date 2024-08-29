@@ -159,9 +159,10 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 }
 
 .layer-color {
-  width: 0.25rem;
+  width: 0.5rem;
   background-color: var(--ncs-banner-color);
-  border: 1px solid rgba(153, 153, 153, 0.53);
+  box-shadow: 0px 1px 0px 0px var(--ncs-banner-color);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .layer-spacer {
@@ -318,6 +319,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   position: relative;
   cursor: pointer;
   z-index: 5;
+  margin-right: 3px;
 }
 
 ncrs-banner-layer[hidden] .layer-toggle {
