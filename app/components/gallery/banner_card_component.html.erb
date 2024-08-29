@@ -33,7 +33,15 @@
       <% end %>
     </div>
     <%= link_to @banner.name, @banner, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
-    <p class="text-ncs-dark-300 text-xs">Banner</p>
+    <p class="text-ncs-dark-300 text-xs">
+      <% if @banner.banner_style? %>
+        <%= banners_gallery_filter_tag @params, :style, "banner", "Banner", "Banner" %>
+      <% elsif @banner.shield_style? %>
+        <%= banners_gallery_filter_tag @params, :style, "shield", "Shield", "Shield" %>
+      <% else %>
+        <%= banners_gallery_filter_tag @params.merge(style: ""), :style, "", "Banner / Shield", "Banner / Shield" %>
+      <% end %>
+    </p>
     <p class="line-clamp-1 break-all">
       by <%= profile_link @banner.user %>
     </p>
