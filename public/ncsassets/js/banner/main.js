@@ -275,12 +275,12 @@ if (shareCancelButton != null) {
 }
 
 const shieldToggle = document.getElementById("shield-preview")
-const previewArea = document.getElementById("preview-area")
+const baseDiv = document.getElementById("app")
 shieldToggle.addEventListener("change", event => {
   if (event.target.checked) {
-    previewArea.classList.add("shield-sprites")
+    baseDiv.classList.add("shield-sprites")
   } else {
-    previewArea.classList.remove("shield-sprites")
+    baseDiv.classList.remove("shield-sprites")
   }
 })
 

@@ -112,6 +112,10 @@ ncrs-banner-instructions > ncrs-banner-pattern-preview {
   --ncs-banner-sprites: url("/ncsassets/img/banner/shield_sprites.png");
 }
 
+.banner-sprites {
+  --ncs-banner-sprites: url("/ncsassets/img/banner/banner_sprites.png");
+}
+
 .shield-overlay {
   background-image: url("/ncsassets/img/banner/shield_overlay.png");
 }
