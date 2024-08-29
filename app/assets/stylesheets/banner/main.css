@@ -280,6 +280,10 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
 }
 
+.shield-sprites #preview-texture-overlay {
+  background-image: url(/ncsassets/img/banner/shield_shadow_overlay.png);
+}
+
 #preview-overlay {
   display: none;
   position: absolute;
