@@ -28,12 +28,36 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
+#
+# Tranlation notes:
+#
+# - Modlog is not to be translated because the translation for it is tricky at the time (Warnings at the top of Modlog will be translated)
 
 en:
+  header: # /app/views/shared/_header.html.erb
+    admin: "Admin"
+    sign_out: "Sign Out"
+    create_an_account: "Create An Account"
+    sign_in: "Sign In"
+  header_navbar: # /app/views/shared/_header_nav.html.erb
+    editor: "Editor"
+    banner: "Banner"
+    gallery: "Gallery"
+  footer: # /app/views/shared/_footer.html.erb
+    faq: "FAQ"
+    about: "About"
+    contact: "Contact"
+    rules: "Rules"
+    donate: "Donate"
+    hall_of_fame: "Hall of Fame"
+    to_the_original_devs: "To the Original Devs"
+    official_forum: "Official Forum"
+    join_our_discord: "Join Our Discord"
   actions:
     copy: Copy
     copied: Copied!
-  skins:
+    search: "Seach" # /app/views/shared/_search.html.erb
+  skins: # /app/views/skins
     editor: "Open in Editor"
     download: "Download to Computer"
     change_skin: "Change Skin on minecraft.net"
@@ -43,6 +67,9 @@ en:
     moderate: "Moderate Skin"
     delete: "Delete Skin"
     delete_confirmation: "Are you sure you want to delete this skin? It will be gone forever."
+    description: "Description (Optional, Markdown supported)" # /app/views/skins/_form_fields.html.erb !! Do not translate "Markdown" !!
+    save: "Save" # /app/views/skins/_form.html.erb
+    cancel: "Cancel" # /app/views/skins/_form.html.erb
     status:
       hidden:
         pt1: "This skin has been hidden by the moderators. Check the"
@@ -51,7 +78,7 @@ en:
       unlisted_guest: "This skin is marked as unlisted, and cannot be edited."
       unlisted_owner: "This skin is marked as unlisted. It can be accessed by the link, but will not show up in the Gallery."
       private: "This skin is marked as private. Only you can view it."
-    attributions:
+    attributions: # /app/views/skins/_attribution_text.html.erb
       self: Sharing & Attribution
       parts_used: Parts Used
       used_by: Used By
@@ -71,3 +98,6 @@ en:
   modlog:
     title: "Moderation Log"
     warning: "Warning: Content here has been moderated for a reason, and could contain disturbing or unpleasant material. Proceed at own risk."
+  gallery_tabs: # /app/views/shared/_gallery_tabs.html.erb
+    skins: "Skins" # Plural
+    banners: "Banners" # Plural
