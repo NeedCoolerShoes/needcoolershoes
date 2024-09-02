@@ -28,12 +28,38 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
+#
+# Tranlation notes:
+#
+# - Modlog is not to be translated because the translation for it is tricky at the time (Warnings at the top of Modlog will be translated)
+
+
 
 tr:
+  header: # /app/views/shared/_header.html.erb
+    admin: "Yönetici"
+    sign_out: "Çıkış Yap"
+    create_an_account: "Hesap Oluştur"
+    sign_in: "Giriş Yap"
+  header_navbar: # /app/views/shared/_header_nav.html.erb
+    editor: "Editör"
+    banner: "Flama"
+    gallery: "Galeri"
+  footer: # /app/views/shared/_footer.html.erb
+    faq: "SSS"
+    about: "Hakkımızda"
+    contact: "İletişim"
+    rules: "Kurallar"
+    donate: "Bağış Yap"
+    hall_of_fame: "Hall of Fame" # TODO: find a fitting translation
+    to_the_original_devs: "Orijinal Geliştiricilere"
+    official_forum: "Resmi Forum"
+    join_our_discord: "Discordumuza katılın!"
   actions:
     copy: Kopyala
     copied: Kopyalandı!
-  skins:
+    search: "Arat" # /app/views/shared/_search.html.erb
+  skins: # /app/views/skins
     editor: "Düzenleyicide Aç"
     download: "Bilgisayarına Indir"
     change_skin: "minecraft.net'te Görünüşünü Değiştir"
@@ -43,6 +69,9 @@ tr:
     moderate: "Moderate Skin"
     delete: "Görünüşü Sil"
     delete_confirmation: "Bu görünüşü silmek istediğine eminmisin?"
+    description: "Açıklama (Opsiyonel, Markdown desteklenmektedir)" # /app/views/skins/_form_fields.html.erb
+    save: "Kaydet" # /app/views/skins/_form.html.erb
+    cancel: "İptal Et" # /app/views/skins/_form.html.erb
     status:
       hidden:
         pt1: "Bu görünüş, moderatörler tarafından gizlenmiştir. Daha fazla bilgi için"
@@ -51,7 +80,7 @@ tr:
       unlisted_guest: "Bu görünüş, liste dışı olarak işaretlenmiştir, düzenlenemez."
       unlisted_owner: "Bu görünüş, liste dışı olarak işaretlenmiştir. Sadece bu görünüşün bağlantısına sahip olanlar görebilir. Galeride gözükmez."
       private: "Bu görünüş, gizli olarak işaretlenmiştir. Sadece sen görebilirsin."
-    attributions:
+    attributions: # /app/views/skins/_attribution_text.html.erb
       self: Sharing & Attribution
       parts_used: Parts Used
       used_by: Used By
@@ -71,3 +100,6 @@ tr:
   modlog:
     title: "Moderasyon Kaydı"
     warning: "Uyarı: Burdaki içerik belirli bir sebepten dolayı burdadır, rahatsız edici yada uygunsuz içerik barındırabilir. Kendi sorumluluğunuzda ilerleyin."
+  gallery_tabs: # /app/views/shared/_gallery_tabs.html.erb
+    skins: "Görünüşler" # Plural
+    banners: "Flamalar" # Plural
