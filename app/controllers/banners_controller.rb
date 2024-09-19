@@ -52,9 +52,9 @@ class BannersController < ApplicationController
 
     respond_to do |format|
       if @banner.save
-        format.html { redirect_to @banner, notice: "Banner was successfully shared." }
+        format.html { redirect_to @banner, notice: t("controllers.banner.share") }
       else
-        format.html { redirect_to banner_editor_path, alert: "Error saving banner. #{format_errors @banner.errors.messages}" }
+        format.html { redirect_to banner_editor_path, alert: t("controllers.banner.error_save") + " #{format_errors @banner.errors.messages}" }
       end
     end
   end
@@ -65,9 +65,9 @@ class BannersController < ApplicationController
     params[:tag_list] = transform_tags(banner_params[:tags])
     respond_to do |format|
       if @banner.update(params)
-        format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+        format.html { redirect_to @banner, notice: t("controllers.banner.update_success") }
       else
-        format.html { redirect_to edit_banner_path(@banner), alert: "Error saving banner." }
+        format.html { redirect_to edit_banner_path(@banner), alert: t("controllers.banner.error_save") }
       end
     end
   end
@@ -90,9 +90,9 @@ class BannersController < ApplicationController
             locals: {banner: @banner, size: params[:size], redirect: params[:redirect]}
           )
         }
-        format.html { redirect_to params[:redirect], notice: "Added banner to favourites." }
+        format.html { redirect_to params[:redirect], notice: t("favourites.banner.added") }
       else
-        format.html { redirect_to params[:redirect], alert: "Error favouriting banner." }
+        format.html { redirect_to params[:redirect], alert: t("favourites.banner.err_adding") }
       end
     end
   end
@@ -108,9 +108,9 @@ class BannersController < ApplicationController
             locals: {banner: @banner, size: params[:size], redirect: params[:redirect]}
           )
         }
-        format.html { redirect_to params[:redirect], notice: "Removed banner from favourites." }
+        format.html { redirect_to params[:redirect], notice: t("favourites.banner.removed") }
       else
-        format.html { redirect_to params[:redirect], alert: "Error removing favourite banner." }
+        format.html { redirect_to params[:redirect], alert: t("favourites.banner.err_removing") }
       end
     end
   rescue ActiveRecord::RecordNotFound
@@ -138,9 +138,9 @@ class BannersController < ApplicationController
       end
       raise "Error saving banner or modlog" unless banner && modlog
 
-      format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+      format.html { redirect_to @banner, notice: t("controllers.banner.update_success") }
     rescue
-      format.html { redirect_to banner_moderate_path(@banner), alert: "Error saving banner." }
+      format.html { redirect_to banner_moderate_path(@banner), alert: t("controllers.banner.error_save") }
     end
   end
 

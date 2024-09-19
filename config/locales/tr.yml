@@ -33,8 +33,6 @@
 #
 # - Modlog is not to be translated because the translation for it is tricky at the time (Warnings at the top of Modlog will be translated)
 
-
-
 tr:
   header: # /app/views/shared/_header.html.erb
     admin: "Yönetici"
@@ -97,9 +95,14 @@ tr:
       arr:
         by: "uploaded by"
         attribute: "is all rights reserved."
+  banner_card: "Can only be obtained through commands." # /app/components/gallery/banner_card_component.html.erb
   modlog:
     title: "Moderasyon Kaydı"
     warning: "Uyarı: Burdaki içerik belirli bir sebepten dolayı burdadır, rahatsız edici yada uygunsuz içerik barındırabilir. Kendi sorumluluğunuzda ilerleyin."
   gallery_tabs: # /app/views/shared/_gallery_tabs.html.erb
     skins: "Görünüşler" # Plural
     banners: "Flamalar" # Plural
+  favourites:
+    remove: "Favorilerden Kaldır"
+    add: "Favorilere Ekle"
+    login: "Favorilere Eklemek için Giriş Yap"

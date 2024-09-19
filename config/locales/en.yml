@@ -57,13 +57,13 @@ en:
     copy: Copy
     copied: Copied!
     search: "Seach" # /app/views/shared/_search.html.erb
-  skins: # /app/views/skins
+  skins: # /app/views/skins/
     editor: "Open in Editor"
     download: "Download to Computer"
     change_skin: "Change Skin on minecraft.net"
     feature: "Feature Skin on Profile"
     feature_tooltip: "Display skin as your avatar on your profile."
-    edit: "Edit Information"
+    edit: "Edit Skin"
     moderate: "Moderate Skin"
     delete: "Delete Skin"
     delete_confirmation: "Are you sure you want to delete this skin? It will be gone forever."
@@ -95,9 +95,27 @@ en:
       arr:
         by: "uploaded by"
         attribute: "is all rights reserved."
+  banner_card: "Can only be obtained through commands." # /app/components/gallery/banner_card_component.html.erb
   modlog:
     title: "Moderation Log"
     warning: "Warning: Content here has been moderated for a reason, and could contain disturbing or unpleasant material. Proceed at own risk."
   gallery_tabs: # /app/views/shared/_gallery_tabs.html.erb
     skins: "Skins" # Plural
     banners: "Banners" # Plural
+  favourites:
+    remove: "Remove from Favourites"
+    add: "Add to Favourites"
+    login: "Login to add Favourites"
+    banner: # /app/controllers/banners_controller.rb
+      added: "Added banner to favourites."
+      err_adding: "Error favouriting banner."
+      removed: "Removed banner from favourites."
+      err_removing: "Error removing favourite banner."
+  controllers: # /app/controllers/
+    skin_load_err_username: "Could not load skin for given username." # ./api_controller.rb
+    banner: # ./_skin_favourite.html.erb
+      share: "Banner was successfully shared."
+      err_save: "Error saving banner."
+      update_success: "Banner was successfully updated."
+      
+      

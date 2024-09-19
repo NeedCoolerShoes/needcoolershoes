@@ -4,7 +4,7 @@ class ApiController < ApplicationController
     if data.is_a?(Net::HTTPSuccess)
       send_data data.body, type: "image/png"
     else
-      render json: {error: "Could not load skin for given username."}, status: 404
+      render json: {error: t("controllers.skin_load_error_username")}, status: 404
     end
   end
 
