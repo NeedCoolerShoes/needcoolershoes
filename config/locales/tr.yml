@@ -1,0 +1,73 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+tr:
+  actions:
+    copy: Kopyala
+    copied: Kopyalandı!
+  skins:
+    editor: "Düzenleyicide Aç"
+    download: "Bilgisayarına Indir"
+    change_skin: "minecraft.net'te Görünüşünü Değiştir"
+    feature: "Bu Görünüşü Profilde Öne Sür"
+    feature_tooltip: "Görünüşü Profilinde Avatarın Olarak Kullan"
+    edit: "Bilgileri Düzenle"
+    moderate: "Moderate Skin"
+    delete: "Görünüşü Sil"
+    delete_confirmation: "Bu görünüşü silmek istediğine eminmisin?"
+    status:
+      hidden:
+        pt1: "Bu görünüş, moderatörler tarafından gizlenmiştir. Daha fazla bilgi için"
+        modlog: "modlog'a"
+        pt2: "bakınız."
+      unlisted_guest: "Bu görünüş, liste dışı olarak işaretlenmiştir, düzenlenemez."
+      unlisted_owner: "Bu görünüş, liste dışı olarak işaretlenmiştir. Sadece bu görünüşün bağlantısına sahip olanlar görebilir. Galeride gözükmez."
+      private: "Bu görünüş, gizli olarak işaretlenmiştir. Sadece sen görebilirsin."
+    attributions:
+      self: Sharing & Attribution
+      parts_used: Parts Used
+      used_by: Used By
+      cc_by_sa_4:
+        by: "by"
+        attribute: "is licensed under"
+      cc0:
+        by: "by"
+        attribute: "is marked as"
+      mncs:
+        by: "uploaded by"
+        attribute: "was originally uploaded to Miners Need Cool Shoes, and is all rights reserved under the"
+        link: "terms of that site"
+      arr:
+        by: "uploaded by"
+        attribute: "is all rights reserved."
+  modlog:
+    title: "Moderasyon Kaydı"
+    warning: "Uyarı: Burdaki içerik belirli bir sebepten dolayı burdadır, rahatsız edici yada uygunsuz içerik barındırabilir. Kendi sorumluluğunuzda ilerleyin."
