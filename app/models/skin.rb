@@ -193,7 +193,7 @@ class Skin < ApplicationRecord
   end
 
   def to_url_title
-    "~#{name.parameterize.tr("_", "-")}"
+    "~#{name.to_s.parameterize.tr("_", "-")}"
   end
 
   def to_title_path

@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   
   resources :banners, except: [:new, :index]
 
-  constraints(title: /~[a-z0-9\-]+/) do
+  constraints(title: /~[a-z0-9\-]*/) do
     get "banners/:id/:title", to: "banners#show", as: "banner_title"
     get "skins/:id/:title", to: "skins#show", as: "skin_title"
   end
