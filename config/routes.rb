@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get "gallery/banners/:page", to: "banners#index"
   get "gallery/skins", to: "skins#index", as: "skins_gallery"
   get "gallery/skins/:page", to: "skins#index"
-  get "gallery", to: redirect("/gallery/skins")
+  get "gallery", to: redirect(path: "/gallery/skins")
   get "gallery/:page", to: redirect("/gallery/skins/%{page}")
 
   get "skins", to: redirect("/gallery/skins")
