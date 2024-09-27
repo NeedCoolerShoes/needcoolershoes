@@ -111,4 +111,12 @@ class User < ApplicationRecord
   def export_skins_to_zip
     Skin.export_to_zip(skins)
   end
+
+  def to_path
+    "/@#{name}"
+  end
+
+  def to_url
+    Routing.root_url + "@#{name}"
+  end
 end

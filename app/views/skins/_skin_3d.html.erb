@@ -2,6 +2,7 @@
   data ||= ""
   height ||= 400
   width ||= 300
+  model ||= nil
 %>
 <% content_for :scripts do %>
   <script src="/ncsassets/js/skinview3d.bundle.js"></script>
@@ -14,6 +15,7 @@
     canvas: document.getElementById("skin_container"),
     width: <%= width %>,
     height: <%= height %>,
+    model: "<%= model.present? ? model : "auto-detect" %>",
     skin: "<%= data %>"
   });
 

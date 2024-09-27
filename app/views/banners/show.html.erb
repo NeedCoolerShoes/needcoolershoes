@@ -44,14 +44,12 @@
         <%= markdown @banner.description %>
       </div>
     </div>
-    <% if @banner.survival_friendly? %>
-      <div class="bg-ncs-dark-700">
-        <div class="bg-ncs-dark-800 p-1">
-          <h2>Crafting Steps</h2>
-        </div>
-        <ncrs-banner-instructions id="banner-instructions" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
+    <div class="bg-ncs-dark-700">
+      <div class="bg-ncs-dark-800 p-1">
+        <h2><%= @banner.survival_friendly? ? "Crafting Steps" : "Pattern List (Not Survival Friendly)" %></h2>
       </div>
-    <% end %>
+      <ncrs-banner-instructions id="banner-instructions" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
+    </div>
     <div class="bg-ncs-dark-700">
       <div class="bg-ncs-dark-800 p-1">
         <h2>Generate Command</h2>

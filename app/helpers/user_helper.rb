@@ -5,7 +5,7 @@ module UserHelper
   end
 
   def profile_link(user)
-    link_to user do
+    link_to user.to_path do
       content = tag.span user.display_name, class: "underline"
       if (badge = user.featured_badge).present?
         content += " "

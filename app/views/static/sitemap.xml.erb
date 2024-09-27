@@ -34,13 +34,13 @@
   <% end %>
   <% Skin.is_public.last(10000).each do |skin| %>
     <url>
-      <loc><%= skin_url(skin) %></loc>
+      <loc><%= skin.to_title_url %></loc>
       <lastmod><%= last_modified_date(skin.updated_at) %></lastmod>
     </url>
   <% end %>
   <% Banner.last(10000).each do |banner| %>
     <url>
-      <loc><%= banner_url(banner) %></loc>
+      <loc><%= banner.to_title_url %></loc>
       <lastmod><%= last_modified_date(banner.updated_at) %></lastmod>
     </url>
   <% end %>

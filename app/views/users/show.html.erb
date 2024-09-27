@@ -15,7 +15,7 @@
             <img class="inline w-6" src="/ncsassets/img/medals/<%= @user.role %>.png" alt="<%= @user.role.titleize %>" title="<%= @user.role.titleize %>" style="image-rendering: pixelated;">
           <% end %>
         </h1>
-        <span class="text-2xl text-gray-500"><%= @user.name %></span>
+        <span class="text-2xl text-gray-500">@<%= @user.name %></span>
       </div>
       <div class="relative h-full">
         <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data } %>

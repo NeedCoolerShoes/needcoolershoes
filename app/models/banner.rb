@@ -58,4 +58,16 @@ class Banner < ApplicationRecord
   def can_user_edit?(some_user)
     some_user&.id == user_id
   end
+
+  def to_url_title
+    "~#{name.parameterize.tr("_", "-")}"
+  end
+
+  def to_title_path
+    Routing.banner_title_path(self, to_url_title)
+  end
+
+  def to_title_url
+    Routing.banner_title_url(self, to_url_title)
+  end
 end

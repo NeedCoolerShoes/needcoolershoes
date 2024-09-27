@@ -6,7 +6,7 @@
   <div class="max-w-[364px] sm:max-w-[250px] lg:max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
       <div class="relative checker-border bg-ncs-grid">
-        <%= render partial: "skin_3d", locals: { data: @skin.data } %>
+        <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model } %>
         <% if current_user.present? %>
           <script>
             skinViewer.nameTag = "<%= current_user.name %>"
@@ -60,7 +60,7 @@
       <div class="flex flex-col font-bold">
         <p class="text-ncs-dark-300"><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
         <p>
-          by <%= link_to @skin.user do %>
+          by <%= link_to @skin.user.to_path do %>
             <span class="underline"><%= @skin.user.display_name %></span>
             <% if (badge = @skin.user.featured_badge).present? %>
                 <img class="inline w-4 border rounded-full box-content border-ncs-yellow-500 bg-ncs-yellow-500"

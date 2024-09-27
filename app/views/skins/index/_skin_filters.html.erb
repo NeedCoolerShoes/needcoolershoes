@@ -1,6 +1,8 @@
 <div class="flex flex-col gap-2 bg-ncs-dark-800 p-2 pb-4 rounded-b text-ncs-dark-300">
   <div>
-    <%= link_to "Clear All", skins_gallery_path, class: "underline" %>
+    <% if !params.empty? %>
+      <%= link_to "Clear All", skins_gallery_path, class: "underline" %>
+    <% end %>
     <%= link_to "Random Skin", random_skin_path, class: "underline" %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">

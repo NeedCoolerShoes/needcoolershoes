@@ -18,6 +18,8 @@ class Skin < ApplicationRecord
     archive: "I archived it from the old site (needcoolshoes.com).",
     arr: "The skin is copyrighted (All Rights Reserved)."
   }
+  SKINVIEW_MODEL = {"classic" => "default", "slim" => "slim"}
+
   KARMA = 5
   PREVIEW_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/previews")
   SOCIAL_CACHE_PATH = Pathname(Dir.tmpdir + "/ncrs-cache/social-cards")
@@ -184,6 +186,22 @@ class Skin < ApplicationRecord
   def parse_watermark
     region = to_img.crop(0, 0, 8, 8)
     region.to_rgb_stream.tr("\u0000", "").split("\n")
+  end
+
+  def skinview_model
+    SKINVIEW_MODEL[model]
+  end
+
+  def to_url_title
+    "~#{name.parameterize.tr("_", "-")}"
+  end
+
+  def to_title_path
+    Routing.skin_title_path(self, to_url_title)
+  end
+
+  def to_title_url
+    Routing.skin_title_url(self, to_url_title)
   end
 
   private

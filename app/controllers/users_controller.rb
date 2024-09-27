@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 
   def current
     if current_user.present?
-      redirect_to current_user
+      redirect_to current_user.to_path
     else
       redirect_to root_path
     end
@@ -62,7 +62,9 @@ class UsersController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by!(name: params[:user_id] || params[:id])
+    name = (params[:user_id] || params[:id]).to_s.delete_prefix("@")
+
+    @user = User.find_by!(name: name)
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path
   end

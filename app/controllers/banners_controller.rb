@@ -2,6 +2,8 @@ class BannersController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update]
   before_action :set_banner, only: %i[show edit update moderator_edit moderator_update add_favourite remove_favourite]
   before_action :validate_can_edit, only: %i[edit update destroy]
+  before_action :redirect_title, only: :show
+
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
   nav_section :banner, only: :new
@@ -22,7 +24,7 @@ class BannersController < ApplicationController
   def random
     banner = Banner.ordered_by("random").first
     if banner.present?
-      redirect_to banner_path(banner)
+      redirect_to banner.to_title_path
     else
       not_found_error
     end
@@ -52,7 +54,7 @@ class BannersController < ApplicationController
 
     respond_to do |format|
       if @banner.save
-        format.html { redirect_to @banner, notice: "Banner was successfully shared." }
+        format.html { redirect_to @banner.to_title_path, notice: "Banner was successfully shared." }
       else
         format.html { redirect_to banner_editor_path, alert: "Error saving banner. #{format_errors @banner.errors.messages}" }
       end
@@ -65,7 +67,7 @@ class BannersController < ApplicationController
     params[:tag_list] = transform_tags(banner_params[:tags])
     respond_to do |format|
       if @banner.update(params)
-        format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+        format.html { redirect_to @banner.to_title_path, notice: "Banner was successfully updated." }
       else
         format.html { redirect_to edit_banner_path(@banner), alert: "Error saving banner." }
       end
@@ -138,7 +140,7 @@ class BannersController < ApplicationController
       end
       raise "Error saving banner or modlog" unless banner && modlog
 
-      format.html { redirect_to @banner, notice: "Banner was successfully updated." }
+      format.html { redirect_to @banner.to_title_path, notice: "Banner was successfully updated." }
     rescue
       format.html { redirect_to banner_moderate_path(@banner), alert: "Error saving banner." }
     end
@@ -159,6 +161,13 @@ class BannersController < ApplicationController
     @banner = Banner.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     not_found_error
+  end
+
+  def redirect_title
+    return unless request.format.html?
+    return if @banner.to_url_title == params[:title]
+    
+    redirect_to @banner.to_title_path
   end
 
   def index_meta_config

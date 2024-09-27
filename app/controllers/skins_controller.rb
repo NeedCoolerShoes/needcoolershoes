@@ -4,6 +4,8 @@ class SkinsController < ApplicationController
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
+  before_action :redirect_title, only: :show
+
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
 
@@ -67,7 +69,7 @@ class SkinsController < ApplicationController
         if params[:attributions].is_a? Array
           params[:attributions].each { |url| SkinAttribution.create_from_url(@skin, *url.split(/\r\n|\r|\n/)) }
         end
-        format.html { redirect_to @skin, notice: "Skin was successfully created." }
+        format.html { redirect_to @skin.to_title_path, notice: "Skin was successfully created." }
       else
         format.html { redirect_to root_path, alert: "Error saving skin. #{format_errors @skin.errors.messages}" }
       end
@@ -84,7 +86,7 @@ class SkinsController < ApplicationController
     params[:tag_list] = transform_tags(skin_params[:tags])
     respond_to do |format|
       if @skin.update(params)
-        format.html { redirect_to @skin, notice: "Skin was successfully updated." }
+        format.html { redirect_to @skin.to_title_path, notice: "Skin was successfully updated." }
       else
         format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
       end
@@ -117,7 +119,7 @@ class SkinsController < ApplicationController
       end
       raise "Error saving skin or modlog" unless skin && modlog
 
-      format.html { redirect_to @skin, notice: "Skin was successfully updated." }
+      format.html { redirect_to @skin.to_title_path, notice: "Skin was successfully updated." }
     rescue
       format.html { redirect_to skin_moderate_path(@skin), alert: "Error saving skin." }
     end
@@ -184,7 +186,7 @@ class SkinsController < ApplicationController
 
   def random
     skin = Skin.visible_to_user(current_user).ordered_by("random").first
-    redirect_to skin_path(skin)
+    redirect_to skin.to_title_path
   end
 
   private
@@ -240,6 +242,13 @@ class SkinsController < ApplicationController
     @skin = Skin.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render_img_missing
+  end
+
+  def redirect_title
+    return unless request.format.html?
+    return if @skin.to_url_title == params[:title]
+
+    redirect_to @skin.to_title_path
   end
 
   def set_jam_info

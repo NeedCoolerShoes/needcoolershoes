@@ -52,6 +52,15 @@ Rails.application.routes.draw do
   
   resources :banners, except: [:new, :index]
 
+  constraints(title: /~[a-z0-9\-]+/) do
+    get "banners/:id/:title", to: "banners#show", as: "banner_title"
+    get "skins/:id/:title", to: "skins#show", as: "skin_title"
+  end
+
+  constraints(id: /@[a-z0-9\-]+/) do
+    get ":id", to: "users#show"
+  end
+
   get "users", to: redirect("/")
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
@@ -76,6 +85,7 @@ Rails.application.routes.draw do
   resources :badges, except: :index
 
   scope :users do
+    get ":id", to: redirect('@%{id}')
     resource :otp, controller: "otp", only: %i[update destroy] do
       get "backup-codes", to: "otp#backup_codes", as: "backup_codes"
       get "verify"
@@ -84,7 +94,7 @@ Rails.application.routes.draw do
     patch ":id/moderate", to: "users#moderator_update", as: "update_profile_moderate"
   end
 
-  resources :users, only: %i[show edit destroy update] do
+  resources :users, only: %i[edit destroy update] do
     get "export", to: "users#export"
   end
 

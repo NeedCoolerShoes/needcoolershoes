@@ -7,7 +7,7 @@
   }
 %>
 
-<%= link_to skin_path(skin), class: "block relative bg-ncs-grid p-2 group" do %>
+<%= link_to skin.to_title_path, class: "block relative bg-ncs-grid p-2 group" do %>
   <%= render partial: "skins/skin_2d", locals: skin_config %>
   <div class="absolute left-0 bottom-0 hidden group-hover:block w-full h-14 bg-black/60">
     <div class="p-1 leading-4 text-center">

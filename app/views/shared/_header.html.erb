@@ -17,7 +17,7 @@
                 <%= link_to "Admin", "/admin", class: "text-white underline" %>
                 <span class="text-white">|</span>
               <% end %>
-              <%= link_to current_user.name, current_user, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
+              <%= link_to current_user.name, current_user.to_path, title: "#{current_user.pixels} pixels", class: "text-white underline" %>
               <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-white btn-none underline" %>
             <% else %>
               <%= link_to "Create an Account", new_user_registration_path, class: "text-white underline" %>
