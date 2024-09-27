@@ -5,23 +5,43 @@
     <lastmod><%= last_modified("app/views/static/editor.html.erb") %></lastmod>
   </url>
   <url>
-    <loc><%= banner_url %></loc>
-    <lastmod><%= last_modified("app/views/static/banner.html.erb") %></lastmod>
+    <loc><%= banner_editor_url %></loc>
+    <lastmod><%= last_modified("app/views/banners/new.html.erb") %></lastmod>
   </url>
   <url>
     <loc><%= about_url %></loc>
     <lastmod><%= last_modified("app/views/static/about.html.erb") %></lastmod>
   </url>
+  <url>
+    <loc><%= faq_url %></loc>
+    <lastmod><%= last_modified("app/views/static/faq.html.erb") %></lastmod>
+  </url>
+  <url>
+    <loc><%= rules_url %></loc>
+    <lastmod><%= last_modified("app/views/static/rules.html.erb") %></lastmod>
+  </url>
   <% if Skin.all.any? %>
     <url>
-      <loc><%= gallery_url %></loc>
+      <loc><%= skins_gallery_url %></loc>
       <lastmod><%= last_modified_date(Skin.last.updated_at) %></lastmod>
     </url>
   <% end %>
-  <% Skin.is_public.last(49000).each do |skin| %>
+  <% if Banner.all.any? %>
+    <url>
+      <loc><%= banners_gallery_url %></loc>
+      <lastmod><%= last_modified_date(Banner.last.updated_at) %></lastmod>
+    </url>
+  <% end %>
+  <% Skin.is_public.last(10000).each do |skin| %>
     <url>
       <loc><%= skin_url(skin) %></loc>
       <lastmod><%= last_modified_date(skin.updated_at) %></lastmod>
+    </url>
+  <% end %>
+  <% Banner.last(10000).each do |banner| %>
+    <url>
+      <loc><%= banner_url(banner) %></loc>
+      <lastmod><%= last_modified_date(banner.updated_at) %></lastmod>
     </url>
   <% end %>
 </urlset>
