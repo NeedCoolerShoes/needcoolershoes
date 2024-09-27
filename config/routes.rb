@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     get "skins/:id/:title", to: "skins#show", as: "skin_title"
   end
 
-  constraints(id: /@[a-z0-9\-]+/) do
+  constraints(id: /@[a-z0-9_\-]+/) do
     get ":id", to: "users#show"
   end
 
