@@ -1,3 +1,8 @@
+# NOTICE
+
+> [!IMPORTANT]
+> PLEASE FOR THE LOVE OF GOD CREATE BOTH ISSUES AND PULL REQUESTS FOR **ANY** FEATURE YOU ARE ADDING/CHANGING/FIXING, AND DO MENTION THE ISSUE ON YOUR COMMIT MESSAGE
+
 [![Ruby 3.1.0](https://img.shields.io/badge/RUBY-3.1.0-%23CC342D?style=for-the-badge&logo=ruby
 )](https://www.ruby-lang.org/en/)
 [![Ruby on Rails 7.0.4](https://img.shields.io/badge/rails-7.0.4-%23D30001?style=for-the-badge&logo=rubyonrails)](https://rubyonrails.org/)
