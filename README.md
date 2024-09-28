@@ -5,7 +5,7 @@
 ](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=docker&logoColor=white)
 ](https://www.docker.com/)
-![Fly.io](https://img.shields.io/badge/Fly.io-%2324175B?style=for-the-badge&logo=flydotio)
+[![Fly.io](https://img.shields.io/badge/Fly.io-%2324175B?style=for-the-badge&logo=flydotio)](https://fly.io/)
 
 > [!IMPORTANT]
 > Any major security issues should be sent to dev@needcoolershoes.com
