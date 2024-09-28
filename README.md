@@ -1,7 +1,53 @@
+[![Ruby 3.1.0](https://img.shields.io/badge/RUBY-3.1.0-%23CC342D?style=for-the-badge&logo=ruby
+)](https://www.ruby-lang.org/en/)
+[![Ruby on Rails 7.0.4](https://img.shields.io/badge/rails-7.0.4-%23D30001?style=for-the-badge&logo=rubyonrails)](https://rubyonrails.org/)
+[![PostgreSQL 15](https://img.shields.io/badge/PostgreSQL-15-%234169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+](https://www.postgresql.org/)
+[![Docker](https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=docker&logoColor=white)
+](https://www.docker.com/)
+![Fly.io](https://img.shields.io/badge/Fly.io-%2324175B?style=for-the-badge&logo=flydotio)
+
+> [!IMPORTANT]
+> Any major security issues should be sent to dev@needcoolershoes.com
+
+## Run Locally
+
+Clone the project
+
+```bash
+git clone https://github.com/needcoolershoes/needcoolershoes
+```
+
+Install PostgreSQL
+
+```bash
+apt install postgresql
+```
+
+Enter the repository folder
+
+```bash
+cd needcoolershoes
+```
+
+Install `foreman`
+
+```bash
+gem install foreman
+```
+
+Start the webserver
+
+```bash
+foreman start
+```
+
+
+
 ## Roadmap
 
-- [ ] Credited skin parts 
-- [ ] Tagging system for skins
-- [ ] A fully rewritten editor
+See [ROADMAP.md](docs/ROADMAP.md)
 
-<!-- test -->
+## Contributors
+
+Waiting for repo to be public
