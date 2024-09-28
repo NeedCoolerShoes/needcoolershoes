@@ -21,7 +21,7 @@ git clone https://github.com/needcoolershoes/needcoolershoes
 Install PostgreSQL
 
 ```bash
-apt install postgresql
+sudo apt install postgresql
 ```
 
 Enter the repository folder
