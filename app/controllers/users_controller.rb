@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
     @user = User.find_by!(name: name)
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path
+    not_found_error
   end
 
   def validates_current_user
