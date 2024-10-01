@@ -1,5 +1,3 @@
-# NOTICE
-
 > [!IMPORTANT]
 > PLEASE FOR THE LOVE OF GOD CREATE ISSUES/PULL REQUESTS FOR **ANY** FEATURE YOU ARE ADDING/CHANGING/FIXING, AND DO MENTION THE ISSUE/PR ON YOUR COMMIT MESSAGE  
 > Ex: `feat(foobar): foo (#1234)`
@@ -17,6 +15,11 @@
 > Any major security issues should be sent to dev@needcoolershoes.com
 
 ## Run Locally
+
+> [!WARNING]
+> Both of these methods expect a UNIX-like enviroment. Very unlikely to work on Windows.
+
+### Manual
 
 Clone the project
 
@@ -48,7 +51,40 @@ Start the webserver
 foreman start
 ```
 
+### Docker
 
+> [!CAUTION]
+> You will receive minimal support if you decide to go this way
+
+Clone the project
+
+```bash
+git clone https://github.com/needcoolershoes/needcoolershoes
+```
+
+Install Docker
+
+```bash
+apt install docker.io
+```
+
+Enter the repository folder
+
+```bash
+cd needcoolershoes
+```
+
+Build the Docker Image
+
+```bash
+docker build -t needcoolershoes .
+```
+
+Start the Docker Container
+
+```bash
+docker run -d -p 3000:3000 needcoolershoes
+```
 
 ## Roadmap
 
