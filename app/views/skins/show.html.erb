@@ -1,3 +1,5 @@
+<!-- TRANSLATED -->
+
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
 <% end %>
@@ -29,9 +31,9 @@
         <% end %>
         <% if @skin.can_user_edit?(current_user) %>
           <% if @skin.user == current_user %>
-            <%= link_to t("skins.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
+            <%= link_to t("common.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <% else %>
-            <%= link_to t("skins.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
+            <%= link_to t("common.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
           <% end %>
         <% end %>
       </div>
@@ -40,12 +42,12 @@
           onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
-          <%= t("skins.editor") %>
+          <%= t("common.editor") %>
         </button>
         <!--
         <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
         -->
-        <%= link_to "Download to Computer", skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
+        <%= link_to t("skins.download"), skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
       </div>
     </div>
   </div>

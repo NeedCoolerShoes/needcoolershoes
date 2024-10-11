@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   }
 
   before_action :configure_devise_parameters, if: :devise_controller?
-
+  around_action :switch_locale
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
 
   def self.nav_section(nav, **options)
@@ -27,6 +27,11 @@ class ApplicationController < ActionController::Base
     meta_config = DEFAULT_META_CONFIG.call
     yield meta_config
     before_action -> { @meta_config = meta_config }, options
+  end
+
+  def switch_locale(&action) # Language change depending on the ?lang parameter ex: /gallery/?lang=(tr,en,pl)
+    lang = params[:lang] || I18n.default_locale
+    I18n.with_locale(lang, &action)
   end
 
   def configure_devise_parameters

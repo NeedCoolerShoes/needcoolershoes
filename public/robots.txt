@@ -7,4 +7,4 @@ Disallow: /skins/*/download
 
 # Prevent Amazon from getting stuck on the gallery
 User-agent: Amazonbot
-Disallow: /gallery/
+Disallow: /gallery/*
