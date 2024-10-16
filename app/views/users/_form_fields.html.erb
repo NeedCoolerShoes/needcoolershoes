@@ -1,3 +1,4 @@
+<!-- TODO -->
 <%
   recent_skins = user.skins.visible.order_by_updated.first(10).pluck(:name, :id)
   badges = user.badges.pluck(:name, :id)

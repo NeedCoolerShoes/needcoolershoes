@@ -12,6 +12,7 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 #
 # The modlog entries are not to be added to this file.
+# The moderators are expected to know English. Moderator specific pages have a lower priority compared to other pages.
 
 en:
   favourite:
