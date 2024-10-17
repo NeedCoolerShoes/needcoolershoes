@@ -41,6 +41,23 @@ en:
       unlisted_guest: "This skin is marked as unlisted, and cannot be edited."
       unlisted_owner: "This skin is marked as unlisted. It can be accessed by the link, but will not show up in the Gallery."
       private: "This skin is marked as private. Only you can view it."
+    attributions:
+      self: Sharing & Attribution
+      parts_used: Parts Used
+      used_by: Used By
+      cc_by_sa_4:
+        by: "by"
+        attribute: "is licensed under"
+      cc0:
+        by: "by"
+        attribute: "is marked as"
+      mncs:
+        by: "uploaded by"
+        attribute: "was originally uploaded to Miners Need Cool Shoes, and is all rights reserved under the"
+        link: "terms of that site"
+      arr:
+        by: "uploaded by"
+        attribute: "is all rights reserved."
   modlog:
     title: "Moderation Log"
     warning: "Warning: Content here has been moderated for a reason, and could contain disturbing or unpleasant material. Proceed at own risk."
