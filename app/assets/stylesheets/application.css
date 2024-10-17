@@ -239,6 +239,7 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  image-rendering: crisp-edges;
 }
 
 body {
@@ -247,6 +248,7 @@ body {
   overflow-x: hidden;
   line-height: 1.3em;
   margin: 0;
+  image-rendering: auto;
 }
 
 .ncs-selectable .overlay {
