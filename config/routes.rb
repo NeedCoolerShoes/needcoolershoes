@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get "open_letter", to: redirect("open-letter")
   get "rules", to: "static#rules"
   get "sitemap", to: "static#sitemap", defaults: {format: "xml"}
+  get "tos", to: "static#tos"
+  get "terms-of-service", to: redirect("tos")
+  get "terms_of_service", to: redirect("tos")
 
   # Gallery Routes
   get "gallery/banners", to: "banners#index", as: "banners_gallery"
