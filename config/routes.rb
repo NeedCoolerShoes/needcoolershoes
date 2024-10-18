@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get "open_letter", to: redirect("open-letter")
   get "rules", to: "static#rules"
   get "sitemap", to: "static#sitemap", defaults: {format: "xml"}
-  get "tos", to: "static#tos"
 
   # Gallery Routes
   get "gallery/banners", to: "banners#index", as: "banners_gallery"
@@ -70,6 +69,7 @@ Rails.application.routes.draw do
   get "preview", to: "site#preview", as: "preview"
 
   scope :terms do
+    # get "/", to: "static#tos"
     get "/", to: redirect("/rules")
     get "mncs-archive", to: "static#mncs_terms", as: "mncs_terms"
     get "mncs_archive", to: redirect("/terms/mncs-archive")
