@@ -239,7 +239,7 @@ html {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  image-rendering: crisp-edges;
+  image-rendering: pixelated;
 }
 
 body {

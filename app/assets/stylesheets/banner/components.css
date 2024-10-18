@@ -16,7 +16,7 @@ ncrs-banner-preview > ncrs-banner-pattern-preview {
 
 ncrs-banner-pattern-preview {
   display: block;
-  image-rendering: crisp-edges;
+  image-rendering: pixelated;
   width: calc(20px * var(--ncs-banner-scale));
   height: calc(40px * var(--ncs-banner-scale));
   background-color: var(--ncs-banner-color);

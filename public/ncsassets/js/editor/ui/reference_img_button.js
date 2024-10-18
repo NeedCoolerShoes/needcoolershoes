@@ -20,7 +20,7 @@ App.ReferenceImgButton = function (a, b) {
       let reader = new FileReader();
 
       reader.onload = function(e) {        
-        frame.setHTML('<div class="ref w-full h-full" style="overflow:clip; image-rendering: crisp-edges"><canvas></canvas></div>');
+        frame.setHTML('<div class="ref w-full h-full" style="overflow:clip; image-rendering: pixelated"><canvas></canvas></div>');
 
         let ref = frame.$('.ref');
         let canvas = frame.$('canvas');
