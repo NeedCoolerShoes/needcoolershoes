@@ -235,7 +235,7 @@
 html {
   width: 100vw;
   height: 100vh;
-  background-image: url("/ncsassets/img/bg.png");
+  background: url("/ncsassets/img/bg.png"), linear-gradient(180deg, rgba(18,30,60,1) 0%, rgba(60,118,128,1) 35%, rgba(235,240,197,1) 100%);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

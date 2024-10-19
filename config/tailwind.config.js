@@ -40,14 +40,14 @@ module.exports = {
         },
         'ncs-dark': {
           100: "#D4E2F1",
-          300: "#6F8498",
+          300: "#ADC4D9",
           500: "#374451",
           600: "#32404E",
           700: "#222E3A",
           800: "#17222D",
         },
         'ncs-header': {
-          'base': "#da6d11",
+          'base': "#7e3a00",
           'hover': "#be4f2f",
           'selected': "#ac2d3a"
         },

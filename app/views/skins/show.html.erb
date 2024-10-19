@@ -133,9 +133,9 @@
           <p>Add the following HTML to your site, to embed a preview of this skin. For more info, see
           <%= link_to "the guide", embeds_guide_path, class: "underline", target: "_blank" %>.</p>
           <div class="flex gap-2 mt-1">
-            <textarea readonly="true" cols="5" name="embed" id="embed" class="grow resize bg-ncs-dark-800 border-ncs-dark-300" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
+            <textarea readonly="true" cols="5" name="embed" id="embed" title="Skin embed code" class="grow resize bg-ncs-dark-800 border-ncs-dark-300" value="">&#60;iframe src="<%= skin_embed_url(@skin) %>" width="200" height="300" style="border: 0px"&#62;&#60;/iframe&#62;</textarea>
             <div class="relative">
-              <button title="<%= t "actions.copy" %>" onclick="copyText('embed')">
+              <button title="<%= t "actions.copy" %>" title="Copy embed code" onclick="copyText('embed')">
                 <%= heroicon "document-duplicate" %>
               </button>
               <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
