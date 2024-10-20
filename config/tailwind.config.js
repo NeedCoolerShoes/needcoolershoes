@@ -47,9 +47,11 @@ module.exports = {
           800: "#17222D",
         },
         'ncs-header': {
-          'base': "#7e3a00",
-          'hover': "#be4f2f",
-          'selected': "#ac2d3a"
+          'base': "#931651",
+          'selected': "#472246",
+          'hover': "#C97D60",
+          '4': "#FFBCB5",
+          '5': "#F2E5D7"
         },
         'ncs-yellow': {
           200: "#f5f8cc",
