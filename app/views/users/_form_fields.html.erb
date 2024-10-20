@@ -1,6 +1,6 @@
 <!-- TODO -->
 <%
-  recent_skins = user.skins.visible.order_by_updated.first(10).pluck(:name, :id)
+  skins = user.skins.order_by_updated.pluck(:name, :id)
   badges = user.badges.pluck(:name, :id)
 %>
 <div class="flex flex-col gap-2">
@@ -37,7 +37,7 @@
 
   <div class="flex flex-col gap-1">
     <%= form.label :featured_skin_id %>
-    <%= form.select :featured_skin_id, recent_skins, {include_blank: "-- Always Show Latest --"}, class: "text-black capitalize p-1" %>
+    <%= form.select :featured_skin_id, skins, {include_blank: "-- Always Show Latest --"}, class: "text-black capitalize p-1" %>
     <p class="text-sm text-slate-300">
       Chosen skin will be shown on your profile page. You can also change this from
       a skin's page.
