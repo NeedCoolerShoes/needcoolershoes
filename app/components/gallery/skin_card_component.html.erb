@@ -1,7 +1,7 @@
-<%= render Gallery::CardComponent.new(url: @skin.to_title_path) do |card| %>
+<%= render Gallery::CardComponent.new(url: @skin.to_title_path, title: "Link to #{@skin.name}") do |card| %>
   <% card.with_overlay do %>
     <% if show_visibility? %>
-      <div class="absolute top-0 left-0 p-2">
+      <div class="absolute top-0 left-0 p-2 pointer-events-auto">
         <%= heroicon icon, class: "text-ncs-dark-300", title: @skin.visibility.titleize %>
       </div>
     <% end %>
@@ -26,7 +26,7 @@
       <% end %>
     </div>
     <div>
-      <%= link_to @skin.name, @skin.to_title_path, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
+      <h2 class="text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]"><%= @skin.name %></h2>
       <div class="flex flex-col font-bold">
         <p class="text-ncs-dark-300 text-xs">
           <%= link_to @skin.skin_part.name, skins_gallery_path(@params.merge(part: @skin.skin_part.name)), class: "underline" %>

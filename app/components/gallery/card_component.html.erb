@@ -1,11 +1,12 @@
 <div class="flex justify-center">
   <div class="relative grow flex flex-col group rounded h-full border-b-4 bg-ncs-dark-700 border-ncs-dark-700 max-w-72 shadow-lg cursor-pointer">
-    <%= overlay %>
-    <%= link_to @url do %>
+    <%= link_to "", @url, class: "absolute top-0 bottom-0 left-0 right-0", "aria-label": @title %>
+    <div class="relative grow flex flex-col h-full card-body">
+      <%= overlay %>
       <%= preview %>
-    <% end %>
-    <div class="grow cursor-auto px-4 pb-4 pt-2 font-bold text-ncs-dark-100 bg-ncs-dark-500 rounded-b">
-      <%= content %>
+      <div class="grow cursor-auto px-4 pb-4 pt-2 font-bold text-ncs-dark-100 bg-ncs-dark-500 rounded-b">
+        <%= content %>
+      </div>
     </div>
   </div>
 </div>

@@ -35,3 +35,11 @@
 #gallery {
   grid-area: gallery;
 }
+
+.card-body {
+  pointer-events: none;
+}
+
+.card-body a, .card-body button {
+  pointer-events: auto;
+}

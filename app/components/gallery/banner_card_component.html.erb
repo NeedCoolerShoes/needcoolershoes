@@ -1,4 +1,4 @@
-<%= render Gallery::CardComponent.new(url: @banner.to_title_path) do |card| %>
+<%= render Gallery::CardComponent.new(url: @banner.to_title_path, title: "Link to #{@banner.name}") do |card| %>
   <% card.with_overlay do %>
     <% if !@banner.survival_friendly? %>
       <div class="absolute top-0 left-0 p-2">
@@ -26,7 +26,7 @@
         </div>
       <% end %>
     </div>
-    <%= link_to @banner.name, @banner.to_title_path, class: "text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]" %>
+    <h2 class="text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]"><%= @banner.name %></h2>
     <p class="text-ncs-dark-300 text-xs">
       <% if @banner.banner_style? %>
         <%= banners_gallery_filter_tag @params, :style, "banner", "Banner", "Banner" %>
