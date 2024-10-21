@@ -2,7 +2,7 @@
   <% card.with_overlay do %>
     <% if !@banner.survival_friendly? %>
       <div class="absolute top-0 left-0 p-2">
-        <%= heroicon "command-line", class: "text-ncs-dark-300", title: "Can only be obtained through commands." %>
+        <%= heroicon "command-line", class: "text-ncs-dark-300 pointer-events-auto", title: "Can only be obtained through commands." %>
       </div>
     <% end %>
     <div class="absolute top-0 right-0 p-2">

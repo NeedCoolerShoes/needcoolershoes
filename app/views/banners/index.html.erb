@@ -15,7 +15,11 @@
   <script type="module" src="/ncsassets/js/banner/components/banner.js"></script>
 <% end %>
 
-<%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+<div class="flex flex-wrap-reverse justify-between items-center">
+  <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+  <h1 class="text-ncs-dark-100 text-2xl">Minecraft Banners</h1>
+</div>
+
 <div class="grow">
   <% if !@banners.any? %>
     <div class="flex flex-col gap-2 items-center">
