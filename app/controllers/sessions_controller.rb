@@ -13,10 +13,11 @@ class SessionsController < Devise::SessionsController
   end
 
   def passes_otp_check?
-    return true unless (self.resource = User.find_by(email: sign_in_params[:email]))
-    return true unless resource.otp_required_for_login
-    return true if resource.verify_otp!(sign_in_params[:otp_attempt] || "")
-    resource.password = sign_in_params[:password]
+    self.resource = User.with_login(sign_in_params[:login]).first
+    return false unless self.resource.present?
+    return true unless self.resource.otp_required_for_login?
+    return true if self.resource.verify_otp!(sign_in_params[:otp_attempt] || "")
+    self.resource.password = sign_in_params[:password]
     false
   end
 end

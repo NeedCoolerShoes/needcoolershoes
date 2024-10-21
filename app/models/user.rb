@@ -36,6 +36,7 @@ class User < ApplicationRecord
   validates :biography, length: {maximum: 2048}
 
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
+  scope :with_login, ->(login) { where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]) }
 
   enum :role, ROLES
 
@@ -48,7 +49,7 @@ class User < ApplicationRecord
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if (login = conditions.delete(:login))
-      where(conditions.to_h).where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      where(conditions.to_h).with_login(login.downcase).first
     elsif conditions.has_key?(:name) || conditions.has_key?(:email)
       where(conditions.to_h).first
     end
