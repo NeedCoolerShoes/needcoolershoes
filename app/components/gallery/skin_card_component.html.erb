@@ -5,7 +5,7 @@
         <%= heroicon icon, class: "text-ncs-dark-300", title: @skin.visibility.titleize %>
       </div>
     <% end %>
-    <div class="absolute top-0 right-0 p-2">
+    <div class="absolute top-0 right-0 p-2 pointer-events-auto">
       <%= render partial: "skin_favourite", locals: { skin: @skin, show_guests: true, redirect: request.fullpath } %>
     </div>
     <%= overlay %>
