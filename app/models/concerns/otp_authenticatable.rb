@@ -1,7 +1,8 @@
 module OtpAuthenticatable
   extend ActiveSupport::Concern
 
-  def otp_attempt
+  included do
+    attribute :otp_attempt, :string
   end
 
   def otp_enabled?
