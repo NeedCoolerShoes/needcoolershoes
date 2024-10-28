@@ -8,7 +8,7 @@ module TextHelper
 
   def markdown(text)
     return "" if text.nil?
-    render_options = {filter_html: true, hard_wrap: true, link_attributes: {rel: :nofollow}}
+    render_options = {filter_html: true, safe_links_only: true, hard_wrap: true, link_attributes: {rel: :nofollow}}
     renderer = Redcarpet::Render::HTML.new(render_options)
 
     extensions = %i[
