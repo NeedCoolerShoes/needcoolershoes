@@ -21,9 +21,9 @@ module GalleryFilters
       when "new_updated" then order_by_updated
       when "old_updated" then order_by_updated(:asc)
       when "random" then order("RANDOM()")
-      when /random:([a-zA-Z0-9_\-]+)/
+      when /random(~|:)([a-zA-Z0-9_\-]+)/
         begin
-          float = Base64.urlsafe_decode64($1.to_s).unpack('f').first
+          float = Base64.urlsafe_decode64($2.to_s).unpack('f').first
         rescue
           float = false
         end

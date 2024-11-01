@@ -62,7 +62,7 @@
       <% orderings.each do |order, title| %>
         <%= banners_gallery_filter_tag params, :order, order, "", title %>
       <% end %>
-      <% random = (params[:order].to_s.start_with?("random:") ? params[:order] : "random:#{seed64}" ) %>
+      <% random = (params[:order].to_s.start_with?("random~") ? params[:order] : "random~#{seed64}" ) %>
       <%= banners_gallery_filter_tag params, :order, random, "", "Random" %>
     </div>
   </div>
