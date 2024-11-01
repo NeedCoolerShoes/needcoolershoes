@@ -17,7 +17,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def set_otp_resource
-    self.resource = User.with_login(sign_in_params[:login]).first
+    self.resource = User.with_login(sign_in_params[:login].to_s).first
   end
 
   def passes_otp_check?(res)
