@@ -8,6 +8,12 @@ namespace :export_skins do
     export_in_range(month_start, month_end)
   end
 
+  task :range, [:start, :end] => :environment do |_task, args|
+    month_start = Date.parse(args.start)
+    month_end = Date.parse(args.end)
+    export_in_range(month_start, month_end)
+  end
+
   def export_in_range(date_start, date_end)
     skins = Skin.visible.is_public.where(created_at: date_start..(date_end + 1.day)).order(created_at: :asc)
     return false unless skins.any?

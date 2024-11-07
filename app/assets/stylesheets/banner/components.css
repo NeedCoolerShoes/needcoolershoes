@@ -118,4 +118,5 @@ ncrs-banner-instructions > ncrs-banner-pattern-preview {
 
 .shield-overlay {
   background-image: url("/ncsassets/img/banner/shield_overlay.png");
+  image-rendering: pixelated;
 }

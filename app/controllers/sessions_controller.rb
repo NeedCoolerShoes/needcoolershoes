@@ -8,16 +8,23 @@ class SessionsController < Devise::SessionsController
 
   def verify_otp
     configure_devise_parameters
-    return true if passes_otp_check?
+    set_otp_resource
+    return unless resource.present?
+    return if passes_otp_check?(resource)
+
+    flash[:alert] = "Invalid one-time password." if sign_in_params[:otp_attempt]
     render :otp, status: 422
   end
 
-  def passes_otp_check?
-    self.resource = User.with_login(sign_in_params[:login]).first
-    return false unless self.resource.present?
-    return true unless self.resource.otp_required_for_login?
-    return true if self.resource.verify_otp!(sign_in_params[:otp_attempt] || "")
-    self.resource.password = sign_in_params[:password]
+  def set_otp_resource
+    self.resource = User.with_login(sign_in_params[:login].to_s).first
+  end
+
+  def passes_otp_check?(res)
+    return true unless res.otp_required_for_login?
+    return true if res.verify_otp!(sign_in_params[:otp_attempt] || "")
+
+    res.password = sign_in_params[:password]
     false
   end
 end

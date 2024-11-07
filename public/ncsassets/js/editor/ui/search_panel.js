@@ -99,7 +99,7 @@ App.SearchPanel = function (a, b) {
     ((i = {
       type: "get",
       url: window.location.origin + "/gallery/skins.json",
-      data: { items: 8, page: 1, order: 'random:' + App.config.seed, model: currentModel },
+      data: { items: 8, page: 1, order: 'random~' + App.config.seed, model: currentModel },
     }),
     d(i).done(function (a) {
       h = a;
