@@ -2,6 +2,7 @@ class BannersController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update]
   before_action :set_banner, only: %i[show edit update moderator_edit moderator_update add_favourite remove_favourite]
   before_action :validate_can_edit, only: %i[edit update destroy]
+  before_action :check_visibility, only: :show
   before_action :redirect_title, only: :show
 
   require_role :moderator, only: %i[moderator_edit moderator_update]
@@ -13,7 +14,7 @@ class BannersController < ApplicationController
     index_meta_config
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @gallery_params = gallery_params
-    banners = Banner.with_params(@gallery_params)
+    banners = Banner.visible.with_params(@gallery_params)
     banners = banners.merge(Banner.order_by_created) unless gallery_params[:order].present?
     @pagy, @banners = pagy(banners, items: items)
     @gallery_tab = :banners
@@ -154,12 +155,23 @@ class BannersController < ApplicationController
   end
 
   def banner_params
-    params.require(:banner).permit(:name, :description, :style, :tags, :data, :terms_and_conditions)
+    permit = [:name, :description, :style, :tags, :data, :terms_and_conditions]
+    permit.append(:hidden) if current_user.authorized?(:moderator)
+    params.require(:banner).permit(permit)
   end
 
   def set_banner
     @banner = Banner.find(params[:id])
   rescue ActiveRecord::RecordNotFound
+    not_found_error
+  end
+
+  def check_visibility
+    return true unless @banner.hidden?
+    if current_user.present?
+      return true if @banner.user_id == current_user.id
+      return true if current_user.authorized?(:moderator)
+    end
     not_found_error
   end
 
