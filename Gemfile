@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "3.1.0"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.2"
+gem "rails", "~> 7.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -82,7 +82,7 @@ gem "pagy", "~> 6.0"
 gem "rails_heroicon", "~> 2.1"
 gem "redcarpet", "~> 3.6"
 gem "canonical-rails", github: "jumph4x/canonical-rails"
-gem "acts-as-taggable-on", "~> 9.0"
+gem "acts-as-taggable-on", "~> 10.0"
 gem "discordrb", "~> 3.4"
 gem "pg_search", "~> 2.3"
 gem "rubyzip", "~> 2.3", ">= 2.3.2"
