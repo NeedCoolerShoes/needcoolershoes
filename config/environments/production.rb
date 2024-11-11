@@ -1,5 +1,4 @@
 require "active_support/core_ext/integer/time"
-require "middleware/cached_assets_middleware"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -23,7 +22,9 @@ Rails.application.configure do
 
   # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
   config.public_file_server.enabled = true
-  config.middleware.insert_before ::ActionDispatch::Static, Middleware::CachedAssetsMiddleware
+
+  require "middleware/cached_assets_middleware"
+  config.middleware.insert_before ActionDispatch::Static, CachedAssetsMiddleware
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
