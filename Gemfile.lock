@@ -152,7 +152,6 @@ GEM
     google-protobuf (3.25.5-x86_64-linux)
     googleapis-common-protos-types (1.16.0)
       google-protobuf (>= 3.18, < 5.a)
-    honeypot-captcha (1.0.1)
     http-accept (1.7.0)
     http-cookie (1.0.7)
       domain_name (~> 0.5)
@@ -441,7 +440,6 @@ DEPENDENCIES
   devise
   discordrb (~> 3.4)
   dockerfile-rails (>= 1.2)
-  honeypot-captcha (~> 1.0, >= 1.0.1)
   importmap-rails
   jbuilder
   oily_png (~> 1.2)

@@ -189,6 +189,9 @@ class SkinsController < ApplicationController
     redirect_to skin.to_title_path
   end
 
+  def preview
+  end
+
   private
 
   def index_meta_config

@@ -46,6 +46,8 @@ class Skin < ApplicationRecord
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
+
+  attribute :creator, :string
   enum :creator, CREATOR.keys, prefix: :created_by, default: :self
 
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
