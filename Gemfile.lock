@@ -274,7 +274,7 @@ GEM
     psych (5.2.0)
       stringio
     public_suffix (6.0.1)
-    puma (5.6.9)
+    puma (6.4.3)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
@@ -452,7 +452,7 @@ DEPENDENCIES
   pg (~> 1.5)
   pg_search (~> 2.3)
   postmark-rails
-  puma (~> 5.0)
+  puma (~> 6.0)
   rack-attack (~> 6.7)
   rails (~> 7.1)
   rails_admin (~> 3.0)
