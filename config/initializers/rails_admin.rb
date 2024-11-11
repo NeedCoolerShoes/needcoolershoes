@@ -51,15 +51,19 @@ RailsAdmin.config do |config|
     redirect_to main_app.root_path unless current_user&.authorized?(:admin)
   end
 
-  config.model "SkinJam" do
-    configure :description, :text
+  # Configure description fields to use markdown
+  %w[Badge Banner Skin SkinJam].each do |model_name|
+    config.model(model_name) { configure :description, :markdown }
+  end
+
+  config.model "User" do
+    configure :biography, :markdown
   end
 
   config.model "SiteMessage" do
     configure :message, :markdown
     list do
       sort_by :bumped_at
-      sort_reverse true
     end
   end
 end

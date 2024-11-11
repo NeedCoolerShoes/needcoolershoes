@@ -74,6 +74,9 @@ class BannersController < ApplicationController
     end
   end
 
+  def destroy
+  end
+
   def banner_2014
     meta_config do |config|
       config.title = "Banner Editor (2014)"
