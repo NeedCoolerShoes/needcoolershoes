@@ -4,6 +4,16 @@
       <div class="flex flex-col gap-2">
         <%= render partial: "form_fields", locals: {form: form, banner: banner} %>
 
+        <div>
+          <div class="flex gap-1 items-center">
+            <%= form.check_box :hidden %>
+            <%= form.label :hidden, class: "select-none" %>
+          </div>
+          <span class="text-sm text-gray-400">
+            Hidden banners do not show up in the gallery. Use only if the banner has violated the rules.
+          </span>
+        </div>
+
         <div class="flex flex-col gap-1">
           <%= label_tag :reason %>
           <%= text_field_tag :reason, "", class: "text-black", placeholder: "Reason for moderating this banner.", required: true %>

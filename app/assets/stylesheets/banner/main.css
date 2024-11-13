@@ -12,7 +12,7 @@ ncrs-banner-color[selected] {
   cursor: revert;
 }
 
-ncrs-banner-color[color="#ffffff"] {
+ncrs-banner-color[code="white"] {
   border: 1px solid black;
 }
 
@@ -99,7 +99,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   border: 1px solid var(--ncs-banner-color);
 }
 
-#base ncrs-banner-patternset[color="#ffffff"] .pattern-preview {
+#base ncrs-banner-patternset[code="white"] .pattern-preview {
   border-color: black;
 }
 

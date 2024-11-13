@@ -279,8 +279,8 @@ class SkinsController < ApplicationController
   end
 
   def skin_params
-    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, :hidden, attributions: []]
-    permit.append(:license) if current_user.authorized?(:moderator)
+    permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
+    permit.append(:license, :hidden) if current_user.authorized?(:moderator)
     params.require(:skin).permit(permit)
   end
 

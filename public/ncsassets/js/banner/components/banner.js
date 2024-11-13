@@ -2,22 +2,22 @@ import { createWithClasses } from "../util.js"
 
 class NCRSBanner {
   static colors = [
-    {title: "Black", code: "black", color: "#191919", encode:"a", legacy: {"1.8": 0, "1.13": 15}},
-    {title: "Dark Gray", code: "gray", color: "#4c4c4c", encode:"i", legacy: {"1.8": 8, "1.13": 7}},
-    {title: "Gray", code: "light_gray", color: "#999999", encode:"h", legacy: {"1.8": 7, "1.13": 8}},
-    {title: "White", code: "white", color: "#ffffff", encode:"p", legacy: {"1.8": 15, "1.13": 0}},
-    {title: "Pink", code: "pink", color: "#f27fa5", encode:"j", legacy: {"1.8": 9, "1.13": 6}},
-    {title: "Magenta", code: "magenta", color: "#b24cd8", encode:"n", legacy: {"1.8": 13, "1.13": 2}},
-    {title: "Purple", code: "purple", color: "#7f3fb2", encode:"f", legacy: {"1.8": 5, "1.13": 10}},
-    {title: "Blue", code: "blue", color: "#334cb2", encode:"e", legacy: {"1.8": 4, "1.13": 11}},
-    {title: "Cyan", code: "cyan", color: "#4c7f99", encode:"g", legacy: {"1.8": 6, "1.13": 9}},
-    {title: "Light Blue", code: "light_blue", color: "#6699d8", encode:"m", legacy: {"1.8": 12, "1.13": 3}},
-    {title: "Green", code: "green", color: "#667f33", encode:"c", legacy: {"1.8": 2, "1.13": 13}},
-    {title: "Lime", code: "lime", color: "#7fcc19", encode:"k", legacy: {"1.8": 10, "1.13": 5}},
-    {title: "Yellow", code: "yellow", color: "#e5e533", encode:"l", legacy: {"1.8": 11, "1.13": 4}},
-    {title: "Orange", code: "orange", color: "#d87f33", encode:"o", legacy: {"1.8": 14, "1.13": 1}},
-    {title: "Brown", code: "brown", color: "#664c33", encode:"d", legacy: {"1.8": 3, "1.13": 12}},
-    {title: "Red", code: "red", color: "#993333", encode:"b", legacy: {"1.8": 1, "1.13": 14}}
+    {title: "Black", code: "black", color: "#1d1d21", encode:"a", legacy: {"1.8": 0, "1.13": 15}},
+    {title: "Dark Gray", code: "gray", color: "#474f52", encode:"i", legacy: {"1.8": 8, "1.13": 7}},
+    {title: "Gray", code: "light_gray", color: "#9d9d97", encode:"h", legacy: {"1.8": 7, "1.13": 8}},
+    {title: "White", code: "white", color: "#f9fffe", encode:"p", legacy: {"1.8": 15, "1.13": 0}},
+    {title: "Pink", code: "pink", color: "#f38baa", encode:"j", legacy: {"1.8": 9, "1.13": 6}},
+    {title: "Magenta", code: "magenta", color: "#c74ebd", encode:"n", legacy: {"1.8": 13, "1.13": 2}},
+    {title: "Purple", code: "purple", color: "#8932b8", encode:"f", legacy: {"1.8": 5, "1.13": 10}},
+    {title: "Blue", code: "blue", color: "#3c44aa", encode:"e", legacy: {"1.8": 4, "1.13": 11}},
+    {title: "Cyan", code: "cyan", color: "#169c9c", encode:"g", legacy: {"1.8": 6, "1.13": 9}},
+    {title: "Light Blue", code: "light_blue", color: "#3ab3da", encode:"m", legacy: {"1.8": 12, "1.13": 3}},
+    {title: "Green", code: "green", color: "#5e7c16", encode:"c", legacy: {"1.8": 2, "1.13": 13}},
+    {title: "Lime", code: "lime", color: "#80c71f", encode:"k", legacy: {"1.8": 10, "1.13": 5}},
+    {title: "Yellow", code: "yellow", color: "#fed83d", encode:"l", legacy: {"1.8": 11, "1.13": 4}},
+    {title: "Orange", code: "orange", color: "#f9801d", encode:"o", legacy: {"1.8": 14, "1.13": 1}},
+    {title: "Brown", code: "brown", color: "#835432", encode:"d", legacy: {"1.8": 3, "1.13": 12}},
+    {title: "Red", code: "red", color: "#b02e26", encode:"b", legacy: {"1.8": 1, "1.13": 14}}
   ]
 
   static patterns = [
@@ -395,7 +395,7 @@ class NCRSBannerLayer extends HTMLElement {
 }
 
 class NCRSBannerColorList extends HTMLElement {
-  constructor(color = "#191919") {
+  constructor(color = "#1d1d21") {
     super()
     if (!this.getAttribute("selected")) {
       this.setAttribute("selected", color)
