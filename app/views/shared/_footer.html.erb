@@ -1,18 +1,32 @@
 <footer class="flex flex-col items-center p-2 sm:p-4">
   <div class="flex flex-col gap-2 items-center sm:flex-row sm:justify-between text-sm max-w-ncs-content w-full">
     <div>
-      <ul class="flex items-center flex-col sm:flex-row flex-wrap gap-2">
+      <ul class="flex items-center flex-col sm:flex-row flex-wrap gap-1 sm:gap-2">
         <li><%= link_to "FAQ", faq_path, class: "text-black underline" %></li>
         <li><%= link_to "About", about_path, class: "text-black underline" %></li>
         <li><%= link_to "Contact", contact_path, class: "text-black underline" %></li>
         <li><%= link_to "Rules", rules_path, class: "text-black underline" %></li>
         <li><%= link_to "Donate", donate_path, class: "text-black underline" %></li>
         <li><%= link_to "Hall of Fame", badges_path, class: "text-black underline" %></li>
+        <li><%= link_to "Moderation Log", modlog_path, class: "text-black underline" %></li>
         <li><%= link_to "To the Original Devs", "/open-letter", class: "text-black underline" %></li>
-        <span class="hidden sm:inline">|</span>
-        <hr class="sm:hidden w-full border-black">
-        <li><%= link_to "Official Forum", "https://sopuli.xyz/c/needcoolershoes", target: "_blank", class: "text-black underline" %></li>
-        <li><%= link_to "Join our Discord", "https://discord.gg/FEfbZYvQUa", target: "_blank", class: "text-black underline" %></li>
+        <li class="hidden sm:list-item">
+          <span>|</span>
+        </li>
+        <li class="sm:hidden w-full py-2">
+          <hr class="border-black w-full">
+        </li>
+        <li class="flex gap-2">
+          <%= link_to "https://discord.gg/FEfbZYvQUa", target: "_blank", class: "text-black underline", title: "Join our Discord!" do %>
+            <img src="/ncsassets/img/social/discord.svg" alt="Discord logo" class="w-4 h-4">
+          <% end %>
+          <%= link_to "https://mastodon.social/@needcoolershoes", target: "_blank", class: "text-black underline", title: "Follow us on Mastodon!", rel: "me" do %>
+            <img src="/ncsassets/img/social/mastodon.svg" alt="Mastodon logo" class="w-4 h-4">
+          <% end %>
+          <%= link_to "https://bsky.app/profile/needcoolershoes.com", target: "_blank", class: "text-black underline", title: "Follow us on Bluesky!" do %>
+            <img src="/ncsassets/img/social/bluesky.svg" alt="Bluesky logo" class="w-4 h-4">
+          <% end %>
+        </li>
       </ul>
     </div>
     <div>
