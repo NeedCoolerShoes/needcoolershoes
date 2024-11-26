@@ -16,21 +16,23 @@
     <%= render partial: "shared/analytics" %>
   </head>
 
-  <body id="unlogged" class="flex flex-col !overflow-visible" data-turbo="false">
+  <body id="unlogged" class="flex flex-col !overflow-visible h-full" data-turbo="false">
     <%= render partial: "shared/flash" %>
     <%= render partial: "shared/header" %>
     
-    <div class="flex flex-col items-center mx-3 sm:mx-16">
+    <div class="flex flex-col items-center justify-between mx-3 sm:mx-16 h-full">
       <div class="flex flex-col justify-center w-full max-w-ncs-content">
-      <% if content_for?(:message) %>
-        <%= yield :message %>
-      <% else %>
-        <div class="h-4">
-        </div>
-      <% end %>
+        <% if content_for?(:message) %>
+          <%= yield :message %>
+        <% else %>
+          <div class="h-4">
+          </div>
+        <% end %>
 
         <%= yield %>
 
+      </div>
+      <div class="w-full">
         <%= render partial: "shared/footer" %>
       </div>
     </div>
