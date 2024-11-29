@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   META_CONFIG = Struct.new(:title, :image, :image_alt, :description)
   DEFAULT_META_CONFIG = -> {
     META_CONFIG.new(
-      "Skin Editor",
+      "Minecraft Skin Editor",
       "#{Routing.root_url}ncsassets/img/social.png",
       "Page image for Miners Need Cooler Shoes",
       "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor."
