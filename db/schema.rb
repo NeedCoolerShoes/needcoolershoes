@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_11_050542) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_11_173319) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -32,6 +32,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_050542) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "style", default: 0, null: false
+    t.boolean "hidden", default: false
     t.index ["user_id"], name: "index_banners_on_user_id"
   end
 

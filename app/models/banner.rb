@@ -27,6 +27,8 @@ class Banner < ApplicationRecord
   belongs_to :user
   has_many :modlogs, as: :target
 
+  scope :hidden, -> { where(hidden: true) }
+  scope :visible, -> { where.not(hidden: true) }
   scope :banner_compatible, -> { banner_style.or(any_style) }
   scope :shield_compatible, -> { shield_style.or(any_style) }
   scope :by_style, ->(style) {
