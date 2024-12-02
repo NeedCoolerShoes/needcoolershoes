@@ -13,8 +13,14 @@
       to <%= local_time(jam.end_at, class: "text-ncs-dark-100") %>.
     </p>
     <p class="mt-0">
-      Jam is
-      <%= jam.open? ? "currently accepting submissions." : "no longer accepting submissions." %>
+      <%
+        statuses = {
+          open: "currently accepting submissions.",
+          future: "not yet accepting submissions.",
+          past: "no longer accepting submissions."
+        }
+      %>
+      Jam is <%= statuses[jam.status] %>
     </p>
     <%= markdown jam.description %>
   </details>

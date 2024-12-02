@@ -9,6 +9,12 @@ class SkinJam < ApplicationRecord
     Time.current >= start_at && Time.current <= (end_at + lenient_seconds.seconds)
   end
 
+  def status
+    return :open if open?
+    return :future if Time.current < start_at
+    :past
+  end
+
   def skins
     Skin.tagged_with(tag)
   end
