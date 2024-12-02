@@ -259,15 +259,30 @@ body {
   display: inherit;
 }
 
-.tagify__tag[has_jam=true] {
+.tagify__tag[jam_status="open"] {
   --tag-bg: transparent;
   background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%)red;
   border-radius: 3px;
 }
 
-.tagify__dropdown__item[has_jam=true] {
+.tagify__dropdown__item[jam_status="open"] {
   background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%);
 }
+
+.tagify__tag[jam_status="closed"] {
+  --tag-bg: transparent;
+  background-color: rgba(255,194,194,1);
+  border-radius: 3px;
+  cursor: not-allowed;
+}
+
+.tagify__dropdown__item[jam_status="closed"] {
+  --tag-bg: transparent;
+  background-color: rgba(255,194,194,1);
+  border-radius: 3px;
+  cursor: not-allowed;
+}
+
 
 .hidden-fade {
   visibility: hidden;

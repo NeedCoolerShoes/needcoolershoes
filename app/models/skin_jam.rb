@@ -3,8 +3,10 @@ class SkinJam < ApplicationRecord
 
   validates :tag, format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"}
 
+  scope :open, -> { where(start_at: ..Time.current, end_at: Time.current..) }
+
   def open?
-    Time.current > start_at && Time.current < end_at
+    Time.current >= start_at && Time.current <= (end_at + lenient_seconds.seconds)
   end
 
   def skins

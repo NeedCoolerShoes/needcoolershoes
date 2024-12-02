@@ -21,16 +21,23 @@ class ApiController < ApplicationController
   def skin_tags
     list = Skin.tags_on("tags").named_like(params[:query] || "").limit(20)
     render json: list.map { |tag|
-      has_jam = SkinJam.where(tag: tag.name).any?
-      title = has_jam ? "Belongs to a Jam" : ""
-      {value: tag.name, has_jam: has_jam, title: title}
+      status = ""
+      title = ""
+
+      jam = SkinJam.find_by_tag(tag.name)
+      if jam.present?
+        status = jam.open? ? "open" : "closed"
+        title = jam.open? ? "Belongs to a Jam" : "Jam is now closed"
+      end
+
+      {value: tag.name, jam_status: status, title: title}
     }
   end
 
   def banner_tags
     list = Banner.tags_on("tags").named_like(params[:query] || "").limit(20)
     render json: list.map { |tag|
-      {value: tag.name, has_jam: false, title: ""}
+      {value: tag.name, jam_status: "", title: ""}
     }
   end
 end
