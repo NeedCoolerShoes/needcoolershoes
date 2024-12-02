@@ -12,7 +12,7 @@
       <%= local_time(jam.start_at, class: "text-ncs-dark-100") %>
       to <%= local_time(jam.end_at, class: "text-ncs-dark-100") %>.
     </p>
-    <p class="mt-0">
+    <p class="mt-0 mb-0">
       <%
         statuses = {
           open: "currently accepting submissions.",
@@ -22,6 +22,7 @@
       %>
       Jam is <%= statuses[jam.status] %>
     </p>
+    <p class="mt-2 mb-4 font-bold text-lg">Theme: <%= jam.status == :future ? "To be announced" : jam.theme %></p>
     <%= markdown jam.description %>
   </details>
 </div>

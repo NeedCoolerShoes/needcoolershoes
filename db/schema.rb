@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_02_062455) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_02_081928) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -115,6 +115,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_02_062455) do
     t.datetime "start_at", default: "1970-01-01 00:00:00"
     t.datetime "end_at", default: "1970-01-01 00:00:00", null: false
     t.integer "lenient_seconds", default: 60, null: false
+    t.string "theme", default: "", null: false
     t.index ["tag"], name: "index_skin_jams_on_tag", unique: true
   end
 
