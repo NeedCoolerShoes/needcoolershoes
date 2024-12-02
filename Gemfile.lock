@@ -184,6 +184,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    local_time (3.0.2)
     logger (1.6.1)
     loofah (2.23.1)
       crass (~> 1.0.2)
@@ -445,6 +446,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.2)
   importmap-rails
   jbuilder
+  local_time (~> 3.0)
   oily_png (~> 1.2)
   opentelemetry-exporter-otlp (~> 0.26.2)
   opentelemetry-instrumentation-action_pack (~> 0.9.0)

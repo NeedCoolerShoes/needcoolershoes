@@ -18,3 +18,4 @@ pin "lit-html/directives/", to: "https://ga.jspm.io/npm:lit-html@2.7.3/directive
 pin "lit/", to: "https://ga.jspm.io/npm:lit@2.2.6/"
 pin "tslib", to: "https://ga.jspm.io/npm:tslib@2.5.0/tslib.es6.js"
 pin "@yaireo/tagify", to: "https://ga.jspm.io/npm:@yaireo/tagify@4.17.8/dist/tagify.min.js"
+pin "local-time" # @3.0.2

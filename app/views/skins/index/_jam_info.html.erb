@@ -1,9 +1,21 @@
 <!-- NOTHING TO TRANSLATE -->
 <div class="grow p-4 max-w-none w-full prose prose-ncs-dark prose-headings:mb-1 prose-headings:mt-0 rounded">
-  <details>
+  <details <%= jam.winners.any? ? nil : "open" %>>
     <summary class="select-none cursor-pointer">
-      <h2 class="inline"><span class="text-ncs-dark-300"><%= jam.tag %></span> <%= jam.name %></h2>
+      <h2 class="inline">
+        <span class="text-ncs-dark-300"><%= jam.tag %></span>
+        <%= jam.name %>
+      </h2>
     </summary>
+    <p class="text-ncs-dark-300 mb-0">
+      Submissions open from
+      <%= local_time(jam.start_at, class: "text-ncs-dark-100") %>
+      to <%= local_time(jam.end_at, class: "text-ncs-dark-100") %>.
+    </p>
+    <p class="mt-0">
+      Jam is
+      <%= jam.open? ? "currently accepting submissions." : "no longer accepting submissions." %>
+    </p>
     <%= markdown jam.description %>
   </details>
 </div>

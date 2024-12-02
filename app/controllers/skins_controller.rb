@@ -88,7 +88,7 @@ class SkinsController < ApplicationController
       if @skin.update(params)
         format.html { redirect_to @skin.to_title_path, notice: "Skin was successfully updated." }
       else
-        format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
+        format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin. #{format_errors @skin.errors.messages}" }
       end
     end
   end
@@ -210,7 +210,7 @@ class SkinsController < ApplicationController
 
       if @jam.present?
         config.title = @jam.name
-        config.description = @jam.description.to_s.split("\n").first.strip
+        config.description = @jam.description.to_s.split("\n")&.first&.strip || "Minecraft skin jam."
       end
     end
   end
