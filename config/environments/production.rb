@@ -24,7 +24,7 @@ Rails.application.configure do
   config.public_file_server.enabled = true
 
   require "middleware/cached_assets_middleware"
-  config.middleware.insert_before ActionDispatch::Static, CachedAssetsMiddleware
+  config.middleware.insert_before ActionDispatch::Static, Middleware::CachedAssetsMiddleware
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
