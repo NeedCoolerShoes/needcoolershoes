@@ -1,13 +1,14 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
-  META_CONFIG = Struct.new(:title, :image, :image_alt, :description)
+  META_CONFIG = Struct.new(:title, :image, :image_alt, :description, :site_title)
   DEFAULT_META_CONFIG = -> {
     META_CONFIG.new(
       "Minecraft Skin Editor",
       "#{Routing.root_url}ncsassets/img/social.png",
       "Page image for Miners Need Cooler Shoes",
-      "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor."
+      "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor.",
+      " :: NeedCoolerShoes"
     )
   }
 

@@ -58,151 +58,165 @@
     </style>
   <% end %>
 <% end %>
-<main id="editor-main" class="relative">
-  <div id="content">
-    <script id="sharegalleryform" type="text/html">
-      <% if current_user.present? %>
-        <%= render partial: "skin_form" %>
-      <% else %>
-        <%= render partial: "sign_in_form" %>
-      <% end %>
-    </script>
-
-    <script type="text/html" id="toggles-template">
-      <div id="toggles">
-        <div class="controls">
-          <div title="hide/show skin overlay" class="overlay"></div>
-          <div title="hide/show skin body" class="underlay"></div>
-        </div>
-
-        <div class="body">
-          <div data-parts="head,hat" class="head"></div>
-          <div data-parts="armR2,armR" class="armR"></div>
-          <div data-parts="torso2,torso" class="torso"></div>
-          <div data-parts="armL2,armL" class="armL"></div>
-          <div data-parts="legR2,legR" class="legL"></div>
-          <div data-parts="legL2,legL" class="legR"></div>
-        </div>
-      </div>
-    </script>
-
-    <dialog id="link-share" class="backdrop:bg-black/40">
-      <div class="bg-ncs-gray-900 rounded p-2">
-        <fieldset class="border-2 border-ncs-gray-400 rounded p-2">
-          <legend class="text-xl text-white font-bold">Create Sharable Link</legend>
-          <div class="flex gap-2">
-            <div class="flex flex-col">
-              <label for="link-share-name" class="text-white mb-1">Name</label>
-              <input type="text" id="link-share-name" placeholder="Untitled">
-            </div>
-            <div class="flex flex-col">
-              <label for="link-share-author" class="text-white mb-1">Author</label>
-              <input type="text" id="link-share-author" placeholder="Anonymous" value="<%= current_user&.display_name %>">
-            </div>
-          </div>
-          <div class="flex gap-2 mt-2">
-            <button class="grow" onclick="getShareableLink()">Get Link</button>
-            <button class="px-2" onclick="document.getElementById('link-share').close()">Cancel</button>
-          </div>
-        </fieldset>
-      </div>
-
-      <script>
-        function getShareableLink() {
-          let link = "/preview"
-          const nameField = document.getElementById("link-share-name")
-          const authorField = document.getElementById("link-share-author")
-          let params = {}
-          if (nameField.value) { params.name = nameField.value }
-          if (authorField.value) { params.author = authorField.value }
-          params.skin = App.dep.transporter.getUVImage(App.UVMAP.current, true).src
-          link += "?" + new URLSearchParams(params).toString()
-          const a = document.createElement("a");
-          a.href = link;
-          a.target = "_blank";
-          a.click();
-          a.remove();
-        }
+<main>
+  <section id="editor-main" class="relative">
+    <div id="content">
+      <script id="sharegalleryform" type="text/html">
+        <% if current_user.present? %>
+          <%= render partial: "skin_form" %>
+        <% else %>
+          <%= render partial: "sign_in_form" %>
+        <% end %>
       </script>
-    </dialog>
 
-    <template id="skin-2d">
-      <%
-        skin_config = {
-          id: "%id%", url: "%url%\n%attribution%", suffix: "%suffix%", data: "%data%",
-          classes: "scaled-sm", width: "102px", height: "96px"
-        }
-      %>
-      <%= render layout: 'skins/skin_2d', locals: skin_config do |foo| %>
-        <div class="absolute bottom-0 hidden group-hover:block w-full h-12 bg-black/60">
-          <div class="p-1">
-            <span class="text-white line-clamp-2" style="overflow-wrap: break-word;" title="%name%">%name%</span>
-            <span class="text-xs text-white line-clamp-1" title="by %author%">by %author%</span>
+      <script type="text/html" id="toggles-template">
+        <div id="toggles">
+          <div class="controls">
+            <div title="hide/show skin overlay" class="overlay"></div>
+            <div title="hide/show skin body" class="underlay"></div>
+          </div>
+
+          <div class="body">
+            <div data-parts="head,hat" class="head"></div>
+            <div data-parts="armR2,armR" class="armR"></div>
+            <div data-parts="torso2,torso" class="torso"></div>
+            <div data-parts="armL2,armL" class="armL"></div>
+            <div data-parts="legR2,legR" class="legL"></div>
+            <div data-parts="legL2,legL" class="legR"></div>
           </div>
         </div>
-      <% end %>
-    </template>
+      </script>
 
-    <div id="editor">
-      <div id="toolbox">
-      </div>
-      <div id="toolbar"></div>
-      <div id="workspace" class="relative">
-        <div id="drawing"></div>
-        <div class="absolute top-0 p-1 cursor-pointer text-sm">
-          <span class="theme-icon dusk-visible" onclick="workspace.classList.toggle('dark');workspace.classList.toggle('dusk')">
-            <%= heroicon "moon", variant: "solid", size: 25, title: "Switch to Dark Theme" %>
-          </span>
-          <span class="theme-icon dark-visible" onclick="workspace.classList.toggle('dark')">
-            <%= heroicon "sun", variant: "solid", size: 25, title: "Switch to Light Theme" %>
-          </span>
-          <span class="theme-icon light-visible" onclick="workspace.classList.toggle('dusk')">
-            <%= heroicon "light-bulb", variant: "solid", size: 25, title: "Switch to Dusk Theme" %>
-          </span>
+      <dialog id="link-share" class="backdrop:bg-black/40">
+        <div class="bg-ncs-gray-900 rounded p-2">
+          <fieldset class="border-2 border-ncs-gray-400 rounded p-2">
+            <legend class="text-xl text-white font-bold">Create Sharable Link</legend>
+            <div class="flex gap-2">
+              <div class="flex flex-col">
+                <label for="link-share-name" class="text-white mb-1">Name</label>
+                <input type="text" id="link-share-name" placeholder="Untitled">
+              </div>
+              <div class="flex flex-col">
+                <label for="link-share-author" class="text-white mb-1">Author</label>
+                <input type="text" id="link-share-author" placeholder="Anonymous" value="<%= current_user&.display_name %>">
+              </div>
+            </div>
+            <div class="flex gap-2 mt-2">
+              <button class="grow" onclick="getShareableLink()">Get Link</button>
+              <button class="px-2" onclick="document.getElementById('link-share').close()">Cancel</button>
+            </div>
+          </fieldset>
         </div>
-        <div class="absolute bottom-0 p-1 cursor-pointer text-sm">
-          <script>
-            var workspace = document.querySelector('#workspace')
-            if (localStorage.getItem("model") == "skinAlex") {
-              document.write('<span id="model-toggle">Switch to Classic Editor</span>')
-            } else {
-              document.write('<span id="model-toggle">Switch to Slim Editor</span>')
-            }
-          </script>
-        </div>
-      </div>
-    </div>
 
-    <div id="tip">
-      <h3>TIP:</h3>
-      Use the w, s, a, d keys to rotate the character 90 degrees. +/- to zoom. Arrows to pan. Use 0 to reset view. G to toggle grid.
-    </div>
-  </div>
-  <div id="warning" class="hidden absolute top-0 bottom-0 left-0 right-0 z-[100] flex-col items-center bg-ncs-gray-700 text-white">
-    <div class="text-center max-w-md space-y-2 mt-8 p-2">
-      <p class="font-bold text-2xl">Welcome to Miners Need Cooler Shoes!</p>
-      <p>
-        Browse Minecraft Skins in our community <a href="/gallery/skins" class="underline text-white">Skin Gallery</a>
-        or create your own with our easy to use Minecraft Skin Editor!
-      </p>
-      <p>
-        Alternatively, browse Minecraft Banners and Capes in our community <a href="/gallery/banners" class="underline text-white">Banner Gallery</a>
-        or create your own with our <a href="/banner" class="underline text-white">Banner Maker</a>.
-      </p>
-      <p>
-        NeedCoolerShoes is a site/community dedicated to restoring Miners Need Cool Shoes, and creating a great experience to make and share
-        skins for Minecraft. We aim to be friendly to skin creators of any level, creating parts and skins to be shared and remixed with other
-        users.
-      </p>
-      <div class="py-4">
-        <hr>
+        <script>
+          function getShareableLink() {
+            let link = "/preview"
+            const nameField = document.getElementById("link-share-name")
+            const authorField = document.getElementById("link-share-author")
+            let params = {}
+            if (nameField.value) { params.name = nameField.value }
+            if (authorField.value) { params.author = authorField.value }
+            params.skin = App.dep.transporter.getUVImage(App.UVMAP.current, true).src
+            link += "?" + new URLSearchParams(params).toString()
+            const a = document.createElement("a");
+            a.href = link;
+            a.target = "_blank";
+            a.click();
+            a.remove();
+          }
+        </script>
+      </dialog>
+
+      <template id="skin-2d">
+        <%
+          skin_config = {
+            id: "%id%", url: "%url%\n%attribution%", suffix: "%suffix%", data: "%data%",
+            classes: "scaled-sm", width: "102px", height: "96px"
+          }
+        %>
+        <%= render layout: 'skins/skin_2d', locals: skin_config do |foo| %>
+          <div class="absolute bottom-0 hidden group-hover:block w-full h-12 bg-black/60">
+            <div class="p-1">
+              <span class="text-white line-clamp-2" style="overflow-wrap: break-word;" title="%name%">%name%</span>
+              <span class="text-xs text-white line-clamp-1" title="by %author%">by %author%</span>
+            </div>
+          </div>
+        <% end %>
+      </template>
+
+      <div id="editor">
+        <div id="toolbox">
+        </div>
+        <div id="toolbar"></div>
+        <div id="workspace" class="relative">
+          <div id="drawing"></div>
+          <div class="absolute top-0 p-1 cursor-pointer text-sm">
+            <span class="theme-icon dusk-visible" onclick="workspace.classList.toggle('dark');workspace.classList.toggle('dusk')">
+              <%= heroicon "moon", variant: "solid", size: 25, title: "Switch to Dark Theme" %>
+            </span>
+            <span class="theme-icon dark-visible" onclick="workspace.classList.toggle('dark')">
+              <%= heroicon "sun", variant: "solid", size: 25, title: "Switch to Light Theme" %>
+            </span>
+            <span class="theme-icon light-visible" onclick="workspace.classList.toggle('dusk')">
+              <%= heroicon "light-bulb", variant: "solid", size: 25, title: "Switch to Dusk Theme" %>
+            </span>
+          </div>
+          <div class="absolute bottom-0 p-1 cursor-pointer text-sm">
+            <script>
+              var workspace = document.querySelector('#workspace')
+              if (localStorage.getItem("model") == "skinAlex") {
+                document.write('<span id="model-toggle">Switch to Classic Editor</span>')
+              } else {
+                document.write('<span id="model-toggle">Switch to Slim Editor</span>')
+              }
+            </script>
+          </div>
+        </div>
       </div>
-      <p>
-        Normally, the skin editor would load here, but it seems your screen is too small for it to work properly.
-      </p>
-      <button type="button" class="px-2 !mt-8" onclick="acceptWarning()">Load the Editor Anyways</button>
+
+      <div id="tip">
+        <h3>TIP:</h3>
+        Use the w, s, a, d keys to rotate the character 90 degrees. +/- to zoom. Arrows to pan. Use 0 to reset view. G to toggle grid.
+      </div>
     </div>
-  </div>
+    <div id="warning" class="hidden absolute top-0 bottom-0 left-0 right-0 z-[100] flex-col items-center bg-ncs-gray-700 text-white">
+      <div class="text-center max-w-md space-y-2 mt-8 p-2">
+        <p class="font-bold text-2xl">Welcome to Miners Need Cooler Shoes!</p>
+        <p>
+          Browse Minecraft Skins in our community <a href="/gallery/skins" class="underline text-white">Skin Gallery</a>
+          or create your own with our easy to use Minecraft Skin Editor!
+        </p>
+        <p>
+          Alternatively, browse Minecraft Banners and Capes in our community <a href="/gallery/banners" class="underline text-white">Banner Gallery</a>
+          or create your own with our <a href="/banner" class="underline text-white">Banner Maker</a>.
+        </p>
+        <p>
+          NeedCoolerShoes is a site/community dedicated to restoring Miners Need Cool Shoes, and creating a great experience to make and share
+          skins for Minecraft. We aim to be friendly to skin creators of any level, creating parts and skins to be shared and remixed with other
+          users.
+        </p>
+        <div class="py-4">
+          <hr>
+        </div>
+        <p>
+          Normally, the skin editor would load here, but it seems your screen is too small for it to work properly.
+        </p>
+        <button type="button" class="px-2 !mt-8" onclick="acceptWarning()">Load the Editor Anyways</button>
+      </div>
+    </div>
+  </section>
+  <section id="about" class="mt-2">
+    <h1 class="text-base">Minecraft Skin Editor</h1>
+    <p class="mb-2">
+      Miners Need Cooler Shoes is a powerful, but easy to use, Minecraft skin editor, featuring a layer first design.
+      Simply search for parts you need for your skin, or create your own and share for all to use!
+    </p>
+    <p>
+      With support for Slim and Classic model skins, ability to add reference images and pick colors from them,
+      and a blend palette system, Miners Need Cooler Shoes has many different features you might not find in any other
+      web-based editor.
+    </p>
+  </section>
 </main>
 
 <script>
