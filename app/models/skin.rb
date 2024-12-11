@@ -227,12 +227,21 @@ class Skin < ApplicationRecord
     return unless jams.any?
 
     jams.each do |jam|
-      if jam.open?
-        jam_tags << jam.tag
-        next
+      is_valid = true
+
+      if jam.start_at > created_at
+        is_valid = false
+        errors.add(:tag_list, "skin created before #{jam.name} started")
       end
 
-      errors.add(:tag_list, "#{jam.name} is not open for submissions")
+      if !jam.open?
+        is_valid = false
+        errors.add(:tag_list, "#{jam.name} is not open for submissions")
+      end
+
+      if is_valid
+        jam_tags << jam.tag
+      end
     end
   end
 end
