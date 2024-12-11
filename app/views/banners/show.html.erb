@@ -56,6 +56,10 @@
       </div>
       <button class="command-button" onclick="setCommandMode('give')">/give</button>
       <button class="command-button" onclick="setCommandMode('setblock')">/setblock</button>
+      <div class="float-right mt-1 mr-1">
+        <label for="banner-selector" class="text-sm">Selector</label>
+        <input type="text" id="banner-selector" value="@p" placeholder="@p" oninput="setSelector(event)" class="h-6 w-24 font-mono">
+      </div>
       <ncrs-banner-command id="banner-command" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-command>
     </div>
   </div>
@@ -64,13 +68,25 @@
 
 <script>
   const command = document.getElementById('banner-command')
+  const selectorElm = document.getElementById('banner-selector')
+
   function setCommandMode(mode) {
     command.setAttribute('mode', mode)
+  }
+  function setSelector(event) {
+    command.setAttribute('selector', event.target.value)
+    localStorage.setItem("ncrs-banner-selector", event.target.value)
+  }
+
+  const selector = localStorage.getItem("ncrs-banner-selector")
+  if (selector) {
+    command.setAttribute("selector", selector)
+    selectorElm.value = selector
   }
 </script>
 
 <style>
-  ncrs-banner-command > textarea {
+  ncrs-banner-command > textarea, #banner-selector {
     background-color: rgb(23 34 45)
   }
 </style>
