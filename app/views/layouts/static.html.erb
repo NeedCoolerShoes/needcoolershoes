@@ -4,8 +4,9 @@
     <%= render partial: "shared/meta" %>
     <%= stylesheet_link_tag "tailwind", "inter-font" %>
 
-    <%= stylesheet_link_tag "application" %>
+    <%= stylesheet_link_tag "application", defer: true %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "jquery-1.10.2.min" %>
 
 		<link href="ncsassets/css/css.css" rel="stylesheet" />
     <%= content_for?(:styles) ? yield(:styles) : nil %>
@@ -53,7 +54,6 @@
       };
       App.data = {};
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <%= content_for?(:scripts) ? yield(:scripts) : nil %>
   </body>
