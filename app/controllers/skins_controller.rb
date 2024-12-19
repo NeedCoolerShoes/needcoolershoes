@@ -227,7 +227,7 @@ class SkinsController < ApplicationController
       config.title = "#{@skin.name.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
       config.image = skin_social_url(@skin, format: :png)
       config.image_alt = "#{config.title} - Minecraft Skin"
-      config.description = desc.truncate(130)
+      config.description = desc.to_s.truncate(130)
     end
   end
 
