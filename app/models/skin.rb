@@ -229,7 +229,7 @@ class Skin < ApplicationRecord
     jams.each do |jam|
       is_valid = true
 
-      if jam.start_at > created_at
+      if jam.start_at > (self.created_at || Time.current)
         is_valid = false
         errors.add(:tag_list, "skin created before #{jam.name} started")
       end
