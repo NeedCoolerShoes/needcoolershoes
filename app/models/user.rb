@@ -78,6 +78,10 @@ class User < ApplicationRecord
     false
   end
 
+  def display_name
+    read_attribute("display_name") || name
+  end
+
   def pixels!
     if PIXEL_CACHE > (Time.current - pixels_cached_at)
       return pixels
