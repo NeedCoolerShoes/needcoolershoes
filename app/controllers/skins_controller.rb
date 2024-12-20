@@ -224,7 +224,7 @@ class SkinsController < ApplicationController
     desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
 
     meta_config do |config|
-      config.title = "#{@skin.name.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
+      config.title = "#{@skin.name.to_s.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
       config.image = skin_social_url(@skin, format: :png)
       config.image_alt = "#{config.title} - Minecraft Skin"
       config.description = desc.to_s.truncate(130)
