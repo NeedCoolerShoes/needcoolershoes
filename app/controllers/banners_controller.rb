@@ -12,6 +12,7 @@ class BannersController < ApplicationController
 
   def index
     index_meta_config
+    params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @gallery_params = gallery_params
     banners = Banner.visible.with_params(@gallery_params)
