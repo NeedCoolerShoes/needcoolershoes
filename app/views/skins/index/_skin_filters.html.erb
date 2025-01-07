@@ -18,14 +18,14 @@
   <h3 class="font-bold text-ncs-dark-100">Parts:</h3>
   <div class="flex flex-wrap gap-1">
     <% SkinPart.preload(:skins).each do |part| %>
-      <%= skins_gallery_filter_tag params, :part, part.name, "#{part.name} - #{part.skins.size}" %>
+      <%= skins_gallery_filter_tag params, :part, part.name, part.name %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Categories:</h3>
   <div class="flex flex-wrap items-center gap-1">
     <% SkinCategory.preload(:skins).each do |category| %>
-      <%= skins_gallery_filter_tag params, :category, category.name, "#{category.name} - #{category.skins.size}" %>
+      <%= skins_gallery_filter_tag params, :category, category.name, category.name %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
