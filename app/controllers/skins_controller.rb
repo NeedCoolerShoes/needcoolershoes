@@ -30,6 +30,7 @@ class SkinsController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @pagy, @skins = pagy(skins, items: items)
+    @skins_all = skins
     index_meta_config
   rescue Pagy::OverflowError
     not_found_error
