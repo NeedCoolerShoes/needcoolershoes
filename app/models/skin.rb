@@ -3,7 +3,7 @@ class Skin < ApplicationRecord
     part: "by_part_name",
     category: "by_category_name",
     model: "by_model",
-    tag: "tagged_with",
+    tag: "tagged_with_cached",
     favourited_by: "favourited_by_user_name",
     search: "search",
   }
@@ -29,6 +29,7 @@ class Skin < ApplicationRecord
   include Routing
   include Favouriteable
   include GalleryFilters
+  include Taggable
 
   add_gallery_filters PARAMS
 
@@ -91,8 +92,6 @@ class Skin < ApplicationRecord
       zip_file
     end
   end
-
-  acts_as_taggable_on :tags
 
   def can_user_open_in_editor?(some_user)
     return true if is_public?

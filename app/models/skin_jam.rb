@@ -16,6 +16,6 @@ class SkinJam < ApplicationRecord
   end
 
   def skins
-    Skin.tagged_with(tag)
+    Skin.tagged_with_cached(tag)
   end
 end
