@@ -1,5 +1,5 @@
 <!-- TODO -->
-<div class="flex gap-2">
+<div class="flex flex-col mob:flex-row mob:gap-2">
   <% if user.skins.any? %>
     <%= link_to "View My Uploads", skins_gallery_path(user: user.name), class: "btn-ncs" %>
   <% elsif user.banners.any? %>
@@ -12,7 +12,7 @@
 <% if user.skins.any? %>
   <%= link_to "Export My Skins", user_export_path(user), class: "btn-ncs" %>
 <% end %>
-<div class="flex gap-2">
+<div class="flex flex-col mob:flex-row mob:gap-2">
   <% if user == current_user %>
     <%= link_to "Edit Profile", edit_user_path(user), class: "btn-ncs" %>
     <%= link_to "Edit Login", edit_user_registration_path, class: "btn-ncs" %>
