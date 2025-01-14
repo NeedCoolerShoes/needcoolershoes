@@ -9,7 +9,7 @@ module UserHelper
       content = tag.span user.display_name, class: "underline"
       if (badge = user.featured_badge).present?
         content += " "
-        content += tag.img src: badge.url, alt: badge.name, title: badge.name, class: "inline w-4 border rounded-full box-content border-ncs-yellow-500 bg-ncs-yellow-500"
+        content += tag.img src: badge.url, alt: badge.name, title: badge.name, class: "inline w-4 box-content"
       end
       if user.role?
         content += " "
