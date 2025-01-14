@@ -2,7 +2,7 @@ module Taggable
   extend ActiveSupport::Concern
 
   included do
-    unless has_attribute?(:tag_cache)
+    if !has_attribute?(:tag_cache) && !ActiveRecord::Base.connection.migration_context.needs_migration?
       raise "Cannot include tags without a tag cache!"
     end
 
