@@ -12,7 +12,7 @@ jobs:
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Get Hash
         id: hash
-        run: echo "git_hash=$(git rev-parse --short HEAD)" >> $GITHUB_HASH
-      - run: flyctl deploy --remote-only -e NCRS_COMMIT_HASH={{ env.hash }}
+        run: echo "git_hash=$(git rev-parse --short HEAD | tr -d '\n')" >> $GITHUB_ENV
+      - run: flyctl deploy --remote-only -e NCRS_COMMIT_HASH=${{ env.git_hash }}
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
