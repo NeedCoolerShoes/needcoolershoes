@@ -2,18 +2,18 @@ class Banner < ApplicationRecord
   include PgSearch::Model
   include Favouriteable
   include GalleryFilters
+  include Taggable
 
   SURVIVAL_FRIENDLY_LENGTH = 14
 
   add_gallery_filters({
-    tag: "tagged_with",
+    tag: "tagged_with_cached",
     favourited_by: "favourited_by_user_name",
     search: "search",
     compatibility: "by_compatibility",
     style: "by_style",
   })
 
-  acts_as_taggable_on :tags
   pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
 
   attribute :terms_and_conditions, :boolean

@@ -4,7 +4,7 @@
 <% end %>
 
 <div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white">
-  <div class="flex flex-col sm:flex-row gap-4">
+  <div class="flex flex-col tab:flex-row gap-4">
     <div class="flex flex-col bg-ncs-grid basis-2/5">
       <div
         class="flex items-center flex-wrap bg-ncs-gray-400 px-2 py-1
@@ -20,8 +20,8 @@
       </div>
       <div class="relative h-full">
         <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data } %>
-        <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
-        <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
+        <div class="absolute top-0 bottom-0 left-0 w-12 tab:hidden"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-12 tab:hidden"></div>
       </div>
       <script>
         skinViewer.nameTag = "<%= @user.name %>"

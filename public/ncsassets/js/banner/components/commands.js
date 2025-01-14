@@ -5,13 +5,13 @@ class NCRSBannerCommandGenerator {
   static modes = ["give", "setblock"]
   static validMode(mode) {return this.modes.includes(mode)}
 
-  static generate(mode, bannerData) {
+  static generate(mode, bannerData, selector = "@p") {
     if (!this.validMode(mode)) { return "" }
     if (bannerData.length < 2) { return "" }
     const instance = new this
     const data = [...bannerData]
     switch (mode) {
-      case "give": return instance._generateGiveCommand(data)
+      case "give": return instance._generateGiveCommand(data, selector)
       case "setblock": return instance._generateSetblockCommand(data)
     }
   }
@@ -22,9 +22,9 @@ class NCRSBannerCommandGenerator {
     }))
   }
 
-  _generateGiveCommand(bannerData) {
+  _generateGiveCommand(bannerData, selector) {
     const base = bannerData.shift()
-    let command = "give @s minecraft:"
+    let command = `give ${selector} minecraft:`
     command += base.color.code + "_banner[banner_patterns="
     command += this._patternsJSON(bannerData)
     return command + "]"
@@ -40,7 +40,7 @@ class NCRSBannerCommandGenerator {
 }
 
 class NCRSBannerCommand extends HTMLElement {
-  static observedAttributes = ["mode", "banner"]
+  static observedAttributes = ["mode", "banner", "selector"]
 
   _bannerData = []
   _textArea
@@ -49,6 +49,9 @@ class NCRSBannerCommand extends HTMLElement {
     super()
     if (!this.getAttribute("mode")) {
       this.setAttribute("mode", "give")
+    }
+    if (!this.getAttribute("selector")) {
+      this.setAttribute("selector", "@p")
     }
     this._setupDom()
   }
@@ -70,6 +73,11 @@ class NCRSBannerCommand extends HTMLElement {
     } else if (name == "banner") {
       this._updateBannerData(newValue)
       this._renderCommand(this.getAttribute("mode"))
+    } else if (name == "selector") {
+      if (newValue == "") {
+        return this.setAttribute("selector", "@p")
+      }
+      this._renderCommand(this.getAttribute("mode"))
     }
   }
 
@@ -83,7 +91,7 @@ class NCRSBannerCommand extends HTMLElement {
     if (this._bannerData.length < 2) {
       this._textArea.value = ""
     } else {
-      this._textArea.value = NCRSBannerCommandGenerator.generate(mode, this._bannerData)
+      this._textArea.value = NCRSBannerCommandGenerator.generate(mode, this._bannerData, this.getAttribute("selector"))
     }
   }
 }

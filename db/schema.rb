@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_11_173319) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_07_054315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_173319) do
     t.datetime "updated_at", null: false
     t.integer "style", default: 0, null: false
     t.boolean "hidden", default: false
+    t.integer "tag_cache", default: [], null: false, array: true
     t.index ["user_id"], name: "index_banners_on_user_id"
   end
 
@@ -111,6 +112,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_173319) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_at", default: "1970-01-01 00:00:00"
+    t.datetime "end_at", default: "1970-01-01 00:00:00", null: false
+    t.integer "lenient_seconds", default: 60, null: false
+    t.string "theme", default: "", null: false
     t.index ["tag"], name: "index_skin_jams_on_tag", unique: true
   end
 
@@ -136,6 +141,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_11_173319) do
     t.integer "favourites_count", default: 0, null: false
     t.integer "license"
     t.boolean "hidden", default: false
+    t.string "jam_tags", default: [], null: false, array: true
+    t.integer "tag_cache", default: [], null: false, array: true
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"

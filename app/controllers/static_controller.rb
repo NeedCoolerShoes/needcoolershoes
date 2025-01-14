@@ -6,6 +6,11 @@ class StaticController < ApplicationController
 
   def editor
     @message = SiteMessage.latest&.message
+
+    meta_config do |config|
+      config.title = "Minecraft Skin Editor"
+      config.description = "Easily create your own Minecraft Skin, from scratch, or by combining parts from our extensive gallery."
+    end
   end
 
   def editor_2010

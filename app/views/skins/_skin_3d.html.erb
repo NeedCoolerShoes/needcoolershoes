@@ -12,7 +12,7 @@
 <canvas id="skin_container"></canvas>
 
 <script>
-  let skinViewer = new skinview3d.SkinViewer({
+  const skinViewer = new skinview3d.SkinViewer({
     canvas: document.getElementById("skin_container"),
     width: <%= width %>,
     height: <%= height %>,
@@ -20,21 +20,22 @@
     skin: "<%= data %>"
   });
 
-  let canvas = document.getElementById("skin_container")
-  let parent = canvas.parentElement
+  const canvas = document.getElementById("skin_container")
+  canvas.style.setProperty("max-width", "100%")
+  canvas.style.setProperty("max-height", "100%")
+
+  const parent = canvas.parentElement
 
   function updateSize(width, height) {
     width = Math.floor(width)
     height = Math.floor(height)
-    canvas.width = width
-    canvas.height = height
     skinViewer.width = width
     skinViewer.height = height
   }
 
   updateSize(parent.clientWidth, parent.clientHeight)
 
-  let resizeObserver = new ResizeObserver(
+  const resizeObserver = new ResizeObserver(
     entries => {
       const entry = entries[0]
       updateSize(entry.contentRect.width, entry.contentRect.height)

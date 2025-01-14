@@ -18,12 +18,13 @@ class User < ApplicationRecord
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   belongs_to :featured_badge, class_name: "Badge", foreign_key: "featured_badge_id", optional: true
 
-  has_many :skins
-  has_many :user_badges
+  has_many :skins, dependent: :destroy
+  has_many :banners, dependent: :destroy
+  has_many :user_badges, dependent: :destroy
   has_many :badges, through: :user_badges
-  has_many :favourites
+  has_many :favourites, dependent: :destroy
   has_many :skin_favourites, through: :skins, source: :favourites
-  has_many :modlogs, as: :target
+  has_many :modlogs, as: :target, dependent: :destroy
 
   validates :name,
     format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},
@@ -75,6 +76,10 @@ class User < ApplicationRecord
     return true if some_user.moderator?
     return true if some_user.id == id
     false
+  end
+
+  def display_name
+    read_attribute("display_name") || name
   end
 
   def pixels!

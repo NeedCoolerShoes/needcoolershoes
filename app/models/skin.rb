@@ -3,7 +3,7 @@ class Skin < ApplicationRecord
     part: "by_part_name",
     category: "by_category_name",
     model: "by_model",
-    tag: "tagged_with",
+    tag: "tagged_with_cached",
     favourited_by: "favourited_by_user_name",
     search: "search",
   }
@@ -29,6 +29,7 @@ class Skin < ApplicationRecord
   include Routing
   include Favouriteable
   include GalleryFilters
+  include Taggable
 
   add_gallery_filters PARAMS
 
@@ -50,12 +51,14 @@ class Skin < ApplicationRecord
   attribute :creator, :string
   enum :creator, CREATOR.keys, prefix: :created_by, default: :self
 
+  attribute :favourites_count, :integer, default: 0
+
+  before_validation :manage_jam_tags, if: :tag_list?
+
   validates :name, :skin_category, :skin_part, :visibility, :model, :data, presence: true
   validates :name, length: {maximum: 128}
   validates :description, length: {maximum: 1024}
   validates :terms_and_conditions, acceptance: true
-
-  attribute :favourites_count, :integer, default: 0
   
   # Skin filters
   scope :hidden, -> { where(hidden: true) }
@@ -89,8 +92,6 @@ class Skin < ApplicationRecord
       zip_file
     end
   end
-
-  acts_as_taggable_on :tags
 
   def can_user_open_in_editor?(some_user)
     return true if is_public?
@@ -216,5 +217,30 @@ class Skin < ApplicationRecord
 
   def cache_image_file(img_path, data)
     img_path.open("wb") { |file| file << data }
+  end
+
+  def manage_jam_tags
+    tags = tag_list.to_a - jam_tags.to_a
+    jams = SkinJam.where(tag: tags)
+
+    return unless jams.any?
+
+    jams.each do |jam|
+      is_valid = true
+
+      if jam.start_at > (self.created_at || Time.current)
+        is_valid = false
+        errors.add(:tag_list, "skin created before #{jam.name} started")
+      end
+
+      if !jam.open?
+        is_valid = false
+        errors.add(:tag_list, "#{jam.name} is not open for submissions")
+      end
+
+      if is_valid
+        jam_tags << jam.tag
+      end
+    end
   end
 end

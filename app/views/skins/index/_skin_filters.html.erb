@@ -7,25 +7,31 @@
     <%= link_to "Random Skin", random_skin_path, class: "underline" %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
+  <h3 class="font-bold text-ncs-dark-100">Popular Tags:</h3>
+  <div class="flex flex-wrap items-center gap-1">
+    <% skins.top_tags(10).each do |tag| %>
+      <%= skins_gallery_tag_filter_tag params, tag.name, "" %>
+    <% end %>
+  </div>
+  <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Models:</h3>
   <div class="flex flex-wrap items-center gap-1">
     <% Skin.models.keys.each do |model| %>
-      <% count = Skin.by_model(model).count %>
-      <%= skins_gallery_filter_tag params, :model, model, "#{model.titleize} - #{count}", model.titleize %>
+      <%= skins_gallery_filter_tag params, :model, model, "", model.titleize %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Parts:</h3>
   <div class="flex flex-wrap gap-1">
     <% SkinPart.all.each do |part| %>
-      <%= skins_gallery_filter_tag params, :part, part.name, "#{part.name} - #{part.skins.count}" %>
+      <%= skins_gallery_filter_tag params, :part, part.name, "" %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Categories:</h3>
   <div class="flex flex-wrap items-center gap-1">
     <% SkinCategory.all.each do |category| %>
-      <%= skins_gallery_filter_tag params, :category, category.name, "#{category.name} - #{category.skins.count}" %>
+      <%= skins_gallery_filter_tag params, :category, category.name, "" %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
@@ -37,8 +43,7 @@
       }
     %>
     <% date_ranges.each do |title, offset| %>
-      <% count = Skin.created_after_days(offset).count %>
-      <%= skins_gallery_filter_tag params, :date_offset, offset, "#{title.to_s.titleize} - #{count}", title.to_s.titleize %>
+      <%= skins_gallery_filter_tag params, :date_offset, offset, "", title.to_s.titleize %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
@@ -66,19 +71,12 @@
     <h3 class="font-bold text-ncs-dark-100">Relevant to Me:</h3>
     <div class="flex flex-wrap gap-1">
       <div class="flex flex-wrap items-center gap-1">
-        <%= skins_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "#{current_user.display_name} - #{current_user.skins.count}", "My Skins" %>
-        <%= skins_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "My Favourites - #{current_user.favourites.count}", "My Favourites" %>
+        <%= skins_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "", "My Skins" %>
+        <%= skins_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "", "My Favourites" %>
         <% if current_user.authorized?(:moderator) %>
           <%= skins_gallery_filter_tag params, :hidden, "true", "Hidden Skins", "Hidden Skins" %>
         <% end %>
       </div>
     </div>
   <% end %>
-  <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
-  <h3 class="font-bold text-ncs-dark-100">Popular Tags:</h3>
-  <div class="flex flex-wrap items-center gap-1">
-    <% skins.top_tags(10).each do |tag| %>
-      <%= skins_gallery_filter_tag params, :tag, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
-    <% end %>
-  </div>
 </div>

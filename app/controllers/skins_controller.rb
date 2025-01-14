@@ -30,6 +30,7 @@ class SkinsController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @pagy, @skins = pagy(skins, items: items)
+    @skins_all = skins
     index_meta_config
   rescue Pagy::OverflowError
     not_found_error
@@ -88,7 +89,7 @@ class SkinsController < ApplicationController
       if @skin.update(params)
         format.html { redirect_to @skin.to_title_path, notice: "Skin was successfully updated." }
       else
-        format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin." }
+        format.html { redirect_to edit_skin_path(@skin), alert: "Error saving skin. #{format_errors @skin.errors.messages}" }
       end
     end
   end
@@ -210,7 +211,7 @@ class SkinsController < ApplicationController
 
       if @jam.present?
         config.title = @jam.name
-        config.description = @jam.description.to_s.split("\n").first.strip
+        config.description = @jam.description.to_s.split("\n")&.first&.strip || "Minecraft skin jam."
       end
     end
   end
@@ -224,10 +225,10 @@ class SkinsController < ApplicationController
     desc << ". A Minecraft skin, created with NeedCoolerShoes Skin Editor."
 
     meta_config do |config|
-      config.title = "#{@skin.name.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
+      config.title = "#{@skin.name.to_s.truncate(32)} by #{@skin.user.display_name.truncate(32)}"
       config.image = skin_social_url(@skin, format: :png)
       config.image_alt = "#{config.title} - Minecraft Skin"
-      config.description = desc.truncate(130)
+      config.description = desc.to_s.truncate(130)
     end
   end
 

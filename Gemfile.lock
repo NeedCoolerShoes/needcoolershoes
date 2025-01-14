@@ -184,6 +184,7 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    local_time (3.0.2)
     logger (1.6.1)
     loofah (2.23.1)
       crass (~> 1.0.2)
@@ -366,6 +367,12 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sentry-rails (5.22.1)
+      railties (>= 5.0)
+      sentry-ruby (~> 5.22.1)
+    sentry-ruby (5.22.1)
+      bigdecimal
+      concurrent-ruby (~> 1.0, >= 1.0.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -445,6 +452,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.2)
   importmap-rails
   jbuilder
+  local_time (~> 3.0)
   oily_png (~> 1.2)
   opentelemetry-exporter-otlp (~> 0.26.2)
   opentelemetry-instrumentation-action_pack (~> 0.9.0)
@@ -466,6 +474,8 @@ DEPENDENCIES
   rubyzip (~> 2.3, >= 2.3.2)
   sassc-rails
   selenium-webdriver
+  sentry-rails (~> 5.22)
+  sentry-ruby (~> 5.22)
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails

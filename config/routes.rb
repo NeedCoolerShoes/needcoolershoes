@@ -24,6 +24,8 @@ Rails.application.routes.draw do
   get "gallery", to: redirect(path: "/gallery/skins")
   get "gallery/:page", to: redirect("/gallery/skins/%{page}")
 
+  get "jam/:jam", to: redirect("/gallery/skins/?tag=%{jam}")
+
   get "skins", to: redirect("/gallery/skins")
   get "skins/random", to: "skins#random", as: "random_skin"
   get "skins/:id/download", to: "skins#download", as: "skin_download"

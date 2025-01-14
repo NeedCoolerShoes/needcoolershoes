@@ -12,11 +12,13 @@ class BannersController < ApplicationController
 
   def index
     index_meta_config
+    params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @gallery_params = gallery_params
     banners = Banner.visible.with_params(@gallery_params)
     banners = banners.merge(Banner.order_by_created) unless gallery_params[:order].present?
     @pagy, @banners = pagy(banners, items: items)
+    @banners_all = banners
     @gallery_tab = :banners
   rescue Pagy::OverflowError
     not_found_error

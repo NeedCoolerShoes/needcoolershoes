@@ -5,10 +5,12 @@
 <% end %>
 
 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
-  <div class="max-w-[364px] sm:max-w-[250px] lg:max-w-[364px] w-full">
+  <div class="sm:max-w-[250px] lg:max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
       <div class="relative checker-border bg-ncs-grid">
-        <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model } %>
+        <div class="h-[320px] sm:h-[400px]">
+          <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model } %>
+        </div>
         <% if current_user.present? %>
           <script>
             skinViewer.nameTag = "<%= current_user.name %>"
@@ -37,7 +39,7 @@
           <% end %>
         <% end %>
       </div>
-      <div>
+      <div class="flex flex-col mob:flex-row gap-1 sm:flex-col">
         <button
           onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
@@ -51,7 +53,7 @@
       </div>
     </div>
   </div>
-  <div class="grow max-w-[364px] w-full sm:max-w-none">
+  <div class="w-full">
     <div class="bg-ncs-dark-700 p-4 text-ncs-dark-100">
       <div class="flex justify-between">
         <h2 class="text-4xl font-bold max-w-lg line-clamp-2" style="overflow-wrap: break-word;" title="<%= @skin.name %>"><%= @skin.name %></h2>
