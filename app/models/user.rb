@@ -79,7 +79,9 @@ class User < ApplicationRecord
   end
 
   def display_name
-    read_attribute("display_name") || name
+    output = read_attribute("display_name")
+    output = name unless output.present?
+    output
   end
 
   def pixels!
