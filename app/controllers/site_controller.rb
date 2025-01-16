@@ -11,6 +11,8 @@ class SiteController < ApplicationController
     query = query.merge(Modlog.with_target_type(params[:type])) if params[:type].present?
 
     items = (params[:items] || 20).to_s.to_i.clamp(1..50)
+    params[:page].to_i > 0 ? nil : params[:page] = 1
+    
     @pagy, @modlogs = pagy(query, items: items)
   end
 
