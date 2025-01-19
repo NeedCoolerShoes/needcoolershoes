@@ -43,6 +43,8 @@ class Skin < ApplicationRecord
   has_many :attributions, class_name: "SkinAttribution", dependent: :destroy
   has_many :variants, class_name: "SkinAttribution", foreign_key: "attributed_skin_id", dependent: :nullify
   has_many :modlogs, as: :target
+  
+  has_one :featured_by_user, class_name: "User", foreign_key: "featured_skin_id", dependent: :nullify
 
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
