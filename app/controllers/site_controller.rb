@@ -14,6 +14,8 @@ class SiteController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     
     @pagy, @modlogs = pagy(query, items: items)
+  rescue Pagy::OverflowError
+    not_found_error
   end
 
   def preview
