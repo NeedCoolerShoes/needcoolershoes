@@ -54,19 +54,22 @@ class ApplicationController < ActionController::Base
 
   def db_connection_error
     respond_to do |format|
-      format.html { render layout: "plain", template: "errors/connect", status: 202 }
+      format.json { render json: {status: 202, error: "Connecting to database, try again shortly"} }
+      format.any { render layout: "plain", template: "errors/connect", status: 202 }
     end
   end
 
   def forbidden_error
     respond_to do |format|
-      format.html { render layout: "plain", template: "errors/forbidden", status: 403 }
+      format.json { render json: {status: 403, error: "Forbidden"} }
+      format.any { render layout: "plain", template: "errors/forbidden", status: 403 }
     end
   end
 
   def not_found_error
     respond_to do |format|
-      format.html { render file: "public/404.html", layout: false, status: 404 }
+      format.json { render json: {status: 404, error: "Not found"} }
+      format.any { render file: "public/404.html", layout: false, status: 404 }
     end
   end
 

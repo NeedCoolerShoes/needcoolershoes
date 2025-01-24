@@ -95,7 +95,10 @@ class SkinsController < ApplicationController
   end
 
   def embed
-    render layout: false
+    respond_to do |format|
+      format.html { render layout: false }
+      format.any { not_found_error }
+    end
   end
 
   def moderator_edit
