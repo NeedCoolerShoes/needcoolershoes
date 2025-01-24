@@ -30,12 +30,11 @@ class Skin < ApplicationRecord
   include Favouriteable
   include GalleryFilters
   include Taggable
+  include Searchable
 
   add_gallery_filters PARAMS
 
   delegate :url_helpers, to: "Rails.application.routes"
-
-  pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
 
   belongs_to :user
   belongs_to :skin_category

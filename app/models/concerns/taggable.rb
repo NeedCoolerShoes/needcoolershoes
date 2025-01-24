@@ -18,6 +18,10 @@ module Taggable
   
       where("tag_cache @> ARRAY[?]", tags.pluck(:id))
     }
+
+    def cached_tags
+      ActsAsTaggableOn::Tag.where(id: tag_cache)
+    end
   end
 
   def save_cached_tags!

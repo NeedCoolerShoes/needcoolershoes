@@ -3,6 +3,7 @@ class Banner < ApplicationRecord
   include Favouriteable
   include GalleryFilters
   include Taggable
+  include Searchable
 
   SURVIVAL_FRIENDLY_LENGTH = 14
 
@@ -13,8 +14,6 @@ class Banner < ApplicationRecord
     compatibility: "by_compatibility",
     style: "by_style",
   })
-
-  pg_search_scope :search, against: :name, using: {tsearch: {prefix: true}}, associated_against: {tags: :name}
 
   attribute :terms_and_conditions, :boolean
 
