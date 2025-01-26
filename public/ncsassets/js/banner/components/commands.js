@@ -1,6 +1,8 @@
 import { BaseComponent } from "../lib/components.js"
 import { NCRSBanner, NCRSBannerPattern } from "./banner.js"
 
+const BANNER_MODEL = new NCRSBanner("1_21");
+
 class NCRSBannerCommandGenerator {
   static modes = ["give", "setblock"]
   static validMode(mode) {return this.modes.includes(mode)}
@@ -84,7 +86,7 @@ class NCRSBannerCommand extends HTMLElement {
   _updateBannerData(codes) {
     const params = codes.match(/.{1,2}/g)
     if (!params) { return }
-    this._bannerData = params.map(code => { return NCRSBanner.fromEncoding(code) })
+    this._bannerData = params.map(code => { return BANNER_MODEL.fromEncoding(code) })
   }
 
   _renderCommand(mode) {
@@ -108,13 +110,12 @@ class NCRSBannerInstructions extends BaseComponent {
   _bannerData = []
 
   onBannerChanged(_, value) {
-    this._bannerData = NCRSBanner.parse(value)
+    this._bannerData = BANNER_MODEL.parse(value)
     if (!this._bannerData) { return }
     this._render()
   }
 
   _render() {
-    console.log(this._bannerData)
     const base = this._renderBase(this._bannerData.shift())
     const layers = this._bannerData.map(layer => {
       return this._renderLayer(layer)

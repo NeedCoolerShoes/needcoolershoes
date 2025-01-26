@@ -10,6 +10,8 @@ const state = {
   loaded: false
 }
 
+const BANNER_MODEL = new NCRSBanner("1_21");
+
 const layerPicker = document.getElementById("layer-picker")
 const layerList = document.getElementById("layers")
 const layerPreview = document.getElementById("preview")
@@ -117,7 +119,7 @@ function loadFromURL(path) {
   if (!params) { return }
   layerPreview.setAttribute("banner", params.join(""))
   for (let i = 0; i < params.length; i++) {
-    const data = NCRSBanner.fromEncoding(params[i])
+    const data = BANNER_MODEL.fromEncoding(params[i])
     if (i == 0) {
       basePattern.setAttribute("color", data.color.color)
     } else {
@@ -210,11 +212,11 @@ function updateSavedBannersURL(data) {
 }
 
 function transformLegacySave(data) {
-  const base = NCRSBanner.colors.find(color => { return color.legacy['1.8'] == data.Base })
+  const base = BANNER_MODEL.colors.find(color => { return color.legacy['1.8'] == data.Base })
   let output = base.encode + "a"
   data.Patterns.forEach(element => {
-    const pattern =  NCRSBanner.patterns.find(pattern => { return pattern.legacy['1.8'] == element.Pattern })
-    const color =  NCRSBanner.colors.find(color => { return color.legacy['1.8'] == element.Color })
+    const pattern =  BANNER_MODEL.patterns.find(pattern => { return pattern.legacy['1.8'] == element.Pattern })
+    const color =  BANNER_MODEL.colors.find(color => { return color.legacy['1.8'] == element.Color })
     output += (color.encode + pattern.encode)
   })
   return output
@@ -232,10 +234,10 @@ function randomize() {
   let str = ""
   const count = Math.floor((Math.random() * 5) + 2)
   for (let i = 0; i < count; i++) {
-    const colorIdx = Math.floor(Math.random() * NCRSBanner.colors.length)
-    const patternIdx = Math.floor(Math.random() * NCRSBanner.patterns.length)
-    const color = NCRSBanner.colors[colorIdx]
-    const pattern = NCRSBanner.patterns[patternIdx]
+    const colorIdx = Math.floor(Math.random() * BANNER_MODEL.colors.length)
+    const patternIdx = Math.floor(Math.random() * BANNER_MODEL.patterns.length)
+    const color = BANNER_MODEL.colors[colorIdx]
+    const pattern = BANNER_MODEL.patterns[patternIdx]
 
     if (i == 0) {
       str += (color.encode + "a")

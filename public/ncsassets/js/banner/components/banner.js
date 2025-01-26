@@ -1,71 +1,32 @@
 import { createWithClasses } from "../util.js"
+import { VERSIONS } from "./data.js"
 
 class NCRSBanner {
-  static colors = [
-    {title: "Black", code: "black", color: "#1d1d21", encode:"a", legacy: {"1.8": 0, "1.13": 15}},
-    {title: "Dark Gray", code: "gray", color: "#474f52", encode:"i", legacy: {"1.8": 8, "1.13": 7}},
-    {title: "Gray", code: "light_gray", color: "#9d9d97", encode:"h", legacy: {"1.8": 7, "1.13": 8}},
-    {title: "White", code: "white", color: "#f9fffe", encode:"p", legacy: {"1.8": 15, "1.13": 0}},
-    {title: "Pink", code: "pink", color: "#f38baa", encode:"j", legacy: {"1.8": 9, "1.13": 6}},
-    {title: "Magenta", code: "magenta", color: "#c74ebd", encode:"n", legacy: {"1.8": 13, "1.13": 2}},
-    {title: "Purple", code: "purple", color: "#8932b8", encode:"f", legacy: {"1.8": 5, "1.13": 10}},
-    {title: "Blue", code: "blue", color: "#3c44aa", encode:"e", legacy: {"1.8": 4, "1.13": 11}},
-    {title: "Cyan", code: "cyan", color: "#169c9c", encode:"g", legacy: {"1.8": 6, "1.13": 9}},
-    {title: "Light Blue", code: "light_blue", color: "#3ab3da", encode:"m", legacy: {"1.8": 12, "1.13": 3}},
-    {title: "Green", code: "green", color: "#5e7c16", encode:"c", legacy: {"1.8": 2, "1.13": 13}},
-    {title: "Lime", code: "lime", color: "#80c71f", encode:"k", legacy: {"1.8": 10, "1.13": 5}},
-    {title: "Yellow", code: "yellow", color: "#fed83d", encode:"l", legacy: {"1.8": 11, "1.13": 4}},
-    {title: "Orange", code: "orange", color: "#f9801d", encode:"o", legacy: {"1.8": 14, "1.13": 1}},
-    {title: "Brown", code: "brown", color: "#835432", encode:"d", legacy: {"1.8": 3, "1.13": 12}},
-    {title: "Red", code: "red", color: "#b02e26", encode:"b", legacy: {"1.8": 1, "1.13": 14}}
-  ]
+  constructor(versionId) {
+    const version = VERSIONS.find(element => element.id == versionId) || VERSIONS.at(-1)
 
-  static patterns = [
-    {title: "Base", code: "minecraft:stripe_bottom", sprite: 5, encode: "f", legacy: {"1.8": "bs"}},
-    {title: "Chief", code: "minecraft:stripe_top", sprite: 30, encode: "E", legacy: {"1.8": "ts"}},
-    {title: "Pale Dexter", code: "minecraft:stripe_left", sprite: 18, encode: "s", legacy: {"1.8": "ls"}},
-    {title: "Pale Sinister", code: "minecraft:stripe_right", sprite: 24, encode: "y", legacy: {"1.8": "rs"}},
-    {title: "Pale", code: "minecraft:stripe_center", sprite: 11, encode: "l", legacy: {"1.8": "cs"}},
-    {title: "Fess", code: "minecraft:stripe_middle", sprite: 22, encode: "w", legacy: {"1.8": "ms"}},
-    {title: "Bend", code: "minecraft:stripe_downright", sprite: 13, encode: "n", legacy: {"1.8": "drs"}},
-    {title: "Bend Sinister", code: "minecraft:stripe_downleft", sprite: 12, encode: "m", legacy: {"1.8": "dls"}},
-    {title: "Paly", code: "minecraft:small_stripes", sprite: 27, encode: "B", legacy: {"1.8": "ss"}},
-    {title: "Saltire", code: "minecraft:cross", sprite: 9, encode: "j", legacy: {"1.8": "cr"}},
-    {title: "Cross", code: "minecraft:straight_cross", sprite: 25, encode: "z", legacy: {"1.8": "sc"}},
-    {title: "Per Bend Sinister", code: "minecraft:diagonal_left", sprite: 17, encode: "r", legacy: {"1.8": "ld"}},
-    {title: "Per Bend", code: "minecraft:diagonal_right", sprite: 23, encode: "J", legacy: {"1.8": "rud"}},
-    {title: "Per Bend Inverted", code: "minecraft:diagonal_up_left", sprite: 37, encode: "I", legacy: {"1.8": "lud"}},
-    {title: "Per Bend Sinister Inverted", code: "minecraft:diagonal_up_right", sprite: 38, encode: "x", legacy: {"1.8": "rd"}},
-    {title: "Per Pale", code: "minecraft:half_vertical", sprite: 33, encode: "H", legacy: {"1.8": "vh"}},
-    {title: "Per Pale Inverted", code: "minecraft:half_vertical_right", sprite: 35, encode: "M", legacy: {"1.8": "vhr"}},
-    {title: "Per Fess", code: "minecraft:half_horizontal", sprite: 16, encode: "q", legacy: {"1.8": "hh"}},
-    {title: "Per Fess Inverted", code: "minecraft:half_horizontal_bottom", sprite: 36, encode: "L", legacy: {"1.8": "hhb"}},
-    {title: "Base Dexter Canton", code: "minecraft:square_bottom_left", sprite: 1, encode: "b", legacy: {"1.8": "bl"}},
-    {title: "Base Sinister Canton", code: "minecraft:square_bottom_right", sprite: 3, encode: "d", legacy: {"1.8": "br"}},
-    {title: "Chief Dexter Canton", code: "minecraft:square_top_left", sprite: 28, encode: "C", legacy: {"1.8": "tl"}},
-    {title: "Chief Sinister Canton", code: "minecraft:square_top_right", sprite: 29, encode: "D", legacy: {"1.8": "tr"}},
-    {title: "Chevron", code: "minecraft:triangle_bottom", sprite: 6, encode: "g", legacy: {"1.8": "bt"}},
-    {title: "Inverted Chevron", code: "minecraft:triangle_top", sprite: 31, encode: "F", legacy: {"1.8": "tt"}},
-    {title: "Base Indented", code: "minecraft:triangles_bottom", sprite: 7, encode: "h", legacy: {"1.8": "bts"}},
-    {title: "Chief Indented", code: "minecraft:triangles_top", sprite: 32, encode: "G", legacy: {"1.8": "tts"}},
-    {title: "Roundel", code: "minecraft:circle", sprite: 19, encode: "t", legacy: {"1.8": "mc"}},
-    {title: "Lozenge", code: "minecraft:rhombus", sprite: 21, encode: "v", legacy: {"1.8": "mr"}},
-    {title: "Bordure", code: "minecraft:border", sprite: 2, encode: "c", legacy: {"1.8": "bo"}},
-    {title: "Bordure Indented", code: "minecraft:curly_border", sprite: 8, encode: "i", legacy: {"1.8": "cbo"}},
-    {title: "Field Masoned", code: "minecraft:bricks", sprite: 4, encode: "e", legacy: {"1.8": "bri"}},
-    {title: "Gradient", code: "minecraft:gradient", sprite: 15, encode: "p", legacy: {"1.8": "gra"}},
-    {title: "Base Gradient", code: "minecraft:gradient_up", sprite: 34, encode: "K", legacy: {"1.8": "gru"}},
-    {title: "Creeper Charge", code: "minecraft:creeper", sprite: 10, encode: "k", legacy: {"1.8": "cre"}},
-    {title: "Skull Charge", code: "minecraft:skull", sprite: 26, encode: "A", legacy: {"1.8": "sku"}},
-    {title: "Flower Charge", code: "minecraft:flower", sprite: 14, encode: "o", legacy: {"1.8": "flo"}},
-    {title: "Thing", code: "minecraft:mojang", sprite: 20, encode: "u", legacy: {"1.8": "moj"}},
-    {title: "Globe", code: "minecraft:globe", sprite: 39, encode: "N", legacy: {"1.16": "glb"}},
-    {title: "Snout", code: "minecraft:piglin", sprite: 40, encode: "O", legacy: {"1.16": "pig"}},
-    {title: "Flow", code: "minecraft:flow", sprite: 41, encode: "P", legacy: {"1.21-br": "flw"}},
-    {title: "Guster", code: "minecraft:guster", sprite: 42, encode: "Q", legacy: {"1.21-br": "gus"}},
-  ]
+    this.colors = version.colors;
+    this.patterns = version.patterns;
+  }
 
-  static fromEncoding(str) {
+  static validVersions(str) {
+    let output = [];
+
+    VERSIONS.forEach(version => {
+      const model = new NCRSBanner(version.id);
+
+      console.log(model.colors);
+      console.log(model.patterns);
+
+      if (model.validate(str)) { output.push(version); }
+    })
+
+    console.log(output);
+
+    return output;
+  }
+
+  fromEncoding(str) {
     const colorCode = str[0]
     const patternCode = str[1]
     const color = this.colors.find(color => color.encode == colorCode)
@@ -73,12 +34,40 @@ class NCRSBanner {
     return {color: color, pattern: pattern}
   }
 
-  static parse(str) {
+  parse(str) {
     const params = str.match(/.{1,2}/g)
     if (!params) { return }
     return params.map(code => { return this.fromEncoding(code) })
   }
+
+  validate(str) {
+    const params = str.match(/.{1,2}/g);
+    if (!params) { return false; }
+
+    let valid = true;
+    let firstLoop = true;
+
+    params.map(code => {
+      const colorCode = code[0];
+      const patternCode = code[1];
+
+      if (!this.colors.find(color => color.encode == colorCode)) { valid = false; }
+      console.log(valid);
+
+      // Ignore pattern "a" in first section
+      if (firstLoop) {
+        firstLoop = false;
+
+        if (patternCode == "a") { return; }
+      }
+      if (!this.patterns.find(pattern => pattern.encode == patternCode)) { valid = false; }
+    })
+
+    return valid;
+  }
 }
+
+const BANNER_MODEL = new NCRSBanner("1_21");
 
 class NCRSBannerPatternSet extends HTMLElement {
   static observedAttributes = ["color"]
@@ -404,7 +393,7 @@ class NCRSBannerColorList extends HTMLElement {
   }
 
   _setupDom(selected) {
-    NCRSBanner.colors.forEach(color => {
+    BANNER_MODEL.colors.forEach(color => {
       const colorInstance = NCRSBannerColor.deserialize(color)
       this.append(colorInstance)
       if (color.color == selected) {
@@ -421,7 +410,7 @@ class NCRSBannerPatternList extends HTMLElement {
   }
 
   _setupDom() {
-    NCRSBanner.patterns.forEach(pattern => {
+    BANNER_MODEL.patterns.forEach(pattern => {
       this.append(NCRSBannerPattern.deserialize(pattern))
     })
   }
@@ -464,7 +453,7 @@ class NCRSBannerPreview extends HTMLElement {
     if (!params) { return }
     const children = []
     for (let i = 0; i < params.length; i++) {
-      const data = NCRSBanner.fromEncoding(params[i])
+      const data = BANNER_MODEL.fromEncoding(params[i])
       if (i == 0) {
         children.push(this._createBase(data.color.color))
       } else {
