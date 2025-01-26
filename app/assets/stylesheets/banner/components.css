@@ -54,8 +54,15 @@ body:has(ncrs-dialog[visible]) {
 ncrs-dialog[visible] {
   position: fixed;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  overflow: auto;
+  padding: 0.25rem;
+}
+
+ncrs-dialog[visible] > * {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 ncrs-banner-command {
