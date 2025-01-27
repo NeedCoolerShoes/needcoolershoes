@@ -196,6 +196,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    memory_profiler (1.1.0)
     method_source (1.1.0)
     mime-types (3.6.0)
       logger
@@ -283,6 +284,8 @@ GEM
     rack (3.1.8)
     rack-attack (6.7.0)
       rack (>= 1.0, < 4)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -453,6 +456,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   local_time (~> 3.0)
+  memory_profiler
   oily_png (~> 1.2)
   opentelemetry-exporter-otlp (~> 0.26.2)
   opentelemetry-instrumentation-action_pack (~> 0.9.0)
@@ -463,6 +467,7 @@ DEPENDENCIES
   postmark-rails
   puma (~> 6.0)
   rack-attack (~> 6.7)
+  rack-mini-profiler
   rails (~> 7.1)
   rails_admin (~> 3.0)
   rails_admin_markdown (= 0.0.4)
