@@ -18,9 +18,9 @@
 
   <div class="h-full flex flex-col justify-between">
     <div class="mb-1 h-4">
-      <% if @banner.tags.any? %>
+      <% if @banner.tag_cache? %>
         <div class="line-clamp-1 text-ncs-dark-300 text-xs">
-          <% @banner.tags.to_a.each do |tag| %>
+          <% @banner.cached_tags.each do |tag| %>
             <%= banners_gallery_tag_filter_tag @params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
           <% end %>
         </div>

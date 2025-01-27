@@ -19,9 +19,9 @@
 
   <div class="h-full flex flex-col justify-between">
     <div class="mb-1 h-4">
-      <% if @skin.tags.any? %>
+      <% if @skin.tag_cache? %>
         <div class="line-clamp-1 text-ncs-dark-300 text-xs">
-          <%= render partial: "skins/tag_link", collection: @skin.tags.to_a, as: :tag, locals: { params: @params } %>
+          <%= render partial: "skins/tag_link", collection: @skin.cached_tags, as: :tag, locals: { params: @params } %>
         </div>
       <% end %>
     </div>
