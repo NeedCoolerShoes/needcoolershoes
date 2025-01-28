@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  username: MyString
+  uuid: MyString
+  texture: MyString
+  minecraft_token: MyString
+  minecraft_token_expires_at: 2025-01-28 20:49:13
+  refresh_token: MyString
+  status: 1
+
+two:
+  user: two
+  username: MyString
+  uuid: MyString
+  texture: MyString
+  minecraft_token: MyString
+  minecraft_token_expires_at: 2025-01-28 20:49:13
+  refresh_token: MyString
+  status: 1
