@@ -1,14 +1,19 @@
-<div class="flex flex-wrap gap-0.5 justify-between bg-ncs-gray-300 rounded p-4 w-full">
+<div class="flex flex-wrap gap-2 justify-between bg-ncs-gray-300 rounded p-4 w-full">
   <div class="flex gap-2">
     <%= render partial: "skins/skin_2d_face", locals: { id: uuid, data: skin, classes: "scaled-lg" } %>
     <div class="text-white">
-      <p class="text-2xl"><%= name %></p>
+      <p class="text-base font-bold mob:text-2xl"><%= name %></p>
       <p><%= status %></p>
     </div>
   </div>
-  <div class="flex gap-2 items-center">
+  <div class="flex flex-wrap gap-2 items-center">
     <% if !authenticated? %>
       <%= link_to "Refresh Auth", user_accounts_connect_path(user), class: "btn-ncs text-base px-4 py-1" %>
+    <% end %>
+    <% if !primary? %>
+      <%= form_with url: user_make_account_primary_path(user, @minecraft_account), method: :delete, class: "" do |form| %>
+        <%= form.submit "Make Primary", class: "btn-ncs text-base px-4 py-1" %>
+      <% end %>
     <% end %>
     <%= form_with url: user_account_path(user, @minecraft_account), method: :delete, class: "" do |form| %>
       <%= form.submit "Remove Account", class: "btn-ncs text-base px-4 py-1", data: { "turbo-confirm": "Are you sure you want to disconnect this account?" } %>

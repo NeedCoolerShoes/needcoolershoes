@@ -28,4 +28,8 @@ class MinecraftAccountComponent < ViewComponent::Base
   def user
     @minecraft_account.user
   end
+
+  def primary?
+    @minecraft_account.primary?
+  end
 end

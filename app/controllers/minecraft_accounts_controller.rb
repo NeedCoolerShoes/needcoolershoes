@@ -27,6 +27,14 @@ class MinecraftAccountsController < ApplicationController
     end
   end
 
+  def make_primary
+    @minecraft_account.make_primary!
+
+    respond_to do |format|
+      format.html { redirect_to user_accounts_path(@user), notice: "Primary account has been updated." }
+    end
+  end
+
   private
 
   def set_user

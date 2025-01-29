@@ -104,8 +104,9 @@ Rails.application.routes.draw do
   resources :users, only: %i[edit destroy update] do
     get "export", to: "users#export"
     
-    resources :minecraft_accounts, only: %i[index destroy], path: "accounts", as: "accounts"
     get "accounts/connect", to: "minecraft_accounts#connect"
+    post "accounts/make_primary/:id", to: "minecraft_accounts#make_primary", as: "make_account_primary"
+    resources :minecraft_accounts, only: %i[index destroy], path: "accounts", as: "accounts"
   end
 
   scope :editor do

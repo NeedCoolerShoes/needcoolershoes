@@ -18,4 +18,10 @@ class MinecraftAccount < ApplicationRecord
   def primary?
     user_set_primary.present?
   end
+
+  def make_primary!
+    return true if user_set_primary.present?
+
+    user.update!(minecraft_account: self)
+  end
 end
