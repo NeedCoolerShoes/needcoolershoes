@@ -70,6 +70,10 @@ Rails.application.routes.draw do
   get "modlog", to: "site#modlog", as: "modlog"
   get "preview", to: "site#preview", as: "preview"
 
+  scope :webhooks do
+    get "minecraftauth", to: "webhooks#minecraftauth", as: "minecraft_auth_webhook"
+  end
+
   scope :terms do
     # get "/", to: "static#tos"
     get "/", to: redirect("/rules")

@@ -17,6 +17,7 @@ class User < ApplicationRecord
 
   belongs_to :featured_skin, class_name: "Skin", foreign_key: "featured_skin_id", optional: true
   belongs_to :featured_badge, class_name: "Badge", foreign_key: "featured_badge_id", optional: true
+  belongs_to :minecraft_account, optional: true
 
   has_many :skins, dependent: :destroy
   has_many :banners, dependent: :destroy
@@ -25,6 +26,7 @@ class User < ApplicationRecord
   has_many :favourites, dependent: :destroy
   has_many :skin_favourites, through: :skins, source: :favourites
   has_many :modlogs, as: :target, dependent: :destroy
+  has_many :minecraft_accounts, dependent: :destroy
 
   validates :name,
     format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},

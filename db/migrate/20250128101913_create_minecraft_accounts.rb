@@ -9,8 +9,11 @@ class CreateMinecraftAccounts < ActiveRecord::Migration[7.1]
       t.datetime :minecraft_token_expires_at, null: false
       t.string :refresh_token, null: false
       t.integer :status, null: false, default: 0
+      t.string :error_message
 
       t.timestamps
     end
+
+    add_reference :users, :minecraft_account, null: true, foreign_key: true
   end
 end
