@@ -35,7 +35,7 @@ class MinecraftAccount < ApplicationRecord
   def can_set_skin?(skin)
     return true unless skin.minecraft_texture_url?
 
-    skin.minecraft_texture_url == texture
+    skin.minecraft_texture_url != texture
   end
 
   def primary?

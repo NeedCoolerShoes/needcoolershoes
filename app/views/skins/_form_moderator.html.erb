@@ -12,6 +12,11 @@
       <%= form.select :license, licenses, {}, class: "text-black p-1" %>
     </div>
 
+    <div class="flex flex-col gap-1">
+      <%= form.label :minecraft_texture_url %>
+      <%= form.text_field :minecraft_texture_url, class: "text-black p-1", pattern: '^https?:\/\/textures.minecraft.net\/texture\/\S+$' %>
+    </div>
+
     <div>
       <div class="flex gap-1 items-center">
         <%= form.check_box :hidden %>

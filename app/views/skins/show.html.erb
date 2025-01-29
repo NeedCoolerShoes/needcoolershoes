@@ -21,7 +21,7 @@
         <script src="/ncsassets/js/skins.js"></script>
       </div>
       <div
-        class="model" data-user-id="<%= @skin.user_id %>" data-id="<%= @skin.id %>"
+        class="model hidden" data-user-id="<%= @skin.user_id %>" data-id="<%= @skin.id %>"
         data-local="<%= @skin.data %>" data-save="<%= @skin.data %>"
       ></div>
       <div>
@@ -42,13 +42,11 @@
       <div class="flex flex-col mob:flex-row gap-1 sm:flex-col">
         <button
           onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
-          class="edit btn-ncs" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
+          class="edit btn-ncs mb-0.5" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
           <%= t("common.editor") %>
         </button>
-        <!--
-        <button class="minecraft btn-ncs" disabled><%= t "skins.change_skin" %></button>
-        -->
+        <%= link_to t("skins.change_skin"), skin_minecraft_upload_path(@skin), class: "btn-ncs mb-0.5" %>
         <%= link_to t("skins.download"), skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
       </div>
     </div>
@@ -102,6 +100,24 @@
         <div class="prose prose-ncs-dark">
           <%= markdown @skin.description %>
         </div>
+      <% end %>
+      <% if @skin.minecraft_texture_url? %>
+        <fieldset class="border border-ncs-dark-300 p-2 rounded mb-2">
+          <legend class="font-bold">Give Player Head</legend>
+          <div class="flex gap-2">
+            <textarea readonly="true" cols="5" name="give command"
+              id="give-command" class="w-full resize bg-ncs-dark-800 border-ncs-dark-300" value=""
+            ><%= @skin.to_player_head_command %></textarea>
+            <div class="relative">
+              <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
+                <%= heroicon "document-duplicate" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
       <% end %>
       <details class="space-y-2">
         <summary class="select-none cursor-pointer font-bold"><%= t "skins.attributions.self" %></summary>

@@ -28,7 +28,7 @@ en:
     moderate: "Moderate Content"
   skins:
     download: "Download to Computer"
-    change_skin: "Change Skin on minecraft.net"
+    change_skin: "Set as Minecraft Skin"
     feature: "Feature Skin on Profile"
     feature_tooltip: "Display skin as your avatar on your profile."
     delete: "Delete Skin"

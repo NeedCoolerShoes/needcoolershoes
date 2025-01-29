@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get "skins/:id/social", to: "skins#social", as: "skin_social"
   get "skins/:id/embed", to: "skins#embed", as: "skin_embed"
   get "skins/:id/moderate", to: "skins#moderator_edit", as: "skin_moderate"
+  get "skins/:id/upload-to-minecraft", to: "skins#minecraft_upload", as: "skin_minecraft_upload"
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
   patch "skins/:id/moderate", to: "skins#moderator_update", as: "update_skin_moderate"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
@@ -105,7 +106,8 @@ Rails.application.routes.draw do
     get "export", to: "users#export"
     
     get "accounts/connect", to: "minecraft_accounts#connect"
-    post "accounts/make_primary/:id", to: "minecraft_accounts#make_primary", as: "make_account_primary"
+    post "accounts/:id/make_primary", to: "minecraft_accounts#make_primary", as: "make_account_primary"
+    post "accounts/:id/change_skin", to: "minecraft_accounts#change_skin", as: "change_account_skin"
     resources :minecraft_accounts, only: %i[index destroy], path: "accounts", as: "accounts"
   end
 

@@ -1,0 +1,43 @@
+<!-- TRANSLATED -->
+
+<% content_for :scripts do %>
+  <meta name="turbo-visit-control" content="reload">
+<% end %>
+
+<div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
+  <div class="sm:max-w-[250px] lg:max-w-[364px] w-full">
+    <div class="col-left flex flex-col gap-2">
+      <div class="relative checker-border bg-ncs-grid">
+        <div class="h-[320px] sm:h-[400px]">
+          <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model } %>
+        </div>
+        <% if current_user.present? %>
+          <script>
+            skinViewer.nameTag = "<%= current_user.name %>"
+          </script>
+        <% end %>
+        <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
+        <script src="/ncsassets/js/skins.js"></script>
+      </div>
+    </div>
+  </div>
+  <div class="w-full">
+    <div class="bg-ncs-dark-700 p-4 text-ncs-dark-100">
+      <%= link_to "Back to Skin", @skin, class: "underline text-white" %>
+      <h1 class="text-4xl">Select account to upload skin</h1>
+      <p>This will change your in-game skin for that account.</p>
+      <%= link_to "Connect Minecraft Account",
+        user_accounts_connect_path(current_user, redirect: skin_minecraft_upload_url(@skin)), class: "underline text-white mr-2"
+      %>
+      <%= link_to "Manage Accounts", user_accounts_path(current_user), class: "underline text-white" %>
+      <% if @minecraft_accounts.any? %>
+        <div class="flex flex-col gap-2 mt-4">
+          <%= render MinecraftAccountComponent.with_collection(@minecraft_accounts, skin: @skin) %>
+        </div>
+      <% else %>
+        <p class="text-white text-3xl mt-4 pb-12">No Connected Accounts</p>
+      <% end %>
+    </div>
+  </div>
+</div>

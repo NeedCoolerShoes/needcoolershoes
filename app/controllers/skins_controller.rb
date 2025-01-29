@@ -1,6 +1,9 @@
 class SkinsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create update edit destroy]
-  before_action :set_skin, only: %i[show edit moderator_edit update moderator_update download texture destroy add_favourite remove_favourite preview social embed]
+  before_action :authenticate_user!, only: %i[create update edit destroy minecraft_upload]
+  before_action :set_skin, only: %i[
+    show edit moderator_edit update moderator_update download minecraft_upload
+    texture destroy add_favourite remove_favourite preview social embed
+  ]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
@@ -196,6 +199,10 @@ class SkinsController < ApplicationController
   def preview
   end
 
+  def minecraft_upload
+    @minecraft_accounts = current_user.minecraft_accounts.authenticated.order_by_primary
+  end
+
   private
 
   def index_meta_config
@@ -284,7 +291,7 @@ class SkinsController < ApplicationController
 
   def skin_params
     permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
-    permit.append(:license, :hidden) if current_user.authorized?(:moderator)
+    permit.append(:license, :hidden, :minecraft_texture_url) if current_user.authorized?(:moderator)
     params.require(:skin).permit(permit)
   end
 

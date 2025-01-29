@@ -60,6 +60,7 @@ class Skin < ApplicationRecord
   validates :name, length: {maximum: 128}
   validates :description, length: {maximum: 1024}
   validates :terms_and_conditions, acceptance: true
+  validates :minecraft_texture_url, format: {with: /\Ahttps?:\/\/textures.minecraft.net\/texture\/\S+\z/, message: "must be a minecraft texture url"}
   
   # Skin filters
   scope :hidden, -> { where(hidden: true) }
@@ -206,6 +207,25 @@ class Skin < ApplicationRecord
 
   def to_title_url
     Routing.skin_title_url(self, to_url_title)
+  end
+
+  def to_player_head_command
+    return "" unless minecraft_texture_url?
+
+    data = {
+      timestamp: Time.current.to_i,
+      profileId: "c6283b1435c64a2994226327260c461c",
+      profileName: "NeedCoolerShoes",
+      textures: {
+        SKIN: {
+          url: minecraft_texture_url
+        }
+      }
+    }
+
+    base64 = Base64.encode64(data.to_json)
+
+    "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{base64}\"}]}] 1"
   end
 
   private
