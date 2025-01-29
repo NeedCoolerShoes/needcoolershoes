@@ -24,10 +24,35 @@ class MinecraftAuthWebhook
     return refresh_token, minecraft_token
   end
 
+  def refresh(refresh_token)
+    ms_auth = get_refresh_ms_auth(refresh_token)
+    access_token = ms_auth["access_token"]
+    refresh_token = ms_auth["refresh_token"]
+
+    puts ms_auth
+
+    xbox_auth = get_xbl_auth(access_token)
+    xbl_token = xbox_auth["Token"]
+
+    xsts_auth = get_xsts_auth(xbl_token)
+    xsts_userhash = xsts_auth["DisplayClaims"]["xui"][0]["uhs"]
+    xsts_token = xsts_auth["Token"]
+
+    minecraft_auth = get_mc_auth(xsts_userhash, xsts_token)
+    minecraft_token = minecraft_auth["access_token"]
+
+    return refresh_token, minecraft_token
+  end
+
   private
 
   def get_ms_auth(code)
     response = MinecraftAuthApi.ms_auth(ENV["MS_AZURE_CLIENT_ID"], ENV["MS_AZURE_CLIENT_SECRET"], code, Routing.minecraft_auth_webhook_url)
+    JSON.parse(response.body)
+  end
+
+  def get_refresh_ms_auth(code)
+    response = MinecraftAuthApi.refresh_ms_auth(ENV["MS_AZURE_CLIENT_ID"], ENV["MS_AZURE_CLIENT_SECRET"], code)
     JSON.parse(response.body)
   end
 

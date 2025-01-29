@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_28_101913) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -162,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_28_101913) do
     t.string "jam_tags", default: [], null: false, array: true
     t.integer "tag_cache", default: [], null: false, array: true
     t.string "search_cache", default: "", null: false
+    t.string "minecraft_texture_url"
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"

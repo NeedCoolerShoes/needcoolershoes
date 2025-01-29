@@ -12,6 +12,17 @@ class MinecraftAuthApi < BaseApi
       post_form("https://login.microsoftonline.com/consumers/oauth2/v2.0/token", params: body)
     end
 
+    def refresh_ms_auth(client_id, client_secret, code)
+      body = {
+        client_id: client_id,
+        scope: "XboxLive.signin offline_access",
+        grant_type: "refresh_token",
+        refresh_token: code,
+        client_secret: client_secret
+      }
+      post_form("https://login.microsoftonline.com/consumers/oauth2/v2.0/token", params: body)
+    end
+
     def ms_profile(token)
       headers = {
         "Content-Type" => "application/json",
