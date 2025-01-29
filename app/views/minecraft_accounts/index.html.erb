@@ -1,0 +1,14 @@
+<div class="bg-ncs-gray-700 p-4 grow h-full">
+  <div class="flex flex-wrap gap-0.5 justify-between">
+    <%= link_to "Back to Profile", "/@" + @user.name, class: "underline text-white" %>
+    <%= link_to "Connect Minecraft Account", user_accounts_connect_path(@user), class: "underline text-white" %>
+  </div>
+
+  <% if @minecraft_accounts.any? %>
+    <div class="flex flex-col gap-2 mt-4">
+      <%= render MinecraftAccountComponent.with_collection(@minecraft_accounts) %>
+    </div>
+  <% else %>
+    <p class="text-white text-3xl mt-4 pb-12">No Connected Accounts</p>
+  <% end %>
+</div>

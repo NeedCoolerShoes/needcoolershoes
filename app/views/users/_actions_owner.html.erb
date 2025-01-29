@@ -9,9 +9,12 @@
     <%= link_to "View My Favourites", skins_gallery_path(favourited_by: user.name), class: "btn-ncs" %>
   <% end %>
 </div>
-<% if user.skins.any? %>
-  <%= link_to "Export My Skins", user_export_path(user), class: "btn-ncs" %>
-<% end %>
+<div class="flex flex-col mob:flex-row mob:gap-2">
+  <% if user.skins.any? %>
+    <%= link_to "Export My Skins", user_export_path(user), class: "btn-ncs", "data-turbo": false %>
+  <% end %>
+  <%= link_to "Manage Accounts", user_accounts_path(user), class: "btn-ncs" %>
+</div>
 <div class="flex flex-col mob:flex-row mob:gap-2">
   <% if user == current_user %>
     <%= link_to "Edit Profile", edit_user_path(user), class: "btn-ncs" %>

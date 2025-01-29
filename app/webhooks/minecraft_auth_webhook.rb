@@ -73,7 +73,7 @@ class MinecraftAuthWebhook
         minecraft_token: minecraft_token, minecraft_token_expires_at: mc_expires_at,
         texture: texture, status: :authenticated
       )
-      return account if user.minecraft_account?
+      return account if user.minecraft_account.present?
 
       user.update(minecraft_account: account)
       account

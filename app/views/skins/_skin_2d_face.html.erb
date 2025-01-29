@@ -1,0 +1,21 @@
+<!-- NOTHING TO TRANSLATE -->
+<%
+  classes ||= "scaled"
+  width ||= "64px"
+  height ||= "64px"
+  url ||= nil
+%>
+<div class="relative skin group" data-id="<%= url %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
+  <div class="<%= classes %> skin-preview">
+    <div class="face display-<%= id %>">
+      <div class="face-overlay display-<%= id %>"></div>
+    </div>
+  </div>
+  <%= yield %>
+</div>
+
+<style>
+  .display-<%= id %> {
+    background-image: url('<%= data %>');
+  }
+</style>

@@ -1,3 +1,10 @@
+.scaled-lg {
+  transform-origin: left top;
+  image-rendering: pixelated;
+  /* transform: scale(5, 5); */
+  --ncs-scale: 8;
+}
+
 .scaled {
   transform-origin: left top;
   image-rendering: pixelated;
@@ -52,6 +59,10 @@
     calc(56px * var(--ncs-scale));
   background-size: calc(64px * var(--ncs-scale)) calc(64px * var(--ncs-scale));
   transform: scale(1.12);
+}
+
+.scaled-lg .face-overlay {
+  transform: scale(1.1);
 }
 
 .torso {

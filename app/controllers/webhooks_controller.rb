@@ -1,0 +1,19 @@
+class WebhooksController < ApplicationController
+  before_action :authenticate_user!, only: %i[minecraftauth]
+  protect_from_forgery with: :null_session
+
+  def minecraftauth
+    return redirect_to(root_path, alert: "#{params[:error].to_s.titleize}: #{params[:error_description]}") if params[:error]
+    return redirect_to(root_path, alert: "Unexpected Error: missing auth code") unless params[:code]
+    
+    MinecraftAuthWebhook.new.call(current_user, params[:code])
+
+    redirect_to user_accounts_path(current_user), notice: "Minecraft account linked successfully!"
+  # rescue StandardError => e
+  #   redirect_to root_path, alert: "Unexpected Error: #{e.message}"
+  end
+
+  def test
+    puts request.request_parameters
+  end
+end
