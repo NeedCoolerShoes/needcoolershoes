@@ -38,6 +38,11 @@
             <%= link_to t("common.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
           <% end %>
         <% end %>
+        <% if current_user&.moderator? && !@skin.minecraft_texture_url? %>
+          <%= form_with url: skin_mineskin_upload_path(@skin), method: :post, class: "" do |form| %>
+            <%= form.submit "Upload to Mineskin", class: "btn-ncs mb-0.5" %>
+          <% end %>
+        <% end %>
       </div>
       <div class="flex flex-col gap-1">
         <button

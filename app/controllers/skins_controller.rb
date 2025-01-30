@@ -1,15 +1,15 @@
 class SkinsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create update edit destroy minecraft_upload]
+  before_action :authenticate_user!, only: %i[create update edit destroy minecraft_upload mineskin_upload]
   before_action :set_skin, only: %i[
     show edit moderator_edit update moderator_update download minecraft_upload
-    texture destroy add_favourite remove_favourite preview social embed
+    texture destroy add_favourite remove_favourite preview social embed mineskin_upload
   ]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
 
-  require_role :moderator, only: %i[moderator_edit moderator_update]
+  require_role :moderator, only: %i[moderator_edit moderator_update mineskin_upload]
   nav_section :gallery
 
   after_action :allow_iframe, only: :embed
@@ -201,6 +201,17 @@ class SkinsController < ApplicationController
 
   def minecraft_upload
     @minecraft_accounts = current_user.minecraft_accounts.authenticated.order_by_primary
+  end
+
+  def mineskin_upload
+    @skin.upload_to_mineskin!
+
+    respond_to do |format|
+      format.html { redirect_to @skin, notice: "Skin successfully uploaded." }
+    end
+
+  rescue => error
+    redirect_to @skin, alert: "Error uploading skin."
   end
 
   private

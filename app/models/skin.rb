@@ -228,6 +228,20 @@ class Skin < ApplicationRecord
     "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{base64}\"}]}] 1"
   end
 
+  def upload_to_mineskin!
+    return true if minecraft_texture_url?
+
+    response = MineskinApi.upload_skin(ENV["MINESKIN_API_SECRET"], to_png, model)
+    raise "Error uploading skin" if response.code != 200
+
+    json = JSON.parse(response.to_s)
+    texture = json.dig("data", "texture", "url")
+
+    raise "Error uploading skin" unless texture.present?
+
+    update!(minecraft_texture_url: texture)
+  end
+
   private
 
   def send_creation_webhook

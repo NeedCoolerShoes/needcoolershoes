@@ -13,11 +13,7 @@ class WebhooksController < ApplicationController
     MinecraftAuthWebhook.new.call(current_user, params[:code])
 
     redirect_to redirect, notice: "Minecraft account linked successfully!"
-  # rescue StandardError => e
-  #   redirect_to root_path, alert: "Unexpected Error: #{e.message}"
-  end
-
-  def test
-    puts request.request_parameters
+  rescue StandardError => e
+    redirect_to root_path, alert: "Unexpected Error: #{e.message}"
   end
 end
