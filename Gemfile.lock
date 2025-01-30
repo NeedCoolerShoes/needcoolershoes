@@ -467,7 +467,6 @@ DEPENDENCIES
   discordrb (~> 3.4)
   dockerfile-rails (>= 1.2)
   http (~> 5.2)
-  http-form_data (~> 2.3)
   importmap-rails
   jbuilder
   local_time (~> 3.0)
