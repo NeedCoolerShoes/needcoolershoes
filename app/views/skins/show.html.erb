@@ -16,8 +16,8 @@
             skinViewer.nameTag = "<%= current_user.name %>"
           </script>
         <% end %>
-        <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
-        <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
+        <div class="absolute top-0 bottom-0 left-0 w-12 sm:hidden"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-12 sm:hidden"></div>
         <script src="/ncsassets/js/skins.js"></script>
       </div>
       <div
@@ -39,7 +39,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="flex flex-col mob:flex-row gap-1 sm:flex-col">
+      <div class="flex flex-col gap-1">
         <button
           onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
           class="edit btn-ncs mb-0.5" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
@@ -51,7 +51,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full">
+  <div class="w-full flex flex-col gap-2">
     <div class="bg-ncs-dark-700 p-4 text-ncs-dark-100">
       <div class="flex justify-between">
         <h2 class="text-4xl font-bold max-w-lg line-clamp-2" style="overflow-wrap: break-word;" title="<%= @skin.name %>"><%= @skin.name %></h2>
@@ -62,16 +62,7 @@
       <div class="flex flex-col font-bold">
         <p class="text-ncs-dark-300"><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
         <p>
-          by <%= link_to @skin.user.to_path do %>
-            <span class="underline"><%= @skin.user.display_name %></span>
-            <% if (badge = @skin.user.featured_badge).present? %>
-                <img class="inline w-4 border rounded-full box-content border-ncs-yellow-500 bg-ncs-yellow-500"
-                src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
-            <% end %>
-            <% if @skin.user.role? %>
-              <img class="inline" src="/ncsassets/img/medals/<%= @skin.user.role %>.png" alt="<%= @skin.user.role.titleize %>" title="<%= @skin.user.role.titleize %>">
-            <% end %>
-          <% end %>
+          by <%= profile_link @skin.user %>
         </p>
         <% if @skin.tags.any? %>
           <div class="text-ncs-dark-300 text-sm flex gap-1 flex-wrap">
@@ -100,24 +91,6 @@
         <div class="prose prose-ncs-dark">
           <%= markdown @skin.description %>
         </div>
-      <% end %>
-      <% if @skin.minecraft_texture_url? %>
-        <fieldset class="border border-ncs-dark-300 p-2 rounded mb-2">
-          <legend class="font-bold">Give Player Head</legend>
-          <div class="flex gap-2">
-            <textarea readonly="true" cols="5" name="give command"
-              id="give-command" class="w-full resize bg-ncs-dark-800 border-ncs-dark-300" value=""
-            ><%= @skin.to_player_head_command %></textarea>
-            <div class="relative">
-              <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
-                <%= heroicon "document-duplicate" %>
-              </button>
-              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
-                <%= t "actions.copied" %>
-              </span>
-            </div>
-          </div>
-        </fieldset>
       <% end %>
       <details class="space-y-2">
         <summary class="select-none cursor-pointer font-bold"><%= t "skins.attributions.self" %></summary>
@@ -164,35 +137,67 @@
         </fieldset>
       </details>
     </div>
+    <% if @skin.minecraft_texture_url? %>
+      <div class="bg-ncs-dark-700 text-ncs-dark-100">
+        <div class="bg-ncs-dark-800 p-1">
+          <h2>Give Player Head</h2>
+        </div>
+        <div class="flex gap-2 p-2">
+          <textarea readonly="true" cols="5" name="give command"
+            id="give-command" class="w-full resize bg-ncs-dark-800 border-ncs-dark-300" value=""
+          ><%= @skin.to_player_head_command %></textarea>
+          <div class="relative">
+            <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
+              <%= heroicon "document-duplicate" %>
+            </button>
+            <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+              <%= t "actions.copied" %>
+            </span>
+          </div>
+        </div>
+      </div>
+    <% end %>
     <% if @skin.user == current_user %>
-      <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
-        <h4 class="font-bold text-lg">My Stats</h4>
-        <p>Total Favourites: <%= @skin.favourites.count %></p>
-        <p>Total Downloads: <%= @skin.download_count || 0 %></p>
-        <% if @skin.modlogs.any? %>
-          <%= link_to "See moderation log", modlog_path(id: @skin.id, type: "Skin"), class: "underline text-ncs-dark-300 text-xs" %>
-        <% end %>
+      <div class="bg-ncs-dark-700 text-ncs-dark-100">
+        <div class="bg-ncs-dark-800 p-1">
+          <h2>My Stats</h2>
+        </div>
+        <div class="p-2">
+          <p>Total Favourites: <%= @skin.favourites.count %></p>
+          <p>Total Downloads: <%= @skin.download_count || 0 %></p>
+          <% if @skin.modlogs.any? %>
+            <%= link_to "See moderation log", modlog_path(id: @skin.id, type: "Skin"), class: "underline text-ncs-dark-300 text-xs" %>
+          <% end %>
+        </div>
       </div>
     <% end %>
     <% if @attributions.any? %>
-      <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
-        <h4 class="font-bold text-lg">Parts Used</h4>
-        <div class="flex flex-wrap gap-2 items-start">
-          <%= render partial: "attribution", collection: @attributions, as: :attribution %>
+      <div class="bg-ncs-dark-700 text-ncs-dark-100">
+        <div class="bg-ncs-dark-800 p-1">
+          <h2>Parts Used</h2>
         </div>
-        <details>
-          <summary class="text-sm cursor-pointer select-none">Attribution Text</summary>
-          <%= render partial: "attribution_text", collection: @attributions, as: :attribution %>
-        </details>
+        <div class="p-2">
+          <div class="flex flex-wrap gap-2 items-start">
+            <%= render partial: "attribution", collection: @attributions, as: :attribution %>
+          </div>
+          <details>
+            <summary class="text-sm cursor-pointer select-none">Attribution Text</summary>
+            <%= render partial: "attribution_text", collection: @attributions, as: :attribution %>
+          </details>
+        </div>
       </div>
     <% end %>
     <% if @variants.any? %>
-    <div class="bg-ncs-dark-700 p-4 mt-2 text-ncs-dark-100">
-      <h4 class="font-bold text-lg">Used In</h4>
-      <div class="flex flex-wrap gap-2 items-start">
-        <%= render partial: "attribution", collection: @variants, as: :attribution, locals: {variant: true} %>
+      <div class="bg-ncs-dark-700 text-ncs-dark-100">
+        <div class="bg-ncs-dark-800 p-1">
+          <h2>Used In</h2>
+        </div>
+        <div class="p-2">
+          <div class="flex flex-wrap gap-2 items-start">
+            <%= render partial: "attribution", collection: @variants, as: :attribution, locals: {variant: true} %>
+          </div>
+        </div>
       </div>
-    </div>
     <% end %>
   </div>
 </div>

@@ -43,5 +43,9 @@ class MinecraftApi < BaseApi
         url: skin_url
       })
     end
+
+    def get_profile(minecraft_token)
+      HTTP.auth("Bearer #{minecraft_token}").get("https://api.minecraftservices.com/minecraft/profile")
+    end
   end
 end

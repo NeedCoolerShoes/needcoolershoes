@@ -14,7 +14,13 @@
           <%= form.submit "Set skin for Account", class: "btn-ncs text-base px-4 py-1" %>
         <% end %>
       <% else %>
-        <p>Skin already matches</p>
+        <div>
+          <p class="mb-2">Skin already matches</p>
+          <%= form_with url: user_refresh_account_path(user, @minecraft_account), method: :post, class: "" do |form| %>
+            <%= form.hidden_field :redirect, value: skin_minecraft_upload_url(@skin) %>
+            <%= form.submit "Refresh Profile", class: "btn-ncs text-sm px-2 py-0.5" %>
+          <% end %>
+        </div>
       <% end %>
     <% else %>
       <% if !authenticated? %>

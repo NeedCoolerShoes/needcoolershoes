@@ -2,7 +2,7 @@ class MinecraftAccountsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user
   before_action :validate_user
-  before_action :set_minecraft_account, only: %i[destroy change_skin]
+  before_action :set_minecraft_account, only: %i[destroy change_skin refresh]
   before_action :set_skin, only: %i[change_skin]
 
   def index
@@ -48,6 +48,18 @@ class MinecraftAccountsController < ApplicationController
 
   rescue => error
     redirect_to skin_minecraft_upload_path(@skin), alert: "Unexpected error: #{error.message}"
+  end
+
+  def refresh
+    redirect = params[:redirect] || user_accounts_path(@user)
+    @minecraft_account.refresh!
+
+    respond_to do |format|
+      format.html { redirect_to redirect, notice: "Account #{@minecraft_account.username} refreshed." }
+    end
+
+  rescue => error
+    redirect_to redirect, alert: "Unexpected error: #{error.message}"
   end
 
   private

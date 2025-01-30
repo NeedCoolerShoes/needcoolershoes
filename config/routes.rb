@@ -108,6 +108,7 @@ Rails.application.routes.draw do
     get "accounts/connect", to: "minecraft_accounts#connect"
     post "accounts/:id/make_primary", to: "minecraft_accounts#make_primary", as: "make_account_primary"
     post "accounts/:id/change_skin", to: "minecraft_accounts#change_skin", as: "change_account_skin"
+    post "accounts/:id/refresh", to: "minecraft_accounts#refresh", as: "refresh_account"
     resources :minecraft_accounts, only: %i[index destroy], path: "accounts", as: "accounts"
   end
 

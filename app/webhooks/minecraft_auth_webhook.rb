@@ -1,6 +1,4 @@
 class MinecraftAuthWebhook
-  DEFAULT_STEVE="http://textures.minecraft.net/texture/d5c4ee5ce20aed9e33e866c66caa37178606234b3721084bf01d13320fb2eb3f"
-
   def call(user, code)
     refresh_token, minecraft_token = authenticate(code)
     create_or_update_record(user, refresh_token, minecraft_token)
@@ -81,7 +79,7 @@ class MinecraftAuthWebhook
     uuid = profile["id"]
     username = profile["name"]
 
-    texture = profile.dig("skins", 0, "url") || DEFAULT_STEVE
+    texture = profile.dig("skins", 0, "url") || MinecraftAccount::DEFAULT_STEVE
 
     mc_expires_at = Time.current + 24.hours
     

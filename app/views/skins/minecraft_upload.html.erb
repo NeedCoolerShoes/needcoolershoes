@@ -16,19 +16,22 @@
             skinViewer.nameTag = "<%= current_user.name %>"
           </script>
         <% end %>
-        <div class="absolute top-0 bottom-0 left-0 w-12 mob:hidden"></div>
-        <div class="absolute top-0 bottom-0 right-0 w-12 mob:hidden"></div>
+        <div class="absolute top-0 bottom-0 left-0 w-12 sm:hidden"></div>
+        <div class="absolute top-0 bottom-0 right-0 w-12 sm:hidden"></div>
         <script src="/ncsassets/js/skins.js"></script>
+      </div>
+      <div>
+        <%= link_to "Back to Skin", @skin, class: "btn-ncs" %>
       </div>
     </div>
   </div>
   <div class="w-full">
     <div class="bg-ncs-dark-700 p-4 text-ncs-dark-100">
-      <%= link_to "Back to Skin", @skin, class: "underline text-white" %>
       <h1 class="text-4xl">Select account to upload skin</h1>
       <p>This will change your in-game skin for that account.</p>
       <%= link_to "Connect Minecraft Account",
-        user_accounts_connect_path(current_user, redirect: skin_minecraft_upload_url(@skin)), class: "underline text-white mr-2"
+        user_accounts_connect_path(current_user, redirect: skin_minecraft_upload_url(@skin)),
+        class: "underline text-white mr-2", "data-turbo": false
       %>
       <%= link_to "Manage Accounts", user_accounts_path(current_user), class: "underline text-white" %>
       <% if @minecraft_accounts.any? %>

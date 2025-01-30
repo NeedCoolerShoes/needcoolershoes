@@ -1,4 +1,6 @@
 class MinecraftAccount < ApplicationRecord
+  DEFAULT_STEVE="http://textures.minecraft.net/texture/d5c4ee5ce20aed9e33e866c66caa37178606234b3721084bf01d13320fb2eb3f"
+
   belongs_to :user
   has_one :user_set_primary, class_name: "User", dependent: :nullify
   
@@ -48,6 +50,18 @@ class MinecraftAccount < ApplicationRecord
     user.update!(minecraft_account: self)
   end
 
+  def refresh!
+    response = try_refresh_profile(minecraft_token)
+
+    raise "Failed to refresh account" if !response
+    profile = JSON.parse(response.to_s)
+
+    username = profile["name"]
+    texture = profile.dig("skins", 0, "url") || DEFAULT_STEVE
+
+    update!(username: username, texture: texture)
+  end
+
   private
 
   def try_change_skin(token, url, variant, retried = false)
@@ -57,7 +71,7 @@ class MinecraftAccount < ApplicationRecord
     raise "Unknown error" if response.code != 401
     raise "Failed to refresh minecraft account" if retried
 
-    _, new_minecraft_token = refresh!
+    _, new_minecraft_token = refresh_tokens!
 
     try_change_skin(new_minecraft_token, url, variant, true)
   rescue => error
@@ -73,7 +87,7 @@ class MinecraftAccount < ApplicationRecord
     raise "Unknown error" if response.code != 401
     raise "Failed to refresh minecraft account" if retried
 
-    _, new_minecraft_token = refresh!
+    _, new_minecraft_token = refresh_tokens!
 
     try_upload_skin(new_minecraft_token, data, variant, true)
   rescue => error
@@ -81,7 +95,22 @@ class MinecraftAccount < ApplicationRecord
     false
   end
 
-  def refresh!
+  def try_refresh_profile(token, retried = false)
+    response = MinecraftApi.get_profile(token)
+
+    return response if response.code == 200
+    raise "Unknown error" if response.code != 401
+    raise "Failed to refresh minecraft account" if retried
+
+    _, new_minecraft_token = refresh_tokens!
+
+    try_refresh_profile(new_minecraft_token, true)
+  rescue => error
+    update(status: :expired)
+    false
+  end
+
+  def refresh_tokens!
     client = MinecraftAuthWebhook.new
     new_refresh_token, new_minecraft_token = client.refresh(refresh_token)
 
