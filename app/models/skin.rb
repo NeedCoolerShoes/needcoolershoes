@@ -223,7 +223,7 @@ class Skin < ApplicationRecord
       }
     }
 
-    base64 = Base64.encode64(data.to_json)
+    base64 = Base64.urlsafe_encode64(data.to_json, padding: false)
 
     "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{base64}\"}]}] 1"
   end
