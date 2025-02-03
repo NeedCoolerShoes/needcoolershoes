@@ -60,7 +60,7 @@ class Skin < ApplicationRecord
   validates :name, length: {maximum: 128}
   validates :description, length: {maximum: 1024}
   validates :terms_and_conditions, acceptance: true
-  validates :minecraft_texture_url, format: {with: /\Ahttps?:\/\/textures.minecraft.net\/texture\/\S+\z/, message: "must be a minecraft texture url"}
+  validates :minecraft_texture_url, format: {with: /\Ahttps?:\/\/textures.minecraft.net\/texture\/\S+\z/, message: "must be a minecraft texture url"}, if: :minecraft_texture_url?
   
   # Skin filters
   scope :hidden, -> { where(hidden: true) }
