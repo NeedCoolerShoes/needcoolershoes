@@ -16,6 +16,7 @@ module GalleryFilters
 
     scope :ordered_by, ->(ordering) {
       case ordering
+      when "hot" then order_by_hotness
       when "favourite" then order_by_favourites
       when "old" then order_by_created(:asc)
       when "new_updated" then order_by_updated

@@ -33,7 +33,7 @@ class SkinsController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @pagy, @skins = pagy(skins, items: items)
-    @skins_all = skins
+    @tags = skins.top_tags(10)
     index_meta_config
   rescue Pagy::OverflowError
     not_found_error
@@ -308,7 +308,7 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden).permit!
+    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden, :debug).permit!
   end
 
   def allow_iframe

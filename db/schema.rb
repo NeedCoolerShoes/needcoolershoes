@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_30_084743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
     t.boolean "hidden", default: false
     t.integer "tag_cache", default: [], null: false, array: true
     t.string "search_cache", default: "", null: false
+    t.integer "rank", default: 0, null: false
     t.index ["user_id"], name: "index_banners_on_user_id"
   end
 
@@ -110,7 +111,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "translation_key", default: "", null: false
   end
 
   create_table "skin_jam_winners", force: :cascade do |t|
@@ -140,7 +140,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "translation_key", default: "", null: false
   end
 
   create_table "skins", force: :cascade do |t|
@@ -163,6 +162,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
     t.integer "tag_cache", default: [], null: false, array: true
     t.string "search_cache", default: "", null: false
     t.string "minecraft_texture_url"
+    t.integer "rank", default: 0, null: false
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"
@@ -261,6 +261,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_29_081538) do
   add_foreign_key "user_badges", "badges"
   add_foreign_key "user_badges", "users"
   add_foreign_key "users", "badges", column: "featured_badge_id"
-  add_foreign_key "users", "minecraft_accounts"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end

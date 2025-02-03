@@ -17,6 +17,11 @@ class BannersController < ApplicationController
     @gallery_params = gallery_params
     banners = Banner.visible.with_params(@gallery_params)
     banners = banners.merge(Banner.order_by_created) unless gallery_params[:order].present?
+
+    if @gallery_params[:hidden] && current_user.authorized?(:moderator)
+      banners = banners.merge(Banner.hidden)
+    end
+
     @pagy, @banners = pagy(banners, items: items)
     @banners_all = banners
     @gallery_tab = :banners
@@ -156,7 +161,7 @@ class BannersController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility).permit!
+    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug).permit!
   end
 
   def banner_params

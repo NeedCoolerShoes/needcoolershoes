@@ -32,6 +32,10 @@ class Skin < ApplicationRecord
   include Taggable
   include Searchable
 
+  SortableByHot::KARMA_MULT = 0.5
+  SortableByHot::FAVOURITES_MULT = 1.0
+  include SortableByHot
+
   add_gallery_filters PARAMS
 
   delegate :url_helpers, to: "Rails.application.routes"

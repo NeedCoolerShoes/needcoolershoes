@@ -58,6 +58,7 @@
     <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
       <%
         orderings = {
+          "hot" => "Hot",
           "favourite" => "Most Favourited",
           "new" => "Newest",
           "old" => "Oldest",
@@ -79,6 +80,10 @@
       <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
         <%= banners_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "", "My Banners" %>
         <%= banners_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "", "My Favourites" %>
+        <% if current_user.authorized?(:moderator) %>
+          <%= banners_gallery_filter_tag params, :hidden, "true", "Hidden Banners", "Hidden Banners" %>
+          <%= banners_gallery_filter_tag params, :debug, "rank", "Debug: Rank", "Debug: Rank" %>
+        <% end %>
       </div>
     </div>
   <% end %>

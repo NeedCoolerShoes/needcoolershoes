@@ -1,5 +1,12 @@
 <%= render Gallery::CardComponent.new(url: @skin.to_title_path) do |card| %>
   <% card.with_overlay do %>
+    <% if params[:debug] == "rank" %>
+      <div class="text-white text-sm absolute top-0 left-0 p-2 pt-1 z-10 bg-black/70">
+        <p title="<%= @skin.rank_debug %>">
+          + <%= @skin.rank - @skin.created_at.to_i / 3600 %>
+        </p>
+      </div>
+    <% end %>
     <% if show_visibility? %>
       <div class="absolute top-0 left-0 p-2">
         <%= heroicon icon, class: "text-ncs-dark-300", title: @skin.visibility.titleize %>
