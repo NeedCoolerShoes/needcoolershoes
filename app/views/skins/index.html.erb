@@ -3,7 +3,7 @@
 <%= render partial: "shared/welcome" if params[:welcome].present? %>
 
 <% content_for :filters do %>
-  <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, skins: @skins_all} %>
+  <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, tags: @tags} %>
 <% end %>
 
 <% content_for :before_gallery do %>

@@ -6,7 +6,10 @@ class SkinAttribution < ApplicationRecord
   scope :visible_to_user, ->(user) { where(skin_id: Skin.visible_to_user(user)) }
   scope :attributed_visible_to_user, ->(user) { where(attributed_skin_id: Skin.visible_to_user(user)) }
 
+  scope :not_by_user, ->(user) { joins(:skin).where.not(skin: {user: user}) }
+
   validates :attributed_skin, uniqueness: {scope: :skin}
+  after_create :update_target_rank
 
   def self.create_from_url(skin, url, author = nil, *_)
     base_url = Routing.skins_url + "/"
@@ -21,5 +24,11 @@ class SkinAttribution < ApplicationRecord
     end
 
     attribution.save
+  end
+
+  private
+
+  def update_target_rank
+    attributed_skin.update_ranking!
   end
 end

@@ -5,6 +5,10 @@ class Banner < ApplicationRecord
   include Taggable
   include Searchable
 
+  SortableByHot::KARMA_MULT = 0
+  SortableByHot::FAVOURITES_MULT = 2.5
+  include SortableByHot
+
   SURVIVAL_FRIENDLY_LENGTH = 14
 
   add_gallery_filters({
