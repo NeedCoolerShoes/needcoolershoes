@@ -56,6 +56,11 @@ RailsAdmin.config do |config|
     config.model(model_name) { configure :description, :markdown }
   end
 
+  config.model "MinecraftAccount" do
+    configure(:minecraft_token) { hide }
+    configure(:refresh_token) { hide }
+  end
+
   config.model "User" do
     configure :biography, :markdown
   end
