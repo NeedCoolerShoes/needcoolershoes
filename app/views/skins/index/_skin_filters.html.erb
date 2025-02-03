@@ -76,6 +76,7 @@
         <%= skins_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "", "My Favourites" %>
         <% if current_user.authorized?(:moderator) %>
           <%= skins_gallery_filter_tag params, :hidden, "true", "Hidden Skins", "Hidden Skins" %>
+          <%= skins_gallery_filter_tag params, :debug, "rank", "Debug: Rank", "Debug: Rank" %>
         <% end %>
       </div>
     </div>
