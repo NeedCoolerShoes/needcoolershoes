@@ -29,6 +29,7 @@ class SkinAttribution < ApplicationRecord
   private
 
   def update_target_rank
+    return unless attributed_skin_id?
     attributed_skin.update_ranking!
   end
 end
