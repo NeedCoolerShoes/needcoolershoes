@@ -99,10 +99,18 @@
     border: 0;
 }
 
+.pointer-events-passthrough {
+  pointer-events: none;
+}
+
 .pointer-events-passthrough div {
   pointer-events: none;
 }
 
 .pointer-events-passthrough :not(div) {
   pointer-events: initial;
+}
+
+.pointer-events-passthrough :not(div).pointer-events-none {
+  pointer-events: none;
 }
