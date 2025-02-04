@@ -94,7 +94,7 @@ Rails.application.routes.draw do
   resources :badges, except: :index
 
   scope :users do
-    get ":id", to: redirect('@%{id}')
+    get ":id", to: "users#redirect"
     resource :otp, controller: "otp", only: %i[update destroy] do
       get "backup-codes", to: "otp#backup_codes", as: "backup_codes"
       get "verify"

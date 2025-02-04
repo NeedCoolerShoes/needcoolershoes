@@ -5,6 +5,11 @@ class UsersController < ApplicationController
 
   require_role :moderator, only: %i[moderator_edit moderator_update]
 
+  def redirect
+    name = URI.encode_uri_component(params[:id].to_s)
+    redirect_to("/@#{name}", status: :moved_permanently)
+  end
+
   def show
     meta_config do |config|
       config.title = "#{@user.display_name}'s Profile".truncate(32)
