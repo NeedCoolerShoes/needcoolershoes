@@ -3,24 +3,35 @@ class Favourite < ApplicationRecord
   belongs_to :target, polymorphic: true, counter_cache: true
 
   attribute :karma, :integer, default: 0
-
-  before_create :set_karma_from_user
-  after_create :update_target_rank
-
   validates :target_id, uniqueness: {scope: %i[target_type user_id]}
 
   scope :not_by_user, ->(user) { where.not(user: user) }
 
-  private
+  def self.add_favourite(user, target)
+    favourite = new(target: target, user: user)
+    favourite.karma = user.favourite_grant
+    result = favourite.save
 
-  def set_karma_from_user
-    return unless user.present? && target.present?
-    return if target.user_id == user_id
-    self.karma = user.favourite_grant
+    if result && target.respond_to?(:update_ranking!)
+      target.update_ranking!
+    end
+
+    result
   end
 
-  def update_target_rank
-    raise "Missing Sortable by Hot!" unless target.respond_to?(:update_ranking!)
-    target.update_ranking!
+  def self.remove_favourite(user, target)
+    favourite = find_by(user: user, target: target)
+    return false unless favourite
+    favourite.remove_favourite
+  end
+
+  def remove_favourite
+    result = destroy.destroyed?
+
+    if result
+      target.update_ranking!
+    end
+
+    result
   end
 end
