@@ -59,6 +59,8 @@
             <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
           </div>
 
+          <%= hidden_field_tag :redirect, current_page %>
+
           <%= form.submit "Update Skin", class: "btn-ncs text-base py-0.5 px-2 mt-2" %>
         <% end %>
       </div>
