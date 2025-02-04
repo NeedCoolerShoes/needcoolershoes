@@ -24,6 +24,47 @@
     </div>
   <% end %>
 
+  <% card.with_quick_actions do %>
+    <div class="p-2" data-controller="hidden-toggle">
+      <h3 class="text-white text-2xl font-bold text-center mb-2">Quick Actions</h3>
+      <div data-hidden-toggle-target="select" data--select="main">
+        <%= link_to "Moderate Skin", skin_moderate_path(@skin), class: "btn-ncs text-base py-0.5 px-2 mb-4" %>
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="quick-moderate" class="btn-ncs text-base py-0.5 px-2">
+          Quick Moderate
+        </button>
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="categorize" class="btn-ncs text-base py-0.5 px-2">
+          Update Part / Category
+        </button>
+      </div>
+      <div data-hidden-toggle-target="select" data--select="quick-moderate" class="hidden">
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
+          Back
+        </button>
+        <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+        <%= button_to "Mark NSFW", skin_quick_action_path(@skin, "nsfw"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+        <%= button_to "Mark Nazi / Hate", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+      </div>
+      <div data-hidden-toggle-target="select" data--select="categorize" class="hidden text-white">
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
+          Back
+        </button>
+        <%= form_with url: skin_quick_action_path(@skin, "categorize"), model: @skin do |form| %>
+          <div class="flex flex-col gap-1 -mt-2">
+            <%= form.label :skin_part_id %>
+            <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <%= form.label :skin_category_id %>
+            <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+          </div>
+
+          <%= form.submit "Update Skin", class: "btn-ncs text-base py-0.5 px-2 mt-2" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="h-full flex flex-col justify-between">
     <div class="mb-1 h-4">
       <% if @skin.tag_cache? %>
@@ -40,7 +81,7 @@
           -
           <%= link_to @skin.skin_category.name, skins_gallery_path(@params.merge(category: @skin.skin_category.name)), class: "underline" %>
         </p>
-        <p class="line-clamp-1 break-all">
+        <p class="line-clamp-1 break-all pr-4">
           by <%= profile_link @skin.user %>
         </p>
       </div>

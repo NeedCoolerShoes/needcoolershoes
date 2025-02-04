@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   post "skins/:id/favourite", to: "skins#add_favourite", as: "create_skin_favourite"
   post "skins/:id/upload-to-mineskin", to: "skins#mineskin_upload", as: "skin_mineskin_upload"
   patch "skins/:id/moderate", to: "skins#moderator_update", as: "update_skin_moderate"
+  post "skins/:id/moderate/:action_id", to: "skins#quick_action", as: "skin_quick_action"
+  patch "skins/:id/moderate/:action_id", to: "skins#quick_action"
   delete "skins/:id/favourite", to: "skins#remove_favourite", as: "destroy_skin_favourite"
   resources :skins, only: %i[create show edit destroy update]
 

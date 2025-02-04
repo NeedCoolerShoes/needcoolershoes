@@ -2,14 +2,14 @@ class SkinsController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit destroy minecraft_upload mineskin_upload]
   before_action :set_skin, only: %i[
     show edit moderator_edit update moderator_update download minecraft_upload
-    texture destroy add_favourite remove_favourite preview social embed mineskin_upload
+    texture destroy add_favourite remove_favourite preview social embed mineskin_upload quick_action
   ]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
 
-  require_role :moderator, only: %i[moderator_edit moderator_update mineskin_upload]
+  require_role :moderator, only: %i[moderator_edit moderator_update mineskin_upload quick_action]
   nav_section :gallery
 
   after_action :allow_iframe, only: :embed
@@ -213,6 +213,20 @@ class SkinsController < ApplicationController
     redirect_to @skin, alert: "Error uploading skin."
   end
 
+  def quick_action
+    redirect_path = params[:redirect] || skins_gallery_path
+
+    respond_to do |format|
+      case params[:action_id]
+      when "duplicate" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Skin is a duplicate of another skin.")
+      when "nsfw" then qa_moderate(format, redirect_path, {hidden: true}, "NSFW content is not allowed on the site.")
+      when "hate" then qa_moderate(format, redirect_path, {hidden: true}, "Imagery of Nazis / hate groups is not allowed on the site.")
+      when "categorize" then qa_moderate(format, redirect_path, skin_params, "Moved skin to another part / category.")
+      else not_found_error
+      end
+    end
+  end
+
   private
 
   def index_meta_config
@@ -307,10 +321,31 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden, :debug).permit!
+    params.slice(*Skin.gallery_params).permit!
   end
 
   def allow_iframe
     response.headers.except! "X-Frame-Options"
+  end
+
+  # Quick Actions
+  
+  def qa_mark_duplicate(format, redirect)
+    format.html { redirect_to redirect }
+  end
+
+  def qa_moderate(format, redirect, params, reason)
+    old_attr = @skin.attributes
+    skin, modlog = nil
+    ActiveRecord::Base.transaction do
+      skin = @skin.update!(params)
+      new_attr = @skin.reload.attributes
+      modlog = Modlog.generate!(@skin, current_user, old_attr, new_attr, reason)
+    end
+    raise "Error saving skin or modlog" unless skin && modlog
+
+    format.html { redirect_to redirect, notice: "Skin was successfully updated." }
+  rescue
+    format.html { redirect_to redirect, alert: "Error saving skin." }
   end
 end

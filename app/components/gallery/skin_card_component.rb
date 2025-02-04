@@ -23,4 +23,9 @@ class Gallery::SkinCardComponent < ViewComponent::Base
     else "eye-slash"
     end
   end
+
+  def current_page
+    permitted_params = params.slice(*Skin.gallery_params).permit!
+    skins_gallery_path(permitted_params)
+  end
 end

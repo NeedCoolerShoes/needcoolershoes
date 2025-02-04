@@ -97,6 +97,10 @@ class Skin < ApplicationRecord
       metadata_file.unlink
       zip_file
     end
+
+    def gallery_params
+      [:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden, :debug]
+    end
   end
 
   def can_user_open_in_editor?(some_user)

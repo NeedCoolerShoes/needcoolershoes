@@ -1,4 +1,4 @@
-<div class="flex justify-center relative">
+<div class="card flex justify-center relative" data-controller="hidden-toggle">
   <%= link_to "", url, class: "absolute top-0 bottom-0 left-0 right-0", "aria-label": title %>
   <div class="relative grow flex flex-col group rounded h-full border-b-4 bg-ncs-dark-700 border-ncs-dark-700 max-w-72 shadow-lg cursor-pointer overflow-clip pointer-events-passthrough">
     <%= overlay %>
@@ -6,5 +6,16 @@
     <div class="grow cursor-auto px-4 pb-4 pt-2 font-bold text-ncs-dark-100 bg-ncs-dark-500 rounded-b">
       <%= content %>
     </div>
+    <% if is_moderator? && quick_actions? %>
+      <button data-action="click->hidden-toggle#toggle" class="absolute bottom-0 right-0 z-20 p-2">
+        <%= heroicon "bars-3", class: "text-white", "data-hidden-toggle-target": "hidden" %>
+        <%= heroicon "x-mark", class: "text-white hidden", "data-hidden-toggle-target": "hidden" %>
+      </button>
+    <% end %>
   </div>
+  <% if is_moderator? %>
+    <div class="hidden absolute top-0 bottom-0 left-0 right-0 bg-black/50 backdrop-blur-sm z-10" data-hidden-toggle-target="hidden">
+      <%= quick_actions %>
+    </div>
+  <% end %>
 </div>
