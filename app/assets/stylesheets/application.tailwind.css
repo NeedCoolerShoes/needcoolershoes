@@ -56,7 +56,11 @@
 }
 
 .page.gap {
-  @apply btn-ncs-disabled
+  @apply invisible p-0 w-[1px];
+}
+
+.page.gap::before {
+  @apply content-[""] block border-l border-ncs-dark-500 h-full visible
 }
 
 .page.active {
@@ -93,4 +97,12 @@
     white-space: nowrap;
     text-indent: -20px;
     border: 0;
+}
+
+.pointer-events-passthrough div {
+  pointer-events: none;
+}
+
+.pointer-events-passthrough :not(div) {
+  pointer-events: initial;
 }
