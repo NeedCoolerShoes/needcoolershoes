@@ -8,6 +8,8 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "marksmith" %>
+    
     <%= content_for?(:styles) ? yield(:styles) : nil %>
     <%= javascript_importmap_tags %>
     <%= content_for?(:scripts) ? yield(:scripts) : nil %>
