@@ -14,7 +14,9 @@
 
   <div class="flex flex-col gap-1">
     <%= form.label :biography, "Biography (Markdown Formatted)" %>
-    <%= form.text_area :biography, class: "text-black", rows: 8 %>
+    <div class="bg-white text-black">
+      <%= form.marksmith :biography, enable_file_uploads: false, rows: 6 %>
+    </div>
   </div>
 
   <div class="flex flex-col gap-1">
