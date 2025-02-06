@@ -13,9 +13,7 @@
 
 <div class="flex flex-col gap-2">
   <%= form.label :description, "Description (Optional)", class: "m-0" %>
-  <div class="bg-white text-black">
-    <%= form.marksmith :description, enable_file_uploads: false, rows: 4 %>
-  </div>
+  <%= form.text_area :description, class: "text-black" %>
 </div>
 
 <div class="flex flex-col gap-2">

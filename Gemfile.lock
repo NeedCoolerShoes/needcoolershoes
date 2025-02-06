@@ -208,9 +208,6 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.4)
-    marksmith (0.1.2)
-      activesupport
-      redcarpet
     matrix (0.4.2)
     memory_profiler (1.1.0)
     method_source (1.1.0)
@@ -473,7 +470,6 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   local_time (~> 3.0)
-  marksmith (~> 0.1)
   memory_profiler
   oily_png (~> 1.2)
   opentelemetry-exporter-otlp (~> 0.26.2)
