@@ -40,6 +40,9 @@
         <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
           Back
         </button>
+        <% if @skin.classic? %>
+          <%= button_to "Change model to Slim", skin_quick_action_path(@skin, "slim"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+        <% end %>
         <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
         <%= button_to "Mark NSFW", skin_quick_action_path(@skin, "nsfw"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
         <%= button_to "Mark Nazi / Hate", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>

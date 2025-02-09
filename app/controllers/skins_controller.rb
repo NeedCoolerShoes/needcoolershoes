@@ -219,6 +219,7 @@ class SkinsController < ApplicationController
     respond_to do |format|
       case params[:action_id]
       when "duplicate" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Skin is a duplicate of another skin.")
+      when "slim" then qa_moderate(format, redirect_path, {model: :slim}, "Changed skin model from Classic to Slim.")
       when "nsfw" then qa_moderate(format, redirect_path, {hidden: true}, "NSFW content is not allowed on the site.")
       when "hate" then qa_moderate(format, redirect_path, {hidden: true}, "Imagery of Nazis / hate groups is not allowed on the site.")
       when "categorize" then qa_moderate(format, redirect_path, skin_params, "Moved skin to another part / category.")
