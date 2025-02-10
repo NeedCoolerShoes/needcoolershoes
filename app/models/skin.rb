@@ -76,6 +76,7 @@ class Skin < ApplicationRecord
 
   after_create :send_creation_webhook, if: :is_public?
   after_create :embed_watermark!, unless: -> { user.watermark_disabled? }
+  after_create :automatic_upload, if: :is_public?
 
   class << self
     def export_to_zip(skins = all)
@@ -239,7 +240,7 @@ class Skin < ApplicationRecord
   def upload_to_mineskin!
     return true if minecraft_texture_url?
 
-    response = MineskinApi.upload_skin(ENV["MINESKIN_API_SECRET"], to_png, model)
+    response = MineskinApi.upload_skin(ENV["MINESKIN_API_SECRET"], to_png, name, model)
     raise "Error uploading skin" if response.code != 200
 
     json = JSON.parse(response.to_s)
@@ -256,6 +257,13 @@ class Skin < ApplicationRecord
     Discord::NewSkinWebhook.send_webhook(self)
   rescue
     nil
+  end
+
+  def automatic_upload
+    return unless skin_part.automatic_upload?
+    return unless ENV["MINESKIN_API_SECRET"]
+
+    MineskinUploadJob.perform_later(self)
   end
 
   def cache_image_file(img_path, data)
