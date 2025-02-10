@@ -4,6 +4,8 @@
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 
+<%= turbo_stream_from @skin, :give_command %>
+
 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
   <div class="sm:max-w-[250px] lg:max-w-[364px] w-full">
     <div class="col-left flex flex-col gap-2">
@@ -36,11 +38,6 @@
             <%= link_to t("common.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <% else %>
             <%= link_to t("common.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
-          <% end %>
-        <% end %>
-        <% if current_user&.moderator? && !@skin.minecraft_texture_url? %>
-          <%= form_with url: skin_mineskin_upload_path(@skin), method: :post, class: "" do |form| %>
-            <%= form.submit "Upload to Mineskin", class: "btn-ncs mb-0.5" %>
           <% end %>
         <% end %>
       </div>
@@ -142,25 +139,8 @@
         </fieldset>
       </details>
     </div>
-    <% if @skin.minecraft_texture_url? %>
-      <div class="bg-ncs-dark-700 text-ncs-dark-100">
-        <div class="bg-ncs-dark-800 p-1">
-          <h2>Give Player Head</h2>
-        </div>
-        <div class="flex gap-2 p-2">
-          <textarea readonly="true" cols="5" name="give command"
-            id="give-command" class="w-full resize bg-ncs-dark-800 border-ncs-dark-300" value=""
-          ><%= @skin.to_player_head_command %></textarea>
-          <div class="relative">
-            <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
-              <%= heroicon "document-duplicate" %>
-            </button>
-            <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
-              <%= t "actions.copied" %>
-            </span>
-          </div>
-        </div>
-      </div>
+    <% if @skin.minecraft_texture_url? || (current_user&.moderator? || @skin.skin_part.can_manually_upload?) %>
+      <%= render partial: "give_command", locals: { skin: @skin } %>
     <% end %>
     <% if @skin.user == current_user %>
       <div class="bg-ncs-dark-700 text-ncs-dark-100">

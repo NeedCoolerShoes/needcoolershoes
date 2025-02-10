@@ -9,7 +9,7 @@ class SkinsController < ApplicationController
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
 
-  require_role :moderator, only: %i[moderator_edit moderator_update mineskin_upload quick_action]
+  require_role :moderator, only: %i[moderator_edit moderator_update quick_action]
   nav_section :gallery
 
   after_action :allow_iframe, only: :embed
@@ -203,14 +203,14 @@ class SkinsController < ApplicationController
   end
 
   def mineskin_upload
-    @skin.upload_to_mineskin!
+    return forbidden_error if !current_user.moderator? && !@skin.skin_part.can_manually_upload?
+    return forbidden_error if @skin.minecraft_texture_url?
+
+    @skin.schedule_mineskin_upload
 
     respond_to do |format|
-      format.html { redirect_to @skin, notice: "Skin successfully uploaded." }
+      format.html { redirect_to @skin, notice: "Skin is being uploaded..." }
     end
-
-  rescue => error
-    redirect_to @skin, alert: "Error uploading skin."
   end
 
   def quick_action

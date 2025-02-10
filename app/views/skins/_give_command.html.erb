@@ -1,0 +1,35 @@
+<div id="skin:give_command_<%= skin.id %>" class="bg-ncs-dark-700 text-ncs-dark-100">
+  <div class="bg-ncs-dark-800 p-1">
+    <h2>Give Player Head</h2>
+  </div>
+  <% if skin.texture_resolved? %>
+    <div class="flex gap-2 p-2">
+      <textarea readonly="true" cols="5" name="give command"
+        id="give-command" class="w-full resize bg-ncs-dark-800 border-ncs-dark-300" value=""
+      ><%= skin.to_player_head_command %></textarea>
+      <div class="relative">
+        <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
+          <%= heroicon "document-duplicate" %>
+        </button>
+        <span class="copy-text hidden absolute -top-4 bg-ncs-dark-800 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+          <%= t "actions.copied" %>
+        </span>
+      </div>
+    </div>
+  <% elsif skin.texture_pending? %>
+    <div class="p-2 animate-pulse">
+      <p>Uploading...</p>
+    </div>
+  <% elsif !current_user.present? %>
+    <div class="p-2">
+      <p><%= link_to "Sign in", new_user_session_path, class: "underline" %> to generate the command.</p>
+    </div>
+  <% else %>
+    <div class="p-2">
+      <%= button_to "Get Player Head Command", skin_mineskin_upload_path(skin), class: "underline" %>
+      <p class="text-ncs-dark-300">
+        Skin uploading courtesy of <%= link_to "mineskin.org", "https://mineskin.org", class: "underline", target: "_blank" %>.
+      </p>
+    </div>
+  <% end %>
+</div>

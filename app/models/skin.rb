@@ -52,6 +52,7 @@ class Skin < ApplicationRecord
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
+  enum :minecraft_texture_status, %i[none pending resolved], prefix: :texture
 
   attribute :creator, :string
   enum :creator, CREATOR.keys, prefix: :created_by, default: :self
@@ -237,6 +238,13 @@ class Skin < ApplicationRecord
     "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{base64}\"}]}] 1"
   end
 
+  def schedule_mineskin_upload
+    update_column(:minecraft_texture_status, :pending)
+    reload
+
+    MineskinUploadJob.perform_later(self)
+  end
+
   def upload_to_mineskin!
     return true if minecraft_texture_url?
 
@@ -248,7 +256,11 @@ class Skin < ApplicationRecord
 
     raise "Error uploading skin" unless texture.present?
 
-    update!(minecraft_texture_url: texture)
+    update!(minecraft_texture_url: texture, minecraft_texture_status: :resolved)
+  rescue
+    update_column(:minecraft_texture_status, :none)
+
+    raise
   end
 
   private
@@ -263,7 +275,7 @@ class Skin < ApplicationRecord
     return unless skin_part.automatic_upload?
     return unless ENV["MINESKIN_API_SECRET"]
 
-    MineskinUploadJob.perform_later(self)
+    schedule_mineskin_upload
   end
 
   def cache_image_file(img_path, data)
