@@ -48,7 +48,7 @@
         >
           <%= t("common.editor") %>
         </button>
-        <%= link_to t("skins.change_skin"), skin_minecraft_upload_path(@skin), class: "btn-ncs mb-0.5" %>
+        <%= link_to t("skins.change_skin"), skin_minecraft_upload_path(@skin), class: "btn-ncs mb-0.5", data: { turbo: false } %>
         <%= link_to t("skins.download"), skin_download_path(@skin), class: "btn-ncs", data: { turbo: false } %>
       </div>
     </div>
