@@ -49,11 +49,20 @@
             <th class="pr-4">Public Skins:</th>
             <td><%= simple_number @user.skins.is_public.count %></td>
           </tr>
-          <tr class="bg-rainbow-animated">
+          <tr class="bg-rainbow-animated text-white/90">
             <th class="pr-4">Pixels:</th>
             <td><%= simple_number @user.pixels! %></td>
           </tr>
         </table>
+        <% if current_user == @user || current_user&.moderator? %>
+          <hr class="border-gray-500 my-2">
+          <table class="text-left">
+            <tr>
+              <th class="pr-4">Support Code:</th>
+              <td><%= @user.support_code.scan(/.{1,3}/).join("-") %></td>
+            </tr>
+          </table>
+        <% end %>
       </div>
       <% if @user.badges.any? %>
         <div class="relative flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 w-full">

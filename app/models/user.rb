@@ -43,6 +43,8 @@ class User < ApplicationRecord
 
   enum :role, ROLES
 
+  before_create :set_support_token, unless: :support_token?
+
   ROLES.each_with_index do |role, level|
     define_method :"#{role}?" do
       permission_level >= level
@@ -142,5 +144,16 @@ class User < ApplicationRecord
 
   def login
     @login || self.name || self.email
+  end
+
+  def support_code
+    totp = ROTP::TOTP.new(support_token, issuer: "NeedCoolerShoes")
+    totp.at(Time.current.at_beginning_of_hour)
+  end
+
+  private
+
+  def set_support_token
+    self.support_token = ROTP::Base32.random
   end
 end

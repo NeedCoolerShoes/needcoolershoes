@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_10_160624) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_18_033625) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -240,6 +240,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_10_160624) do
     t.integer "pixels", default: 0, null: false
     t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.bigint "minecraft_account_id"
+    t.string "support_token", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
