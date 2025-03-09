@@ -15,7 +15,7 @@ kill_timeout = "5s"
   PRIMARY_REGION = "syd"
 
 [[vm]]
-  size = "shared-cpu-2x"
+  size = "shared-cpu-3x"
   memory = "1024mb"
 
 [[services]]
