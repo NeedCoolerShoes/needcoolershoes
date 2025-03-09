@@ -65,12 +65,12 @@ class Rack::Attack
 
   # Block content grabbers
   Rack::Attack.blocklist("block bad UA") do |req|
-    req.user_agent.to_s.match?(/ClaudeBot|GPTBot|FriendlyCrawler|SemrushBot/)
+    req.user_agent.to_s.match?(/ClaudeBot|GPTBot|FriendlyCrawler|SemrushBot|Amazonbot/)
   end
 
   # Prevent broken bots from getting stuck in query hell
   Rack::Attack.blocklist("block broken UA") do |req|
-    req.user_agent.to_s.match?(/facebookexternalhit|Amazonbot/) && !req.query_string.empty?
+    req.user_agent.to_s.match?(/facebookexternalhit/) && !req.query_string.empty?
   end
 
   ### Custom Throttle Response ###
