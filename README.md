@@ -1,4 +1,3 @@
-
 <br/>
 <div align="center">
 <a href="https://github.com/ShaanCoding/ReadME-Generator">
@@ -20,8 +19,7 @@ Restoration of the beloved NeedCoolShoes website
 
 ![NeedCoolerShoes Editor](https://cdn.nucc.tr/mncs.png)
 
-[![Ruby 3.3.1](https://img.shields.io/badge/RUBY-3.3.1-%23CC342D?style=for-the-badge&logo=ruby
-)](https://www.ruby-lang.org/en/)
+[![Ruby 3.3.1](https://img.shields.io/badge/RUBY-3.3.1-%23CC342D?style=for-the-badge&logo=ruby)](https://www.ruby-lang.org/en/)
 [![Ruby on Rails 7.1](https://img.shields.io/badge/rails-7.1-%23D30001?style=for-the-badge&logo=rubyonrails)](https://rubyonrails.org/)
 [![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-%234169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ](https://www.postgresql.org/)
@@ -29,6 +27,7 @@ Restoration of the beloved NeedCoolShoes website
 ](https://www.docker.com/)
 
 Hello friend. Please modify this section to include a proper description as I was unable to come up with a good one.
+
 ### Built With
 
 - [Ruby](https://www.ruby-lang.org/en/)
@@ -36,12 +35,15 @@ Hello friend. Please modify this section to include a proper description as I wa
 - [Tailwind CSS](https://tailwindcss.com/)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Swiftwave](https://swiftwave.org/)
+
 ## Getting Started
 
 To get a local copy up and running follow these simple steps.
+
 ### Prerequisites
 
 #### Manual
+
 - Ruby 3.3.0 using [rbenv](https://github.com/rbenv/rbenv?tab=readme-ov-file#installation)
   ```sh
   rbenv local 3.3.0
@@ -52,15 +54,19 @@ To get a local copy up and running follow these simple steps.
   ```
 
 #### Docker
+
 Follow the instructions at https://docs.docker.com/engine/install/
+
 ### Installation
 
 See [docs/installation.md](./docs/installation.md)
+
 ## Roadmap
 
 See our [Kanban Board](https://github.com/orgs/NeedCoolerShoes/projects/2)
 
 See the [open issues](https://github.com/ShaanCoding/ReadME-Generator/issues) for a full list of proposed features (and known issues).
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -73,9 +79,28 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
 ## License
 
-Distributed under the to be determined License. See [to be determined License](TBD) for more information.
+Distributed under the AGPLv3 License. See [AGPLv3](https://opensource.org/license/agpl-v3) for more information.
+
+```
+Copyright (C) 2024-2025  NeedCoolerShoes Team
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+```
+
 ## Contact
 
 You can contact the team from [here](https://needcoolershoes.com/contact).
@@ -83,7 +108,7 @@ You can contact the team from [here](https://needcoolershoes.com/contact).
 Any security vulnerabilities should be emailed directly to **dev (at) needcoolershoes.com**
 
 Project Link: [GitHub](https://github.com/NeedCoolerShoes/needcoolershoes)
-## Acknowledgments
 
+## Acknowledgments
 
 - [makeread.me](https://github.com/ShaanCoding/ReadME-Generator)
