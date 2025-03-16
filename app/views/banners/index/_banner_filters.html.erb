@@ -10,7 +10,8 @@
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
     <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
       <% banners.top_tags(10).each do |tag| %>
-        <%= banners_gallery_tag_filter_tag params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+        <%#= banners_gallery_tag_filter_tag params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+        <%= banners_gallery_filter_tag params, :tag, tag.name, "" %>
       <% end %>
     </div>
   </div>
