@@ -2,14 +2,14 @@
 
 # Throttle gallery
 Rack::Attack.throttle("gallery", limit: 20, period: 10.seconds) do |req|
-  if req.path.start_with? "/gallery"
+  if req.path.start_with?("/gallery")
     req.ip
   end
 end
 
 # Throttle gallery with tags
 Rack::Attack.throttle("gallery with tags", limit: 10, period: 10.seconds) do |req|
-  if req.path.start_with? "/gallery" && req.path.match? /tags=/
+  if req.path.start_with?("/gallery") && req.path.match?(/tags=/)
     req.ip
   end
 end
