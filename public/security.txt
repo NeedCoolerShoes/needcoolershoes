@@ -1,0 +1,6 @@
+Contact: https://needcoolershoes.com/contact
+Contact: mailto:dev@needcoolershoes.com
+Expires: 2027-03-13T14:29:00.000Z
+Preferred-Languages: en, tr, pl
+Canonical: https://needcoolershoes.com/security.txt
+Canonical: https://needcoolershoes.com/.well-known/security.txt
