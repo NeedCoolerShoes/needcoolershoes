@@ -6,15 +6,16 @@ on:
 jobs:
   mirror-to-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v4
     - name: Set Revision Hash
       id: hash
       run: echo $(git rev-parse --short HEAD | tr -d '\n') > tmp/revision_hash.txt
-    - name: Check Revision Hash
-      run: cat tmp/revision_hash.txt
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Set Revision Hash
         branch: deploy
         create_branch: true
+        add_options: --force tmp/revision_hash.txt
