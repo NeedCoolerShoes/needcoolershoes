@@ -1,5 +1,6 @@
 module Taggable
   extend ActiveSupport::Concern
+  TAG_STACK_LIMIT = 5
 
   included do
     unless has_attribute?(:tag_cache)
@@ -17,7 +18,7 @@ module Taggable
       return none if list.size != tags.count || tags.count < 1
   
       # Hard limit tag check for performance
-      where("tag_cache @> ARRAY[?]::int[]", tags.first(5).pluck(:id))
+      where("tag_cache @> ARRAY[?]::int[]", tags.first(TAG_STACK_LIMIT).pluck(:id))
     }
 
     def cached_tags
