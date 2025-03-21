@@ -16,6 +16,13 @@ class ApiController < ApplicationController
     end
   end
 
+  def outdated_browser_bypass
+    cookies[:ncrs_browser_warning_accepted] = true
+
+    path = params[:redirect] || root_path
+    redirect_to path
+  end
+
   private
 
   def skin_tags

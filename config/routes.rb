@@ -124,5 +124,6 @@ Rails.application.routes.draw do
   scope :api do
     get "skin/:id", to: "api#skin"
     get "tags", to: "api#tags"
+    get "outdated_browser", to: "api#outdated_browser_bypass"
   end
 end

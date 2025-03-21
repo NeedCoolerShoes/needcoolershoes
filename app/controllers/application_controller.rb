@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     )
   }
 
+  allow_browser versions: :modern, unless: :browser_warning_accepted?
   before_action :configure_devise_parameters, if: :devise_controller?
   around_action :switch_locale
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
@@ -89,5 +90,11 @@ class ApplicationController < ActionController::Base
       end
     end
     output.join(", ")
+  end
+
+  def browser_warning_accepted?
+    return true if request.path == outdated_browser_path
+
+    cookies[:ncrs_browser_warning_accepted].present?
   end
 end
