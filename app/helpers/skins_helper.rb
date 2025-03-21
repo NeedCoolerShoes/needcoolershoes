@@ -14,13 +14,14 @@ module SkinsHelper
   end
 
   def skins_gallery_tag_filter_tag(params, tag, title)
-    tags = params[:tag].to_s.split(",")
+    tags = params[:tag].to_s.split(",").first(Taggable::TAG_STACK_LIMIT)
     classes = "underline"
 
     if tags.include?(tag)
       classes += " font-bold"
       tags.delete(tag)
     else
+      tags.delete_at(-1) if tags.size > Taggable::TAG_STACK_LIMIT - 1
       tags << tag
     end
 
