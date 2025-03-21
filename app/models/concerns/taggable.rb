@@ -11,16 +11,13 @@ module Taggable
     after_save :save_cached_tags!
 
     scope :tagged_with_cached, ->(tags) {
-      # list = ActsAsTaggableOn::DefaultParser.new(tags).parse
-      # tags = ActsAsTaggableOn::Tag.named_any(list)
-      # 
-      # Disable multi-tags for now
-      list = ActsAsTaggableOn::DefaultParser.new(tags).parse.first
-      tags = ActsAsTaggableOn::Tag.named_any([list])
+      list = ActsAsTaggableOn::DefaultParser.new(tags).parse
+      tags = ActsAsTaggableOn::Tag.named_any(list)
 
       return none if list.size != tags.count || tags.count < 1
   
-      where("tag_cache @> ARRAY[?]", tags.pluck(:id))
+      # Hard limit tag check for performance
+      where("tag_cache @> ARRAY[?]::int[]", tags.first(5).pluck(:id))
     }
 
     def cached_tags
