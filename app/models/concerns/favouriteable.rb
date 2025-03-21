@@ -3,7 +3,6 @@ module Favouriteable
 
   included do
     has_many :favourites, as: :target, dependent: :destroy
-    attr_readonly :favourites_count
     scope :favourited_by_user_name, ->(name) { joins(:favourites).where(favourites: {user: User.where(name: name)}) }
   end
 
