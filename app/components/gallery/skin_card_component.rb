@@ -25,7 +25,7 @@ class Gallery::SkinCardComponent < ViewComponent::Base
   end
 
   def current_page
-    permitted_params = params.slice(*Skin.gallery_params).permit!
+    permitted_params = params.slice(*Skin.gallery_params, :page).permit!
     skins_gallery_path(permitted_params)
   end
 end
