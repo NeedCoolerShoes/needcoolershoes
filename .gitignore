@@ -17,6 +17,9 @@
 !/log/.keep
 !/tmp/.keep
 
+# Keep revision hash
+!/tmp/revision_hash.txt
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
