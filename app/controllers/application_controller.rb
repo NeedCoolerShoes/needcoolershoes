@@ -12,7 +12,6 @@ class ApplicationController < ActionController::Base
     )
   }
 
-  allow_browser versions: :modern, unless: :browser_warning_accepted?
   before_action :configure_devise_parameters, if: :devise_controller?
   around_action :switch_locale
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
