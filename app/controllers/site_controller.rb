@@ -1,4 +1,6 @@
 class SiteController < ApplicationController
+  nav_section :place, only: %i[place]
+  
   def modlog
     meta_config do |config|
       config.title = "Moderation Log"
@@ -22,6 +24,13 @@ class SiteController < ApplicationController
     meta_config do |config|
       config.title = "Preview Skin"
       config.description = "Tool to preview skins made in our editor, before uploading them to the gallery."
+    end
+  end
+
+  def place
+    meta_config do |config|
+      config.title = "Skins Place - Collaborative Skin"
+      config.description = "Place a pixel on the skin, and watch as the changes unfold in real-time."
     end
   end
 end

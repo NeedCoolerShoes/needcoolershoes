@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get "rules", to: "static#rules"
   get "sitemap", to: "static#sitemap", defaults: {format: "xml"}
 
+  get "place", to: "site#place", as: "place"
+
   # Gallery Routes
   get "gallery/banners", to: "banners#index", as: "banners_gallery"
   get "gallery/banners/:page", to: "banners#index"
