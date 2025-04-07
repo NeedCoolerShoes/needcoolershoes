@@ -2,7 +2,7 @@ class Skin < ApplicationRecord
   PARAMS = {
     part: "by_part_name",
     category: "by_category_name",
-    model: "by_model",
+    model: "supports_model",
     tag: "tagged_with_cached",
     favourited_by: "favourited_by_user_name",
     search: "search",
@@ -73,7 +73,13 @@ class Skin < ApplicationRecord
   scope :visible_to_user, ->(user) { visible.is_public.or(where(user: user)) }
   scope :by_part_name, ->(name) { joins(:skin_part).where(skin_part: {name: name}) }
   scope :by_category_name, ->(name) { joins(:skin_category).where(skin_category: {name: name}) }
+
   scope :by_model, ->(model) { where(model: model) }
+  scope :supports_model, ->(model) {
+    joins(:skin_part).by_model(model).or(
+      where(skin_part: {ignore_skin_model: true})
+    )
+  }
 
   after_create :send_creation_webhook, if: :is_public?
   after_create :embed_watermark!, unless: -> { user.watermark_disabled? }

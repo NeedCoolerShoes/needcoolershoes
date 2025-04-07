@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_18_033625) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_07_132927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -141,6 +141,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_18_033625) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "skin_upload_status", default: 0, null: false
+    t.boolean "ignore_skin_model", default: false, null: false
   end
 
   create_table "skins", force: :cascade do |t|
