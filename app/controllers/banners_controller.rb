@@ -21,8 +21,10 @@ class BannersController < ApplicationController
     if @gallery_params[:hidden] && current_user.authorized?(:moderator)
       banners = banners.merge(Banner.hidden)
     end
-
+    
     @pagy, @banners = pagy(banners, items: items)
+    @tags = @banners.top_tags
+
     @banners_all = banners
     @gallery_tab = :banners
   rescue Pagy::OverflowError
