@@ -1,5 +1,5 @@
 <% content_for :filters do %>
-  <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners_all} %>
+  <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners_all, tags: @tags} %>
 <% end %>
 
 <% content_for :before_gallery do %>
