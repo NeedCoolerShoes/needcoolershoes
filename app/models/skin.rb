@@ -52,6 +52,8 @@ class Skin < ApplicationRecord
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
   enum :model, %i[classic slim], default: :classic
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
+
+  attribute :minecraft_texture_status, :integer, default: 0
   enum :minecraft_texture_status, %i[none pending resolved], prefix: :texture
 
   attribute :creator, :string
