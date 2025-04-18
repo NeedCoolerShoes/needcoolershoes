@@ -3,10 +3,6 @@ module Taggable
   TAG_STACK_LIMIT = 5
 
   included do
-    unless has_attribute?(:tag_cache)
-      raise "Cannot include tags without a tag cache!"
-    end
-
     acts_as_taggable_on :tags
 
     after_save :save_cached_tags!

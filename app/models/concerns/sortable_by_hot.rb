@@ -8,9 +8,6 @@ module SortableByHot
     unless include?(Favouriteable)
       raise "Cannot sort by hot without favourites!"
     end
-    unless has_attribute?(:rank)
-      raise "Cannot sort by hot without rank!"
-    end
     unless const_defined?(:KARMA_MULT) || const_defined?(:FAVOURITES_MULT)
       raise "Missing constants for class"
     end

@@ -38,12 +38,12 @@
         <div class="flex gap-2">
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :skin_part_id, nil, class: "!m-0" %>
-            <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+            <%= form.select :skin_part_id, SkinPart.order(id: :asc).pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
           </div>
 
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :skin_category_id, nil, class: "!m-0" %>
-            <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
+            <%= form.select :skin_category_id, SkinCategory.order(id: :asc).pluck(:name, :id), {}, class: "text-black capitalize !p-1" %>
           </div>
         </div>
 

@@ -7,13 +7,15 @@
     <%= link_to "Random Skin", random_skin_path, class: "underline" %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
-  <h3 class="font-bold text-ncs-dark-100">Popular Tags:</h3>
-  <div class="flex flex-wrap items-center gap-1">
-    <% tags.each do |tag| %>
-      <%= skins_gallery_tag_filter_tag params, tag.name, "" %>
-    <% end %>
-  </div>
-  <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
+  <% if tags.any? %>
+    <h3 class="font-bold text-ncs-dark-100">Relevant Tags:</h3>
+    <div class="flex flex-wrap items-center gap-1">
+      <% tags.each do |tag| %>
+        <%= skins_gallery_tag_filter_tag params, tag.name, "" %>
+      <% end %>
+    </div>
+    <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
+  <% end %>
   <h3 class="font-bold text-ncs-dark-100">Models:</h3>
   <div class="flex flex-wrap items-center gap-1">
     <% Skin.models.keys.each do |model| %>
@@ -23,14 +25,14 @@
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Parts:</h3>
   <div class="flex flex-wrap gap-1">
-    <% SkinPart.all.each do |part| %>
+    <% SkinPart.order(id: :asc).each do |part| %>
       <%= skins_gallery_filter_tag params, :part, part.name, "" %>
     <% end %>
   </div>
   <hr class="border-ncs-dark-600 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Categories:</h3>
   <div class="flex flex-wrap items-center gap-1">
-    <% SkinCategory.all.each do |category| %>
+    <% SkinCategory.order(id: :asc).each do |category| %>
       <%= skins_gallery_filter_tag params, :category, category.name, "" %>
     <% end %>
   </div>

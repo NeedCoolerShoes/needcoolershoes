@@ -3,10 +3,6 @@ module Searchable
   extend ActiveSupport::Concern
 
   included do
-    unless has_attribute?(:search_cache)
-      raise "Cannot include search without a search cache!"
-    end
-
     pg_search_scope :search, against: :search_cache, using: {tsearch: {prefix: true}}
 
     after_save :save_search_cache!
