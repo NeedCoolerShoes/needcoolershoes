@@ -5,5 +5,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
     resource "/gallery/*",
       headers: :any,
       methods: [:get, :options, :head]
+
+    resource "/api/*",
+      headers: :any,
+      methods: [:get, :options, :head]
   end
 end
