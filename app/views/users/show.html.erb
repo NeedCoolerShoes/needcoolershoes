@@ -3,6 +3,10 @@
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "users" %>
+<% end %>
+
 <div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white">
   <div class="flex flex-col tab:flex-row gap-4">
     <div class="flex flex-col bg-ncs-grid basis-2/5">
