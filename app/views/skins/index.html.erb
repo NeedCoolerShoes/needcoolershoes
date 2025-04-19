@@ -2,6 +2,10 @@
 
 <%= render partial: "shared/welcome" if params[:welcome].present? %>
 
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "skins" %>
+<% end %>
+
 <% content_for :filters do %>
   <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, tags: @tags} %>
 <% end %>

@@ -5,7 +5,7 @@ RailsAdmin.config do |config|
     Needcoolershoes::Admin::Actions::BumpSiteMessage
   )
 
-  config.asset_source = :sprockets
+  config.asset_source = :importmap
 
   ### Popular gems integration
 
@@ -54,6 +54,10 @@ RailsAdmin.config do |config|
   # Configure description fields to use markdown
   %w[Badge Banner Skin SkinJam].each do |model_name|
     config.model(model_name) { configure :description, :markdown }
+  end
+
+  %w[Users SkinPart SkinCategory].each do |model_name|
+    config.model(model_name) { configure(:skins) { hide } }
   end
 
   config.model "MinecraftAccount" do

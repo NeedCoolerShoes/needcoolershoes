@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "rails_admin": "3.3.0",
+    "sass": "^1.86.3"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/rails_admin.scss:./app/assets/builds/rails_admin.css --no-source-map --load-path=node_modules"
+  },
+  "packageManager": "yarn@1.22.22"
+}
