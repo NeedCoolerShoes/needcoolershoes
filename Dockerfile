@@ -1,6 +1,7 @@
-# syntax = docker/dockerfile:1
+# syntax=docker/dockerfile:1
+# check=error=true
 
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
+# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.3.1
 FROM ruby:$RUBY_VERSION-slim AS base
 
@@ -9,29 +10,49 @@ LABEL fly_launch_runtime="rails"
 # Rails app lives here
 WORKDIR /rails
 
+# Update gems and bundler
+RUN gem update --system --no-document && \
+    gem install -N bundler
+
+# Install base packages
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y curl libjemalloc2 postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
 # Set production environment
 ENV BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development:test" \
     RAILS_ENV="production"
 
-# Update gems and bundler
-RUN gem update --system --no-document && \
-    gem install -N bundler
-
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build gems
+# Install packages needed to build gems and node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev pkg-config
+    apt-get install --no-install-recommends -y build-essential git libffi-dev libpq-dev libyaml-dev node-gyp pkg-config python-is-python3 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Install JavaScript dependencies
+ARG NODE_VERSION=23.7.0
+ARG YARN_VERSION=1.22.22
+ENV PATH=/usr/local/node/bin:$PATH
+RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz -C /tmp/ && \
+    /tmp/node-build-master/bin/node-build "${NODE_VERSION}" /usr/local/node && \
+    npm install -g yarn@$YARN_VERSION && \
+    rm -rf /tmp/node-build-master
 
 # Install application gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
-    bundle exec bootsnap precompile --gemfile && \
-    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
+    rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
+    bundle exec bootsnap precompile --gemfile
+
+# Install node modules
+COPY .yarnrc package.json yarn.lock ./
+COPY .yarn/releases/* .yarn/releases/
+RUN yarn install --frozen-lockfile
 
 # Copy application code
 COPY . .
@@ -46,10 +67,6 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 # Final stage for app image
 FROM base
 
-# Install packages needed for deployment
-RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libsqlite3-0 postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
