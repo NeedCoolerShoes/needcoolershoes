@@ -17,11 +17,11 @@ module.exports = {
         icon: ['icon', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
-        'ncs-tweed': "url('ncsassets/img/tweed.png')",
-        'ncs-flourish': "url('ncsassets/img/flourish.png')",
-        'ncs-flourish-side': "url('ncsassets/img/flourish-side.png')",
-        'ncs-grid': "url('ncsassets/img/grid-dark.png')",
-        'skin-clouds': "url('ncsassets/img/bg-clouds-temp.png')"
+        'ncs-tweed': "url('/ncsassets/img/tweed.png')",
+        'ncs-flourish': "url('/ncsassets/img/flourish.png')",
+        'ncs-flourish-side': "url('/ncsassets/img/flourish-side.png')",
+        'ncs-grid': "url('/ncsassets/img/grid-dark.png')",
+        'skin-clouds': "url('/ncsassets/img/bg-clouds-temp.png')"
       },
       colors: {
         'ncs-brown': '#926602',

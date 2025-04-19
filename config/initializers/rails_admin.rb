@@ -5,7 +5,7 @@ RailsAdmin.config do |config|
     Needcoolershoes::Admin::Actions::BumpSiteMessage
   )
 
-  config.asset_source = :sprockets
+  config.asset_source = :importmap
 
   ### Popular gems integration
 

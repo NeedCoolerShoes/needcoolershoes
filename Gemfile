@@ -7,7 +7,8 @@ ruby "3.3.1"
 gem "rails", "~> 8.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
+# gem "sprockets-rails"
+gem "propshaft"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"
@@ -25,7 +26,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 
 # Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "~> 3.3.1"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -96,7 +97,6 @@ gem "opentelemetry-exporter-otlp", "~> 0.26.2"
 gem "opentelemetry-instrumentation-action_pack", "~> 0.9.0"
 gem "postmark-rails"
 gem "rails_admin", "~> 3.0"
-gem "sassc-rails"
 gem "rails_admin_markdown", "0.0.4"
 gem "rack-attack", "~> 6.7"
 gem "view_component", "~> 3.13"
