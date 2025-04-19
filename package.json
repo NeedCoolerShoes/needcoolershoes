@@ -1,4 +1,5 @@
 {
+  "private": true,
   "dependencies": {
     "rails_admin": "3.3.0",
     "sass": "^1.86.3"
