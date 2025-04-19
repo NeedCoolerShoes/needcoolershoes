@@ -1,0 +1,3 @@
+[submodule "vendor/javascript/ncrs-editor"]
+	path = vendor/javascript/ncrs-editor
+	url = https://github.com/NeedCoolerShoes/editor.git
