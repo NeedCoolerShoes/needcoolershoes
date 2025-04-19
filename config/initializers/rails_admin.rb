@@ -56,6 +56,10 @@ RailsAdmin.config do |config|
     config.model(model_name) { configure :description, :markdown }
   end
 
+  %w[Users SkinPart SkinCategory].each do |model_name|
+    config.model(model_name) { configure(:skins) { hide } }
+  end
+
   config.model "MinecraftAccount" do
     configure(:minecraft_token) { hide }
     configure(:refresh_token) { hide }
