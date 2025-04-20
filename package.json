@@ -1,11 +1,16 @@
 {
   "private": true,
   "dependencies": {
+    "ncrs-editor": "https://github.com/NeedCoolerShoes/editor",
     "rails_admin": "3.3.0",
     "sass": "^1.86.3"
   },
   "scripts": {
+    "build": "esbuild app/assets/javascripts/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/rails_admin.scss:./app/assets/builds/rails_admin.css --no-source-map --load-path=node_modules"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "devDependencies": {
+    "esbuild": "^0.25.2"
+  }
 }

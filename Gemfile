@@ -107,3 +107,5 @@ gem "http", "~> 5.2"
 gem "marksmith", "~> 0.1"
 gem "rack-cors"
 gem "cssbundling-rails"
+
+gem "jsbundling-rails", "~> 1.3"

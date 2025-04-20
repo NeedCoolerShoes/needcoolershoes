@@ -16,6 +16,7 @@
     <%= render partial: "shared/favicons" %>
     <%= render partial: "shared/preloads" %>
     <%= render partial: "shared/analytics" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="flex flex-col min-h-screen">
