@@ -1,0 +1,42 @@
+<div class="flex justify-center">
+  <div class="flex flex-col gap-8 text-white max-w-sm">
+    <div class="flex flex-col gap-2">
+      <h3 class="text-white text-2xl">Sign In to Share with Gallery</h3>
+      <%= form_with(url: user_session_path, model: User) do |f| %>
+        <div class="flex flex-col gap-2">
+          <%= f.label :login %>
+          <%= f.email_field :login, autofocus: true, autocomplete: "email", class: "text-black" %>
+        </div>
+
+        <div class="flex flex-col gap-2 mt-2">
+          <%= f.label :password %>
+          <%= f.password_field :password, autocomplete: "current-password", class: "text-black" %>
+        </div>
+
+        <div class="flex justify-between mx-auto my-2">
+          <%= f.label :remember_me, style: "flex-grow: 1; margin: 0px;" %>
+          <%= f.check_box :remember_me, class: "!w-4 !h-4" %>
+        </div>
+
+        <div class="flex gap-2">
+          <%= f.submit "Log In", class: "btn-ncs h-auto leading-normal" %>
+          <button id="cancel-button" type="button" class="btn-ncs h-auto leading-normal">Cancel</button>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <div class="text-sm">
+        <p>
+          Don't have an account?
+          <%= link_to "Register here!", new_user_registration_path, class: "text-white underline" %>
+        </p>
+        <p>(Your skin will still be here when you return)</p>
+      </div>
+
+      <div class="text-left mt-2">
+        <%= render partial: "devise/sessions/new_site_warning" %>
+      </div>
+    </div>
+  </div>
+</div>

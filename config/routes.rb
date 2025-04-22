@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   root "skins#new"
 
-  mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
   devise_for :users, controllers: {sessions: "sessions"}
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -126,4 +125,7 @@ Rails.application.routes.draw do
     get "tags", to: "api#tags"
     get "outdated_browser", to: "api#outdated_browser_bypass"
   end
+
+  # Mounts
+  mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
 end

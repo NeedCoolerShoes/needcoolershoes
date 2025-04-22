@@ -5,13 +5,40 @@
   </script>
 <% end %>
 
-<ncrs-ui data-controller="tagify">
+<% content_for :message do %>
+  <% if @message %>
+    <div id="message" class="p-2 bg-ncs-yellow-200 mb-2">
+      <%= markdown @message %>
+    </div>
+    <style>
+      #message a {
+        text-decoration: underline;
+        color: black;
+      }
+    </style>
+  <% end %>
+<% end %>
+
+<ncrs-ui id="ncrs-ui">
   <div slot="export-form" class="text-white flex items-center justify-center pointer-events-none my-auto p-4">
     <div class="bg-[#222327] pointer-events-auto p-4 rounded">
-      <%= render partial: "new_form" %>
+      <% if current_user.present? %>
+        <%= render partial: "new_form" %>
+      <% else %>
+        <%= render partial: "sign_in_form" %>
+      <% end %>
     </div>
   </div>
 </ncrs-ui>
+
+<section id="about" class="mt-2">
+  <h1 class="text-base font-bold">Minecraft Skin Editor</h1>
+  <p class="mb-2">
+    Miners Need Cooler Shoes is a powerful, but easy to use, Minecraft skin editor, featuring a layer first design.
+    Simply search for parts you need for your skin, or create your own and share for all to use! With support for Slim and Classic model skins, ability to add reference images and pick colors from them, and a blend palette system, our skin editor has many different features you might not find in any other
+    web-based editor.
+  </p>
+</section>
 
 <style>
   ncrs-ui {
@@ -19,7 +46,7 @@
     width: 100%;
     height: 670px;
     background-color: #222327;
-    line-height: 1rem;
+    line-height: normal;
   }
 
   ncrs-ui div[slot="export-form"] {

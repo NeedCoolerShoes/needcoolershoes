@@ -60,6 +60,7 @@ class SkinsController < ApplicationController
   end
 
   def new
+    @message = SiteMessage.latest&.message
   end
 
   def create

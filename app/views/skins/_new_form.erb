@@ -4,7 +4,7 @@
 %>
 
 <h2 class="text-xl text-white">Upload Skin</h2>
-<div class="flex justify-center" data-tagify-target="parent">
+<div class="flex justify-center">
   <div class="max-w-lg">
     <%= form_for(Skin.new, url: skins_path) do |form| %>
       <div class="flex flex-col gap-2">
@@ -15,12 +15,14 @@
 
         <div class="flex flex-col gap-2">
           <%= form.label :description, "Description (Optional)", class: "m-0" %>
-          <%= form.text_area :description, class: "text-black" %>
+          <div class="bg-white text-black">
+            <%= form.marksmith :description, enable_file_uploads: false, rows: 4 %>
+          </div>
         </div>
 
         <div class="flex flex-col gap-2">
           <%= form.label :tags, nil, class: "m-0" %>
-          <%= form.text_field :tags, value: "", data: { "tagify-target": "input" } %>
+          <%= form.text_field :tags, value: "", data: { controller: "tagify" } %>
         </div>
 
         <div class="flex gap-2">
@@ -47,12 +49,10 @@
           </div>
         </div>
 
-
-
         <div class="flex flex-col gap-2">
           <%= form.label :creator, "Creator / License info", class: "m-0" %>
           <div class="flex flex-col">
-            <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black p-1", onchange: "onCreatorChange(event)" %>
+            <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black p-1" %>
             <span id="license_info" class="text-sm text-white">
               The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.
             </span>
@@ -66,13 +66,14 @@
           <% end %>
         </div>
 
-        <div>
+        <div class="flex gap-2">
           <%= form.submit "Upload Skin", class: "btn-ncs h-auto leading-normal" %>
+          <button id="cancel-button" type="button" class="btn-ncs h-auto leading-normal">Cancel</button>
         </div>
 
         <%= form.hidden_field :data %>
         
-        <div class="flex flex-col items-start" id="terms-and-conditions">
+        <div class="flex flex-col gap-2 items-start" id="terms-and-conditions">
           <h2 class="text-white">Terms and Conditions</h2>
           <p class="text-xs">
             Submitting this skin with the creator field set to "I made this skin", means that you agree to license it under the terms
@@ -96,23 +97,27 @@
   </div>
 </div>
 
-<script>
-  const form = document.getElementById("new_skin");
-
+<script data-turbo="none">
   function updateSkinData() {
+    const ui = document.getElementById("ncrs-ui");
+    const editor = ui.editor;
+
+    const form = document.getElementById("new_skin");
+
     let skinDataField = document.getElementById("skin_data");
-    skinDataField.value = App.dep.transporter.getUVImage(App.UVMAP.current, true).src;
-    document.getElementById("skin_model").value = (App.UVMAP.current == "skinAlex" ? "slim" : "classic");
+    skinDataField.value = editor.skinToDataURL();
+    document.getElementById("skin_model").value = editor.config.get("variant", "classic");
   
     let attributions = [];
     let attributionsInput = form.querySelector('[name="skin[attributions][]"]');
     if (attributionsInput) { attributionsInput.remove(); }
 
-    App.dep.layerModel.loop(layer => {
-      if (layer.skinId) { return; }
-      if (layer.visible) { return; }
-      attributions.push(layer.skinId);
-    })
+    editor.layers.layers.forEach(layer => {
+      if (!layer.visible) { return; }
+      if (!layer?.metadata?.attribution) { return; }
+
+      attributions.push(layer.metadata.attribution);
+    });
 
     attributions.forEach(element => {
       let field = document.createElement('input');
@@ -122,22 +127,19 @@
       form.append(field);
     });
   }
-  
-  updateSkinData();
-
-  form.addEventListener('submit', _ => {
-    updateSkinData();
-  })
-
-  const licenseInfo = {
-    self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.",
-    archive: "The skin can be shared to the gallery, but will be marked as archived, and will follow the license terms of needcoolshoes.com.",
-    arr: "The gallery is for sharing skins free for others to remix. This skin must be unlisted or private."
-  }
 
   function onCreatorChange(event) {
+    const ui = document.getElementById("ncrs-ui");
+    const editor = ui.editor;
+
     const visibility = document.getElementById("skin_visibility")
     const info = document.getElementById("license_info")
+
+    const licenseInfo = {
+      self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.",
+      archive: "The skin can be shared to the gallery, but will be marked as archived, and will follow the license terms of needcoolshoes.com.",
+      arr: "The gallery is for sharing skins free for others to remix. This skin must be unlisted or private."
+    }
 
     info.innerText = licenseInfo[event.target.value]
 
@@ -150,4 +152,17 @@
       visibility.querySelector('[value="is_public"]').classList.remove('hidden')
     }
   }
+
+  document.getElementById("cancel-button").addEventListener("click", () => {
+    const ui = document.getElementById("ncrs-ui");
+    ui.exportModal.hide();
+  });
+
+  document.getElementById("new_skin").addEventListener('submit', _ => {
+    updateSkinData();
+  });
+
+  document.getElementById("skin_creator").addEventListener("select", event => {
+    onCreatorChange(event);
+  });
 </script>
