@@ -105,7 +105,7 @@ gem "local_time", "~> 3.0"
 gem "sentry-ruby", "~> 5.22"
 gem "sentry-rails", "~> 5.22"
 gem "http", "~> 5.2"
-gem "marksmith", "~> 0.1"
+gem "marksmith", "~> 0.1.3"
 gem "rack-cors"
 gem "cssbundling-rails"
 
