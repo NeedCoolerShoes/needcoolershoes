@@ -9,6 +9,7 @@ gem "rails", "~> 8.0"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 # gem "sprockets-rails"
 gem "propshaft"
+gem "propshaft-compressor"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 1.4"

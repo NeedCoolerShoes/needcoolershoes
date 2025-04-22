@@ -6,14 +6,19 @@ export default class extends Controller {
     for: String
   }
 
+  static targets = [
+    "parent", "input"
+  ]
+
   tagify
 
   connect() {
-    const input = this.element
+    const input = this.inputTarget
     this.tagify = new Tagify(input, {
+        appendTarget: this.parentTarget,
         whitelist: [],
         dropdown: {
-          maxItems: 20,           // <- mixumum allowed rendered suggestions
+          maxItems: 20,           // <- maximum allowed rendered suggestions
           classname: "tags-look", // <- custom classname for this dropdown, so it could be targeted
           enabled: 0,             // <- show suggestions on focus
           closeOnSelect: false    // <- do not hide the suggestions dropdown once an item has been selected

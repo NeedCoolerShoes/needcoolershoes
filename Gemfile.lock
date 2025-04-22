@@ -303,6 +303,9 @@ GEM
       activesupport (>= 7.0.0)
       rack
       railties (>= 7.0.0)
+    propshaft-compressor (0.2.0)
+      propshaft (>= 1.1)
+      railties (>= 7)
     psych (5.2.3)
       date
       stringio
@@ -493,6 +496,7 @@ DEPENDENCIES
   pg_search (~> 2.3)
   postmark-rails
   propshaft
+  propshaft-compressor
   puma (~> 6.0)
   rack-attack (~> 6.7)
   rack-cors

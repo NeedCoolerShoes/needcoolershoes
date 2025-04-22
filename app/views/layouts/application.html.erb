@@ -16,14 +16,13 @@
     <%= render partial: "shared/favicons" %>
     <%= render partial: "shared/preloads" %>
     <%= render partial: "shared/analytics" %>
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
   <body class="flex flex-col min-h-screen">
     <%= render partial: "shared/flash" %>
     <%= render partial: "shared/header" %>
     <main class="flex flex-col items-center justify-start grow mx-3 sm:mx-16">
-      <div class="flex flex-col max-w-ncs-content w-full">
+      <div class="flex flex-col max-w-ncs-content w-full grow">
         <% if content_for?(:message) %>
           <%= yield :message %>
         <% else %>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "static#editor"
+  root "skins#new"
 
   mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
   devise_for :users, controllers: {sessions: "sessions"}

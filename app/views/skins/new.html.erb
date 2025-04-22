@@ -1,0 +1,36 @@
+<% content_for :scripts do %>
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <script type="module">
+    import "ncrs-editor";
+  </script>
+<% end %>
+
+<ncrs-ui data-controller="tagify">
+  <div slot="export-form" class="text-white flex items-center justify-center pointer-events-none my-auto p-4">
+    <div class="bg-[#222327] pointer-events-auto p-4 rounded">
+      <%= render partial: "new_form" %>
+    </div>
+  </div>
+</ncrs-ui>
+
+<style>
+  ncrs-ui {
+    max-width: 1000px;
+    width: 100%;
+    height: 670px;
+    background-color: #222327;
+    line-height: 1rem;
+  }
+
+  ncrs-ui div[slot="export-form"] {
+    display: none;
+  }
+
+  ncrs-ui:defined div[slot="export-form"] {
+    display: initial;
+  }
+
+  ncrs-ui::part(export-form) {
+    z-index: 100;
+  }
+</style>

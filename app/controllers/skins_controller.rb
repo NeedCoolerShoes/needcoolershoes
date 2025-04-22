@@ -10,7 +10,9 @@ class SkinsController < ApplicationController
   before_action :redirect_title, only: :show
 
   require_role :moderator, only: %i[moderator_edit moderator_update quick_action]
+  
   nav_section :gallery
+  nav_section :editor, only: :new
 
   after_action :allow_iframe, only: :embed
 
@@ -55,6 +57,9 @@ class SkinsController < ApplicationController
     respond_to do |format|
       format.png { send_data @skin.social_img, type: "image/png", disposition: "inline" }
     end
+  end
+
+  def new
   end
 
   def create
