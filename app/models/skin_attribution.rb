@@ -8,7 +8,8 @@ class SkinAttribution < ApplicationRecord
 
   scope :not_by_user, ->(user) { joins(:skin).where.not(skin: {user: user}) }
 
-  validates :attributed_skin, uniqueness: {scope: :skin}
+  validates_uniqueness_of :attributed_skin, :url, allow_blank: true, scope: :skin
+
   after_create :update_target_rank
 
   def self.create_from_url(skin, url, author = nil, *_)
