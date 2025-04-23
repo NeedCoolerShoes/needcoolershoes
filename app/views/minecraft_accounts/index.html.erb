@@ -1,3 +1,7 @@
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "skins" %>
+<% end %>
+
 <div class="bg-ncs-gray-700 p-4 grow h-full">
   <div class="flex flex-wrap gap-0.5 justify-between">
     <%= link_to "Back to Profile", "/@" + @user.name, class: "underline text-white" %>
