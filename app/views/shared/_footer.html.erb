@@ -30,7 +30,12 @@
     </div>
     <div>
       <p class="text-center">
-        <span>NeedCoolerShoes <code title="NeedCoolerShoes revision">r:<%= ENV["NCRS_COMMIT_HASH"] %></code></span>
+        <span>
+          NeedCoolerShoes
+          r:<a href="<%= Needcoolershoes::Config.revision_url %>" class="text-black underline font-monospace" title="NeedCoolerShoes revision">
+            <%= Needcoolershoes::Config.revision %>
+          </a>
+        </span>
         by the
         <a href="/humans.txt" target="_blank" class="text-black underline">MNCS Restoration Team</a>
       </p>
