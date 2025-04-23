@@ -40,6 +40,13 @@
   </p>
 </section>
 
+<script>
+  document.getElementById("cancel-button").addEventListener("click", () => {
+    const ui = document.getElementById("ncrs-ui");
+    ui.exportModal.hide();
+  });
+</script>
+
 <style>
   ncrs-ui {
     max-width: 1000px;
