@@ -18,7 +18,7 @@ ncrs-banner-color[code="white"] {
 
 ncrs-banner-pattern, .pattern-preview {
   all: unset;
-  background-image: url("/ncsassets/img/banner/banner_bg.png");
+  background-image: url("/banner/banner_bg.png");
   cursor: pointer;
 }
 
@@ -94,7 +94,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   width: 20px;
   height: 40px;
   box-sizing: border-box;
-  background-image: url(/ncsassets/img/banner/banner_overlay.png);
+  background-image: url(/banner/banner_overlay.png);
   background-color: var(--ncs-banner-color);
   border: 1px solid var(--ncs-banner-color);
 }
@@ -170,7 +170,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 }
 
 .layer-handle {
-  background: url(/ncsassets/img/banner/handle.png) no-repeat 50% 50%;
+  background: url(/banner/handle.png) no-repeat 50% 50%;
   width: 18px;
   height: 40px;
   cursor: move;
@@ -277,12 +277,12 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
   width: calc(20px * var(--ncs-banner-scale));
   height: calc(40px * var(--ncs-banner-scale));
   position: absolute;
-  background-image: url(/ncsassets/img/banner/banner_overlay.png);
+  background-image: url(/banner/banner_overlay.png);
   background-size: calc(20px * var(--ncs-banner-scale)) calc(40px * var(--ncs-banner-scale));
 }
 
 .shield-sprites #preview-texture-overlay {
-  background-image: url(/ncsassets/img/banner/shield_shadow_overlay.png);
+  background-image: url(/banner/shield_shadow_overlay.png);
 }
 
 #preview-overlay {
@@ -312,7 +312,7 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 
 .layer-toggle {
   all: unset;
-  background-image: url(/ncsassets/img/banner/eye.png);
+  background-image: url(/banner/eye.png);
   width: 16px;
   height: 16px;
   align-self: center;
@@ -323,12 +323,12 @@ ncrs-banner-layer > ncrs-banner-patternset, #base > ncrs-banner-patternset {
 }
 
 ncrs-banner-layer[hidden] .layer-toggle {
-  background-image: url(/ncsassets/img/banner/eye_closed.png);
+  background-image: url(/banner/eye_closed.png);
 }
 
 .layer-remove {
   all: unset;
-  background-image: url(/ncsassets/img/banner/remove.png);
+  background-image: url(/banner/remove.png);
   width: 16px;
   height: 16px;
   align-self: center;
@@ -343,14 +343,14 @@ ncrs-banner-layer[hidden] .layer-toggle {
 
 .layer-move-up, .layer-move-down {
   all: unset;
-  background-image: url(/ncsassets/img/banner/arrow_up.png);
+  background-image: url(/banner/arrow_up.png);
   width: 16px;
   height: 16px;
   cursor: pointer;
 }
 
 .layer-move-down {
-  background-image: url(/ncsassets/img/banner/arrow_down.png);
+  background-image: url(/banner/arrow_down.png);
 }
 
 #layers li:first-child .layer-move-up {
@@ -393,7 +393,7 @@ ncrs-banner-layer[hidden] .layer-toggle {
   all: unset;
   display: none;
   position: absolute;
-  background-image: url(/ncsassets/img/banner/remove.png);
+  background-image: url(/banner/remove.png);
   background-repeat: no-repeat;
   background-position: center;
   width: 16px;

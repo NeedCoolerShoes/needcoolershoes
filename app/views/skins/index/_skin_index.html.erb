@@ -42,7 +42,7 @@
               src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
           <% end %>
           <% if skin.user.role? %>
-            <img class="inline" src="/ncsassets/img/medals/<%= skin.user.role %>.png" alt="<%= skin.user.role.titleize %>" title="<%= skin.user.role.titleize %>">
+            <img class="inline" src="<%= asset_path("medals/#{skin.user.role}.png") %>" alt="<%= skin.user.role.titleize %>" title="<%= skin.user.role.titleize %>">
           <% end %>
         <% end %>
       </p>

@@ -3,7 +3,8 @@
   "dependencies": {
     "ncrs-editor": "https://github.com/NeedCoolerShoes/editor",
     "rails_admin": "3.3.0",
-    "sass": "^1.86.3"
+    "sass": "^1.86.3",
+    "skinview3d": "^3.2.0"
   },
   "scripts": {
     "build": "esbuild app/assets/javascripts/*.* --bundle --minify --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",

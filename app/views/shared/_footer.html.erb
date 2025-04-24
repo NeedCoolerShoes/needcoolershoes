@@ -17,13 +17,13 @@
         </li>
         <li class="flex gap-2">
           <%= link_to "https://discord.gg/FEfbZYvQUa", target: "_blank", class: "text-black underline", title: "Join our Discord!" do %>
-            <img src="/ncsassets/img/social/discord.svg" alt="Discord logo" class="w-4 h-4">
+            <img src="<%= asset_path "social/discord.svg" %>" alt="Discord logo" class="w-4 h-4">
           <% end %>
           <%= link_to "https://mastodon.social/@needcoolershoes", target: "_blank", class: "text-black underline", title: "Follow us on Mastodon!", rel: "me" do %>
-            <img src="/ncsassets/img/social/mastodon.svg" alt="Mastodon logo" class="w-4 h-4">
+            <img src="<%= asset_path "social/mastodon.svg" %>" alt="Mastodon logo" class="w-4 h-4">
           <% end %>
           <%= link_to "https://bsky.app/profile/needcoolershoes.com", target: "_blank", class: "text-black underline", title: "Follow us on Bluesky!" do %>
-            <img src="/ncsassets/img/social/bluesky.svg" alt="Bluesky logo" class="w-4 h-4">
+            <img src="<%= asset_path "social/bluesky.svg" %>" alt="Bluesky logo" class="w-4 h-4">
           <% end %>
         </li>
       </ul>
@@ -41,5 +41,4 @@
       </p>
     </div>
   </div>
-  <ninja-keys style="z-index: 200;" data-controller="command-palette" data-command-palette-signed-in-value=<%= current_user.present? %>></ninja-keys>
 </footer>
