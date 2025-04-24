@@ -3,7 +3,6 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     './public/*.html',
-    './public/ncsassets/**/*.js',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}',
@@ -17,11 +16,10 @@ module.exports = {
         icon: ['icon', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
-        'ncs-tweed': "url('/ncsassets/img/tweed.png')",
-        'ncs-flourish': "url('/ncsassets/img/flourish.png')",
-        'ncs-flourish-side': "url('/ncsassets/img/flourish-side.png')",
-        'ncs-grid': "url('/ncsassets/img/grid-dark.png')",
-        'skin-clouds': "url('/ncsassets/img/bg-clouds-temp.png')"
+        'ncs-tweed': "url('/tweed.png')",
+        'ncs-flourish': "url('/flourish.png')",
+        'ncs-flourish-side': "url('/flourish-side.png')",
+        'ncs-grid': "url('/grid-dark.png')",
       },
       colors: {
         'ncs-brown': '#926602',

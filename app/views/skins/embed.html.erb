@@ -6,15 +6,28 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="googlebot" content="noindex,indexifembedded">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <%= javascript_importmap_tags %>
 
-    <script src="/ncsassets/js/skinview3d.bundle.js"></script>
     <style>
       @font-face {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 400;
+        src: url("/Lato-Regular.ttf");
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 700;
+        src: url("/Lato-Bold.ttf");
+        font-display: swap;
+      }
+
+      @font-face {
         font-family: 'Minecraft';
-        src: url("/ncsassets/vendor/fonts/minecraft/minecraft.woff2") format('woff2');
+        src: url("/minecraft.woff2") format('woff2');
         font-display: swap;
       }
     </style>
@@ -24,17 +37,19 @@
     <canvas id="skin"></canvas>
     <div id="link">
       <a href="<%= @skin.to_title_path %>" target="_blank">
-        <img src="/ncsassets/img/lilmeowmeow.png" alt="Mascot of NeedCoolerShoes" width="32">
+        <img src="<%= asset_path("lilmeowmeow.png") %>" alt="Mascot of NeedCoolerShoes" width="32">
         <span>View it on <strong>NeedCoolerShoes</strong></span>
       </a>
     </div>
   </body>
 
-  <script>
+  <script type="module">
+    import { SkinViewer } from "skinview3d";
+
     const config = new URLSearchParams(window.location.search)
     const canvas = document.getElementById("skin")
     const parent = canvas.parentElement
-    const skinViewer = new skinview3d.SkinViewer({
+    const skinViewer = new SkinViewer({
       canvas: canvas,
       width: parent.clientWidth,
       height: parent.clientHeight,

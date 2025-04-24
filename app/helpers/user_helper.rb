@@ -13,7 +13,7 @@ module UserHelper
       end
       if user.role?
         content += " "
-        content += tag.img src: "/ncsassets/img/medals/#{user.role}.png", alt: user.role.titleize, title: user.role.titleize, class: "inline"
+        content += tag.img src: asset_path("medals/#{user.role}.png"), alt: user.role.titleize, title: user.role.titleize, class: "inline"
       end
       content
     end

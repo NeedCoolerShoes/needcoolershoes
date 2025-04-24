@@ -6,6 +6,9 @@
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+  <script type="module">
+    import "src/banner/main";
+  </script>
 <% end %>
 <% content_for :message do %>
   <div class="p-2 bg-ncs-yellow-200 !mb-2 shadow">
@@ -139,4 +142,3 @@
     <% end %>
   </div>
 </ncrs-dialog>
-<script type="module" src="/ncsassets/js/banner/main.js"></script>
