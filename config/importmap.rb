@@ -4,7 +4,9 @@ pin "application", preload: true
 pin "@hotwired/turbo-rails", to: "turbo.min.js", preload: true
 pin "@hotwired/stimulus", to: "stimulus.min.js", preload: true
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
+
 pin_all_from "app/javascript/controllers", under: "controllers"
+pin_all_from "app/javascript/src", under: "src"
 
 pin "ninja-keys", to: "https://ga.jspm.io/npm:ninja-keys@1.2.2/dist/ninja-keys.js"
 pin "@lit/reactive-element", to: "https://ga.jspm.io/npm:@lit/reactive-element@1.6.1/reactive-element.js"

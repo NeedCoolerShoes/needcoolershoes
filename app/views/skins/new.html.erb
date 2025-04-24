@@ -2,6 +2,7 @@
   <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
   <script type="module">
     import "ncrs-editor";
+    import "src/editor";
   </script>
 <% end %>
 
@@ -39,13 +40,6 @@
     web-based editor.
   </p>
 </section>
-
-<script>
-  document.getElementById("cancel-button").addEventListener("click", () => {
-    const ui = document.getElementById("ncrs-ui");
-    ui.exportModal.hide();
-  });
-</script>
 
 <style>
   ncrs-ui {
