@@ -10,15 +10,15 @@ SKIN_PARTS = {
   "Armor": {ignore_skin_model: false, skin_upload_status: :no_upload},
   "Accessory": {ignore_skin_model: true, skin_upload_status: :no_upload},
   "Shoes/Footwear": {ignore_skin_model: true, skin_upload_status: :no_upload},
-  "Player Head Block": {ignore_skin_model: true, skin_upload_status: :automatic_upload}
+  "Player Head Block": {ignore_skin_model: true, skin_upload_status: :automatic_upload},
 }
 
-SKIN_PARTS.each do |part, params|
+SKIN_PARTS.each do |name, params|
   part = SkinPart.find_by_name(part)
 
   if part
     part.update(params)
   else
-    SkinPart.create({name: part}.merge(params))
+    SkinPart.create({name: name}.merge(params))
   end
 end
