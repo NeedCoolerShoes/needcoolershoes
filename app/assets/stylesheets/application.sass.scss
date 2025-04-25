@@ -1,42 +1,8 @@
 // Entry point for your Sass build
 
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/Lato-Regular.ttf");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Lato";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/Lato-Bold.ttf");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto Slab";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/RobotoSlab-Regular.ttf");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Roboto Slab";
-  font-style: normal;
-  font-weight: 700;
-  src: url("/RobotoSlab-Bold.ttf");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Minecraft';
-  src: url("/minecraft.woff2") format('woff2');
-  font-display: swap;
-}
+@use "application/fonts";
+@use "application/misc";
+@use "application/tagify";
 
 html {
   width: 100vw;
@@ -55,47 +21,4 @@ body {
   line-height: 1.3em;
   margin: 0;
   image-rendering: auto;
-}
-
-.ncs-selectable .overlay {
-  display: none;
-}
-
-.ncs-selectable:focus .overlay {
-  display: inherit;
-}
-
-.tagify__tag[jam_status="open"] {
-  --tag-bg: transparent;
-  background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%)red;
-  border-radius: 3px;
-}
-
-.tagify__dropdown__item[jam_status="open"] {
-  background: linear-gradient(90deg, rgba(255,194,194,1) 0%, rgba(255,230,179,1) 25%, rgba(222,253,182,1) 50%, rgba(186,224,250,1) 75%, rgba(235,195,247,1) 100%);
-}
-
-.tagify__tag[jam_status="closed"] {
-  --tag-bg: transparent;
-  background-color: rgba(255,194,194,1);
-  border-radius: 3px;
-  cursor: not-allowed;
-}
-
-.tagify__dropdown__item[jam_status="closed"] {
-  --tag-bg: transparent;
-  background-color: rgba(255,194,194,1);
-  border-radius: 3px;
-  cursor: not-allowed;
-}
-
-
-.hidden-fade {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 1s, opacity 1s linear;
-}
-
-#pride {
-  background: linear-gradient(90deg,#E30303,#FF8C00,#FFED00,#008026,#004DFF,#750787);
 }
