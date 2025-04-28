@@ -8,13 +8,12 @@
 
 <% content_for :message do %>
   <% if @message %>
-    <div id="message" class="p-2 bg-ncs-yellow-200 mb-2">
+    <div id="message" class="p-2 bg-gradient-to-b from-[#313436] to-[#24272A] border-b border-[#3D4042] text-white">
       <%= markdown @message %>
     </div>
     <style>
       #message a {
         text-decoration: underline;
-        color: black;
       }
     </style>
   <% end %>
@@ -76,6 +75,8 @@
     background-color: #222327;
     line-height: normal;
     overflow: auto;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem; 
   }
 
   ncrs-ui div[slot="export-form"] {
