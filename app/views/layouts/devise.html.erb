@@ -17,15 +17,11 @@
   <body class="flex flex-col min-h-screen">
     <%= render partial: "shared/flash" %>
     <%= yield :attention if content_for?(:attention) %>
-    <div class="mx-3 sm:mx-16 mb-3.5">
-      <%= render partial: "shared/header" %>
-    </div>
-    <main class="flex flex-col grow mx-3 sm:mx-16">
-      <div class="flex justify-center">
-        <div class="flex flex-col items-center gap-2 p-4 bg-ncs-tweed rounded text-white max-w-ncs-content w-full">
-          <div class="flex flex-col max-w-md w-full py-8">
-            <%= yield %>
-          </div>
+    <%= render partial: "shared/header" %>
+    <main class="flex flex-col items-center justify-start grow mx-3 sm:mx-16">
+      <div class="flex flex-col items-center gap-2 bg-ncs-tweed rounded text-white max-w-ncs-content w-full">
+        <div class="flex flex-col w-full max-w-md p-4 py-8">
+          <%= yield %>
         </div>
       </div>
     </main>
