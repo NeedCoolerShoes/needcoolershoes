@@ -2,8 +2,10 @@
   <%= stylesheet_link_tag "banner/components" %>
 <% end %>
 <% content_for :scripts do %>
-  <script type="module" data-turbo-track="reload" src="/ncsassets/js/banner/components/banner.js"></script>
-  <script type="module" data-turbo-track="reload" src="/ncsassets/js/banner/components/commands.js"></script>
+  <script type="module">
+    import "src/banner/components/banner";
+    import "src/banner/components/commands";
+  </script>
 <% end %>
 
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -89,7 +91,7 @@
 </script>
 
 <script type="module">
-  import {NCRSBanner} from "/ncsassets/js/banner/components/banner.js";
+  import { NCRSBanner } from "src/banner/components/banner";
 
   const bannerCode = "<%= @banner.data %>"
   const supportedVersions = NCRSBanner.validVersions(bannerCode);

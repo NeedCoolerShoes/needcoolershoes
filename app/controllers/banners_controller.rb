@@ -87,14 +87,6 @@ class BannersController < ApplicationController
   def destroy
   end
 
-  def banner_2014
-    meta_config do |config|
-      config.title = "Banner Editor (2014)"
-      config.description = "This is the legacy Banner Editor circa 2014."
-    end
-    render layout: "static", template: "banners/2014"
-  end
-
   def add_favourite
     respond_to do |format|
       if Favourite.add_favourite(current_user, @banner)

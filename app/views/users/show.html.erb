@@ -17,7 +17,7 @@
         <h1 class="text-2xl mr-2 line-clamp-1 break-all" title="<%= @user.display_name %>">
           <%= @user.display_name %>
           <% if @user.role? %>
-            <img class="inline w-6" src="/ncsassets/img/medals/<%= @user.role %>.png" alt="<%= @user.role.titleize %>" title="<%= @user.role.titleize %>" style="image-rendering: pixelated;">
+            <img class="inline w-6" src="<%= asset_path("medals/#{@user.role}.png") %>" alt="<%= @user.role.titleize %>" title="<%= @user.role.titleize %>" style="image-rendering: pixelated;">
           <% end %>
         </h1>
         <span class="text-2xl text-gray-500">@<%= @user.name %></span>
@@ -28,7 +28,9 @@
         <div class="absolute top-0 bottom-0 right-0 w-12 tab:hidden"></div>
       </div>
       <script>
-        skinViewer.nameTag = "<%= @user.name %>"
+        window.addEventListener("load", () => {
+          skinViewer.nameTag = "<%= @user.name %>";
+        })
       </script>
     </div>
     <div class="flex flex-col gap-2 p-4 grow">

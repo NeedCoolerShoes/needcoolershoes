@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  root "static#editor"
+  root "skins#new"
 
-  mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
   devise_for :users, controllers: {sessions: "sessions"}
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -48,7 +47,6 @@ Rails.application.routes.draw do
 
   scope :banner do
     get "/", to: "banners#new", as: "banner_editor"
-    get "2014", to: "banners#banner_2014", as: "banner_2014"
   end
 
   scope :banners do
@@ -81,8 +79,8 @@ Rails.application.routes.draw do
   scope :terms do
     # get "/", to: "static#tos"
     get "/", to: redirect("/rules")
-    get "mncs-archive", to: "static#mncs_terms", as: "mncs_terms"
-    get "mncs_archive", to: redirect("/terms/mncs-archive")
+    get "mncs-archive", to: redirect("https://web.archive.org/web/20221128185339/https://www.needcoolshoes.com/terms")
+    get "mncs_archive", to: redirect("https://web.archive.org/web/20221128185339/https://www.needcoolshoes.com/terms")
   end
 
   scope :guides do
@@ -117,7 +115,6 @@ Rails.application.routes.draw do
 
   scope :editor do
     get "/", to: redirect("/")
-    get "2010", to: "static#editor_2010", as: "editor_2010"
   end
 
   # API
@@ -126,4 +123,7 @@ Rails.application.routes.draw do
     get "tags", to: "api#tags"
     get "outdated_browser", to: "api#outdated_browser_bypass"
   end
+
+  # Mounts
+  mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
 end

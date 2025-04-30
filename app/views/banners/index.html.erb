@@ -12,7 +12,7 @@
   <%= stylesheet_link_tag "banner/components" %>
 <% end %>
 <% content_for :scripts do %>
-  <script type="module" src="/ncsassets/js/banner/components/banner.js"></script>
+  <script type="module">import "src/banner/components/banner";</script>
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
@@ -20,7 +20,7 @@
   <% if !@banners.any? %>
     <div class="flex flex-col gap-2 items-center">
       <h3 class="text-4xl font-bold text-white">NO BANNERS?</h3>
-      <img src="/ncsassets/img/megamewnd.png" width="350" height="465.45" alt="Mascot">
+      <img src="<%= asset_path "megamewnd.png" %>" width="350" height="465.45" alt="Mascot">
       <p class="text-ncs-dark-300">Current search / filters yield no results.</p>
     </div>
   <% end %>

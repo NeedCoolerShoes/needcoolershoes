@@ -104,7 +104,7 @@ class User < ApplicationRecord
   def featured_skin_data
     return featured_skin.data if featured_skin.present? && featured_skin.visible
     return skins.visible.last.data if skins.visible.any?
-    "/ncsassets/img/mncs_mascot_skin.png"
+    ActionController::Base.helpers.asset_path("mncs_mascot_skin.png")
   end
 
   def banned?

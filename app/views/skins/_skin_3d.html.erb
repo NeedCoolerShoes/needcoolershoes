@@ -5,20 +5,20 @@
   width ||= 300
   model ||= nil
 %>
-<% content_for :scripts do %>
-  <script src="/ncsassets/js/skinview3d.bundle.js"></script>
-<% end %>
 
 <canvas id="skin_container"></canvas>
 
-<script>
-  const skinViewer = new skinview3d.SkinViewer({
+<script type="module">
+  import { SkinViewer } from "skinview3d";
+
+  const skinViewer = new SkinViewer({
     canvas: document.getElementById("skin_container"),
     width: <%= width %>,
     height: <%= height %>,
     model: "<%= model.present? ? model : "auto-detect" %>",
-    skin: "<%= data %>"
+    skin: "<%= data %>",
   });
+  window.skinViewer = skinViewer;
 
   const canvas = document.getElementById("skin_container")
   canvas.style.setProperty("max-width", "100%")

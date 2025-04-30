@@ -1,6 +1,6 @@
 :root {
   --ncs-banner-scale: 1;
-  --ncs-banner-sprites: url("/ncsassets/img/banner/banner_sprites.png");
+  --ncs-banner-sprites: url("/banner/banner_sprites.png");
 }
 
 ncrs-banner-preview {
@@ -107,7 +107,7 @@ ncrs-banner-instructions > * + * {
 }
 
 ncrs-banner-instructions > ncrs-banner-pattern {
-  background-image: url("/ncsassets/img/banner/banner_bg.png");
+  background-image: url("/banner/banner_bg.png");
   display: inline-block;
 }
 
@@ -116,14 +116,14 @@ ncrs-banner-instructions > ncrs-banner-pattern-preview {
 }
 
 .shield-sprites {
-  --ncs-banner-sprites: url("/ncsassets/img/banner/shield_sprites.png");
+  --ncs-banner-sprites: url("/banner/shield_sprites.png");
 }
 
 .banner-sprites {
-  --ncs-banner-sprites: url("/ncsassets/img/banner/banner_sprites.png");
+  --ncs-banner-sprites: url("/banner/banner_sprites.png");
 }
 
 .shield-overlay {
-  background-image: url("/ncsassets/img/banner/shield_overlay.png");
+  background-image: url("/banner/shield_overlay.png");
   image-rendering: pixelated;
 }

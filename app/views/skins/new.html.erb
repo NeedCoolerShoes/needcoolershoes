@@ -1,0 +1,101 @@
+<% content_for :scripts do %>
+  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <script type="module">
+    import "ncrs-editor";
+    import "src/editor";
+  </script>
+<% end %>
+
+<% content_for :message do %>
+  <% if @message %>
+    <div id="message" class="p-2 bg-gradient-to-b from-[#313436] to-[#24272A] border-b border-[#3D4042] text-white">
+      <%= markdown @message %>
+    </div>
+    <style>
+      #message a {
+        text-decoration: underline;
+      }
+    </style>
+  <% end %>
+<% end %>
+
+<ncrs-ui id="ncrs-ui" class="relative" gallery="<%= skins_gallery_path %>">
+  <div slot="export-form" class="text-white flex items-center justify-center pointer-events-none my-auto p-4">
+    <div class="bg-[#222327] pointer-events-auto p-4 rounded">
+      <% if current_user.present? %>
+        <%= render partial: "new_form" %>
+      <% else %>
+        <%= render partial: "sign_in_form" %>
+      <% end %>
+    </div>
+  </div>
+  <div slot="footer">
+    <div id="warning" class="hidden absolute top-0 bottom-0 left-0 right-0 z-[100] flex-col items-center bg-ncs-gray-700 text-white">
+      <div class="text-center max-w-md space-y-2 mt-8 p-2">
+        <p class="font-bold text-2xl">Welcome to Miners Need Cooler Shoes!</p>
+        <p>
+          Browse Minecraft Skins in our community <a href="/gallery/skins" class="underline text-white">Skin Gallery</a>
+          or create your own with our easy to use Minecraft Skin Editor!
+        </p>
+        <p>
+          Alternatively, browse Minecraft Banners and Capes in our community <a href="/gallery/banners" class="underline text-white">Banner Gallery</a>
+          or create your own with our <a href="/banner" class="underline text-white">Banner Maker</a>.
+        </p>
+        <p>
+          NeedCoolerShoes is a site/community dedicated to restoring Miners Need Cool Shoes, and creating a great experience to make and share
+          skins for Minecraft. We aim to be friendly to skin creators of any level, creating parts and skins to be shared and remixed with other
+          users.
+        </p>
+        <div class="py-4">
+          <hr>
+        </div>
+        <p>
+          Normally, the skin editor would load here, but it seems your screen is too small for it to work properly.
+        </p>
+        <button id="accept-warning-button" type="button" class="btn-ncs px-2 mt-8">Load the Editor Anyways</button>
+      </div>
+    </div>
+  </div>
+</ncrs-ui>
+
+<div id="wiki" class="flex items-center text-sm gap-1">
+  <%= heroicon "information-circle", size: 18, variant: :mini %>
+  <p>
+    Need help with the editor? Try the
+    <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!
+  </p>
+</div>
+
+<section id="about" class="mt-1">
+  <h1 class="text-sm font-bold">Minecraft Skin Editor</h1>
+  <p class="mb-2 text-sm">
+    Miners Need Cooler Shoes is a powerful, but easy to use, Minecraft skin editor, featuring a layer first design.
+    Simply search for parts you need for your skin, or create your own and share for all to use! With support for Slim and Classic model skins, ability to add reference images and pick colors from them, and a blend palette system, our skin editor has many different features you might not find in any other
+    web-based editor.
+  </p>
+</section>
+
+<style>
+  ncrs-ui {
+    max-width: 100%;
+    width: 1000px;
+    height: 670px;
+    background-color: #222327;
+    line-height: normal;
+    overflow: auto;
+    border-bottom-right-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem; 
+  }
+
+  ncrs-ui div[slot="export-form"] {
+    display: none;
+  }
+
+  ncrs-ui:defined div[slot="export-form"] {
+    display: initial;
+  }
+
+  ncrs-ui::part(export-form) {
+    z-index: 100;
+  }
+</style>

@@ -5,7 +5,7 @@
 </a>
 <h3 align="center">NeedCoolerShoes</h3>
 <p align="center">
-Restoration of the beloved NeedCoolShoes website
+Restoration of the beloved NeedCoolShoes website.
 
 <br/>
 <br/>
@@ -17,16 +17,16 @@ Restoration of the beloved NeedCoolShoes website
 
 ## About The Project
 
-![NeedCoolerShoes Editor](https://cdn.nucc.tr/mncs.png)
+![NeedCoolerShoes Editor](https://res.cloudinary.com/needcoolershoes/image/upload/v1745972534/b14fb18e-05d3-4689-895e-878aa63c13c3.png)
 
 [![Ruby 3.3.1](https://img.shields.io/badge/RUBY-3.3.1-%23CC342D?style=for-the-badge&logo=ruby)](https://www.ruby-lang.org/en/)
-[![Ruby on Rails 7.1](https://img.shields.io/badge/rails-7.1-%23D30001?style=for-the-badge&logo=rubyonrails)](https://rubyonrails.org/)
+[![Ruby on Rails 8.0](https://img.shields.io/badge/rails-8.0-%23D30001?style=for-the-badge&logo=rubyonrails)](https://rubyonrails.org/)
 [![PostgreSQL 16](https://img.shields.io/badge/PostgreSQL-16-%234169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ](https://www.postgresql.org/)
 [![Docker](https://img.shields.io/badge/Docker-%232496ED?style=for-the-badge&logo=docker&logoColor=white)
 ](https://www.docker.com/)
 
-Hello friend. Please modify this section to include a proper description as I was unable to come up with a good one.
+NeedCoolerShoes is an open source Minecraft skin editor, banner editor, and gallery.
 
 ### Built With
 
@@ -44,9 +44,9 @@ To get a local copy up and running follow these simple steps.
 
 #### Manual
 
-- Ruby 3.3.0 using [rbenv](https://github.com/rbenv/rbenv?tab=readme-ov-file#installation)
+- Ruby 3.3.1 using [rbenv](https://github.com/rbenv/rbenv?tab=readme-ov-file#installation)
   ```sh
-  rbenv local 3.3.0
+  rbenv local 3.3.1
   ```
 - Foreman
   ```sh
@@ -81,7 +81,6 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 ## License
-
 Distributed under the AGPLv3 License. See [AGPLv3](https://opensource.org/license/agpl-v3) for more information.
 
 ```
