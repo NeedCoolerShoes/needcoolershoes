@@ -24,7 +24,7 @@ M - needcoolershoes.com - MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 
 Miners Need Cool Shoes Restoration Team
 - Moxvallix: https://github.com/moxvallix/
-- Nucceteere: https://github.com/EngurRuzgar/
+- Nucceteere: https://github.com/Nucceteere/
 - OwaHai: https://github.com/owohai/
 - Pancake: https://github.com/P4ncake4451/
 
