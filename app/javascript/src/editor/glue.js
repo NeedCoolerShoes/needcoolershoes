@@ -20,3 +20,30 @@ acceptWarning.addEventListener("click", () => {
   warning.classList.remove('flex');
   localStorage.setItem('ncrs-ignore-warning', true);
 });
+
+function importSkinFromData() {
+  const importData = localStorage.getItem("ncrs-skin-import");
+  
+  if (!importData) { return; }
+
+  const data = JSON.parse(importData);
+  const ui = document.getElementById("ncrs-ui");
+  if (!ui) { return; }
+
+  const editor = ui.editor;
+  if (!editor) { return; }
+
+  editor.addLayerFromImageURL(data.data, {attribution: data.attribution});
+
+  if (editor.config.get("variant") === "classic" && data.model === "slim") {
+    editor.setVariant("slim");
+  }
+
+  localStorage.removeItem("ncrs-skin-import");
+}
+
+function onLoad() {
+  importSkinFromData();
+}
+
+window.addEventListener("load", () => onLoad());
