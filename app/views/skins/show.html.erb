@@ -24,7 +24,6 @@
         <% end %>
         <div class="absolute top-0 bottom-0 left-0 w-12 sm:hidden"></div>
         <div class="absolute top-0 bottom-0 right-0 w-12 sm:hidden"></div>
-        <script src="/ncsassets/js/skins.js"></script>
       </div>
       <div
         class="model hidden" data-user-id="<%= @skin.user_id %>" data-id="<%= @skin.id %>"
@@ -47,7 +46,7 @@
       </div>
       <div class="flex flex-col gap-1">
         <button
-          onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '/editor', '<%= @skin.slim? ? 'skinAlex' : 'skin' %>')"
+          onclick="editSkin('<%= @skin.data %>', '<%= @skin.attribution_string(true) %>', '<%= @skin.model %>')"
           class="edit btn-ncs mb-0.5" <%= @skin.can_user_open_in_editor?(current_user) ? nil : "disabled" %>
         >
           <%= t("common.editor") %>
@@ -191,6 +190,16 @@
   </div>
 </div>
 <script>
+  function editSkin(data, attribution, model) {
+    localStorage.setItem("ncrs-skin-import", JSON.stringify({
+      data: data,
+      attribution: attribution,
+      model: model,
+    }));
+
+    window.location = "/";
+  }
+
   // https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
   function copyText(id, createText = false) {
     let element;
