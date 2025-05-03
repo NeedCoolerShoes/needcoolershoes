@@ -1,0 +1,73 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t "hello"
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t("hello") %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   "true": "foo"
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+pl:
+  actions:
+    copy: Kopiuj
+    copied: Skopiowano!
+  skins:
+    editor: "Otwórz w Edytorze"
+    download: "Pobierz"
+    change_skin: "Zmień Skórkę na minecraft.net"
+    feature: "Wyróżnij Skórkę"
+    feature_tooltip: "Wyświetla twoją skórkę jako awatar na twoim profilu."
+    edit: "Edytuj Informacje"
+    moderate: "Moderuj Skórkę"
+    delete: "Usuń Skórkę"
+    delete_confirmation: "Czy jesteś pewien że chcesz usunąć tą skórkę? Nie będzie dało się jej odzyskać."
+    status:
+      hidden:
+        pt1: "Ta skórka została usunięta przez moderację. Sprawdź"
+        modlog: "modlog"
+        pt2: "po więcej informacji."
+      unlisted_guest: "Ta skórka jest niepubliczna, nie może być edytowana."
+      unlisted_owner: "Ta skórka jest niepubliczna, można tylko ją zobaczyć poprzez link, nie pojawi się w Galerii."
+      private: "Ta skórka jest prywatna, tylko ty możesz ją zobaczyć."
+    attributions:
+      self: Udostępnianie i Prawa Autorskie
+      parts_used: Użyte Części
+      used_by: Użyte Przez
+      cc_by_sa_4:
+        by: "stworzone przez"
+        attribute: "na licencji"
+      cc0:
+        by: "stworzone przez"
+        attribute: "jest oznaczone jako"
+      mncs:
+        by: "opublikowane przez"
+        attribute: "było oryginalnie opublikowane na stronie Miners Need Cool Shoes, i posiada wszelkie prawa zastrzeżone pod"
+        link: "warunkami tej strony"
+      arr:
+        by: "opublikowane przez"
+        attribute: "posiada wszelkie prawa zastrzeżone."
+  modlog:
+    title: "Modlog"
+    warning: "Ostrzeżenie: Ta treść została zmoderowana z konkretnego powodu i może zawierać ona niepokojokące lub nieprzyjemne treści. Kontynuuj na własne ryzyko."
