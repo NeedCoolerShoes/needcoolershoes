@@ -42,8 +42,21 @@ function importSkinFromData() {
   localStorage.removeItem("ncrs-skin-import");
 }
 
+function setupSkinModelEvent() {
+  const ui = document.getElementById("ncrs-ui");
+  const editor = ui.editor;
+  const select = document.getElementById("skin_model");
+
+  select.value = editor.config.get("variant");
+
+  editor.config.addEventListener("variant-change", event => {
+    select.value = event.detail;
+  })
+}
+
 function onLoad() {
   importSkinFromData();
+  setupSkinModelEvent();
 }
 
 window.addEventListener("load", () => onLoad());
