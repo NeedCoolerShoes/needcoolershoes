@@ -1,0 +1,22 @@
+# DISCLAIMER: This does not mean that any of the specified paths below are owned by that person.
+# This file works simple to request a review from the code owners for PR's and related issues.
+# For more information see the link below:
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#about-code-owners
+
+# Global Owner
+* @moxvallix
+
+# JavaScript Owner
+*.js @moxvallix @P4ncake4451
+
+# Documentation Owner
+LICENSE @Nucceteere
+README @Nucceteere
+*.rst @Nucceteere
+*.md @Nucceteere
+*.txt @Nucceteere
+docs/ @Nucceteere
+.dockerignore @Nucceteere
+.gitignore @Nucceteere
+Dockerfile @Nucceteere
+.github/ @Nucceteere
