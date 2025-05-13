@@ -8,6 +8,12 @@
 
 # JavaScript Owner
 *.js @moxvallix @P4ncake4451
+.node-version @moxvallix @P4ncake4451
+.nvmrc @moxvallix @P4ncake4451
+.tool-versions @moxvallix @P4ncake4451
+.yarnrc @moxvallix @P4ncake4451
+package.json @moxvallix @P4ncake4451
+yarn.lock @moxvallix @P4ncake4451
 
 # Documentation Owner
 LICENSE @Nucceteere
