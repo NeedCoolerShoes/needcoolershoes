@@ -789,7 +789,7 @@ nanopop@2.4.2:
 
 "ncrs-editor@https://github.com/NeedCoolerShoes/editor":
   version "0.1.0"
-  resolved "https://github.com/NeedCoolerShoes/editor#72db524f71a5cd8e460f7db93b6df74f8af65298"
+  resolved "https://github.com/NeedCoolerShoes/editor#053b982b1baccefd8ff8ea5d1504bca1c6f0e0e2"
   dependencies:
     "@simonwep/pickr" "^1.9.1"
     ajv "^8.17.1"

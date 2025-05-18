@@ -1,0 +1,25 @@
+<a href="<%= donate_path %>" class="relative opencollective-goal px-2 py-1 rounded text-sm text-white shadow-2xl">
+  <div class="opencollective-progress-fg"></div>
+  <div class="relative">
+    <p class="text-[9px] uppercase">Donation Goal</p>
+    <span class="font-bold mr-2"><%= name %></span> <%= bal_formatted %> / <%= goal_formatted %> <span class="text-xs"><%= currency %></span>
+  </div>
+</a>
+<style>
+  .opencollective-goal {
+    --progress: <%= progress %>%;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #16212D, #32404E);
+    line-height: 0.75rem;
+    /* border: 1px #5d8d9e66 solid; */
+  }
+
+  .opencollective-progress-fg {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: var(--progress);
+    background: linear-gradient(to bottom, #659394, #346E82);
+  }
+</style>

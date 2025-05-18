@@ -47,6 +47,8 @@ function setupSkinModelEvent() {
   const editor = ui.editor;
   const select = document.getElementById("skin_model");
 
+  if (!select) { return; }
+
   select.value = editor.config.get("variant");
 
   editor.config.addEventListener("variant-change", event => {
