@@ -8,7 +8,7 @@ class OpencollectiveApi
   CACHE_TIME = 5.minutes
 
   @@last_cached_at = Time.at(0)
-  @@cache = {balance: 0, goal: 0, name: "undefined"}
+  @@cache = {balance: 0, goal: 0, name: "undefined", currency: "USD"}
 
   def self.get_goal_data
     if !COLLECTIVE_GOAL_ID || !COLLECTIVE_TOKEN || !COLLECTIVE_SLUG
@@ -19,7 +19,7 @@ class OpencollectiveApi
       return @@cache
     end
 
-    query = "query {collective(slug:\"#{COLLECTIVE_SLUG}\") {settings, stats {balanceTimeSeries(timeUnit: YEAR) {nodes {amount {valueInCents}}}}}}"
+    query = "query {collective(slug:\"#{COLLECTIVE_SLUG}\") {settings, stats {balanceTimeSeries(timeUnit: YEAR) {nodes {amount {valueInCents, currency}}}}}}"
     response = HTTP.headers("Personal-Token": COLLECTIVE_TOKEN).post(ENDPOINT, json: {query: query})
     data = JSON.parse(response.to_s)
 
@@ -29,6 +29,7 @@ class OpencollectiveApi
     return @@cache unless goal.present?
 
     balance = data.dig("data", "collective", "stats", "balanceTimeSeries", "nodes", 0, "amount", "valueInCents")
+    currency = data.dig("data", "collective", "stats", "balanceTimeSeries", "nodes", 0, "amount", "currency")
 
     return @@cache unless balance.present?
 
@@ -36,12 +37,13 @@ class OpencollectiveApi
       balance: balance,
       goal: goal["amount"],
       name: goal["title"],
+      currency: currency,
     }
     @@last_cached_at = Time.current
     
     @@cache
   rescue
-    {balance: 0, goal: 0, name: "undefined"}
+    {balance: 0, goal: 0, name: "undefined", currency: "USD"}
   end
 
   def self.donation_url

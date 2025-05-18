@@ -1,8 +1,8 @@
-<a href="<%= donate_path %>" target="_blank" class="relative opencollective-goal px-2 py-1 rounded text-sm text-white">
+<a href="<%= donate_path %>" target="_blank" class="relative opencollective-goal px-2 py-1 rounded text-sm text-white shadow-2xl">
   <div class="opencollective-progress-fg"></div>
   <div class="relative">
     <p class="text-[9px] uppercase">Donation Goal</p>
-    <span class="font-bold mr-2"><%= name %></span> <%= bal_formatted %> / <%= goal_formatted %>
+    <span class="font-bold mr-2"><%= name %></span> <%= bal_formatted %> / <%= goal_formatted %> <span class="text-xs"><%= currency %></span>
   </div>
 </a>
 <style>

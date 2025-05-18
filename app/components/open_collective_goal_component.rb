@@ -18,6 +18,10 @@ class OpenCollectiveGoalComponent < ViewComponent::Base
     goal[:name]
   end
 
+  def currency
+    goal[:currency]
+  end
+
   def bal_formatted
     number_to_currency(goal[:balance] / 100.0)
   end
