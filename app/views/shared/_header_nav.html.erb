@@ -7,7 +7,7 @@
   ]
 %>
 
-<nav class="flex items-center gap-2 sm:gap-4 h-full uppercase">
+<nav class="flex items-center gap-2 sm:gap-4 h-full uppercase" data-turbo="false">
   <% links.each_with_index do |item, idx| %>
     <span class="font-normal text-lg sm:text-2xl">
       <a class="<%= class_on_nav(item[0], "font-bold text-ncs-header-selected", "text-ncs-header-base hover:text-ncs-header-hover duration-300 transition-colors") %>" href="<%= item[2] %>">
