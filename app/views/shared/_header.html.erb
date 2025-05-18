@@ -11,7 +11,9 @@
             <img src="<%= asset_path "header.png" %>" alt="Site Logo" width="80" height="60"/>
             <p class="hidden sm:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
           </a>
-          <%= render OpenCollectiveGoalComponent.new %>
+          <div class="hidden lg:flex items-center justify-center">
+            <%= render OpenCollectiveGoalComponent.new %>
+          </div>
           <div class="flex items-center gap-2">
             <% if current_user.present? %>
               <% if current_user.authorized?(:admin) %>

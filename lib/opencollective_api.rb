@@ -43,4 +43,8 @@ class OpencollectiveApi
   rescue
     {balance: 0, goal: 0, name: "undefined"}
   end
+
+  def self.donation_url
+    "https://opencollective.com/#{COLLECTIVE_SLUG}/contribute"
+  end
 end
