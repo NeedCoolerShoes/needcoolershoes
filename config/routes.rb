@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "about", to: "static#about", as: "about"
   get "faq", to: "static#faq", as: "faq"
   get "contact", to: "static#contact", as: "contact"
-  get "donate", to: redirect("https://opencollective.com/needcoolershoes/contribute"), as: "donate"
+  get "donate", to: "static#donate", as: "donate"
   post "contact", to: "static#send_message", as: "send_message"
   get "open-letter", to: "static#open_letter"
   get "open_letter", to: redirect("open-letter")
