@@ -23,8 +23,15 @@ test:
   database: needcoolershoes_test
 
 production:
-  <<: *default
-  database: needcoolershoes-db
+  primary:
+    <<: *default
+    database: needcoolershoes_production
+  queue:
+    adapter: sqlite3
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: storage/production_queue.sqlite3
+    migrations_paths: db/queue_migrate
 
 live:
   adapter: postgresql
