@@ -140,8 +140,8 @@ class Skin < ApplicationRecord
   end
 
   def attribution_string(js_safe = false)
-    seperator = js_safe ? "\\n" : "\n"
-    "#{url}#{seperator}#{user.attribution_message}"
+    separator = js_safe ? "\\n" : "\n"
+    "#{url}#{separator}#{user.attribution_message}"
   end
 
   def to_png
