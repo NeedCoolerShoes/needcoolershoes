@@ -1,5 +1,9 @@
 require_relative "../../lib/needcoolershoes/admin/actions/bump_site_message"
 
+def solid_queue_classes
+  SolidQueue.constants.map(&SolidQueue.method(:const_get)).grep(Class)
+end
+
 RailsAdmin.config do |config|
   RailsAdmin::Config::Actions.register(
     Needcoolershoes::Admin::Actions::BumpSiteMessage
@@ -46,6 +50,8 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.excluded_models += solid_queue_classes
 
   config.authorize_with do
     redirect_to main_app.root_path unless current_user&.authorized?(:admin)

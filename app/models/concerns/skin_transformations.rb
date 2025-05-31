@@ -60,7 +60,7 @@ module SkinTransformations
     right_arm: [44, 20, 3, 12],
     right_arm_back: [51, 20, 3, 12],
     right_arm_overlay: [44, 36, 3, 12],
-    right_arm_overlay_back: [51, 36, 4, 12],
+    right_arm_overlay_back: [51, 36, 3, 12],
     right_arm_right: [40, 20, 4, 12],
     right_arm_overlay_right: [40, 36, 4, 12],
     left_leg: [20, 52, 4, 12],
