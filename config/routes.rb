@@ -84,9 +84,8 @@ Rails.application.routes.draw do
   end
 
   scope :guides do
-    get "/", to: "guides#index", as: "guides"
-    get "working-with-embeds", to: "guides#embeds", as: "embeds_guide"
-    get "creating-your-first-skin", to: "guides#editor", as: "editor_guide"
+    get "/", to: redirect("https://wiki.needcoolershoes.com/guides"), as: "guides"
+    get "working-with-embeds", to: redirect("https://wiki.needcoolershoes.com/guides/working_with_embeds"), as: "embeds_guide"
   end
 
   get "badges", to: redirect("/hall-of-fame"), as: ""
