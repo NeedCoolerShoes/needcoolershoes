@@ -6,7 +6,7 @@ on:
     branches: staging
 
 jobs:
-  docker:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,5 +31,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/library/ncrs-staging:latest
+          tags: ${{ secrets.REGISTRY_URL }}/staging/needcoolershoes:latest
           logout: true
