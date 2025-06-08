@@ -7,11 +7,11 @@
   html {
     width: 100vw;
     height: 100vh;
-    background-image: url(/bg.webp);
+    background-image: url("./bg.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    image-rendering: pixelated;
+    image-rendering: initial;
   }
 
   body {
@@ -27,6 +27,7 @@
     flex-direction: column;
     padding-left: 1rem;
     padding-right: 1rem;
+    overflow-x: hidden;
   }
 
   #no-results {
@@ -50,10 +51,12 @@
 <body class="rails-default-error-page">
   <!-- This file lives in public/500.html -->
   <div>
+    <p id="no-results">OH NO...</p>
+    <img src="500.png" width="400" height="400" alt="Cheese Server">
     <h1>Error 500: Internal Error</h1>
     <p class="info">
       <strong>This is a bug.</strong> If you are seeing this, please
-      <a href="/contact">report it to us</a>, along side any additional information you can provide,
+      <a href="./contact">report it to us</a>, along side any additional information you can provide,
       such as what you were doing before receiving this error.
     </p>
   </div>
