@@ -31,5 +31,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/staging/needcoolershoes:latest
+          tags: ${{ secrets.REGISTRY_URL }}/staging/needcoolershoes
           logout: true
