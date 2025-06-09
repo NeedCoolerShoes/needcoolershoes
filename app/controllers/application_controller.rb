@@ -73,6 +73,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def teapot_error
+    respond_to do |format|
+      format.json { render json: {status: 418, error: "I'm a Teapot"} }
+      format.any { render file: "public/418.html", layout: false, status: 418 }
+    end
+  end
+
   def transform_tags(tags)
     json = JSON.parse(tags)
     json.map { |tag| tag["value"] }
