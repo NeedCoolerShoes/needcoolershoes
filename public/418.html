@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>I'm a teapot (418)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+  html {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("./bg.webp");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    image-rendering: initial;
+  }
+
+  body {
+    color: #2E2F30;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: larger;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+  }
+
+  #no-results {
+    color: white;
+    font-size: 3.75rem;
+    font-weight: bold;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    color: black;
+    line-height: 2.5em;
+  }
+  </style>
+</head>
+
+<body class="rails-default-error-page">
+  <!-- This file lives in public/404.html -->
+  <p id="no-results">I'M A TEAPOT!</p>
+  <img src="418.png" width="500" height="375" alt="Mascot">
+  <h1>Error 418: I'm a Teapot</h1>
+  <p><span id="quip">Not all roads lead to Rome...This one surely didn't</span> <a href="/" class="underline">Return Home</a></p>
+  <script>
+    const quips = [
+      "Not all roads lead to Rome...This one surely didn't",
+      "Wouldya like a cuppa mate?",
+      "This is... surely something.",
+      "I have no idea why I coded this.",
+      "Why.",
+      "Miners Need Hotter Tea!",
+      "Don't do that again.",
+      "I'm a teapot.",
+      "I'm a... teapot?",
+    ]
+    const quipSpan = document.getElementById("quip")
+    const quip = quips[Math.floor(Math.random() * quips.length)]
+
+    quipSpan.innerText = quip;
+  </script>
+</body>
+</html>
