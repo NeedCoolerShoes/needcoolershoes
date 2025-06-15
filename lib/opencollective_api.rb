@@ -19,7 +19,7 @@ class OpencollectiveApi
       return @@cache
     end
 
-    query = "query {collective(slug:\"#{COLLECTIVE_SLUG}\") {settings, stats {balanceTimeSeries(timeUnit: YEAR) {nodes {amount {valueInCents, currency}}}}}}"
+    query = "query {collective(slug:\"#{COLLECTIVE_SLUG}\") {settings, stats {contributionsAmountTimeSeries(timeUnit: YEAR) {nodes {amount {valueInCents, currency}}}}}}"
     response = HTTP.headers("Personal-Token": COLLECTIVE_TOKEN).post(ENDPOINT, json: {query: query})
     data = JSON.parse(response.to_s)
 
@@ -28,8 +28,8 @@ class OpencollectiveApi
 
     return @@cache unless goal.present?
 
-    balance = data.dig("data", "collective", "stats", "balanceTimeSeries", "nodes", 0, "amount", "valueInCents")
-    currency = data.dig("data", "collective", "stats", "balanceTimeSeries", "nodes", 0, "amount", "currency")
+    balance = data.dig("data", "collective", "stats", "contributionsAmountTimeSeries", "nodes", 0, "amount", "valueInCents")
+    currency = data.dig("data", "collective", "stats", "contributionsAmountTimeSeries", "nodes", 0, "amount", "currency")
 
     return @@cache unless balance.present?
 
