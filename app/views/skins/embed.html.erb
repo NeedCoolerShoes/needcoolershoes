@@ -13,7 +13,7 @@
         font-family: "Lato";
         font-style: normal;
         font-weight: 400;
-        src: url("/Lato-Regular.ttf");
+        src: url(<%= asset_path "Lato-Regular.ttf" %>);
         font-display: swap;
       }
 
@@ -21,13 +21,13 @@
         font-family: "Lato";
         font-style: normal;
         font-weight: 700;
-        src: url("/Lato-Bold.ttf");
+        src: url(<%= asset_path "Lato-Bold.ttf" %>);
         font-display: swap;
       }
 
       @font-face {
         font-family: 'Minecraft';
-        src: url("/minecraft.woff2") format('woff2');
+        src: url(<%= asset_path "minecraft.woff2" %>) format('woff2');
         font-display: swap;
       }
     </style>
