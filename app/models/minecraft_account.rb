@@ -29,7 +29,7 @@ class MinecraftAccount < ApplicationRecord
     texture = json.dig("skins", 0, "url")
 
     if texture.present?
-      skin.update(minecraft_texture_url: texture) if !skin.minecraft_texture_url?
+      skin.update(minecraft_texture_url: texture, minecraft_texture_status: :resolved) if !skin.minecraft_texture_url?
       update(texture: texture)
     end
   end
