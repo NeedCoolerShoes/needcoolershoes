@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_07_132927) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_185449) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "badges", force: :cascade do |t|
     t.string "name"
@@ -236,10 +236,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_07_132927) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.integer "pixels", default: 0, null: false
-    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.datetime "ban_ends_at"
     t.string "ban_message"
+    t.integer "pixels", default: 0, null: false
+    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.bigint "minecraft_account_id"
     t.string "support_token", default: "", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -265,6 +265,5 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_07_132927) do
   add_foreign_key "user_badges", "badges"
   add_foreign_key "user_badges", "users"
   add_foreign_key "users", "badges", column: "featured_badge_id"
-  add_foreign_key "users", "minecraft_accounts"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end
