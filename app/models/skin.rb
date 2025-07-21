@@ -32,9 +32,7 @@ class Skin < ApplicationRecord
   include Taggable
   include Searchable
 
-  SortableByHot::KARMA_MULT = 0.5
-  SortableByHot::FAVOURITES_MULT = 1.0
-  include SortableByHot
+  include SortableByHot[karma: 0.5, favourites: 1.0]
 
   add_gallery_filters PARAMS
 

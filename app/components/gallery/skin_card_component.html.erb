@@ -3,7 +3,7 @@
     <% if params[:debug] == "rank" %>
       <div class="text-white text-sm absolute top-0 left-0 p-2 pt-1 z-10 bg-black/70">
         <p title="<%= @skin.rank_debug %>">
-          + <%= @skin.rank - @skin.created_at.to_i / 3600 %>
+          + <%= @skin.calculate_hotness_score %>
         </p>
       </div>
     <% end %>

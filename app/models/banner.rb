@@ -5,9 +5,7 @@ class Banner < ApplicationRecord
   include Taggable
   include Searchable
 
-  SortableByHot::KARMA_MULT = 0
-  SortableByHot::FAVOURITES_MULT = 2.5
-  include SortableByHot
+  include SortableByHot[karma: 0, favourites: 2.5]
 
   SURVIVAL_FRIENDLY_LENGTH = 14
 
