@@ -30,6 +30,10 @@ class OpenCollectiveGoalComponent < ViewComponent::Base
     number_to_currency(goal[:goal] / 100.0)
   end
 
+  def goal_reached?
+    goal[:balance] >= goal[:goal]
+  end
+
   def url
     OpencollectiveApi.donation_url
   end

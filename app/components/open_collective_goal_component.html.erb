@@ -1,5 +1,5 @@
 <a href="<%= donate_path %>" class="relative opencollective-goal px-2 py-1 rounded text-sm text-white shadow-2xl">
-  <div class="opencollective-progress-fg"></div>
+  <div class="opencollective-progress-fg <%= goal_reached? ? "opencollective-progress-complete" : nil %>"></div>
   <div class="relative">
     <p class="text-[9px] uppercase">Donation Goal</p>
     <span class="font-bold mr-2"><%= name %></span> <%= bal_formatted %> / <%= goal_formatted %> <span class="text-xs"><%= currency %></span>
@@ -21,5 +21,9 @@
     bottom: 0px;
     width: var(--progress);
     background: linear-gradient(to bottom, #55b2ff, #3276ff);
+  }
+
+  .opencollective-progress-complete {
+    background: linear-gradient(to bottom,rgb(27, 226, 103),rgb(31, 180, 103));
   }
 </style>
