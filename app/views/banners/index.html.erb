@@ -12,7 +12,7 @@
   <%= stylesheet_link_tag "banner/components" %>
 <% end %>
 <% content_for :scripts do %>
-  <script type="module">import "src/banner/components/banner";</script>
+  <script type="module">import "ncrs-banner";</script>
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>

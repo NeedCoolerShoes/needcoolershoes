@@ -1,10 +1,6 @@
-<% content_for :styles do %>
-  <%= stylesheet_link_tag "banner/components" %>
-<% end %>
 <% content_for :scripts do %>
   <script type="module">
-    import "src/banner/components/banner";
-    import "src/banner/components/commands";
+    import "ncrs-banner";
   </script>
 <% end %>
 
@@ -53,19 +49,13 @@
       <div class="bg-ncs-dark-800 p-1">
         <h2><%= @banner.survival_friendly? ? "Crafting Steps" : "Pattern List (Not Survival Friendly)" %></h2>
       </div>
-      <ncrs-banner-instructions id="banner-instructions" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
+      <ncrs-banner-instructions id="banner-instructions" class="p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
     </div>
     <div class="bg-ncs-dark-700">
       <div class="bg-ncs-dark-800 p-1">
         <h2>Generate Command</h2>
       </div>
-      <button class="command-button" onclick="setCommandMode('give')">/give</button>
-      <button class="command-button" onclick="setCommandMode('setblock')">/setblock</button>
-      <div class="float-right mt-1 mr-1">
-        <label for="banner-selector" class="text-sm">Selector</label>
-        <input type="text" id="banner-selector" value="@p" placeholder="@p" oninput="setSelector(event)" class="h-6 w-24 font-mono">
-      </div>
-      <ncrs-banner-command id="banner-command" class="block p-1" banner="<%= @banner.data %>"></ncrs-banner-command>
+      <ncrs-banner-command-box code="<%= @banner.data %>"></ncrs-banner-command-box>
     </div>
   </div>
 
@@ -91,15 +81,18 @@
 </script>
 
 <script type="module">
-  import { NCRSBanner } from "src/banner/components/banner";
+  import { NCRSBanner } from "ncrs-banner";
 
   const bannerCode = "<%= @banner.data %>"
   const supportedVersions = NCRSBanner.validVersions(bannerCode);
 
-  const versionName = supportedVersions[0]?.name;
-  const versionText = document.getElementById("supports-version");
-  versionText.textContent = versionName;
-  versionText.title = `Supports Minecraft ${versionName}`
+  if (supportedVersions.length > 0) {
+    const versionName = supportedVersions[0][1].name;
+    const versionText = document.getElementById("supports-version");
+    versionText.textContent = versionName;
+    versionText.title = `Supports Minecraft ${versionName}`
+  }
+
 </script>
 
 <style>

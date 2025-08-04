@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "ncrs-banner": "https://github.com/NeedCoolerShoes/banner-editor",
     "ncrs-editor": "https://github.com/NeedCoolerShoes/editor",
     "rails_admin": "3.3.0",
     "sass": "^1.86.3",

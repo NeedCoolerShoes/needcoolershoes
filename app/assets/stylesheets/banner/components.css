@@ -98,23 +98,6 @@ ncrs-banner-command > textarea {
   margin-top: 0.25rem;
 }
 
-ncrs-banner-instructions {
-  height: 52.4px;
-}
-
-ncrs-banner-instructions > * + * {
-  margin-left: 0.25rem;
-}
-
-ncrs-banner-instructions > ncrs-banner-pattern {
-  background-image: url("/banner/banner_bg.png");
-  display: inline-block;
-}
-
-ncrs-banner-instructions > ncrs-banner-pattern-preview {
-  display: inline-block;
-}
-
 .shield-sprites {
   --ncs-banner-sprites: url("/banner/shield_sprites.png");
 }
