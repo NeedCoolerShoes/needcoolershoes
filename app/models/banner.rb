@@ -15,6 +15,7 @@ class Banner < ApplicationRecord
     search: "search",
     compatibility: "by_compatibility",
     style: "by_style",
+    max_version: "by_version",
   })
 
   attribute :terms_and_conditions, :boolean
@@ -42,6 +43,7 @@ class Banner < ApplicationRecord
 
   attribute :style, :integer, default: 0
   enum :style, %i[banner any shield], default: :banner, suffix: :style
+  enum :minimum_version, %i[v1_8 v1_16 v1_21], default: :v1_8
 
   scope :survival_friendly, -> { where("LENGTH(data) <= ?", SURVIVAL_FRIENDLY_LENGTH) }
   scope :by_compatibility, ->(type) {
@@ -50,6 +52,35 @@ class Banner < ApplicationRecord
     when "command" then where.not(id: survival_friendly)
     end
   }
+
+  scope :by_version, ->(version) {
+    minimum_version = minimum_versions[version]
+    return all unless minimum_version.present?
+
+    where(minimum_version: ..minimum_version)
+  }
+
+  def self.latest_mc_version
+    self.minimum_versions.keys.last
+  end
+
+  def self.format_mc_version_name(version)
+    versions = {
+      "v1_8" => "1.8+",
+      "v1_16" => "1.16+",
+      "v1_21" => "1.21+",
+    }
+    return versions[version] || "???"
+  end
+
+  def self.format_mc_version_range(version)
+    versions = {
+      "v1_8" => "1.8 - 1.15",
+      "v1_16" => "1.16 - 1.20",
+      "v1_21" => "1.21+",
+    }
+    return versions[version] || "???"
+  end
 
   def survival_friendly?
     data.size <= SURVIVAL_FRIENDLY_LENGTH
@@ -73,5 +104,16 @@ class Banner < ApplicationRecord
 
   def to_title_url
     Routing.banner_title_url(self, to_url_title)
+  end
+
+  def formatted_minimum_version
+    self.class.format_mc_version_name(minimum_version)
+  end
+
+  def calculate_minimum_version
+    return unless data.match?(/\A[a-p]a([a-z]{2})+\z/i)
+    return :v1_21 if data.match?(/\A([a-zA-Z][a-zA-Z])*([a-p][PQ])([a-zA-Z][a-zA-Z])*\z/)
+    return :v1_16 if data.match?(/\A([a-zA-Z][a-zA-Z])*([a-p][NO])([a-zA-Z][a-zA-Z])*\z/)
+    :v1_8
   end
 end

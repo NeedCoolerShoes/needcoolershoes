@@ -61,6 +61,7 @@ class BannersController < ApplicationController
     params[:tag_list] = transform_tags(banner_params[:tags])
     @banner = Banner.new(params)
     @banner.user = current_user
+    @banner.minimum_version = @banner.calculate_minimum_version
 
     respond_to do |format|
       if @banner.save
@@ -154,7 +155,7 @@ class BannersController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug).permit!
+    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug, :max_version).permit!
   end
 
   def banner_params

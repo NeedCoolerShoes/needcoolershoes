@@ -41,6 +41,22 @@
     </div>
   </div>
   <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
+  <h3 class="font-bold text-ncs-dark-100">Supports Versions:</h3>
+  <div class="flex flex-wrap gap-1 text-ncs-dark-100">
+    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">
+      <%
+        versions = Banner.minimum_versions.keys.reject {|key| key == Banner.latest_mc_version}
+      %>
+      <% versions.each do |id| %>
+        <%= banners_gallery_filter_tag params, :max_version, id, "", Banner.format_mc_version_range(id) %>
+      <% end %>
+      <%= link_to Banner.format_mc_version_range(Banner.latest_mc_version),
+        banners_gallery_path(params.except(:max_version)),
+        class: params[:max_version] ? "underline" : "font-bold underline"
+      %>
+    </div>
+  </div>
+  <hr class="border-ncs-dark-600 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Created At:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
     <div class="flex flex-wrap items-center gap-2 text-ncs-dark-300">

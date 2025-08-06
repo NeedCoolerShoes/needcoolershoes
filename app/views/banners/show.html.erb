@@ -1,3 +1,6 @@
+<% content_for :styles do %>
+  <%= stylesheet_link_tag "banners" %>
+<% end %>
 <% content_for :scripts do %>
   <script type="module">
     import "ncrs-banner";
@@ -30,7 +33,12 @@
       <div class="font-bold">
         <p class="text-ncs-dark-300">
           Banner
-          <span class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-800 text-ncs-dark-100" id="supports-version"></span>
+          <span
+            class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-800 text-ncs-dark-100"
+            title="Supports Minecraft <%= @banner.formatted_minimum_version %>"
+          >
+            <%= @banner.formatted_minimum_version %>
+          </span>
         </p>
         <p>by <%= profile_link @banner.user %></p>
       </div>
@@ -78,21 +86,6 @@
     command.setAttribute("selector", selector)
     selectorElm.value = selector
   }
-</script>
-
-<script type="module">
-  import { NCRSBanner } from "ncrs-banner";
-
-  const bannerCode = "<%= @banner.data %>"
-  const supportedVersions = NCRSBanner.validVersions(bannerCode);
-
-  if (supportedVersions.length > 0) {
-    const versionName = supportedVersions[0][1].name;
-    const versionText = document.getElementById("supports-version");
-    versionText.textContent = versionName;
-    versionText.title = `Supports Minecraft ${versionName}`
-  }
-
 </script>
 
 <style>
