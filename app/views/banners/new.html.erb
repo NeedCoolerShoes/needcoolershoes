@@ -1,144 +1,35 @@
 <% content_for :styles do %>
-  <%= stylesheet_link_tag "banner/main" %>
-  <%= stylesheet_link_tag "banner/components" %>
   <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <style>
+    ncrs-banner-ui:not(:defined) {
+      display: none;
+    }
+  </style>
 <% end %>
 <% content_for :scripts do %>
   <meta name="turbo-visit-control" content="reload">
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
   <script type="module">
-    import "src/banner/main";
+    import "ncrs-banner";
+    import "src/banner/glue";
+    import "src/banner/old_editor_import"
   </script>
 <% end %>
 <% content_for :message do %>
-  <div class="p-2 bg-ncs-yellow-200 !mb-2 shadow">
+  <div class="p-2 bg-gradient-to-b from-[#313436] to-[#24272A] border-b border-[#3D4042] text-white mb-2">
     The banner editor has been updated for 1.21! If you have any feedback, please
     <%= link_to "Contact Us", contact_path, class: "underline" %>.
   </div>
 <% end %>
 <div id="app">
-  <section id="preview-area">
-    <div>
-      <div class="header flex justify-between">
-        <h2>Preview</h2>
-        <div>
-          <label for="shield-preview" class="text-sm">Use Shield Sprites?</label>
-          <input type="checkbox" autocomplete="off" name="shield" id="shield-preview">
-        </div>
-      </div>
-      <div id="preview-container" class="preview-skew">
-        <div class="preview-wave">
-          <ncrs-banner-preview id="preview"></ncrs-banner-preview>
-          <ncrs-banner-pattern-preview id="preview-overlay"></ncrs-banner-pattern-preview>
-          <div id="preview-texture-overlay"></div>
-        </div>
-      </div>
+  <ncrs-banner-ui id="banner-ui">
+    <div slot="export-form" class="m-2 mt-12 p-4 rounded bg-ncs-gray-900 max-w-lg w-full">
+      <% if current_user.present? %>
+        <h2 class="text-xl text-white">Upload Banner</h2>
+        <%= render partial: "new_form", locals: {banner: @banner} %>
+      <% else %>
+        <%= render partial: "sign_in_form" %>
+      <% end %>
     </div>
-    <div>
-      <button id="random" class="btn-ncs">Randomize!</button>
-      <button id="clear" class="btn-ncs">Clear All</button>
-      <button id="share" class="btn-ncs">Share to Gallery</button>
-    </div>
-    <div id="url-banners-container">
-      <div class="header">
-        <h2>URL Banner</h2>
-      </div>
-      <div id="url-banners" class="banner-sprites">
-      </div>
-    </div>
-    <p class="text-xs">Inspired from the original editor by <a class="underline" href="https://algoinde.ru/bngn">Algoinde</a></p>
-  </section>
-  <section id="layers-area">
-    <div class="banner-container">
-      <div class="header">
-        <h2>Layers</h2>
-      </div>
-      <div id="layers-container">
-        <div id="base">
-          <ncrs-banner-patternset id="base-pattern">
-            <div class="layer-color"></div>
-            <div class="layer-container">
-              <button class="pattern-preview">
-                <div class="layer-selector">
-                  <ncrs-banner-color-list selected="#f9fffe"></ncrs-banner-color-list>
-                </div>
-              </button>
-            </div>
-          </ncrs-banner-patternset>
-        </div>
-        <ol id="layers">
-        </ol>
-      </div>
-    </div>
-  </section>
-  <section id="patterns-area">
-    <div>
-      <div class="header">
-        <h2>Layer Creation</h2>
-      </div>
-      <ncrs-banner-patternset id="layer-picker">
-        <ncrs-banner-color-list></ncrs-banner-color-list>
-        <hr>
-        <ncrs-banner-pattern-list></ncrs-banner-pattern-list>
-      </ncrs-banner-patternset>
-    </div>
-    <div>
-      <div class="header">
-        <h2>Share link</h2>
-      </div>
-      <input type="text" id="url" onclick="this.select()" readonly>
-    </div>
-    <div class="banner-container">
-      <div class="header">
-        <h2>Generate Command</h2>
-      </div>
-      <button class="command-button" onclick="setCommandMode('give')">/give</button>
-      <button class="command-button" onclick="setCommandMode('setblock')">/setblock</button>
-      <div class="float-right mt-1 mr-1">
-        <label for="banner-selector" class="text-sm">Selector</label>
-        <input type="text" id="banner-selector" value="@p" placeholder="@p" oninput="setSelector(event)" class="h-6 w-24 font-mono">
-      </div>
-      <ncrs-banner-command id="banner-command"></ncrs-banner-command>
-      <script>
-        const command = document.getElementById('banner-command')
-        const selectorElm = document.getElementById('banner-selector')
-
-        function setCommandMode(mode) {
-          command.setAttribute('mode', mode)
-        }
-        function setSelector(event) {
-          command.setAttribute('selector', event.target.value)
-          localStorage.setItem("ncrs-banner-selector", event.target.value)
-        }
-
-        const selector = localStorage.getItem("ncrs-banner-selector")
-        if (selector) {
-          command.setAttribute("selector", selector)
-          selectorElm.value = selector
-        }
-      </script>
-    </div>
-    <div class="banner-container banner-sprites">
-      <div class="header">
-        <h2>Saved Banners</h2>
-      </div>
-      <div id="saved-banners">
-        <button id="save-button">+</button>
-      </div>
-      <div>
-        <h3>Share Saved Banners</h3>
-        <input type="text" id="saved-banners-url" onclick="this.select()" readonly>
-      </div>
-    </div>
-  </section>
+  </ncrs-banner-ui>
 </div>
-<ncrs-dialog id="share-form">
-  <div class="m-2 p-4 rounded bg-ncs-gray-900 max-w-lg w-full">
-    <% if current_user.present? %>
-      <h2 class="text-xl text-white">Upload Banner</h2>
-      <%= render partial: "new_form", locals: {banner: @banner} %>
-    <% else %>
-      <%= render partial: "sign_in_form" %>
-    <% end %>
-  </div>
-</ncrs-dialog>
+<p class="text-xs">Inspired from the original editor by <a class="underline" href="https://algoinde.ru/bngn">Algoinde</a></p>

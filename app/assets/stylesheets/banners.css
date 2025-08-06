@@ -1,0 +1,4 @@
+.shield-overlay {
+  background-image: url("/banner/shield_overlay.png");
+  image-rendering: pixelated;
+}

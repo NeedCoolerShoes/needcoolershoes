@@ -42,6 +42,20 @@
       <% else %>
         <%= banners_gallery_filter_tag @params.merge(style: ""), :style, "", "Banner / Shield", "Banner / Shield" %>
       <% end %>
+      -
+      <% if @banner.minimum_version == Banner.latest_mc_version || @params[:max_version] == @banner.minimum_version %>
+        <%= link_to Banner.format_mc_version_name(@banner.minimum_version),
+          banners_gallery_path(@params.except(:max_version)),
+          title: title="Supports Minecraft #{@banner.formatted_minimum_version}",
+          class: "underline"
+        %>
+      <% else %>
+        <%= link_to Banner.format_mc_version_name(@banner.minimum_version),
+          banners_gallery_path(@params.merge(max_version: @banner.minimum_version)),
+          title: title="Supports Minecraft #{@banner.formatted_minimum_version}",
+          class: "underline"
+        %>
+      <% end %>
     </p>
     <p class="line-clamp-1 break-all pr-4">
       by <%= profile_link @banner.user %>

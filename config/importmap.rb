@@ -14,4 +14,5 @@ pin "local-time" # @3.0.2
 pin "@avo-hq/marksmith", to: "@avo-hq--marksmith.js" # @0.1.3
 
 pin "ncrs-editor", to: "ncrs-editor.js"
+pin "ncrs-banner", to: "ncrs-banner.js"
 pin "skinview3d", to: "skinview3d.js"
