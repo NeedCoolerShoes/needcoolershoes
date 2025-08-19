@@ -8,5 +8,7 @@ shareCancel.addEventListener("click", () => {
 })
 
 bannerUI.layers.addEventListener("update", () => {
+  if (!bannerFormInput) { return; }
+
   bannerFormInput.value = bannerUI.layers.encode();
 })
