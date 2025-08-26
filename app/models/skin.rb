@@ -179,7 +179,7 @@ class Skin < ApplicationRecord
   end
 
   def filename
-    "#{name.parameterize}_#{created_at.strftime("%Y%m%d")}_#{id}.png"
+    "#{name.to_s[..32].parameterize}_#{created_at.strftime("%Y%m%d")}_#{id}.png"
   end
 
   def metadata
