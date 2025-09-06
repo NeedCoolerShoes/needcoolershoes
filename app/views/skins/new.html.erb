@@ -59,10 +59,13 @@
 </ncrs-ui>
 
 <div id="wiki" class="flex items-center text-sm gap-1">
+  <button id="roll-tip" title="Get new tip"><%= heroicon "arrow-path", size: 18, variant: :mini %></button>
   <%= heroicon "information-circle", size: 18, variant: :mini %>
-  <p>
-    Need help with the editor? Try the
-    <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!
+  <p id="tip">
+    <noscript>
+      Need help with the editor? Try the
+      <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!
+    </noscript>
   </p>
 </div>
 
