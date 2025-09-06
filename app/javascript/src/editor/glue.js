@@ -56,9 +56,61 @@ function setupSkinModelEvent() {
   })
 }
 
+const TIPS = [
+  `Need help with the editor? Try the <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!`,
+  `Middle click with your mouse to pan the camera. Press 0 to reset your camera.`,
+  `Most buttons have a useful tooltip, if you hover your mouse over them for long enough.`,
+  `Hovering your mouse over a layer will show any attribution data it has.`,
+  `You can import reference images from the "Import" tab, which can be moved around, resized, and color picked.`,
+  `You can use the scroll wheel, and the arrow keys, to change the value of sliders (shift will make them change faster).`,
+  `Exporting to a ".ncrs" file preserves layers, metadata, and filters, all things lost when exporting to ".png".`,
+  `Most skins you download from the site will have rainbow / black pixels next to the face. Those store the attribution data of the skin.`,
+  `You can write the names of colors in to the color picker hex field, based on CSS color names.`,
+];
+
+const SECRET_TIPS = [
+  `Try writing "MOXVALLIX" in to the color picker. Try "DEADMAU5". To reset, write the word again.`,
+];
+
+let tipIndex = Math.floor(Math.random() * TIPS.length);
+let tipClickTimes = 0;
+
+function setupTips() {
+  loadTip(TIPS);
+
+  const tipRoll = document.getElementById("roll-tip");
+  tipRoll.addEventListener("click", () => {
+    tipIndex += 1;
+    tipClickTimes++;
+
+    if (tipIndex > (TIPS.length -1)) {
+      tipIndex = 0;
+    }
+
+    if (tipClickTimes >= 20) {
+      tipIndex = Math.floor(Math.random() * SECRET_TIPS.length);
+      tipClickTimes = 0;
+
+      loadTip(SECRET_TIPS);
+      return;
+    }
+
+
+    loadTip(TIPS);
+  })
+}
+
+function loadTip(tipArray) {
+  const tipElement = document.getElementById("tip");
+  const tip = tipArray[tipIndex];
+
+  tipElement.innerHTML = tip;
+}
+
 function onLoad() {
   importSkinFromData();
   setupSkinModelEvent();
+  setupTips();
 }
 
 window.addEventListener("load", () => onLoad());
