@@ -59,10 +59,10 @@ function setupSkinModelEvent() {
 const TIPS = [
   `Need help with the editor? Try the <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!`,
   `Middle click with your mouse to pan the camera. Press 0 to reset your camera.`,
-  `Hovering your mouse over a layer will show any attribution data it has.`,
   `Most buttons have a useful tooltip, if you hover your mouse over them for long enough.`,
+  `Hovering your mouse over a layer will show any attribution data it has.`,
   `You can import reference images from the "Import" tab, which can be moved around, resized, and color picked.`,
-  `You can use the scroll wheel, and the arrow keys, to change the value of sliders (shift will make it change faster).`,
+  `You can use the scroll wheel, and the arrow keys, to change the value of sliders (shift will make them change faster).`,
   `Exporting to a ".ncrs" file preserves layers, metadata, and filters, all things lost when exporting to ".png".`,
   `Most skins you download from the site will have rainbow / black pixels next to the face. Those store the attribution data of the skin.`,
   `You can write the names of colors in to the color picker hex field, based on CSS color names.`,
