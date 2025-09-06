@@ -82,7 +82,7 @@ let tipIndex = Math.floor(Math.random() * TIPS.length);
 let tipClickTimes = 0;
 
 function setupTips() {
-  loadTip(TIPS);
+  loadTip(TIPS[tipIndex]);
 
   const tipRoll = document.getElementById("roll-tip");
   tipRoll.addEventListener("click", () => {
@@ -94,21 +94,20 @@ function setupTips() {
     }
 
     if (tipClickTimes >= 20) {
-      tipIndex = Math.floor(Math.random() * SECRET_TIPS.length);
+      const secretTipIndex = Math.floor(Math.random() * SECRET_TIPS.length);
       tipClickTimes = 0;
 
-      loadTip(SECRET_TIPS);
+      loadTip(SECRET_TIPS[secretTipIndex]);
       return;
     }
 
 
-    loadTip(TIPS);
+    loadTip(TIPS[tipIndex]);
   })
 }
 
-function loadTip(tipArray) {
+function loadTip(tip) {
   const tipElement = document.getElementById("tip");
-  const tip = tipArray[tipIndex];
 
   tipElement.innerHTML = tip;
 }
