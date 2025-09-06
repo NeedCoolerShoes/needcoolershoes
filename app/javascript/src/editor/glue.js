@@ -66,27 +66,43 @@ const TIPS = [
   `Exporting to a ".ncrs" file preserves layers, metadata, and filters, all things lost when exporting to ".png".`,
   `Most skins you download from the site will have rainbow / black pixels next to the face. Those store the attribution data of the skin.`,
   `You can write the names of colors in to the color picker hex field, based on CSS color names.`,
-  `Try writing "MOXVALLIX" in to the color picker. Try "DEADMAU5". To reset, write the word again.`
 ];
+
+const SECRET_TIPS = [
+  `Try writing "MOXVALLIX" in to the color picker. Try "DEADMAU5". To reset, write the word again.`,
+];
+
 let tipIndex = Math.floor(Math.random() * TIPS.length);
+let tipClickTimes = 0;
 
 function setupTips() {
-  loadTip();
+  loadTip(TIPS);
 
   const tipRoll = document.getElementById("roll-tip");
   tipRoll.addEventListener("click", () => {
     tipIndex += 1;
+    tipClickTimes++;
+
     if (tipIndex > (TIPS.length -1)) {
       tipIndex = 0;
     }
 
-    loadTip();
+    if (tipClickTimes >= 20) {
+      tipIndex = Math.floor(Math.random() * SECRET_TIPS.length);
+      tipClickTimes = 0;
+
+      loadTip(SECRET_TIPS);
+      return;
+    }
+
+
+    loadTip(TIPS);
   })
 }
 
-function loadTip() {
+function loadTip(tipArray) {
   const tipElement = document.getElementById("tip");
-  const tip = TIPS[tipIndex];
+  const tip = tipArray[tipIndex];
 
   tipElement.innerHTML = tip;
 }
