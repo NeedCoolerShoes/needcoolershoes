@@ -60,16 +60,22 @@ const TIPS = [
   `Need help with the editor? Try the <a href="https://wiki.needcoolershoes.com" target="_blank" class="underline">wiki</a>!`,
   `Middle click with your mouse to pan the camera. Press 0 to reset your camera.`,
   `Most buttons have a useful tooltip, if you hover your mouse over them for long enough.`,
-  `Hovering your mouse over a layer will show any attribution data it has.`,
+  `Hovering your mouse over a layer will show the attribution link if it has one.`,
   `You can import reference images from the "Import" tab, which can be moved around, resized, and color picked.`,
   `You can use the scroll wheel, and the arrow keys, to change the value of sliders (shift will make them change faster).`,
   `Exporting to a ".ncrs" file preserves layers, metadata, and filters, all things lost when exporting to ".png".`,
-  `Most skins you download from the site will have rainbow / black pixels next to the face. Those store the attribution data of the skin.`,
-  `You can write the names of colors in to the color picker hex field, based on CSS color names.`,
+  `Most skins you download from the site will have randomly colored / black pixels next to the face. Those store the attribution data of the skin.`,
+  `You can write the names of colors like "red" in the color picker hex field.`,
+  `You can write "random" in the hex color field to get a random color`,
+  `Shift-click the part toggles to disable all other parts but the one clicked.`,
+  `Middle-clicking the color adjustment sliders in the layers tab resets them`,
+  `All parts you import from the gallery will be linked under your skin, if you decide to post it to the gallery.`,
 ];
 
 const SECRET_TIPS = [
-  `Try writing "MOXVALLIX" in to the color picker. Try "DEADMAU5". To reset, write the word again.`,
+  `Try putting "MOXVALLIX" in to the color picker (you can turn it off by typing it again).`,
+  `Try putting "DEADMAU5" in to the color picker. (you can turn it off by typing it again`,
+  `Many people from our discord community submitted their names as colors, for example "Wulfian" or "Dragon".`,
 ];
 
 let tipIndex = Math.floor(Math.random() * TIPS.length);
