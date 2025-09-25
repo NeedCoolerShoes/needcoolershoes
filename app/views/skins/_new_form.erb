@@ -54,7 +54,7 @@
           <div class="flex flex-col">
             <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black p-1" %>
             <span id="license_info" class="text-sm text-white">
-              The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.
+              The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0. Please note that skin will be automatically credited whenever someone uses it and uploads to the gallery. 
             </span>
           </div>
         </div>
@@ -136,7 +136,7 @@
     const info = document.getElementById("license_info")
 
     const licenseInfo = {
-      self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0.",
+      self: "The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0. Please note that skin will be automatically credited whenever someone uses it and uploads to the gallery.",
       archive: "The skin can be shared to the gallery, but will be marked as archived, and will follow the license terms of needcoolshoes.com.",
       arr: "The gallery is for sharing skins free for others to remix. This skin must be unlisted or private."
     }
