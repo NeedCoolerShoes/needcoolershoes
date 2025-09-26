@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def db_connection_error
     respond_to do |format|
-      format.json { render json: {status: 202, error: "Connecting to database, try again shortly"} }
-      format.any { render layout: "plain", template: "errors/connect", status: 202 }
+      format.json { render json: {status: 500, error: "Connecting to database, try again shortly"} }
+      format.any { render layout: "plain", template: "errors/connect", status: 500 }
     end
   end
 
