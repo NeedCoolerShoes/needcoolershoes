@@ -32,6 +32,12 @@ production:
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
     database: storage/production_queue.sqlite3
     migrations_paths: db/queue_migrate
+  cache:
+    adapter: sqlite3
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    database: storage/production_cache.sqlite3
+    migrations_paths: db/cache_migrate
 
 live:
   adapter: postgresql

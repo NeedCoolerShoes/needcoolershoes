@@ -108,7 +108,6 @@ gem "http", "~> 5.2"
 gem "marksmith", "~> 0.1.3"
 gem "rack-cors"
 gem "cssbundling-rails"
-
 gem "jsbundling-rails", "~> 1.3"
-
 gem "solid_queue", "~> 1.1"
+gem "solid_cache", "~> 1.0"

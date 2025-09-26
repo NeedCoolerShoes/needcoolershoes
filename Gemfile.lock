@@ -409,6 +409,10 @@ GEM
     sentry-ruby (5.23.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    solid_cache (1.0.7)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_queue (1.1.5)
       activejob (>= 7.1)
       activerecord (>= 7.1)
@@ -528,6 +532,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails (~> 5.22)
   sentry-ruby (~> 5.22)
+  solid_cache (~> 1.0)
   solid_queue (~> 1.1)
   sqlite3 (~> 2.1)
   stimulus-rails
