@@ -47,8 +47,13 @@ class Skin < ApplicationRecord
   
   has_one :featured_by_user, class_name: "User", foreign_key: "featured_skin_id", dependent: :nullify
 
+  attribute :visibility, :integer
   enum :visibility, %i[is_public is_unlisted is_private], default: :is_public
+
+  attribute :model, :integer
   enum :model, %i[classic slim], default: :classic
+
+  attribute :license, :integer
   enum :license, LICENSES.keys, suffix: true, default: :cc_by_sa_4
 
   attribute :minecraft_texture_status, :integer, default: 0

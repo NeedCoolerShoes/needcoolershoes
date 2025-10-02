@@ -7,6 +7,7 @@ class MinecraftAccount < ApplicationRecord
   encrypts :minecraft_token
   encrypts :refresh_token
 
+  attribute :status, :integer, default: 0
   enum :status, %i[authenticated expired]
 
   scope :secondary, -> { includes(:user_set_primary).where(user_set_primary: {id: nil}) }
