@@ -11,7 +11,8 @@ module Taggable
       list = ActsAsTaggableOn::DefaultParser.new(tags).parse
       tags = ActsAsTaggableOn::Tag.named_any(list)
 
-      return none if list.size != tags.count || tags.count < 1
+      tag_count = tags.count
+      return none if list.size != tag_count || tag_count < 1
   
       # Hard limit tag check for performance
       where("tag_cache @> ARRAY[?]::int[]", tags.first(TAG_STACK_LIMIT).pluck(:id))
