@@ -17,6 +17,18 @@ Rack::Attack.throttle("gallery with tags", limit: 10, period: 10.seconds) do |re
 end
 
 
+Rack::Attack.throttled_responder = lambda do |request|
+  # NB: you have access to the name and other data about the matched throttle
+  #  request.env['rack.attack.matched'],
+  #  request.env['rack.attack.match_type'],
+  #  request.env['rack.attack.match_data'],
+  #  request.env['rack.attack.match_discriminator']
+
+  # Using 503 because it may make attacker think that they have successfully
+  # DOSed the site. Rack::Attack returns 429 for throttling by default
+  [ 503, {}, ["Service Unavailable\n"]]
+end
+
 ### Block spammy bots ###
 
 # Block content grabbers
