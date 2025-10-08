@@ -11,6 +11,7 @@ class BannersController < ApplicationController
   layout "gallery", only: :index
 
   def index
+    enforce_query_session!
     index_meta_config
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
@@ -155,7 +156,7 @@ class BannersController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug, :max_version).permit!
+    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug, :max_version, :session).permit!
   end
 
   def banner_params

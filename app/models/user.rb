@@ -41,6 +41,7 @@ class User < ApplicationRecord
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
   scope :with_login, ->(login) { where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]) }
 
+  attribute :role, :integer
   enum :role, ROLES
 
   before_create :set_support_token, unless: :support_token?

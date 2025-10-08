@@ -19,6 +19,8 @@ class SkinsController < ApplicationController
   layout "gallery", only: :index
 
   def index
+    enforce_query_session!
+
     @gallery_params = gallery_params
     set_jam_info
     skins = Skin.with_params(@gallery_params)

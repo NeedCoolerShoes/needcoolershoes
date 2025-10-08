@@ -43,6 +43,8 @@ class Banner < ApplicationRecord
 
   attribute :style, :integer, default: 0
   enum :style, %i[banner any shield], default: :banner, suffix: :style
+  
+  attribute :minimum_version, :integer, default: 0
   enum :minimum_version, %i[v1_8 v1_16 v1_21], default: :v1_8
 
   scope :survival_friendly, -> { where("LENGTH(data) <= ?", SURVIVAL_FRIENDLY_LENGTH) }
