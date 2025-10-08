@@ -1,9 +1,11 @@
 ### Throttle ###
 
-# Throttle gallery
-Rack::Attack.throttle("gallery", limit: 20, period: 10.seconds) do |req|
-  if req.path.start_with?("/gallery")
-    req.ip
+# Throttle gallery session
+Rack::Attack.throttle("gallery", limit: 10, period: 10.seconds) do |req|
+  query = Rack::Utils.parse_nested_query(req.query_string)
+
+  if req.path.start_with?("/gallery") && query["session"].present?
+    query["session"]
   end
 end
 
@@ -13,6 +15,7 @@ Rack::Attack.throttle("gallery with tags", limit: 10, period: 10.seconds) do |re
     req.ip
   end
 end
+
 
 ### Block spammy bots ###
 

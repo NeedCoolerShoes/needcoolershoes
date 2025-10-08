@@ -112,7 +112,7 @@ class Skin < ApplicationRecord
     end
 
     def gallery_params
-      [:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden, :debug]
+      [:user, :part, :category, :model, :date_offset, :tag, :favourited_by, :search, :order, :items, :hidden, :debug, :session]
     end
   end
 

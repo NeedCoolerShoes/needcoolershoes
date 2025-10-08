@@ -103,4 +103,17 @@ class ApplicationController < ActionController::Base
 
     cookies[:ncrs_browser_warning_accepted].present?
   end
+
+  def enforce_query_session!
+    query = request.query_parameters
+
+    return if query["session"].present?
+
+    query["session"] = generate_query_session_id
+    redirect_to request.path + "?" + query.to_query
+  end
+
+  def generate_query_session_id
+    Base64.urlsafe_encode64(SecureRandom.hex[..16].scan(/.{2}/).map {|b| b.to_i(16) }.pack("C*"), padding: false)
+  end
 end
