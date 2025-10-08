@@ -9,13 +9,13 @@ module Taggable
 
     scope :tagged_with_cached, ->(tags) {
       list = ActsAsTaggableOn::DefaultParser.new(tags).parse
-      tags = ActsAsTaggableOn::Tag.named_any(list)
+      tag_list = ActsAsTaggableOn::Tag.where(name: list)
 
-      tag_count = tags.count
+      tag_count = tag_list.count
       return none if list.size != tag_count || tag_count < 1
   
       # Hard limit tag check for performance
-      where("tag_cache @> ARRAY[?]::int[]", tags.first(TAG_STACK_LIMIT).pluck(:id))
+      where("tag_cache @> ARRAY[?]::int[]", tag_list.first(TAG_STACK_LIMIT).pluck(:id))
     }
 
     def cached_tags
