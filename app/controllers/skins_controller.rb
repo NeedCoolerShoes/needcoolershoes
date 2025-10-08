@@ -8,6 +8,7 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
+  before_action :enforce_query_session!, only: :index
 
   require_role :moderator, only: %i[moderator_edit moderator_update quick_action]
   
@@ -19,8 +20,6 @@ class SkinsController < ApplicationController
   layout "gallery", only: :index
 
   def index
-    enforce_query_session!
-
     @gallery_params = gallery_params
     set_jam_info
     skins = Skin.with_params(@gallery_params)

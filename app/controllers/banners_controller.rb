@@ -4,6 +4,7 @@ class BannersController < ApplicationController
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: :show
   before_action :redirect_title, only: :show
+  before_action :enforce_query_session!, only: :index
 
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
@@ -11,7 +12,6 @@ class BannersController < ApplicationController
   layout "gallery", only: :index
 
   def index
-    enforce_query_session!
     index_meta_config
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
