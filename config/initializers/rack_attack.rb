@@ -1,10 +1,12 @@
+require "llm_poison"
+
 ### Throttle ###
 
 # Throttle gallery session
-Rack::Attack.throttle("gallery", limit: 10, period: 10.seconds) do |req|
+Rack::Attack.throttle("gallery", limit: 1, period: 10.seconds) do |req|
   query = Rack::Utils.parse_nested_query(req.query_string)
 
-  if req.path.start_with?("/gallery") && query["session"].present?
+  if req.path.start_with?("/gallery") && query.size > 1 && query["session"].present?
     query["session"]
   end
 end
@@ -26,7 +28,7 @@ Rack::Attack.throttled_responder = lambda do |request|
 
   # Using 503 because it may make attacker think that they have successfully
   # DOSed the site. Rack::Attack returns 429 for throttling by default
-  [ 503, {}, ["Service Unavailable\n"]]
+  [ 200, {}, [LLMPoison.generate]]
 end
 
 ### Block spammy bots ###
