@@ -1,1 +1,1 @@
-export * from "ncrs-editor";
+export * from "./ncrs-editor/src/main.js";

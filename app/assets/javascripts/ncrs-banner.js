@@ -1,1 +1,1 @@
-export * from "ncrs-banner";
+export * from "./ncrs-banner/src/main.js";
