@@ -36,3 +36,11 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/staging
           logout: true
+      
+      - name: Trigger Swiftwave Deploy
+        id: swiftwave
+        shell: bash
+        env:
+          SWIFTWAVE_WEBHOOK: ${{ secrets.SWIFTWAVE_STAGING_WEBHOOK }}
+        run: curl -L -X POST $SWIFTWAVE_WEBHOOK
+
