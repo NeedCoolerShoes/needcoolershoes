@@ -42,5 +42,6 @@ jobs:
         shell: bash
         env:
           SWIFTWAVE_WEBHOOK: ${{ secrets.SWIFTWAVE_STAGING_WEBHOOK }}
-        run: curl -L -X POST $SWIFTWAVE_WEBHOOK
+          IMAGE_TAG: ${{ secrets.REGISTRY_URL }}/staging
+        run: curl -d $IMAGE_TAG $SWIFTWAVE_WEBHOOK
 
