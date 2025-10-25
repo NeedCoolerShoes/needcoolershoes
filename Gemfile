@@ -12,7 +12,7 @@ gem "propshaft"
 gem "propshaft-compressor"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 2.1"
+gem "sqlite3", "~> 2.7"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
@@ -108,7 +108,7 @@ gem "http", "~> 5.2"
 gem "marksmith", "~> 0.1.3"
 gem "rack-cors"
 gem "cssbundling-rails"
-
 gem "jsbundling-rails", "~> 1.3"
-
 gem "solid_queue", "~> 1.1"
+gem "solid_cache", "~> 1.0"
+gem "solid_cable", "~> 3.0"

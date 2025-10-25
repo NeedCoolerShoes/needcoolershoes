@@ -54,8 +54,8 @@ class ApplicationController < ActionController::Base
 
   def db_connection_error
     respond_to do |format|
-      format.json { render json: {status: 202, error: "Connecting to database, try again shortly"} }
-      format.any { render layout: "plain", template: "errors/connect", status: 202 }
+      format.json { render json: {status: 500, error: "Connecting to database, try again shortly"} }
+      format.any { render layout: "plain", template: "errors/connect", status: 500 }
     end
   end
 
@@ -102,5 +102,20 @@ class ApplicationController < ActionController::Base
     return true if request.path == outdated_browser_path
 
     cookies[:ncrs_browser_warning_accepted].present?
+  end
+
+  def enforce_query_session!
+    return unless request.format.to_s == "text/html"
+    query = request.query_parameters
+
+    return if query.empty?
+    return if query["session"].present?
+
+    query["session"] = generate_query_session_id
+    redirect_to request.path + "?" + query.to_query
+  end
+
+  def generate_query_session_id
+    Base64.urlsafe_encode64(SecureRandom.hex[..16].scan(/.{2}/).map {|b| b.to_i(16) }.pack("C*"), padding: false)
   end
 end

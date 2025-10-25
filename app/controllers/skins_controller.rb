@@ -8,6 +8,7 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
+  before_action :enforce_query_session!, only: :index
 
   require_role :moderator, only: %i[moderator_edit moderator_update quick_action]
   
@@ -329,7 +330,11 @@ class SkinsController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(*Skin.gallery_params).permit!
+    new_params = params.slice(*Skin.gallery_params).permit!
+
+    new_params[:session] ||= generate_query_session_id
+
+    new_params
   end
 
   def allow_iframe

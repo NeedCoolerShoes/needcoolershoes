@@ -1,0 +1,6 @@
+[submodule "app/assets/javascripts/editor"]
+	path = app/assets/javascripts/ncrs-editor
+	url = https://github.com/NeedCoolerShoes/editor.git
+[submodule "app/assets/javascripts/banner-editor"]
+	path = app/assets/javascripts/ncrs-banner
+	url = https://github.com/NeedCoolerShoes/banner-editor.git

@@ -7,9 +7,9 @@ module SkinsHelper
   def skins_gallery_filter_tag(params, key, value, title = "", text = nil)
     selected = (params[key] == value)
     if selected
-      link_to(text || value, skins_gallery_path(params.except(key)), title: title, class: "font-bold underline")
+      link_to(text || value, skins_gallery_path(params.except(key)), title: title, class: "font-bold underline", rel: "nofollow")
     else
-      link_to(text || value, skins_gallery_path(params.merge({key => value})), title: title, class: "underline")
+      link_to(text || value, skins_gallery_path(params.merge({key => value})), title: title, class: "underline", rel: "nofollow")
     end
   end
 
@@ -25,7 +25,7 @@ module SkinsHelper
       tags << tag
     end
 
-    return link_to(tag, skins_gallery_path(params.merge({tag: tags.join(",")})), title: title, class: classes) if tags.any?
-    link_to(tag, skins_gallery_path(params.except(:tag)), title: title, class: classes)
+    return link_to(tag, skins_gallery_path(params.merge({tag: tags.join(",")})), title: title, class: classes, rel: "nofollow") if tags.any?
+    link_to(tag, skins_gallery_path(params.except(:tag)), title: title, class: classes, rel: "nofollow")
   end
 end
