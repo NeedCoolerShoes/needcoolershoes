@@ -23,7 +23,7 @@
         <span class="text-2xl text-gray-500">@<%= @user.name %></span>
       </div>
       <div class="relative h-full">
-        <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data } %>
+        <%= render partial: "skins/skin_3d", locals: { data: @user.featured_skin_data, ears: @user.featured_skin_has_ears? } %>
         <div class="absolute top-0 bottom-0 left-0 w-12 tab:hidden"></div>
         <div class="absolute top-0 bottom-0 right-0 w-12 tab:hidden"></div>
       </div>

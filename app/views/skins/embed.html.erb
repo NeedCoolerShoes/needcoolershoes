@@ -53,7 +53,8 @@
       canvas: canvas,
       width: parent.clientWidth,
       height: parent.clientHeight,
-      skin: "<%= @skin.data %>"
+      skin: "<%= @skin.data %>",
+      ears: config.get("ears") ? "current-skin" : undefined,
     });
 
     function ifConfig(key, callback) {

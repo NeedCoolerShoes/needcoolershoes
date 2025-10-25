@@ -15,7 +15,7 @@
     <div class="col-left flex flex-col gap-2">
       <div class="relative checker-border bg-ncs-grid">
         <div class="h-[320px] sm:h-[400px]">
-          <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model } %>
+          <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model, ears: @skin.render_ears? } %>
         </div>
         <% if current_user.present? %>
           <script>

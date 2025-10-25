@@ -113,10 +113,18 @@ class User < ApplicationRecord
     new_count
   end
 
+  def get_featured_skin
+    return featured_skin if featured_skin.present? && featured_skin.visible
+    return skins.visible.last if skins.visible.any?
+    nil
+  end
+
   def featured_skin_data
-    return featured_skin.data if featured_skin.present? && featured_skin.visible
-    return skins.visible.last.data if skins.visible.any?
-    ActionController::Base.helpers.asset_path("mncs_mascot_skin.png")
+    get_featured_skin&.data || ActionController::Base.helpers.asset_path("mncs_mascot_skin.png")
+  end
+
+  def featured_skin_has_ears?
+    get_featured_skin&.render_ears? || false
   end
 
   def banned?

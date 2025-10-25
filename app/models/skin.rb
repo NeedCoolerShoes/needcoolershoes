@@ -274,6 +274,12 @@ class Skin < ApplicationRecord
     raise
   end
 
+  def render_ears?
+    return false unless tag_list.include?("deadmau5")
+    ears = to_img.crop(24, 0, 14, 7).palette.to_a
+    ears.size > 1 || ears[0] != ChunkyPNG::Color::TRANSPARENT
+  end
+
   private
 
   def send_creation_webhook
