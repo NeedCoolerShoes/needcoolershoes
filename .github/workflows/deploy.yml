@@ -40,7 +40,7 @@ jobs:
         id: swiftwave
         shell: bash
         env:
-          SWIFTWAVE_WEBHOOK: ${{ secrets.SWIFTWAVE_STAGING_WEBHOOK }}
+          SWIFTWAVE_WEBHOOK: ${{ secrets.SWIFTWAVE_PRODUCTION_WEBHOOK }}
           IMAGE_TAG: ${{ secrets.REGISTRY_URL }}/ncrs-production
         run: curl -d $IMAGE_TAG $SWIFTWAVE_WEBHOOK
 
