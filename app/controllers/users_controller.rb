@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    name = (params[:user_id] || params[:id]).to_s.delete_prefix("@")
+    return redirect_to("/@#{@user.name}") if @user.name != name
+
     meta_config do |config|
       config.title = "#{@user.display_name}'s Profile".truncate(32)
       config.description = @user.biography&.tr("\n", " ")&.strip || "A Miner in Need of Cooler Shoes."
@@ -34,10 +37,21 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
+      valid = false
+
+      ActiveRecord::Base.transaction do
+        old_name = @user.name
+        valid = @user.update(user_params)
+
+        if (valid && user_params["name"] && user_params["name"] != old_name)
+          UsernameRecord.create(user: @user, name: old_name).save
+        end
+      end
+
+      if valid
+        format.html { redirect_to user_path(params[:id]), notice: "User updated successfully!" }
       else
-        format.html { redirect_to user_path(@user), alert: "Error updating user!" }
+        format.html { redirect_to user_path(params[:id]), alert: format_errors(@user.errors.messages) }
       end
     end
   end
@@ -69,9 +83,12 @@ class UsersController < ApplicationController
   def set_user
     name = (params[:user_id] || params[:id]).to_s.delete_prefix("@")
 
-    @user = User.find_by!(name: name)
-  rescue ActiveRecord::RecordNotFound
-    not_found_error
+    user = User.lookup(name)
+    if user.present?
+      @user = user
+    else
+      not_found_error
+    end
   end
 
   def validates_current_user
@@ -80,6 +97,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.except(:reason).require(:user).permit(:display_name, :biography, :featured_skin_id, :featured_badge_id, :password, :password_confirmation, :attribution_message, :watermark_disabled)
+    params.except(:reason).require(:user).permit(:name, :display_name, :biography, :featured_skin_id, :featured_badge_id, :password, :password_confirmation, :attribution_message, :watermark_disabled)
   end
 end

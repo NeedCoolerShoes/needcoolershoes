@@ -2,15 +2,21 @@
 <%
   skins = user.skins.order_by_updated.pluck(:name, :id)
   badges = user.badges.pluck(:name, :id)
+  name_disabled = user.name_change_in_cooldown?
 %>
 <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-1">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: name_disabled ? "text-gray-600 cursor-text" : "text-black", disabled: name_disabled %>
+  </div>
+  <p class="text-sm text-slate-300">
+    You can only change your username once every 30 days.
+  </p>
+
   <div class="flex flex-col gap-1">
     <%= form.label :display_name %>
     <%= form.text_field :display_name, class: "text-black" %>
   </div>
-  <p class="text-sm text-slate-300">
-    If you wish to change your username, please <%= link_to "contact us", contact_path, class: "underline" %>.
-  </p>
 
   <div class="flex flex-col gap-1">
     <%= form.label :biography, "Biography (Markdown Formatted)" %>

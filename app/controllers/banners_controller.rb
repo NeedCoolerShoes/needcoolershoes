@@ -156,7 +156,11 @@ class BannersController < ApplicationController
 
   def gallery_params
     params.reject! { |_, value| !value.present? }
-    params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug, :max_version, :session).permit!
+    new_params = params.slice(:user, :date_offset, :tag, :style, :favourited_by, :search, :order, :items, :compatibility, :hidden, :debug, :max_version, :session).permit!
+
+    new_params[:session] ||= generate_query_session_id
+
+    new_params
   end
 
   def banner_params

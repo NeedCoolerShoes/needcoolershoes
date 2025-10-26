@@ -106,8 +106,9 @@ class ApplicationController < ActionController::Base
 
   def enforce_query_session!
     return unless request.format.to_s == "text/html"
-
     query = request.query_parameters
+
+    return if query.empty?
     return if query["session"].present?
 
     query["session"] = generate_query_session_id

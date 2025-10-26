@@ -8,6 +8,7 @@ class User < ApplicationRecord
   FAVOURITE_RATIO = 0.02
   FAVOURITE_MAX = 25
   PIXEL_CACHE = 5.minutes
+  NAME_CHANGE_COOLDOWN = 30.days
   ROLES = %i[moderator admin owner]
 
   # Include default devise modules. Others available are:
@@ -32,6 +33,7 @@ class User < ApplicationRecord
     format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},
     exclusion: {in: %w[sign_in sign_out password cancel sign_up edit current otp], message: "%{value} is reserved"},
     uniqueness: true,
+    username: true,
     length: {maximum: 64}
 
   validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}
@@ -41,7 +43,6 @@ class User < ApplicationRecord
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
   scope :with_login, ->(login) { where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]) }
 
-  attribute :role, :integer
   enum :role, ROLES
 
   before_create :set_support_token, unless: :support_token?
@@ -59,6 +60,16 @@ class User < ApplicationRecord
     elsif conditions.has_key?(:name) || conditions.has_key?(:email)
       where(conditions.to_h).first
     end
+  end
+
+  def self.lookup(name)
+    user = User.find_by(name: name)
+    return user if user.present?
+    
+    username_record = UsernameRecord.latest_by_name(name)
+    return nil unless username_record.present?
+
+    username_record.user
   end
 
   def attribution_message
@@ -102,10 +113,18 @@ class User < ApplicationRecord
     new_count
   end
 
+  def get_featured_skin
+    return featured_skin if featured_skin.present? && featured_skin.visible
+    return skins.visible.last if skins.visible.any?
+    nil
+  end
+
   def featured_skin_data
-    return featured_skin.data if featured_skin.present? && featured_skin.visible
-    return skins.visible.last.data if skins.visible.any?
-    ActionController::Base.helpers.asset_path("mncs_mascot_skin.png")
+    get_featured_skin&.data || ActionController::Base.helpers.asset_path("mncs_mascot_skin.png")
+  end
+
+  def featured_skin_has_ears?
+    get_featured_skin&.render_ears? || false
   end
 
   def banned?
@@ -150,6 +169,12 @@ class User < ApplicationRecord
   def support_code
     totp = ROTP::TOTP.new(support_token, issuer: "NeedCoolerShoes")
     totp.at(Time.current.at_beginning_of_hour)
+  end
+
+  def name_change_in_cooldown?
+    cooldown_date = Time.current - NAME_CHANGE_COOLDOWN
+
+    UsernameRecord.with_user(self).where(created_at: cooldown_date..).any?
   end
 
   private

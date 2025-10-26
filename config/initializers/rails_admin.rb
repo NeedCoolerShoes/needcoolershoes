@@ -66,6 +66,14 @@ RailsAdmin.config do |config|
     config.model(model_name) { configure(:skins) { hide } }
   end
 
+  # Hide Solid Queue models
+  [
+    "BlockedExecution", "ClaimedExecution", "FailedExecution", "Job", "Pause", "Process",
+    "ReadyExecution", "RecurringExecution", "RecurringTask", "ScheduledExecution", "Semaphore"
+  ].each do |model_name|
+    config.model("SolidQueue::" + model_name) { hide }
+  end
+
   config.model "MinecraftAccount" do
     configure(:minecraft_token) { hide }
     configure(:refresh_token) { hide }
