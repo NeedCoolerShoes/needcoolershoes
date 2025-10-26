@@ -395,6 +395,11 @@
   resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.3.0.tgz#2226000fff1aabda9fd9587474565c9929dbf15d"
   integrity sha512-Dcu+NaSvHLT7EjrDrkEmH4qET2ZJZ5IcCWmNXxNQTBwlnE5tBZfN6WxZ842n5cHV52DH/AKNirbPBtcEXDLW4g==
 
+"@interactjs/types@1.10.27":
+  version "1.10.27"
+  resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.10.27.tgz#10afd71cef2498e2b5192cf0d46f937d8ceb767f"
+  integrity sha512-BUdv0cvs4H5ODuwft2Xp4eL8Vmi3LcihK42z0Ft/FbVJZoRioBsxH+LlsBdK4tAie7PqlKGy+1oyOncu1nQ6eA==
+
 "@lit-labs/ssr-dom-shim@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.4.0.tgz#55eb80ab5ef6e188f7e541c1e2bea1ef582413b8"
@@ -728,6 +733,11 @@ color@^4.2.3:
     color-convert "^2.0.1"
     color-string "^1.9.0"
 
+context-filter-polyfill@^0.3.23:
+  version "0.3.23"
+  resolved "https://registry.yarnpkg.com/context-filter-polyfill/-/context-filter-polyfill-0.3.23.tgz#46dfee41b4b8c70dfdd0ec223e89610438a5f97c"
+  integrity sha512-kkr1NpyK6XeDVZ7ua/WtVV3sGPp/zubQ6gPaI/MdwL3LsWASlEYPiqigQWdQO/YVC4tJx/OcuiBgBCtsKgKabA==
+
 core-js@3.37.0:
   version "3.37.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.37.0.tgz#d8dde58e91d156b2547c19d8a4efd5c7f6c426bb"
@@ -876,6 +886,13 @@ immutable@^5.0.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/immutable/-/immutable-5.1.2.tgz#e8169476414505e5a4fa650107b65e1227d16d4b"
   integrity sha512-qHKXW1q6liAk1Oys6umoaZbDRqjcjgSrbnrifHsfsttza7zcvRAsL7mMV6xWcyhwQy7Xj5v4hhbr6b+iDYwlmQ==
+
+interactjs@^1.10.27:
+  version "1.10.27"
+  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.10.27.tgz#16499aba4987a5ccfdaddca7d1ba7bb1118e14d0"
+  integrity sha512-y/8RcCftGAF24gSp76X2JS3XpHiUvDQyhF8i7ujemBz77hwiHDuJzftHx7thY8cxGogwGiPJ+o97kWB6eAXnsA==
+  dependencies:
+    "@interactjs/types" "1.10.27"
 
 is-arrayish@^0.3.1:
   version "0.3.4"
