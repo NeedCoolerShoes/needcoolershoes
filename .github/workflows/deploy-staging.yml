@@ -35,8 +35,7 @@ jobs:
           context: .
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/staging
-          build-args:
-            - NCRS_VERSION: ${{ env.NCRS_VERSION }}
+          build-args: "NCRS_VERSION: ${{ env.NCRS_VERSION }}"
       
       - name: Trigger Swiftwave Deploy
         id: swiftwave
