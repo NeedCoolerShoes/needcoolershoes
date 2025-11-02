@@ -74,7 +74,7 @@ const TIPS = [
 
 const SECRET_TIPS = [
   `Try putting "MOXVALLIX" in to the color picker (you can turn it off by typing it again).`,
-  `Try putting "DEADMAU5" in to the color picker. (you can turn it off by typing it again`,
+  `Try putting "DEADMAU5" in to the color picker. (you can turn it off by typing it again)`,
   `Many people from our discord community submitted their names as colors, for example "Wulfian" or "Dragon".`,
 ];
 
