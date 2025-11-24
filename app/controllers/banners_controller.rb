@@ -1,6 +1,6 @@
 class BannersController < ApplicationController
-  before_action :authenticate_user!, only: %i[create edit update]
-  before_action :set_banner, only: %i[show edit update moderator_edit moderator_update add_favourite remove_favourite]
+  before_action :authenticate_user!, only: %i[create edit update destroy]
+  before_action :set_banner, only: %i[show edit update destroy moderator_edit moderator_update add_favourite remove_favourite]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: :show
   before_action :redirect_title, only: :show
@@ -87,6 +87,11 @@ class BannersController < ApplicationController
   end
 
   def destroy
+    @banner.destroy
+    respond_to do |format|
+      format.html { redirect_to banners_gallery_path, notice: "Banner was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   def add_favourite

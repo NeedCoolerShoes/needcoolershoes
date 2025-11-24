@@ -58,6 +58,9 @@ en:
       arr:
         by: "uploaded by"
         attribute: "is all rights reserved."
+  banners:
+    delete: "Delete Banner"
+    delete_confirmation: "Are you sure you want to delete this banner? It will be gone forever."
   modlog:
     title: "Moderation Log"
     warning: "Warning: Content here has been moderated for a reason, and could contain disturbing or unpleasant material. Proceed at own risk."

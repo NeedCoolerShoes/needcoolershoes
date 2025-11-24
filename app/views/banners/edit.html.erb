@@ -5,5 +5,8 @@
   <div class="max-w-lg w-full">
     <h1 class="text-2xl">Edit Banner</h1>
     <%= render partial: "form", locals: { banner: @banner } %>
+    <%= form_with url: banner_path(@banner), method: :delete, class: "w-full" do |form| %>
+      <%= form.submit t("banners.delete"), class: "underline text-white cursor-pointer mt-8 float-right", data: { "turbo-confirm": t("banners.delete_confirmation") } %>
+    <% end %>
   </div>
 </div>
