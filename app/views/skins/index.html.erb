@@ -23,6 +23,14 @@
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+<% if @skins.any? %>
+  <p class="text-ncs-dark-300 text-sm mb-2 -mt-2">
+    Showing skins
+    <span class="font-bold"><%= @pagy.from %></span>
+    to <span class="font-bold"><%= @pagy.to %></span>
+    of <span class="font-bold"><%= @pagy.count%></span>
+  </p>
+<% end %>
 
 <div class="grow">
   <% if !@skins.any? %>
