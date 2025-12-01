@@ -9,7 +9,7 @@
     <% end %>
     <% if show_visibility? %>
       <div class="absolute top-0 left-0 p-2">
-        <%= heroicon icon, class: "text-ncs-dark-300", title: @skin.visibility.titleize %>
+        <%= heroicon icon, class: "text-ncs-dark-200", title: @skin.visibility.titleize %>
       </div>
     <% end %>
     <div class="absolute top-0 right-0 p-2">
@@ -19,7 +19,7 @@
   <% end %>
 
   <% card.with_preview do %>
-    <div class="bg-ncs-grid bg-center p-4 flex justify-center">
+    <div class="bg-ncs-grid bg-center p-4 flex justify-center border rounded-md border-ncs-dark-500">
       <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, classes: "scaled-md", width: "170px", height: "160px" } %>
     </div>
   <% end %>
@@ -73,7 +73,7 @@
   <div class="h-full flex flex-col justify-between">
     <div class="mb-1 h-4">
       <% if @skin.tag_cache? %>
-        <div class="line-clamp-1 text-ncs-dark-300 text-xs">
+        <div class="line-clamp-1 text-ncs-dark-200 text-xs">
           <%= render partial: "skins/tag_link", collection: @skin.cached_tags, as: :tag, locals: { params: @params } %>
         </div>
       <% end %>
@@ -81,7 +81,7 @@
     <div>
       <h2 class="pointer-events-none text-xl line-clamp-2 leading-5 break-words max-w-52 h-[42px]"><%= @skin.name %></h2>
       <div class="flex flex-col font-bold">
-        <p class="text-ncs-dark-300 text-xs">
+        <p class="text-ncs-dark-200 text-xs">
           <%= link_to @skin.skin_part.name, skins_gallery_path(@params.merge(part: @skin.skin_part.name)), class: "underline" %>
           -
           <%= link_to @skin.skin_category.name, skins_gallery_path(@params.merge(category: @skin.skin_category.name)), class: "underline" %>

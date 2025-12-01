@@ -10,7 +10,7 @@
         <%= form_with url: destroy_banner_favourite_path(banner), method: :delete do |form| %>
           <div class="flex flex-col items-center">
             <%= form.button aria: { label: "Remove from Favourites" } do %>
-              <%= heroicon "heart", variant: "solid", size: size, class: "text-red-500 hover:text-red-800", title: "Remove from Favourites" %>
+              <%= heroicon "heart", variant: "solid", size: size, class: "text-ncs-red-100 hover:text-ncs-red-500", title: "Remove from Favourites" %>
             <% end %>
             <span class="leading-none text-xs text-gray-500">
               <%= simple_number banner.favourites_count if banner.favourites_count > 0 %>
@@ -23,7 +23,7 @@
         <%= form_with url: create_banner_favourite_path(banner) do |form| %>
           <div class="flex flex-col items-center">
             <%= form.button aria: { label: "Add to Favourites" } do %>
-              <%= heroicon "heart", size: size, class: "text-red-500 hover:text-red-800", title: "Add to Favourites" %>
+              <%= heroicon "heart", size: size, class: "text-ncs-red-100 hover:text-ncs-red-500", title: "Add to Favourites" %>
             <% end %>
             <span class="leading-none text-xs text-gray-500">
               <%= simple_number banner.favourites_count if banner.favourites_count > 0 %>

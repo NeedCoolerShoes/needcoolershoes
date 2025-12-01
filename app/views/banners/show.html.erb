@@ -25,16 +25,16 @@
   </div>
 
   <div class="sm:col-span-2 flex flex-col gap-2 text-ncs-dark-100">
-    <div class="relative p-4 bg-ncs-dark-700">
+    <div class="relative p-4 bg-ncs-dark-600">
       <div class="absolute right-4">
         <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
       </div>
       <h1 class="text-4xl font-bold line-clamp-2 break-words pr-8"><%= @banner.name %></h1>
       <div class="font-bold">
-        <p class="text-ncs-dark-300">
+        <p class="text-ncs-dark-200">
           Banner
           <span
-            class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-800 text-ncs-dark-100"
+            class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-700 text-ncs-dark-100"
             title="Supports Minecraft <%= @banner.formatted_minimum_version %>"
           >
             <%= @banner.formatted_minimum_version %>
@@ -43,7 +43,7 @@
         <p>by <%= profile_link @banner.user %></p>
       </div>
       <% if @banner.tags.any? %>
-        <div class="text-ncs-dark-300 text-sm flex gap-1 flex-wrap">
+        <div class="text-ncs-dark-200 text-sm flex gap-1 flex-wrap">
           <% @banner.tags.each do |tag| %>
             <%= link_to tag.name, banners_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
           <% end %>
@@ -53,14 +53,14 @@
         <%= markdown @banner.description %>
       </div>
     </div>
-    <div class="bg-ncs-dark-700">
-      <div class="bg-ncs-dark-800 p-1">
+    <div class="bg-ncs-dark-600">
+      <div class="bg-ncs-dark-700 p-1 rounded">
         <h2><%= @banner.survival_friendly? ? "Crafting Steps" : "Pattern List (Not Survival Friendly)" %></h2>
       </div>
       <ncrs-banner-instructions id="banner-instructions" class="p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
     </div>
-    <div class="bg-ncs-dark-700">
-      <div class="bg-ncs-dark-800 p-1">
+    <div class="bg-ncs-dark-600">
+      <div class="bg-ncs-dark-700 p-1 rounded">
         <h2>Generate Command</h2>
       </div>
       <ncrs-banner-command-box code="<%= @banner.data %>"></ncrs-banner-command-box>

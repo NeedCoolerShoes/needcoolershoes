@@ -11,8 +11,7 @@
   <div class="flex flex-col tab:flex-row gap-4">
     <div class="flex flex-col bg-ncs-grid basis-2/5">
       <div
-        class="flex items-center flex-wrap bg-ncs-gray-400 px-2 py-1
-        bg-gradient-to-b from-ncs-gray-200"
+        class="flex items-center flex-wrap bg-ncs-gray-500 px-2 py-1"
       >
         <h1 class="text-2xl mr-2 line-clamp-1 break-all" title="<%= @user.display_name %>">
           <%= @user.display_name %>
@@ -34,7 +33,7 @@
       </script>
     </div>
     <div class="flex flex-col gap-2 p-4 grow">
-      <div class="bg-ncs-gray-300 rounded p-4 w-full">
+      <div class="bg-ncs-gray-500 rounded p-4 w-full">
         <h2 class="text-xl text-gray-500">Biography</h2>
         <div class="prose prose-invert">
           <% if @user.biography.present? %>
@@ -44,7 +43,7 @@
           <% end %>
         </div>
       </div>
-      <div class="bg-ncs-gray-300 rounded p-4 w-full">
+      <div class="bg-ncs-gray-500 rounded p-4 w-full">
         <h2 class="text-xl text-gray-500">Stats</h2>
         <table class="text-left">
           <tr>
@@ -61,7 +60,7 @@
           </tr>
         </table>
         <% if current_user == @user || current_user&.moderator? %>
-          <hr class="border-gray-500 my-2">
+          <hr class="border-gray-600 border-solid my-2">
           <table class="text-left">
             <tr>
               <th class="pr-4">Support Code:</th>
@@ -71,7 +70,7 @@
         <% end %>
       </div>
       <% if @user.badges.any? %>
-        <div class="relative flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 w-full">
+        <div class="relative flex flex-wrap gap-2 bg-ncs-gray-500 rounded px-4 py-2 w-full">
           <% @user.user_badges.each do |user_badge| %>
             <% badge = user_badge.badge %>
             <div class="ncs-selectable cursor-pointer" tabindex="0">

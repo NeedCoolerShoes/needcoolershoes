@@ -7,7 +7,7 @@ module SkinsHelper
   def skins_gallery_filter_tag(params, key, value, title = "", text = nil)
     selected = (params[key] == value)
     if selected
-      link_to(text || value, skins_gallery_path(params.except(key)), title: title, class: "font-bold underline", rel: "nofollow")
+      link_to(text || value, skins_gallery_path(params.except(key)), title: title, class: "font-bold underline text-ncs-blue", rel: "nofollow")
     else
       link_to(text || value, skins_gallery_path(params.merge({key => value})), title: title, class: "underline", rel: "nofollow")
     end
@@ -18,7 +18,7 @@ module SkinsHelper
     classes = "underline"
 
     if tags.include?(tag)
-      classes += " font-bold"
+      classes += " font-bold text-ncs-blue"
       tags.delete(tag)
     else
       tags.delete_at(-1) if tags.size > Taggable::TAG_STACK_LIMIT - 1
