@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   get "about", to: "static#about", as: "about"
   get "faq", to: "static#faq", as: "faq"
+  get "wiki", to: redirect("https://wiki.needcoolershoes.com"), as: "wiki"
   get "contact", to: "static#contact", as: "contact"
   get "donate", to: "static#donate", as: "donate"
   post "contact", to: "static#send_message", as: "send_message"
