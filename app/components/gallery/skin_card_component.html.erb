@@ -74,7 +74,9 @@
     <div class="mb-1 h-4">
       <% if @skin.tag_cache? %>
         <div class="line-clamp-1 text-ncs-dark-200 text-xs">
-          <%= render partial: "skins/tag_link", collection: @skin.cached_tags, as: :tag, locals: { params: @params } %>
+          <% @skin.cached_tags.each do |tag| %>
+            <%= skins_gallery_tag_filter_tag @params, tag.name, "#{tag.name} - #{tag.taggings_count}" %>
+          <% end %>
         </div>
       <% end %>
     </div>
