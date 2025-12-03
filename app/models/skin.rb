@@ -230,6 +230,10 @@ class Skin < ApplicationRecord
     Routing.skin_title_url(self, to_url_title)
   end
 
+  def to_short_url
+    super("/s/#{id}")
+  end
+
   def to_player_head_command
     return "" unless minecraft_texture_url?
 

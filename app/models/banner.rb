@@ -107,6 +107,10 @@ class Banner < ApplicationRecord
     Routing.banner_title_url(self, to_url_title)
   end
 
+  def to_short_url
+    super("/b/#{id}")
+  end
+
   def formatted_minimum_version
     self.class.format_mc_version_name(minimum_version)
   end

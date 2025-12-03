@@ -52,6 +52,23 @@
       <div class="prose prose-ncs-dark">
         <%= markdown @banner.description %>
       </div>
+      <details>
+        <summary class="select-none cursor-pointer font-bold">Sharing</summary>
+        <fieldset class="border border-ncs-dark-200 p-2 rounded">
+          <legend class="font-bold">Sharing URL</legend>
+          <div class="flex gap-2">
+            <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @banner.to_short_url %></p>
+            <div class="relative">
+              <button type="button" onclick="copyText('url_short')">
+                <%= heroicon "document-duplicate", class: "inline" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+      </details>
     </div>
     <div class="bg-ncs-dark-600">
       <div class="bg-ncs-dark-700 p-1 rounded">
@@ -85,6 +102,33 @@
   if (selector) {
     command.setAttribute("selector", selector)
     selectorElm.value = selector
+  }
+
+    // https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
+  function copyText(id, createText = false) {
+    let element;
+    if (createText) {
+      element = document.createElement('span');
+      element.innerText = id;
+      document.body.append(element);
+    } else {
+      element = document.getElementById(id);
+    }
+    var range = document.createRange();
+    range.selectNode(element);
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+
+    const copied = element.parentElement.querySelector(".copy-text");
+    copied.classList.remove("hidden", "hidden-fade");
+
+    if (createText) { element.remove(); }
+
+    setTimeout(() => {
+      copied.classList.add("hidden-fade");
+    }, 200);
   }
 </script>
 

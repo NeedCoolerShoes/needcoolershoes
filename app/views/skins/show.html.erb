@@ -99,15 +99,20 @@
       <% end %>
       <details class="space-y-2">
         <summary class="select-none cursor-pointer font-bold"><%= t "skins.attributions.self" %></summary>
-        <div class="relative">
-          <button type="button" class="underline" onclick="copyText('<%= skin_url(@skin) %>', true)">
-            Copy Link to this Skin
-            <%= heroicon "document-duplicate", class: "inline" %>
-          </button>
-          <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
-            <%= t "actions.copied" %>
-          </span>
-        </div>
+        <fieldset class="border border-ncs-dark-200 p-2 rounded">
+          <legend class="font-bold">Sharing URL</legend>
+          <div class="flex gap-2">
+            <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @skin.to_short_url %></p>
+            <div class="relative">
+              <button type="button" onclick="copyText('url_short')">
+                <%= heroicon "document-duplicate", class: "inline" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
         <fieldset class="border border-ncs-dark-200 p-2 rounded">
           <legend class="font-bold">Attribution</legend>
           <div class="flex gap-2">
