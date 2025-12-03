@@ -7,7 +7,7 @@
   <%= stylesheet_link_tag "users" %>
 <% end %>
 
-<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white">
+<div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white h-[750px]">
   <div class="flex flex-col tab:flex-row gap-4">
     <div class="flex flex-col bg-ncs-grid basis-2/5">
       <div
@@ -33,32 +33,30 @@
       </script>
     </div>
     <div class="flex flex-col gap-2 p-4 grow">
-      <div class="bg-ncs-gray-500 rounded p-4 w-full">
+      <div class="bg-ncs-gray-500 rounded p-4 pr-2 w-full relative">
         <h2 class="text-xl text-gray-500">Biography</h2>
-        <div class="prose prose-invert">
+        <div class="prose prose-invert h-[200px] overflow-auto pb-2 pr-2">
           <% if @user.biography.present? %>
             <%= markdown @user.biography %>
           <% else %>
             <p>A Miner in Need of Cooler Shoes...</p>
           <% end %>
+          <div class="h-8 absolute bottom-4 left-0 right-4 bg-gradient-to-b from-transparent to-ncs-gray-500"></div>
         </div>
-        <details>
-          <summary class="select-none cursor-pointer font-bold">Sharing</summary>
-          <fieldset class="border border-ncs-dark-200 p-2 rounded">
-            <legend class="font-bold">Sharing URL</legend>
-            <div class="flex gap-2">
-              <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @user.to_short_url %></p>
-              <div class="relative">
-                <button type="button" onclick="copyText('url_short')">
-                  <%= heroicon "document-duplicate", class: "inline" %>
-                </button>
-                <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
-                  <%= t "actions.copied" %>
-                </span>
-              </div>
-            </div>
-          </fieldset>
-        </details>
+      </div>
+      <div class="bg-ncs-gray-500 rounded p-4 w-full">
+        <h2 class="text-xl text-gray-500 mb-2">Sharing URL</h2>
+        <div class="flex gap-2">
+          <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @user.to_short_url %></p>
+          <div class="relative">
+            <button type="button" onclick="copyText('url_short')">
+              <%= heroicon "document-duplicate", class: "inline" %>
+            </button>
+            <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+              <%= t "actions.copied" %>
+            </span>
+          </div>
+        </div>
       </div>
       <div class="bg-ncs-gray-500 rounded p-4 w-full">
         <h2 class="text-xl text-gray-500">Stats</h2>
