@@ -77,10 +77,18 @@ module.exports = {
       typography: ({ theme }) => ({
         'ncs-dark': {
           css: {
-            '--tw-prose-body': theme('colors.ncs-dark[200]'),
-            '--tw-prose-headings': theme('colors.ncs-dark[100]'),
+            h1: {
+              color: theme('colors.ncs-orange')
+            },
+            'input, textarea': {
+              color: '--tw-prose-body',
+              'background-color': theme('colors.ncs-dark[700]'),
+              'border-color': theme('colors.ncs-dark[200]')
+            },
+            '--tw-prose-body': theme('colors.ncs-dark[100]'),
+            '--tw-prose-headings': theme('colors.ncs-blue'),
             '--tw-prose-lead': theme('colors.ncs-dark[300]'),
-            '--tw-prose-links': theme('colors.ncs-dark[200]'),
+            '--tw-prose-links': theme('colors.ncs-dark[100]'),
             '--tw-prose-bold': theme('colors.ncs-dark[100]'),
             '--tw-prose-counters': theme('colors.ncs-dark[300]'),
             '--tw-prose-bullets': theme('colors.ncs-dark[300]'),
