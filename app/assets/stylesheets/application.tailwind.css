@@ -41,6 +41,33 @@
   input[type=text], input[type=password], input[type=email], textarea {
     @apply border bg-ncs-dark-700 border-ncs-dark-300 rounded text-ncs-dark-100;
   }
+
+  .spoiler {
+    position: relative;
+    color: transparent;
+  }
+
+  .spoiler::after {
+    @apply bg-ncs-dark-700 text-ncs-dark-300 border border-ncs-dark-400;
+    content: "Hover";
+    font-style: italic;
+    position: absolute;
+    inset: 0;
+    padding: 5px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .spoiler:hover {
+    color: inherit;
+  }
+
+  .spoiler:hover::after {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 .pagy-nav.pagination {
