@@ -9,7 +9,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
   <div class="sm:col-span-1 flex flex-col gap-2">
-    <div class="flex justify-center p-4 bg-ncs-grid">
+    <div class="flex justify-center p-4 bg-ncs-grid rounded">
       <div class="<%= @banner.shield_style? ? "min-h-44" : "min-h-40" %>">
         <%= render Gallery::BannerPreviewComponent.new(banner: @banner, shield: @banner.shield_style?) %>
       </div>
@@ -25,7 +25,7 @@
   </div>
 
   <div class="sm:col-span-2 flex flex-col gap-2 text-ncs-dark-100">
-    <div class="relative p-4 bg-ncs-dark-600">
+    <div class="relative p-4 bg-ncs-dark-600 rounded">
       <div class="absolute right-4">
         <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
       </div>
@@ -54,10 +54,10 @@
       </div>
       <details>
         <summary class="select-none cursor-pointer font-bold">Sharing</summary>
-        <fieldset class="border border-ncs-dark-200 p-2 rounded">
+        <fieldset class="border border-ncs-dark-300 p-2 rounded">
           <legend class="font-bold">Sharing URL</legend>
           <div class="flex gap-2">
-            <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @banner.to_short_url %></p>
+            <p id="url_short" class="grow p-2 border bg-ncs-dark-700 border-ncs-dark-300 rounded"><%= @banner.to_short_url %></p>
             <div class="relative">
               <button type="button" onclick="copyText('url_short')">
                 <%= heroicon "document-duplicate", class: "inline" %>
@@ -70,13 +70,13 @@
         </fieldset>
       </details>
     </div>
-    <div class="bg-ncs-dark-600">
+    <div class="bg-ncs-dark-600 rounded">
       <div class="bg-ncs-dark-700 p-1 rounded">
         <h2><%= @banner.survival_friendly? ? "Crafting Steps" : "Pattern List (Not Survival Friendly)" %></h2>
       </div>
       <ncrs-banner-instructions id="banner-instructions" class="p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
     </div>
-    <div class="bg-ncs-dark-600">
+    <div class="bg-ncs-dark-600 rounded">
       <div class="bg-ncs-dark-700 p-1 rounded">
         <h2>Generate Command</h2>
       </div>

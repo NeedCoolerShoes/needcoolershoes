@@ -6,7 +6,7 @@
   .btn-ncs {
     @apply capitalize cursor-pointer text-white text-center mb-1.5 block;
     @apply leading-10 w-full text-lg font-serif font-extrabold;
-    @apply mb-3;
+    @apply mb-2;
     border-radius: 4px;
     background-image: linear-gradient(to top, #24272a, #313436);
     box-shadow: #3d4042 0px 0px 0px 1px inset, #191a1c 0px 1px 3px, #1f2226 0px 4px, rgba(0, 0, 0, 0.2) 0px 4px 3px;
@@ -17,6 +17,7 @@
   }
   .btn-ncs:active, .btn-ncs-active {
       @apply text-ncs-blue;
+      transform: translate(0,1px);
       background-image: linear-gradient(to top, rgb(49, 52, 54), rgb(36, 39, 42));
   }
   .btn-ncs:disabled, .btn-ncs-disabled {
@@ -35,6 +36,10 @@
   }
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
+  }
+
+  input[type=text], input[type=password], input[type=email], textarea {
+    @apply border bg-ncs-dark-700 border-ncs-dark-300 rounded text-ncs-dark-100;
   }
 }
 

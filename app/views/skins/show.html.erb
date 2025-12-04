@@ -102,7 +102,7 @@
         <fieldset class="border border-ncs-dark-200 p-2 rounded">
           <legend class="font-bold">Sharing URL</legend>
           <div class="flex gap-2">
-            <p id="url_short" class="grow bg-ncs-dark-700 p-2 border border-ncs-dark-200"><%= @skin.to_short_url %></p>
+            <p id="url_short" class="grow border bg-ncs-dark-700 border-ncs-dark-300 rounded"><%= @skin.to_short_url %></p>
             <div class="relative">
               <button type="button" onclick="copyText('url_short')">
                 <%= heroicon "document-duplicate", class: "inline" %>
