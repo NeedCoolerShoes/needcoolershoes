@@ -9,7 +9,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
   <div class="sm:col-span-1 flex flex-col gap-2">
-    <div class="flex justify-center p-4 bg-ncs-grid">
+    <div class="flex justify-center p-4 bg-ncs-grid rounded">
       <div class="<%= @banner.shield_style? ? "min-h-44" : "min-h-40" %>">
         <%= render Gallery::BannerPreviewComponent.new(banner: @banner, shield: @banner.shield_style?) %>
       </div>
@@ -25,16 +25,16 @@
   </div>
 
   <div class="sm:col-span-2 flex flex-col gap-2 text-ncs-dark-100">
-    <div class="relative p-4 bg-ncs-dark-700">
+    <div class="relative p-4 bg-ncs-dark-600 rounded">
       <div class="absolute right-4">
         <%= render partial: "banner_favourite", locals: { banner: @banner, size: 32, redirect: banner_editor_path(@banner) } %>
       </div>
       <h1 class="text-4xl font-bold line-clamp-2 break-words pr-8"><%= @banner.name %></h1>
       <div class="font-bold">
-        <p class="text-ncs-dark-300">
+        <p class="text-ncs-dark-200">
           Banner
           <span
-            class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-800 text-ncs-dark-100"
+            class="rounded-full text-sm px-2 py-0.5 bg-ncs-dark-700 text-ncs-dark-100"
             title="Supports Minecraft <%= @banner.formatted_minimum_version %>"
           >
             <%= @banner.formatted_minimum_version %>
@@ -43,7 +43,7 @@
         <p>by <%= profile_link @banner.user %></p>
       </div>
       <% if @banner.tags.any? %>
-        <div class="text-ncs-dark-300 text-sm flex gap-1 flex-wrap">
+        <div class="text-ncs-dark-200 text-sm flex gap-1 flex-wrap">
           <% @banner.tags.each do |tag| %>
             <%= link_to tag.name, banners_gallery_path(tag: tag.name), title: "#{tag.name} - #{tag.taggings_count}" %>
           <% end %>
@@ -52,15 +52,32 @@
       <div class="prose prose-ncs-dark">
         <%= markdown @banner.description %>
       </div>
+      <details>
+        <summary class="select-none cursor-pointer font-bold">Sharing</summary>
+        <fieldset class="border border-ncs-dark-300 p-2 rounded">
+          <legend class="font-bold">Sharing URL</legend>
+          <div class="flex gap-2">
+            <p id="url_short" class="grow p-2 border bg-ncs-dark-700 border-ncs-dark-300 rounded"><%= @banner.to_short_url %></p>
+            <div class="relative">
+              <button type="button" onclick="copyText('url_short')">
+                <%= heroicon "document-duplicate", class: "inline" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
+      </details>
     </div>
-    <div class="bg-ncs-dark-700">
-      <div class="bg-ncs-dark-800 p-1">
+    <div class="bg-ncs-dark-600 rounded">
+      <div class="bg-ncs-dark-700 p-1 rounded">
         <h2><%= @banner.survival_friendly? ? "Crafting Steps" : "Pattern List (Not Survival Friendly)" %></h2>
       </div>
       <ncrs-banner-instructions id="banner-instructions" class="p-1" banner="<%= @banner.data %>"></ncrs-banner-instructions>
     </div>
-    <div class="bg-ncs-dark-700">
-      <div class="bg-ncs-dark-800 p-1">
+    <div class="bg-ncs-dark-600 rounded">
+      <div class="bg-ncs-dark-700 p-1 rounded">
         <h2>Generate Command</h2>
       </div>
       <ncrs-banner-command-box code="<%= @banner.data %>"></ncrs-banner-command-box>
@@ -85,6 +102,33 @@
   if (selector) {
     command.setAttribute("selector", selector)
     selectorElm.value = selector
+  }
+
+    // https://stackoverflow.com/questions/36639681/how-to-copy-text-from-a-div-to-clipboard
+  function copyText(id, createText = false) {
+    let element;
+    if (createText) {
+      element = document.createElement('span');
+      element.innerText = id;
+      document.body.append(element);
+    } else {
+      element = document.getElementById(id);
+    }
+    var range = document.createRange();
+    range.selectNode(element);
+    window.getSelection().removeAllRanges(); // clear current selection
+    window.getSelection().addRange(range); // to select text
+    document.execCommand("copy");
+    window.getSelection().removeAllRanges();// to deselect
+
+    const copied = element.parentElement.querySelector(".copy-text");
+    copied.classList.remove("hidden", "hidden-fade");
+
+    if (createText) { element.remove(); }
+
+    setTimeout(() => {
+      copied.classList.add("hidden-fade");
+    }, 200);
   }
 </script>
 

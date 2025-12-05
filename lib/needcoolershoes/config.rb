@@ -14,7 +14,7 @@ end
 
 module Needcoolershoes
   module Config
-    mattr_accessor :revision, :source, :host
+    mattr_accessor :revision, :source, :host, :shortener_host
 
     self.revision = get_revision_hash
 
@@ -24,6 +24,10 @@ module Needcoolershoes
 
     def self.revision_url
       (self.source || "") + "/" + "commit/" + self.revision
+    end
+
+    def self.shortener_host?
+      self.shortener_host.present?
     end
   end
 end

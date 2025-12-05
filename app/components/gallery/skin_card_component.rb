@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Gallery::SkinCardComponent < ViewComponent::Base
+  include SkinsHelper
   include UserHelper
 
   renders_one :overlay

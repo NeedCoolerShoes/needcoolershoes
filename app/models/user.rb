@@ -162,6 +162,10 @@ class User < ApplicationRecord
     Routing.root_url + "@#{name}"
   end
 
+  def to_short_url
+    super(to_path)
+  end
+
   def login
     @login || self.name || self.email
   end
