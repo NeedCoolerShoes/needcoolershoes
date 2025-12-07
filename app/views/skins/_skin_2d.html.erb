@@ -56,6 +56,12 @@
         </div>
       </div>
     </div>
+    <% if ears %>
+      <div class="ear-right display-<%= id %>"></div>
+      <div class="ear-left display-<%= id %>"></div>
+      <div class="ear-back-left display-<%= id %>"></div>
+      <div class="ear-back-right display-<%= id %>"></div>
+    <% end %>
   </div>
   <%= yield %>
 </div>
