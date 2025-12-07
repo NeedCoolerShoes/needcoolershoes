@@ -26,7 +26,7 @@
 
   <% card.with_preview do %>
     <div class="bg-ncs-grid bg-center p-4 flex justify-center border rounded-md border-ncs-dark-500">
-      <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, ears: @skin.tags.pluck(:name).include?("deadmau5"), classes: "scaled-md", width: "170px", height: "160px" } %>
+      <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, ears: @skin.tags.pluck(:name).include?("deadmau5"), part: @skin.skin_part.name, classes: "scaled-md", width: "170px", height: "160px" } %>
     </div>
   <% end %>
 
