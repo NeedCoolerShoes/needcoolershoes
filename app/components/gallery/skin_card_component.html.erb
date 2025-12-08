@@ -8,11 +8,17 @@
       </div>
     <% end %>
     <% if show_visibility? %>
-      <div class="absolute top-0 left-0 p-2">
+      <div class="absolute top-0 left-0 p-2 z-10 blur-sm">
+        <%= heroicon icon, class: "text-ncs-dark-800" %>
+      </div>
+      <div class="absolute top-0 left-0 p-2 z-10">
         <%= heroicon icon, class: "text-ncs-dark-200", title: @skin.visibility.titleize %>
       </div>
     <% end %>
-    <div class="absolute top-0 right-0 p-2">
+    <div class="absolute top-0 right-0 p-2 z-10 blur-sm">
+      <%= heroicon "heart", variant: "solid", size: 24, class: "text-ncs-dark-800/60", title: t("favourite.remove") %>
+    </div>
+    <div class="absolute top-0 right-0 p-2 z-10">
       <%= render partial: "skin_favourite", locals: { skin: @skin, show_guests: true, redirect: request.fullpath } %>
     </div>
     <%= overlay %>
@@ -20,7 +26,7 @@
 
   <% card.with_preview do %>
     <div class="bg-ncs-grid bg-center p-4 flex justify-center border rounded-md border-ncs-dark-500">
-      <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, classes: "scaled-md", width: "170px", height: "160px" } %>
+      <%= render partial: "skin_2d", locals: { id: @skin.id, data: @skin.data, slim: @skin.slim?, ears: @skin.tags.pluck(:name).include?("deadmau5"), part: @skin.skin_part.name, classes: "scaled-md", width: "170px", height: "160px" } %>
     </div>
   <% end %>
 
