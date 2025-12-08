@@ -5,57 +5,81 @@
   width ||= "192px"
   height ||= "204px"
   url ||= nil
+  head_block = part == "Player Head Block" 
 %>
 <div class="relative skin group" data-id="<%= url %>" data-save="<%= data %>" style="height: <%= height %>; width: <%= width %>;">
   <div class="<%= classes %> skin-preview skin-model<%= suffix %>">
     <div>
-      <div class="face display-<%= id %>">
-        <div class="face-overlay display-<%= id %>"></div>
+      <% if !head_block %>
+        <div class="face display-<%= id %>">
+          <div class="face-overlay display-<%= id %>"></div>
+        </div>
+        <div style="display: flex;">
+          <div class="right-arm<%= suffix %> display-<%= id %>">
+            <div class="right-arm<%= suffix %>-overlay display-<%= id %>"></div>
+          </div>
+          <div class="torso display-<%= id %>">
+            <div class="torso-overlay display-<%= id %>"></div>
+          </div>
+          <div class="left-arm<%= suffix %> display-<%= id %>">
+            <div class="left-arm<%= suffix %>-overlay display-<%= id %>"></div>
+          </div>
+        </div>
+        <div style="display: flex;">
+          <div class="right-leg display-<%= id %>">
+            <div class="right-leg-overlay display-<%= id %>"></div>
+          </div>
+          <div class="left-leg display-<%= id %>">
+            <div class="left-leg-overlay display-<%= id %>"></div>
+          </div>
+        </div>
       </div>
-      <div style="display: flex;">
-        <div class="right-arm<%= suffix %> display-<%= id %>">
-          <div class="right-arm<%= suffix %>-overlay display-<%= id %>"></div>
+      <div>
+        <div class="face-back display-<%= id %>">
+          <div class="face-overlay-back display-<%= id %>"></div>
         </div>
-        <div class="torso display-<%= id %>">
-          <div class="torso-overlay display-<%= id %>"></div>
+        <div style="display: flex;">
+          <div class="left-arm<%= suffix %>-back display-<%= id %>">
+            <div class="left-arm<%= suffix %>-overlay-back display-<%= id %>"></div>
+          </div>
+          <div class="torso-back display-<%= id %>">
+            <div class="torso-overlay-back display-<%= id %>"></div>
+          </div>
+          <div class="right-arm<%= suffix %>-back display-<%= id %>">
+            <div class="right-arm<%= suffix %>-overlay-back display-<%= id %>"></div>
+          </div>
         </div>
-        <div class="left-arm<%= suffix %> display-<%= id %>">
-          <div class="left-arm<%= suffix %>-overlay display-<%= id %>"></div>
+        <div style="display: flex;">
+          <div class="left-leg-back display-<%= id %>">
+            <div class="left-leg-overlay-back display-<%= id %>"></div>
+          </div>
+          <div class="right-leg-back display-<%= id %>">
+            <div class="right-leg-overlay-back display-<%= id %>"></div>
+          </div>
         </div>
       </div>
-      <div style="display: flex;">
-        <div class="right-leg display-<%= id %>">
-          <div class="right-leg-overlay display-<%= id %>"></div>
-        </div>
-        <div class="left-leg display-<%= id %>">
-          <div class="left-leg-overlay display-<%= id %>"></div>
-        </div>
+      <% if ears %>
+        <div class="ear-right display-<%= id %>"></div>
+        <div class="ear-left display-<%= id %>"></div>
+        <div class="ear-back-left display-<%= id %>"></div>
+        <div class="ear-back-right display-<%= id %>"></div>
+      <% end %>
+    <% else %>
+    <div class="skin-preview block-head">
+      <div class="block-head-container">
+        <div class="block-head-z block-head-back-overlay display-<%= id %>"></div>
+        <div class="block-head-x block-head-left-overlay display-<%= id %>"></div>
+        <div class="block-head-y block-head-bottom-overlay display-<%= id %>"></div>
+        <div class="block-head-y block-head-top display-<%= id %>"></div>
+        <div class="block-head-x block-head-right display-<%= id %>"></div>
+        <div class="block-head-z block-head-front display-<%= id %>"></div>
+        <div class="block-head-y block-head-top-overlay display-<%= id %>"></div>
+        <div class="block-head-x block-head-right-overlay display-<%= id %>"></div>
+        <div class="block-head-z block-head-front-overlay display-<%= id %>"></div>
       </div>
     </div>
-    <div>
-      <div class="face-back display-<%= id %>">
-        <div class="face-overlay-back display-<%= id %>"></div>
-      </div>
-      <div style="display: flex;">
-        <div class="left-arm<%= suffix %>-back display-<%= id %>">
-          <div class="left-arm<%= suffix %>-overlay-back display-<%= id %>"></div>
-        </div>
-        <div class="torso-back display-<%= id %>">
-          <div class="torso-overlay-back display-<%= id %>"></div>
-        </div>
-        <div class="right-arm<%= suffix %>-back display-<%= id %>">
-          <div class="right-arm<%= suffix %>-overlay-back display-<%= id %>"></div>
-        </div>
-      </div>
-      <div style="display: flex;">
-        <div class="left-leg-back display-<%= id %>">
-          <div class="left-leg-overlay-back display-<%= id %>"></div>
-        </div>
-        <div class="right-leg-back display-<%= id %>">
-          <div class="right-leg-overlay-back display-<%= id %>"></div>
-        </div>
-      </div>
     </div>
+    <% end %>
   </div>
   <%= yield %>
 </div>
