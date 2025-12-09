@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "skins#new"
 
-  devise_for :users, controllers: {sessions: "sessions"}
+  devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
