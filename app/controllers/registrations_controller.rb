@@ -2,6 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
   CAPTCHA_QUESTION = "What item does a Creeper drop? (in English)"
   CAPTCHA_REGEX = /gun\s*powder/i
 
+  prepend_before_action :check_signups_disabled, only: :create
   prepend_before_action :verify_captcha, only: :create
 
   def new
@@ -10,6 +11,12 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   private
+
+  def check_signups_disabled
+    return unless Needcoolershoes::Config.signups_disabled
+
+    redirect_to root_path, alert: "Signups currently disabled"
+  end
 
   def verify_captcha
     return if params[:question].to_s.match?(CAPTCHA_REGEX)

@@ -46,7 +46,11 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign Up", class: "btn-ncs" %>
+      <% if Needcoolershoes::Config.signups_disabled %>
+        <%= f.submit "Sign Ups Currently Disabled", class: "btn-ncs", disabled: true %>
+      <% else %>
+        <%= f.submit "Sign Up", class: "btn-ncs" %>
+      <% end %>
     </div>
   </div>
 <% end %>
