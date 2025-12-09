@@ -246,12 +246,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.datetime "ban_ends_at"
-    t.string "ban_message"
     t.integer "pixels", default: 0, null: false
     t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
+    t.datetime "ban_ends_at"
+    t.string "ban_message"
     t.bigint "minecraft_account_id"
     t.string "support_token", default: "", null: false
+    t.boolean "allow_bulk_upload", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"
     t.index ["featured_skin_id"], name: "index_users_on_featured_skin_id"
@@ -276,5 +277,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
   add_foreign_key "user_badges", "users"
   add_foreign_key "username_records", "users"
   add_foreign_key "users", "badges", column: "featured_badge_id"
+  add_foreign_key "users", "minecraft_accounts"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end

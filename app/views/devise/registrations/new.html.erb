@@ -38,6 +38,13 @@
       <%= f.password_field :password, autocomplete: "new-password", placeholder: "A Secret Password", class: "text-black w-full" %>
     </div>
 
+    <div class="flex flex-col">
+      <div>
+        <%= label_tag :question, @captcha_question %>
+      </div>
+      <%= text_field_tag :question, nil, class: "text-black w-full" %>
+    </div>
+
     <div class="actions">
       <%= f.submit "Sign Up", class: "btn-ncs" %>
     </div>

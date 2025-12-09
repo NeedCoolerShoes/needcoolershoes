@@ -47,6 +47,8 @@ class User < ApplicationRecord
 
   before_create :set_support_token, unless: :support_token?
 
+  attribute :question, :string
+
   ROLES.each_with_index do |role, level|
     define_method :"#{role}?" do
       permission_level >= level
