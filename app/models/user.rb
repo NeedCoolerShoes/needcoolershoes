@@ -181,6 +181,8 @@ class User < ApplicationRecord
   def name_change_in_cooldown?
     cooldown_date = Time.current - NAME_CHANGE_COOLDOWN
 
+    return false unless self.id?
+
     UsernameRecord.with_user(self).where(created_at: cooldown_date..).any?
   end
 
