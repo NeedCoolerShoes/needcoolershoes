@@ -45,6 +45,9 @@
       <%= text_field_tag :question, nil, class: "text-black w-full" %>
     </div>
 
+    <%= label_tag :captcha, "What is 2 + 2? (required)" %>
+    <%= text_field_tag :captcha, nil, class: "hidden" %>
+
     <div class="actions">
       <% if Needcoolershoes::Config.signups_disabled %>
         <%= f.submit "Sign Ups Currently Disabled", class: "btn-ncs", disabled: true %>

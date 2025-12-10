@@ -18,11 +18,11 @@ class Discord::NewUserWebhook
       parts.join
     end
 
-    def send_webhook(name, email, captcha)
+    def send_webhook(name, email, captcha, fake_captcha)
       client.execute do |builder|
         builder.add_embed do |embed|
           embed.title = "New User: **#{name}**"
-          embed.description = "Email: #{format_email(email)}\nCaptcha: #{captcha}"
+          embed.description = "Email: #{format_email(email)}\nCaptcha: #{captcha}\nFake Captcha: #{fake_captcha}"
           embed.timestamp = Time.current
         end
       end
