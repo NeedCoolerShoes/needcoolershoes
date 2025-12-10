@@ -21,7 +21,7 @@ class RegistrationsController < Devise::RegistrationsController
   def verify_captcha
     if Discord::NewUserWebhook::WEBHOOK_URL.present?
       up = params[:user]
-      Discord::NewUserWebhook.send_webhook(up[:name], up[:email], params[:question])
+      Discord::NewUserWebhook.send_webhook(up[:name], up[:email], params[:question], params[:captcha])
     end
 
     return if params[:question].to_s.match?(CAPTCHA_REGEX)
