@@ -4,3 +4,6 @@
 [submodule "app/assets/javascripts/banner-editor"]
 	path = app/assets/javascripts/ncrs-banner
 	url = https://github.com/NeedCoolerShoes/banner-editor.git
+[submodule "vendor/config/disposable-email-domains"]
+	path = vendor/config/disposable-email-domains
+	url = https://github.com/disposable-email-domains/disposable-email-domains.git

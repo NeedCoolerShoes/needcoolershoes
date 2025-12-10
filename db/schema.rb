@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
+ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
     t.integer "rank", default: 0, null: false
     t.integer "minimum_version", default: 0, null: false
     t.index ["user_id"], name: "index_banners_on_user_id"
+  end
+
+  create_table "blocked_email_domains", force: :cascade do |t|
+    t.string "domain", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["domain"], name: "index_blocked_email_domains_on_domain", unique: true
   end
 
   create_table "favourites", force: :cascade do |t|
@@ -246,10 +253,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.integer "pixels", default: 0, null: false
-    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.datetime "ban_ends_at"
     t.string "ban_message"
+    t.integer "pixels", default: 0, null: false
+    t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
     t.bigint "minecraft_account_id"
     t.string "support_token", default: "", null: false
     t.boolean "allow_bulk_upload", default: false, null: false
@@ -277,6 +284,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_21_173055) do
   add_foreign_key "user_badges", "users"
   add_foreign_key "username_records", "users"
   add_foreign_key "users", "badges", column: "featured_badge_id"
-  add_foreign_key "users", "minecraft_accounts"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end
