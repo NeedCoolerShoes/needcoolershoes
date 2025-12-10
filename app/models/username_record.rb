@@ -3,7 +3,7 @@ class UsernameRecord < ApplicationRecord
 
   scope :with_name, ->(name) { where(name: name) }
   scope :with_user, ->(user) { where(user: user) }
-  scope :has_user, ->(user) { joins(:user).where.not(user: {id: nil}) }
+  scope :has_user, -> { where.not(user: nil) }
   scope :banned, -> { where(banned: true) }
   scope :allowed, -> { where.not(banned: true) }
   scope :order_created, ->(dir = :desc) { order(created_at: dir) }

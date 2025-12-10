@@ -37,7 +37,7 @@ class User < ApplicationRecord
     username: true,
     length: {maximum: 64}
 
-  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}
+  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}, allowed_email: true
   validates :attribution_message, length: {maximum: 64}, format: {with: /\A[ -~]+\z/}
   validates :biography, length: {maximum: 2048}
 
