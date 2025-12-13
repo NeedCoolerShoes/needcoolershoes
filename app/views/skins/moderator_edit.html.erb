@@ -4,7 +4,7 @@
   <meta name="turbo-visit-control" content="reload">
 <% end %>
 <% content_for :styles do %>
-  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <%= stylesheet_link_tag "tagify", "data-turbo-track": "reload" %>
 <% end %>
 <div class="w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white overflow-clip">
   <div class="flex flex-col items-center md:flex-row gap-2 w-full p-4">

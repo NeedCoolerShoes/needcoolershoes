@@ -1,5 +1,5 @@
 <% content_for :scripts do %>
-  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <%= stylesheet_link_tag "tagify", "data-turbo-track": "reload" %>
   <script type="module">
     import "ncrs-editor";
     import "src/editor";
