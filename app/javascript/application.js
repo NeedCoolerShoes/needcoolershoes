@@ -4,3 +4,6 @@ import "controllers"
 
 import LocalTime from "local-time"
 LocalTime.start()
+
+// Polyfill for tippy.js
+window.process = { env: { NODE_ENV: 'development' }}

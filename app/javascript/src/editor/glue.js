@@ -1,6 +1,5 @@
 // Glue
-
-import {UI} from "ncrs-editor";
+import {UI, ICON_MAP} from "ncrs-editor";
 
 const ui = document.getElementById("ncrs-ui");
 
@@ -111,7 +110,19 @@ function loadTip(tip) {
   tipElement.innerHTML = tip;
 }
 
+function preloadIcons() {
+  Object.values(ICON_MAP).forEach(icon => {
+    const link = document.createElement("link");
+    link.href = icon;
+    link.rel = "preload";
+    link.as = "image";
+    link.type = "image/svg+xml";
+    document.head.appendChild(link);
+  })
+}
+
 function onLoad() {
+  preloadIcons();
   importSkinFromData();
   setupSkinModelEvent();
   setupTips();
