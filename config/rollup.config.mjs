@@ -3,7 +3,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
 import url from "@rollup/plugin-url";
-import { minify } from "rollup-plugin-esbuild-minify";
+import terser from "@rollup/plugin-terser";
 
 export default {
 	input: globSync("app/assets/javascripts/*.*"),
@@ -13,8 +13,13 @@ export default {
     assetFileNames: "[name]-[hash].digested[extname]",
 		chunkFileNames: "[name]-[hash].digested.js",
 		manualChunks(id) {
-			if (id.includes("node_modules/three/")) return "three";
-			if (id.includes("node_modules/ajv/")) return "ajv";
+			if (id.includes("node_modules/")) {
+				const regex = /node_modules\/(?<name>[^\/]+)/
+				const name = id.match(regex)?.groups?.name;
+				if (name && name.length > 0) {
+					return name;
+				}
+			}
 
 			return null;
 		},
@@ -29,6 +34,6 @@ export default {
 		json(),
 		commonjs(),
 		nodeResolve({browser: true}),
-		minify(),
+		terser(),
 	],
 };
