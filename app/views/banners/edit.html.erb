@@ -1,5 +1,5 @@
 <% content_for :styles do %>
-  <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+  <%= stylesheet_link_tag "tagify", "data-turbo-track": "reload" %>
 <% end %>
 <div class="flex justify-center w-full bg-ncs-tweed bg-ncs-gray-700 rounded text-white p-4">
   <div class="max-w-lg w-full">

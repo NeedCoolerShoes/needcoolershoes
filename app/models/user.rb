@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :skin_favourites, through: :skins, source: :favourites
   has_many :modlogs, as: :target, dependent: :destroy
   has_many :minecraft_accounts, dependent: :destroy
+  has_many :username_records, dependent: :nullify
 
   validates :name,
     format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},
@@ -36,7 +37,7 @@ class User < ApplicationRecord
     username: true,
     length: {maximum: 64}
 
-  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}
+  validates :email, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}, length: {maximum: 256}, allowed_email: true
   validates :attribution_message, length: {maximum: 64}, format: {with: /\A[ -~]+\z/}
   validates :biography, length: {maximum: 2048}
 
@@ -46,6 +47,8 @@ class User < ApplicationRecord
   enum :role, ROLES
 
   before_create :set_support_token, unless: :support_token?
+
+  attribute :question, :string
 
   ROLES.each_with_index do |role, level|
     define_method :"#{role}?" do
@@ -177,6 +180,8 @@ class User < ApplicationRecord
 
   def name_change_in_cooldown?
     cooldown_date = Time.current - NAME_CHANGE_COOLDOWN
+
+    return false unless self.id?
 
     UsernameRecord.with_user(self).where(created_at: cooldown_date..).any?
   end
