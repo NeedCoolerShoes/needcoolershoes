@@ -38,7 +38,7 @@
     @apply py-2 px-4 bg-blue-200;
   }
 
-  input[type=text], input[type=password], input[type=email], textarea {
+  input[type=text], input[type=password], input[type=email], textarea, select, tags.tagify {
     @apply border bg-ncs-dark-700 border-ncs-dark-300 rounded text-ncs-dark-100;
   }
 
