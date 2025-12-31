@@ -45,7 +45,7 @@ class OpencollectiveApi
     
     @@cache
   rescue
-    {balance: 0, goal: 0, name: "undefined", currency: "USD", Time.current}
+    {balance: 0, goal: 0, name: "undefined", currency: "USD", cached_at: Time.current}
   end
 
   def self.donation_url
