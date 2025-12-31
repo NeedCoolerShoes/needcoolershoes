@@ -28,31 +28,35 @@
         <div class="flex gap-2">
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :visibility, nil, class: "m-0" %>
-            <%= form.select :visibility, visibilities, {}, class: "text-black p-1" %>
+            <%= form.select :visibility, visibilities, {}, class: "p-1" %>
           </div>
 
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :model, nil, class: "m-0" %>
-            <%= form.select :model, models, {}, class: "text-black p-1" %>
+            <%= form.select :model, models, {}, class: "p-1" %>
           </div>
         </div>
 
         <div class="flex gap-2">
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :skin_part_id, nil, class: "m-0" %>
-            <%= form.select :skin_part_id, SkinPart.order(id: :asc).pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+            <%= form.select :skin_part_id, SkinPart.order(id: :asc).pluck(:name, :id), {}, class: "capitalize p-1" %>
           </div>
 
           <div class="flex flex-col gap-2 grow shrink basis-0">
             <%= form.label :skin_category_id, nil, class: "m-0" %>
-            <%= form.select :skin_category_id, SkinCategory.order(id: :asc).pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+            <%= form.select :skin_category_id, SkinCategory.order(id: :asc).pluck(:name, :id), {}, class: "capitalize p-1" %>
           </div>
         </div>
 
         <div class="flex flex-col gap-2">
           <%= form.label :creator, "Creator / License info", class: "m-0" %>
           <div class="flex flex-col">
+<<<<<<< HEAD
+            <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "p-1" %>
+=======
             <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black p-1 max-w-[90vw]" %>
+>>>>>>> aa5c12ccd6fdb6097836fe20c944a6735f92a462
             <span id="license_info" class="text-sm text-white">
               The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0. Please note that skin will be automatically credited whenever someone uses it and uploads to the gallery. 
             </span>

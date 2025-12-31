@@ -60,12 +60,12 @@
         <%= form_with url: skin_quick_action_path(@skin, "categorize"), model: @skin do |form| %>
           <div class="flex flex-col gap-1 -mt-2">
             <%= form.label :skin_part_id %>
-            <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+            <%= form.select :skin_part_id, SkinPart.pluck(:name, :id), {}, class: "capitalize p-1" %>
           </div>
 
           <div class="flex flex-col gap-1">
             <%= form.label :skin_category_id %>
-            <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "text-black capitalize p-1" %>
+            <%= form.select :skin_category_id, SkinCategory.pluck(:name, :id), {}, class: "capitalize p-1" %>
           </div>
 
           <%= hidden_field_tag :redirect, current_page %>
