@@ -41,7 +41,7 @@
           <span class="underline"><%= skin.user.display_name %></span>
           <% if (badge = skin.user.featured_badge).present? %>
               <img class="inline w-4 border rounded-full box-content border-ncs-orange bg-ncs-orange"
-              src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>">
+              src="<%= badge.url %>" alt="<%= badge.name %>" title="<%= badge.name %>" style="image-rendering: pixelated">
           <% end %>
           <% if skin.user.role? %>
             <img class="inline" src="<%= asset_path("medals/#{skin.user.role}.png") %>" alt="<%= skin.user.role.titleize %>" title="<%= skin.user.role.titleize %>">

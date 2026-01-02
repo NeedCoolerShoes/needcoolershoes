@@ -10,6 +10,11 @@ document.getElementById("cancel-button").addEventListener("click", () => {
 const resizeObserver = new ResizeObserver(() => {
   const uiRect = ui.getBoundingClientRect();
 
+  if (ui.classList.contains("fullscreen")) {
+    ui.style.maxHeight = null;
+    return;
+  }
+
   if (uiRect.width >= UI.desktopLayoutMinWidth) {
     ui.style.maxHeight = null;
   } else {

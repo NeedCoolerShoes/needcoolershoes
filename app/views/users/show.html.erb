@@ -89,7 +89,7 @@
           <% @user.user_badges.each do |user_badge| %>
             <% badge = user_badge.badge %>
             <div class="ncs-selectable cursor-pointer" tabindex="0">
-              <img width="32" height="32" title="<%= badge.name %>" src="<%= badge.url %>" alt="<%= badge.name %>">
+              <img width="32" height="32" style="image-rendering: pixelated;" title="<%= badge.name %>" src="<%= badge.url %>" alt="<%= badge.name %>">
               <div class="cursor-auto overlay z-50 absolute flex flex-wrap gap-2 bg-ncs-gray-300 rounded px-4 py-2 mt-1 left-2 right-2 shadow border border-gray-600">
                 <h2 class="font-bold"><%= badge.name %></h2>
                 <p class="text-gray-400">Granted on <%= simple_date user_badge.created_at %></p>
