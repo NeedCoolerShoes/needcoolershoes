@@ -134,6 +134,8 @@ GEM
     dockerfile-rails (1.7.10)
       rails (>= 3.0.0)
     domain_name (0.6.20240107)
+    doorkeeper (5.8.2)
+      railties (>= 5)
     drb (2.2.3)
     erb (6.0.0)
     erubi (1.13.1)
@@ -517,6 +519,7 @@ DEPENDENCIES
   devise
   discordrb (~> 3.4)
   dockerfile-rails (>= 1.2)
+  doorkeeper (~> 5.8)
   http (~> 5.2)
   importmap-rails
   jbuilder

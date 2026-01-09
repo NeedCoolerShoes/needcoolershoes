@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   root "skins#new"
 
   devise_for :users, controllers: {sessions: "sessions", registrations: "registrations"}
