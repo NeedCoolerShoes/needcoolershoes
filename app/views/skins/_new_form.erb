@@ -52,11 +52,7 @@
         <div class="flex flex-col gap-2">
           <%= form.label :creator, "Creator / License info", class: "m-0" %>
           <div class="flex flex-col">
-<<<<<<< HEAD
             <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "p-1" %>
-=======
-            <%= form.select :creator, Skin::CREATOR.map { |id, name| [name, id] }, {}, class: "text-black p-1 max-w-[90vw]" %>
->>>>>>> aa5c12ccd6fdb6097836fe20c944a6735f92a462
             <span id="license_info" class="text-sm text-white">
               The skin can be shared to the gallery, and you agree to license it as CC-BY-SA 4.0. Please note that skin will be automatically credited whenever someone uses it and uploads to the gallery. 
             </span>
