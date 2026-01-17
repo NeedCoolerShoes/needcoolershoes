@@ -146,6 +146,10 @@
   pointer-events: none;
 }
 
+.pointer-events-passthrough div.pointer-events-auto {
+  pointer-events: auto;
+}
+
 .pointer-events-passthrough :not(div) {
   pointer-events: initial;
 }
