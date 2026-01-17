@@ -33,26 +33,40 @@
   <% card.with_quick_actions do %>
     <div class="p-2" data-controller="hidden-toggle">
       <h3 class="text-white text-2xl font-bold text-center mb-2">Quick Actions</h3>
+
       <div data-hidden-toggle-target="select" data--select="main">
         <%= link_to "Moderate Skin", skin_moderate_path(@skin), class: "btn-ncs text-base py-0.5 px-2 mb-4" %>
-        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="quick-moderate" class="btn-ncs text-base py-0.5 px-2">
-          Quick Moderate
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="unlist-skin" class="btn-ncs text-base py-0.5 px-2">
+          Cleanup
+        </button>
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="hide-skin" class="btn-ncs text-base py-0.5 px-2">
+          TOS Violation
         </button>
         <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="categorize" class="btn-ncs text-base py-0.5 px-2">
           Update Part / Category
         </button>
       </div>
-      <div data-hidden-toggle-target="select" data--select="quick-moderate" class="hidden">
+
+      <div data-hidden-toggle-target="select" data--select="unlist-skin" class="hidden">
         <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
           Back
         </button>
+        <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+        <%= button_to "Mark Blank", skin_quick_action_path(@skin, "blank"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+        <%= button_to "Mark Low Effort", skin_quick_action_path(@skin, "low-effort"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
         <% if @skin.classic? %>
           <%= button_to "Change model to Slim", skin_quick_action_path(@skin, "slim"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
         <% end %>
-        <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
+      </div>
+
+      <div data-hidden-toggle-target="select" data--select="hide-skin" class="hidden">
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
+          Back
+        </button>
         <%= button_to "Mark NSFW", skin_quick_action_path(@skin, "nsfw"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
         <%= button_to "Mark Nazi / Hate", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: current_page} %>
       </div>
+
       <div data-hidden-toggle-target="select" data--select="categorize" class="hidden text-white">
         <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
           Back
@@ -72,6 +86,12 @@
 
           <%= form.submit "Update Skin", class: "btn-ncs text-base py-0.5 px-2 mt-2" %>
         <% end %>
+      </div>
+
+      <div data-hidden-toggle-target="select" data--select="misc" class="hidden">
+        <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
+          Back
+        </button>
       </div>
     </div>
   <% end %>

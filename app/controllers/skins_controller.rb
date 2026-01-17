@@ -230,6 +230,8 @@ class SkinsController < ApplicationController
       when "slim" then qa_moderate(format, redirect_path, {model: :slim}, "Changed skin model from Classic to Slim.")
       when "nsfw" then qa_moderate(format, redirect_path, {hidden: true}, "NSFW content is not allowed on the site.")
       when "hate" then qa_moderate(format, redirect_path, {hidden: true}, "Imagery of Nazis / hate groups is not allowed on the site.")
+      when "blank" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Blank or almost blank skins are not allowed on the site.")
+      when "low-effort" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Skin does not fit minimum effort guidelines as described in the site rules.")
       when "categorize" then qa_moderate(format, redirect_path, skin_params, "Moved skin to another part / category.")
       else not_found_error
       end
