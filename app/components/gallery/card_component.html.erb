@@ -12,10 +12,10 @@
         <%= heroicon "x-mark", class: "text-white hidden", "data-hidden-toggle-target": "hidden" %>
       </button>
     <% end %>
+    <% if is_moderator? %>
+      <div class="hidden absolute top-0 bottom-0 left-0 right-0 bg-black/50 backdrop-blur-sm z-10 pointer-events-auto" data-hidden-toggle-target="hidden">
+        <%= quick_actions %>
+      </div>
+    <% end %>
   </div>
-  <% if is_moderator? %>
-    <div class="hidden absolute top-0 bottom-0 left-0 right-0 bg-black/50 backdrop-blur-sm z-10" data-hidden-toggle-target="hidden">
-      <%= quick_actions %>
-    </div>
-  <% end %>
 </div>

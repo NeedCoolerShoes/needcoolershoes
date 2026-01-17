@@ -67,6 +67,7 @@ Rails.application.routes.draw do
   end
 
   get "users", to: redirect("/")
+  get "users/password", to: redirect("/users/password/new")
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 

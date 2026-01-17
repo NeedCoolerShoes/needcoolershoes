@@ -14,7 +14,7 @@
     <%= render partial: "shared/analytics" %>
   </head>
 
-  <body class="flex flex-col min-h-screen">
+  <body class="flex flex-col min-h-screen" data-turbo="false">
     <%= render partial: "shared/flash" %>
     <%= yield :attention if content_for?(:attention) %>
     <%= render partial: "shared/header" %>
