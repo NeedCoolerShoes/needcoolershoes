@@ -124,6 +124,10 @@ Rails.application.routes.draw do
     get "skin/:id", to: "api#skin"
     get "tags", to: "api#tags"
     get "outdated_browser", to: "api#outdated_browser_bypass"
+
+    scope :v1 do
+      get "profile", to: "api/v1#profile"
+    end
   end
 
   # Mounts
