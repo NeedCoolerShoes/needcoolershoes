@@ -206,7 +206,7 @@ class BannersController < ApplicationController
         "Minecraft Banners"
       end
       config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
-      config.description = "Search and browse Minecraft banners created with our Banner Maker."
+      config.description = "NeedCoolerShoes banner gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft banners created with our Banner Maker, filter by version or shield compatibility."
     end
   end
 
