@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
     meta_config do |config|
       config.title = "#{@user.display_name}'s Profile".truncate(32)
-      config.description = @user.biography&.tr("\n", " ")&.strip || "A Miner in Need of Cooler Shoes."
+      config.description = @user.biography&.tr("\n", " ")&.strip || "#{@user.display_name}'s Profile. User of NeedCoolerShoes minecraft skin editor and gallery. Create, share and remix high quality skins using our easy to use editor."
     end
   end
 

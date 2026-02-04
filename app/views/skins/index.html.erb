@@ -24,18 +24,18 @@
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
 <% if @skins.any? %>
-  <p class="text-ncs-dark-200 text-sm mb-2 -mt-2">
+  <h1 class="text-ncs-dark-200 text-sm mb-2 -mt-2">
     Showing skins
     <span class="font-bold"><%= @pagy.from %></span>
     to <span class="font-bold"><%= @pagy.to %></span>
     of <span class="font-bold"><%= @pagy.count%></span>
-  </p>
+  </h1>
 <% end %>
 
 <div class="grow">
   <% if !@skins.any? %>
     <div class="flex flex-col gap-2 items-center">
-      <h3 class="text-4xl font-bold text-white">NO SKINS?</h3>
+      <h1 class="text-4xl font-bold text-white">NO SKINS?</h1>
       <img src="<%= asset_path "megamewnd.png" %>" width="350" height="465.45" alt="Mascot">
       <p class="text-ncs-dark-200">Current search / filters yield no results.</p>
     </div>

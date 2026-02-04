@@ -250,13 +250,13 @@ class SkinsController < ApplicationController
         config.description = "Browse minecraft skins favorited by #{params[:favourited_by].titleize}."
       else
         config.title = "Minecraft Skins"
-        config.description = "Browse minecraft skins created with our skin editor, by part, category or tag."
+        config.description = "NeedCoolerShoes skins gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft skins created with our skin editor, by part, category or tag."
       end
       config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")
 
       if @jam.present?
         config.title = @jam.name
-        config.description = @jam.description.to_s.split("\n")&.first&.strip || "Minecraft skin jam."
+        config.description = @jam.description.to_s.split("\n")&.first&.strip || "NeedCoolerShoes minecraft skin jam. Browse high quality community made minecraft skins created with our skin editor, by part, category or tag."
       end
     end
   end
