@@ -2,23 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc><%= root_url %></loc>
-    <lastmod><%= last_modified("app/views/static/editor.html.erb") %></lastmod>
+    <lastmod><%= last_modified_date(Time.current) %></lastmod>
   </url>
   <url>
     <loc><%= banner_editor_url %></loc>
-    <lastmod><%= last_modified("app/views/banners/new.html.erb") %></lastmod>
+    <lastmod><%= last_modified_date(Time.current) %></lastmod>
   </url>
   <url>
     <loc><%= about_url %></loc>
-    <lastmod><%= last_modified("app/views/static/about.html.erb") %></lastmod>
+    <lastmod><%= last_modified_date(Time.current) %></lastmod>
   </url>
   <url>
     <loc><%= faq_url %></loc>
-    <lastmod><%= last_modified("app/views/static/faq.html.erb") %></lastmod>
+    <lastmod><%= last_modified_date(Time.current) %></lastmod>
   </url>
   <url>
     <loc><%= rules_url %></loc>
-    <lastmod><%= last_modified("app/views/static/rules.html.erb") %></lastmod>
+    <lastmod><%= last_modified_date(Time.current) %></lastmod>
   </url>
   <% if Skin.all.any? %>
     <url>
