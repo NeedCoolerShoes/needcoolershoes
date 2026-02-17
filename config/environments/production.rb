@@ -76,6 +76,7 @@ Rails.application.configure do
       password: ENV["SMTP_PASSWORD"],
       authentication: ENV["SMTP_AUTH"],
       enable_starttls: ENV["SMTP_STARTTLS"].present?,
+      ssl: ENV["SMTP_SSL"].present?,
       open_timeout:    5,
       read_timeout:    5
     }
