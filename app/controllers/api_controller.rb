@@ -1,8 +1,16 @@
 class ApiController < ApplicationController
   def skin
-    data = MinecraftApi.skin_from_username(params[:id])
+    res = MinecraftApi.skin_from_username(params[:id])
+
+    data = res[:data]
+    uuid = res[:uuid]
+
     if data.is_a?(Net::HTTPSuccess)
-      send_data data.body, type: "image/png"
+      # Provide UUID as custom header, to keep API backwards compatible
+      response.headers["X-NeedCoolerShoes-UUID"] = uuid
+      response.headers["Access-Control-Expose-Headers"] = "X-NeedCoolerShoes-UUID"
+      
+      send_data data.body, type: "image/png", filename: uuid
     else
       render json: {error: "Could not load skin for given username."}, status: 404
     end
