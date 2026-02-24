@@ -21,7 +21,8 @@ class MinecraftApi < BaseApi
       decoded = Base64.decode64(data["value"])
       json = JSON.parse(decoded)
       url = json["textures"]["SKIN"]["url"]
-      get(url)
+
+      { data: get(url), uuid: uuid }
     end
 
     def skin_from_username(name)
