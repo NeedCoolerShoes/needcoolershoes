@@ -12,22 +12,23 @@ class BannersController < ApplicationController
   layout "gallery", only: :index
 
   def index
-    index_meta_config
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @gallery_params = gallery_params
     banners = Banner.visible.with_params(@gallery_params)
     banners = banners.merge(Banner.order_by_created) unless gallery_params[:order].present?
-
+    
     if @gallery_params[:hidden] && current_user.authorized?(:moderator)
       banners = banners.merge(Banner.hidden)
     end
     
     @pagy, @banners = pagy(banners, items: items)
     @tags = @banners.top_tags
-
+    
     @banners_all = banners
     @gallery_tab = :banners
+    
+    index_meta_config
   rescue Pagy::OverflowError
     not_found_error
   end
@@ -206,7 +207,7 @@ class BannersController < ApplicationController
         "Minecraft Banners"
       end
       config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
-      config.description = "Search and browse Minecraft banners created with our Banner Maker."
+      config.description = "NeedCoolerShoes banner gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft banners created with our Banner Maker, filter by version or shield compatibility."
     end
   end
 

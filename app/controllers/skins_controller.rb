@@ -61,6 +61,7 @@ class SkinsController < ApplicationController
   end
 
   def new
+    new_meta_config
     @message = SiteMessage.latest&.message
   end
 
@@ -250,13 +251,13 @@ class SkinsController < ApplicationController
         config.description = "Browse minecraft skins favorited by #{params[:favourited_by].titleize}."
       else
         config.title = "Minecraft Skins"
-        config.description = "Browse minecraft skins created with our skin editor, by part, category or tag."
+        config.description = "NeedCoolerShoes skins gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft skins created with our skin editor, by part, category or tag."
       end
       config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")
 
       if @jam.present?
         config.title = @jam.name
-        config.description = @jam.description.to_s.split("\n")&.first&.strip || "Minecraft skin jam."
+        config.description = @jam.description.to_s.split("\n")&.first&.strip || "NeedCoolerShoes minecraft skin jam. Browse high quality community made minecraft skins created with our skin editor, by part, category or tag."
       end
     end
   end
@@ -274,6 +275,13 @@ class SkinsController < ApplicationController
       config.image = skin_social_url(@skin, format: :png)
       config.image_alt = "#{config.title} - Minecraft Skin"
       config.description = desc.to_s.truncate(130)
+    end
+  end
+
+  def new_meta_config
+    meta_config do |config|
+      config.title = "Minecraft Skin Editor"
+      config.description = "Minecraft Skin Editor. Easily create Minecraft Skins on phone or desktop, with many tools. Free, no ads. Layers, transparency, Steve and Alex models, and more!"
     end
   end
 

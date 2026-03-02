@@ -26,10 +26,10 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  config.assume_ssl = true
+  config.assume_ssl = false
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
@@ -61,10 +61,26 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = {host: Needcoolershoes::Config.host}
 
-  config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = {
-    api_token: ENV["POSTMARK_API_TOKEN"]
-  }
+  case ENV["RAILS_MAILER"]
+  when "postmark"
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = {
+      api_token: ENV["POSTMARK_API_TOKEN"]
+    }
+  when "smtp"
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: ENV["SMTP_ADDRESS"],
+      port: ENV["SMTP_PORT"].to_s.to_i,
+      user_name: ENV["SMTP_USERNAME"],
+      password: ENV["SMTP_PASSWORD"],
+      authentication: ENV["SMTP_AUTH"],
+      enable_starttls: ENV["SMTP_STARTTLS"].present?,
+      ssl: ENV["SMTP_SSL"].present?,
+      open_timeout:    5,
+      read_timeout:    5
+    }
+  end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

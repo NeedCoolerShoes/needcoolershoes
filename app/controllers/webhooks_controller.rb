@@ -14,6 +14,7 @@ class WebhooksController < ApplicationController
 
     redirect_to redirect, notice: "Minecraft account linked successfully!"
   rescue StandardError => e
-    redirect_to root_path, alert: "Unexpected Error: #{e.message}"
+    Sentry.capture_exception(e)
+    redirect_to root_path, alert: "Unexpected Error"
   end
 end

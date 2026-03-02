@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   META_CONFIG = Struct.new(:title, :image, :image_alt, :description, :site_title)
   DEFAULT_META_CONFIG = -> {
     META_CONFIG.new(
-      "Minecraft Skin Editor",
+      "Minecraft Skin Editor and Gallery",
       helpers.asset_path("social.png"),
       "Page image for Miners Need Cooler Shoes",
       "Minecraft Skin Editor and Gallery. Edit, upload and share your Minecraft skins, or create banners with our Banner Editor.",
@@ -33,6 +33,8 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action) # Language change depending on the ?lang parameter ex: /gallery/?lang=(tr,en,pl)
     lang = params[:lang] || I18n.default_locale
     I18n.with_locale(lang, &action)
+  rescue I18n::InvalidLocale
+    teapot_error
   end
 
   def configure_devise_parameters
