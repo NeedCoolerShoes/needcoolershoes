@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_09_132816) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -84,6 +84,48 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
     t.datetime "updated_at", null: false
     t.index ["target_type", "target_id"], name: "index_modlogs_on_target"
     t.index ["user_id"], name: "index_modlogs_on_user_id"
+  end
+
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.bigint "resource_owner_id", null: false
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.integer "expires_in", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "revoked_at"
+    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id"
+    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true
+  end
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.bigint "resource_owner_id"
+    t.bigint "application_id", null: false
+    t.string "token", null: false
+    t.string "refresh_token"
+    t.integer "expires_in"
+    t.string "scopes"
+    t.datetime "created_at", null: false
+    t.datetime "revoked_at"
+    t.string "previous_refresh_token", default: "", null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id"
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true
+    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id"
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true
+  end
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "uid", null: false
+    t.string "secret", null: false
+    t.text "redirect_uri", null: false
+    t.string "scopes", default: "", null: false
+    t.boolean "confidential", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
   end
 
   create_table "pg_search_documents", force: :cascade do |t|
@@ -253,10 +295,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
     t.string "attribution_message"
     t.boolean "watermark_disabled"
     t.bigint "featured_badge_id"
-    t.datetime "ban_ends_at"
-    t.string "ban_message"
     t.integer "pixels", default: 0, null: false
     t.datetime "pixels_cached_at", default: "1970-01-01 00:00:00", null: false
+    t.datetime "ban_ends_at"
+    t.string "ban_message"
     t.bigint "minecraft_account_id"
     t.string "support_token", default: "", null: false
     t.boolean "allow_bulk_upload", default: false, null: false
@@ -272,6 +314,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
   add_foreign_key "favourites", "users"
   add_foreign_key "minecraft_accounts", "users"
   add_foreign_key "modlogs", "users"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "skin_attributions", "skins"
   add_foreign_key "skin_attributions", "skins", column: "attributed_skin_id"
   add_foreign_key "skin_jam_winners", "skin_jams"
@@ -284,5 +330,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_12_10_130526) do
   add_foreign_key "user_badges", "users"
   add_foreign_key "username_records", "users"
   add_foreign_key "users", "badges", column: "featured_badge_id"
+  add_foreign_key "users", "minecraft_accounts"
   add_foreign_key "users", "skins", column: "featured_skin_id"
 end
