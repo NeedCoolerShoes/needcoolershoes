@@ -376,6 +376,7 @@ class SkinsController < ApplicationController
   end
 
   def check_filter_auth!
+    return if request.format.json?
     return if can_use_gallery_filters?
     return if (gallery_params.keys & RESTRICTED_PARAMS).empty?
 
