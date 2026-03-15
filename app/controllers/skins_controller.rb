@@ -8,6 +8,7 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
+  before_action :check_filter_auth!, only: :index
   before_action :enforce_query_session!, only: :index
 
   require_role :moderator, only: %i[moderator_edit moderator_update quick_action]
@@ -18,6 +19,8 @@ class SkinsController < ApplicationController
   after_action :allow_iframe, only: :embed
 
   layout "gallery", only: :index
+
+  RESTRICTED_PARAMS = %w[part category model tag]
 
   def index
     @gallery_params = gallery_params
@@ -370,5 +373,12 @@ class SkinsController < ApplicationController
     format.html { redirect_to redirect, notice: "Skin was successfully updated." }
   rescue
     format.html { redirect_to redirect, alert: "Error saving skin." }
+  end
+
+  def check_filter_auth!
+    return if can_use_gallery_filters?
+    return if (gallery_params.keys & RESTRICTED_PARAMS).empty?
+
+    redirect_to new_user_session_path, notice: "Advanced search requires user to be signed in!"
   end
 end

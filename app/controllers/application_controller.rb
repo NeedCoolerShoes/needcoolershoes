@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   }
 
   before_action :configure_devise_parameters, if: :devise_controller?
+  before_action :store_user_location!, if: :storable_location?
   around_action :switch_locale
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
 
@@ -45,6 +46,16 @@ class ApplicationController < ActionController::Base
 
   def meta_config
     yield @meta_config ||= DEFAULT_META_CONFIG.call
+  end
+
+  def can_use_gallery_filters?
+    return true unless Needcoolershoes::Config.require_authentication_for_gallery_filters
+
+    current_user.present?
+  end
+
+  def after_sign_in_path_for(resource_or_scope)
+    stored_location_for(resource_or_scope)
   end
 
   private
@@ -119,5 +130,18 @@ class ApplicationController < ActionController::Base
 
   def generate_query_session_id
     Base64.urlsafe_encode64(SecureRandom.hex[..16].scan(/.{2}/).map {|b| b.to_i(16) }.pack("C*"), padding: false)
+  end
+
+  def storable_location?
+    request.get? &&
+      is_navigational_format? &&
+      !devise_controller? &&
+      !request.xhr? &&
+      !turbo_frame_request?
+  end
+
+  def store_user_location!
+    # :user is the scope we are authenticating
+    store_location_for(:user, request.fullpath)
   end
 end

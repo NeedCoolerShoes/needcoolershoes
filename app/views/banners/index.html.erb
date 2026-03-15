@@ -1,5 +1,14 @@
 <% content_for :filters do %>
-  <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners_all, tags: @tags} %>
+  <% if can_use_gallery_filters? %>
+    <%= render partial: "banners/index/banner_filters", locals: {params: @gallery_params, banners: @banners_all, tags: @tags} %>
+  <% else %>
+    <div class="bg-ncs-dark-700 p-2 pb-4 rounded-b text-ncs-dark-100">
+      <p class="mb-2">
+        Unfortunately, due to an increase in bot traffic, advanced search features have been temporarily disabled for users that are not signed in.
+      </p>
+      <p>Please <%= link_to "sign in", new_user_session_path, class: "underline" %> for advanced search.</p>
+    </div>
+  <% end %>
 <% end %>
 
 <% content_for :before_gallery do %>
