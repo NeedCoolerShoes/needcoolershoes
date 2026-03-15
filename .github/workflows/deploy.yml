@@ -33,7 +33,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/ncrs-production
+          tags: ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_PATH }}
           build-args: NCRS_VERSION=${{ env.NCRS_VERSION }}
       
       - name: Trigger Swiftwave Deploy
@@ -41,6 +41,6 @@ jobs:
         shell: bash
         env:
           SWIFTWAVE_WEBHOOK: ${{ secrets.SWIFTWAVE_PRODUCTION_WEBHOOK }}
-          IMAGE_TAG: ${{ secrets.REGISTRY_URL }}/ncrs-production
+          IMAGE_TAG: ${{ secrets.REGISTRY_URL }}/${{ secrets.REGISTRY_PATH }}
         run: curl -d $IMAGE_TAG $SWIFTWAVE_WEBHOOK
 
