@@ -14,7 +14,7 @@ end
 
 module Needcoolershoes
   module Config
-    mattr_accessor :revision, :source, :host, :shortener_host, :signups_disabled
+    mattr_accessor :revision, :source, :host, :shortener_host, :signups_disabled, :require_authentication_for_gallery_filters
 
     self.revision = get_revision_hash
 

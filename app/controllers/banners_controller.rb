@@ -4,12 +4,15 @@ class BannersController < ApplicationController
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: :show
   before_action :redirect_title, only: :show
+  before_action :check_filter_auth!, only: :index
   before_action :enforce_query_session!, only: :index
 
   require_role :moderator, only: %i[moderator_edit moderator_update]
   nav_section :gallery
   nav_section :banner, only: :new
   layout "gallery", only: :index
+
+  RESTRICTED_PARAMS = %w[tag style compatibility max_version]
 
   def index
     params[:page].to_i > 0 ? nil : params[:page] = 1
@@ -229,5 +232,12 @@ class BannersController < ApplicationController
   def validate_can_edit
     return true if @banner.can_user_edit?(current_user)
     forbidden_error
+  end
+
+  def check_filter_auth!
+    return if can_use_gallery_filters?
+    return if (gallery_params.keys & RESTRICTED_PARAMS).empty?
+
+    redirect_to new_user_session_path, notice: "Advanced search requires user to be signed in!"
   end
 end
