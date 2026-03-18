@@ -44,6 +44,10 @@ class MinecraftAuthWebhook
 
   def get_ms_auth(code)
     response = MinecraftAuthApi.ms_auth(ENV["MS_AZURE_CLIENT_ID"], ENV["MS_AZURE_CLIENT_SECRET"], code, Routing.minecraft_auth_webhook_url)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
@@ -51,6 +55,10 @@ class MinecraftAuthWebhook
 
   def get_refresh_ms_auth(code)
     response = MinecraftAuthApi.refresh_ms_auth(ENV["MS_AZURE_CLIENT_ID"], ENV["MS_AZURE_CLIENT_SECRET"], code)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
@@ -58,6 +66,10 @@ class MinecraftAuthWebhook
 
   def get_xbl_auth(access_token)
     response = MinecraftAuthApi.xbox_auth(access_token)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
@@ -65,6 +77,10 @@ class MinecraftAuthWebhook
 
   def get_xsts_auth(xbl_token)
     response = MinecraftAuthApi.xsts_auth(xbl_token)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
@@ -72,6 +88,10 @@ class MinecraftAuthWebhook
 
   def get_mc_auth(userhash, token)
     response = MinecraftAuthApi.minecraft_auth(userhash, token)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
@@ -79,6 +99,10 @@ class MinecraftAuthWebhook
 
   def get_mc_profile(minecraft_token)
     response = MinecraftAuthApi.minecraft_profile(minecraft_token)
+    unless response.code_type == Net::HTTPOK
+      raise
+    end
+
     JSON.parse(response.body)
   rescue
     raise response.body
