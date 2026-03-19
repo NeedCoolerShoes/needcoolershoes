@@ -1,0 +1,1 @@
+json.associatedApplications([{"applicationId": ENV["MS_AZURE_CLIENT_ID"]}])

@@ -130,6 +130,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope ".well-known" do
+    get "microsoft-identity-association", to: "site#microsoft_identity_association"
+  end
+
   # Mounts
   mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
 end
