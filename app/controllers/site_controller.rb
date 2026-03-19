@@ -24,4 +24,7 @@ class SiteController < ApplicationController
       config.description = "Tool to preview skins made in our editor, before uploading them to the gallery."
     end
   end
+
+  def microsoft_identity_association
+  end
 end
