@@ -20,7 +20,7 @@
 
   let countdown = 9999;
   let alive = true;
-  const hasPressed = <%= has_pressed %>;
+  const hasPressed = <%= has_pressed ? "true" : "false" %>;
 
   const timer = document.getElementById("button_game_timer");
   const button = document.getElementById("button_game_button");
