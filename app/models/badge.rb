@@ -4,4 +4,5 @@ class Badge < ApplicationRecord
   validates :name, :url, :karma, presence: true
 
   scope :with_user_badges, -> { includes(:user_badges).where.not(user_badges: {id: nil}) }
+  scope :with_tag, ->(tag) { where("tags @> ARRAY[?]::varchar[]", tag) }
 end
