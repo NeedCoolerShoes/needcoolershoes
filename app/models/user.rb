@@ -190,6 +190,10 @@ class User < ApplicationRecord
     UsernameRecord.with_user(self).where(created_at: cooldown_date..).any?
   end
 
+  def has_badge_with_tag?(tag)
+    badges.with_tag(tag).any?
+  end
+
   private
 
   def set_support_token
