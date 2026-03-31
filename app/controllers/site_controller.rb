@@ -1,4 +1,5 @@
 class SiteController < ApplicationController
+  before_action :authenticate_user!, only: :button
   def modlog
     meta_config do |config|
       config.title = "Moderation Log"
@@ -26,5 +27,9 @@ class SiteController < ApplicationController
   end
 
   def microsoft_identity_association
+  end
+
+  def button
+    redirect_to root_path, notice: "You obtained the red button badge!"
   end
 end
