@@ -11,8 +11,8 @@
             <img class="hidden sm:block" src="<%= asset_path "header.png" %>" alt="Site Logo" width="80" height="60"/>
             <p class="hidden lg:block uppercase text-sm text-white font-normal">Miners Need Cooler Shoes</p>
           </a>
-          <div class="flex items-center justify-center">
-            <%= render ButtonGameComponent.new %>
+          <div class="hidden lg:flex items-center justify-center">
+            <%= render OpenCollectiveGoalComponent.new %>
           </div>
           <div class="flex items-center gap-2">
             <% if current_user.present? %>
