@@ -134,8 +134,6 @@ Rails.application.routes.draw do
     get "microsoft-identity-association", to: "site#microsoft_identity_association"
   end
 
-  post "button", as: "button", to: "site#button"
-
   # Mounts
   mount RailsAdmin::Engine => "/admin", :as => "rails_admin"
 end

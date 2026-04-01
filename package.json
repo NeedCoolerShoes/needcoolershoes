@@ -6,8 +6,7 @@
     "local-time": "^3.0.3",
     "rails_admin": "3.3.0",
     "sass": "^1.86.3",
-    "skinview3d": "^3.2.0",
-    "socket.io-client": "^4.8.3"
+    "skinview3d": "^3.2.0"
   },
   "scripts": {
     "build": "rollup --config config/rollup.config.mjs",
