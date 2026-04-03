@@ -72,6 +72,8 @@ Rails.application.routes.draw do
   get "users/current", to: "users#current", as: "current_user"
   patch "profile", to: "users#update", as: "update_profile"
 
+  get "captcha-hint", to: redirect("https://minecraft.wiki/w/Gunpowder"), as: "captcha_hint"
+
   get "modlog", to: "site#modlog", as: "modlog"
   get "preview", to: "site#preview", as: "preview"
 
