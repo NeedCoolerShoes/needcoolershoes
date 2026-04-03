@@ -41,6 +41,7 @@
     <div class="flex flex-col">
       <div>
         <%= label_tag :question, @captcha_question %>
+        <%= link_to "Help", captcha_hint_path, class: "text-sm text-gray-200 underline", target: "_blank" %>
       </div>
       <%= text_field_tag :question, nil, class: "text-black w-full" %>
     </div>
