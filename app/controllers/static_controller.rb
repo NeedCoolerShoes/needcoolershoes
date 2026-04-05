@@ -68,6 +68,9 @@ class StaticController < ApplicationController
     meta_config { |conf| conf.title = "Terms - MNCS Archive" }
   end
 
+  def privacy
+  end
+
   def donate
     meta_config do |config|
       config.title = "Donate to the Project"
