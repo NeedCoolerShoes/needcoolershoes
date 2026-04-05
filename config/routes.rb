@@ -88,6 +88,8 @@ Rails.application.routes.draw do
     get "mncs_archive", to: redirect("https://web.archive.org/web/20221128185339/https://www.needcoolshoes.com/terms")
   end
 
+  get "privacy", to: "static#privacy", as: "privacy"
+
   scope :guides do
     get "/", to: redirect("https://wiki.needcoolershoes.com/guides"), as: "guides"
     get "working-with-embeds", to: redirect("https://wiki.needcoolershoes.com/guides/working_with_embeds"), as: "embeds_guide"
