@@ -8,6 +8,7 @@ class SkinsController < ApplicationController
   before_action :check_visibility, only: %i[show download social embed]
   before_action :check_ban, only: %i[create]
   before_action :redirect_title, only: :show
+  before_action :set_jam_info, only: :index
   before_action :check_filter_auth!, only: :index
   before_action :enforce_query_session!, only: :index
 
@@ -24,7 +25,6 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
-    set_jam_info
     skins = Skin.with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     skins = if current_user.present?
@@ -378,6 +378,7 @@ class SkinsController < ApplicationController
   def check_filter_auth!
     return if request.format.json?
     return if can_use_gallery_filters?
+    return if @jam.present?
     return if (gallery_params.keys & RESTRICTED_PARAMS).empty?
 
     redirect_to new_user_session_path, notice: "Advanced search requires user to be signed in!"
