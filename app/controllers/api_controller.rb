@@ -4,11 +4,14 @@ class ApiController < ApplicationController
 
     data = res[:data]
     uuid = res[:uuid]
+    model = res[:model]
 
     if data.is_a?(Net::HTTPSuccess)
       # Provide UUID as custom header, to keep API backwards compatible
       response.headers["X-NeedCoolerShoes-UUID"] = uuid
-      response.headers["Access-Control-Expose-Headers"] = "X-NeedCoolerShoes-UUID"
+      response.headers["X-NeedCoolerShoes-Model"] = model
+
+      response.headers["Access-Control-Expose-Headers"] = "X-NeedCoolerShoes-UUID, X-NeedCoolerShoes-Model"
       
       send_data data.body, type: "image/png", filename: uuid
     else
