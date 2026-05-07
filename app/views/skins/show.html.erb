@@ -11,11 +11,16 @@
 <%= turbo_stream_from @skin, :give_command %>
 
 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-2">
-  <div class="sm:max-w-[250px] lg:max-w-[364px] w-full">
+  <div class="sm:max-w-[250px] lg:max-w-[364px] w-full" data-controller="hidden-toggle">
     <div class="col-left flex flex-col gap-2">
       <div class="relative checker-border bg-ncs-grid rounded">
         <div class="h-[320px] sm:h-[400px]">
           <%= render partial: "skin_3d", locals: { data: @skin.data, model: @skin.skinview_model, ears: @skin.render_ears? } %>
+          <% if @skin.can_user_edit?(current_user) && @skin.user != current_user %>
+            <div class="hidden absolute top-0 w-full h-full bg-black/50 backdrop-blur-sm z-10 pointer-events-auto" data-hidden-toggle-target="hidden">
+              <%= render SkinQuickActionsComponent.new(skin: @skin, redirect: skin_path(@skin)) %>
+            </div>
+          <% end %>
         </div>
         <% if current_user.present? %>
           <script>
@@ -40,7 +45,7 @@
           <% if @skin.user == current_user %>
             <%= link_to t("common.edit"), edit_skin_path(@skin), class: "btn-ncs" %>
           <% else %>
-            <%= link_to t("common.moderate"), skin_moderate_path(@skin), class: "btn-ncs" %>
+            <button data-action="click->hidden-toggle#toggle" class="btn-ncs"><%= t("common.moderate") %></button>
           <% end %>
         <% end %>
       </div>
