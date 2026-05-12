@@ -21,6 +21,7 @@
     <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <%= button_to "Mark Blank", skin_quick_action_path(@skin, "blank"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <%= button_to "Mark Low Effort", skin_quick_action_path(@skin, "low-effort"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Engagement Farming", skin_quick_action_path(@skin, "engagement-farming"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <% if @skin.classic? %>
       <%= button_to "Change model to Slim", skin_quick_action_path(@skin, "slim"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <% end %>
@@ -31,7 +32,8 @@
       Back
     </button>
     <%= button_to "Mark NSFW", skin_quick_action_path(@skin, "nsfw"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
-    <%= button_to "Mark Nazi / Hate", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Bigotry / Hate Speech", skin_quick_action_path(@skin, "hate-speech"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Nazi / Hate Groups", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
   </div>
 
   <div data-hidden-toggle-target="select" data--select="categorize" class="hidden text-white">

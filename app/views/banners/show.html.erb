@@ -68,6 +68,20 @@
             </div>
           </div>
         </fieldset>
+        <fieldset class="border border-ncs-dark-300 p-2 rounded">
+          <legend class="font-bold">Cape Code (Algoinde Extended)</legend>
+          <div class="flex gap-2">
+            <p id="cape_code" class="grow p-2 border bg-ncs-dark-700 border-ncs-dark-300 rounded"><%= @banner.data %></p>
+            <div class="relative">
+              <button type="button" onclick="copyText('cape_code')">
+                <%= heroicon "document-duplicate", class: "inline" %>
+              </button>
+              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+                <%= t "actions.copied" %>
+              </span>
+            </div>
+          </div>
+        </fieldset>
       </details>
     </div>
     <div class="bg-ncs-dark-600 rounded">
