@@ -47,8 +47,8 @@ class BannersController < ApplicationController
 
   def new
     meta_config do |config|
-      config.title = "Banner Maker"
-      config.description = "Minecraft Banner Maker. Create Minecraft Banners for 1.21, and share with your friends."
+      config.title = "Minecraft Banner Maker"
+      config.description = "Minecraft Banner Maker. Create your own banners / capes with our editor, then generate a give command, or share to our gallery. Supports Minecraft versions 1.8 to 26.1 and beyond."
     end
 
     @gallery_tab = :banners
@@ -209,7 +209,7 @@ class BannersController < ApplicationController
       else
         "Minecraft Banners"
       end
-      config.title << (params[:page].present? ? " (Page #{params[:page]})" : "")
+      config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")
       config.description = "NeedCoolerShoes banner gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft banners created with our Banner Maker, filter by version or shield compatibility."
     end
   end
