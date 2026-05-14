@@ -1,4 +1,5 @@
 json.id skin.id
+json.created_at skin.created_at
 json.url skin.url
 json.image skin.data
 json.name skin.name

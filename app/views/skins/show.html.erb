@@ -71,9 +71,8 @@
       </div>
       <div class="flex flex-col font-bold">
         <p class="text-ncs-dark-200"><%= @skin.skin_part.name %> - <%= @skin.skin_category.name %></p>
-        <p>
-          by <%= profile_link @skin.user %>
-        </p>
+        <p>by <%= profile_link @skin.user %></p>
+        <p>at <%= local_time(@skin.created_at) %></p>
         <% if @skin.tags.any? %>
           <div class="text-ncs-dark-200 text-sm flex gap-1 flex-wrap">
             <% @skin.tags.each do |tag| %>
