@@ -41,6 +41,7 @@
           </span>
         </p>
         <p>by <%= profile_link @banner.user %></p>
+        <p>at <%= local_time(@banner.created_at) %></p>
       </div>
       <% if @banner.tags.any? %>
         <div class="text-ncs-dark-200 text-sm flex gap-1 flex-wrap">

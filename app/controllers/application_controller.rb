@@ -137,7 +137,12 @@ class ApplicationController < ActionController::Base
       is_navigational_format? &&
       !devise_controller? &&
       !request.xhr? &&
-      !turbo_frame_request?
+      !turbo_frame_request? &&
+      !req_purpose_prefetch?
+  end
+
+  def req_purpose_prefetch?
+    request.headers["x-sec-purpose"] == "prefetch"
   end
 
   def store_user_location!
