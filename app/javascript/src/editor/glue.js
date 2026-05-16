@@ -52,11 +52,11 @@ function setupSkinModelEvent() {
 
   if (!select) { return; }
 
-  select.value = editor.config.get("variant");
+  select.value = editor.project.get("variant");
 
-  editor.config.addEventListener("variant-change", event => {
+  editor.project.addEventListener("variant-change", event => {
     select.value = event.detail;
-  })
+  });
 }
 
 const TIPS = [
