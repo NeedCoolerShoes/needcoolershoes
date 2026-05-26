@@ -25,6 +25,8 @@ class GalleryQuery
     @user = nil
     @params = {}
 
+    return if query.strip.size < 1
+
     result = QueryParser.new.parse(query)
 
     result.to_a.each do |entry|
