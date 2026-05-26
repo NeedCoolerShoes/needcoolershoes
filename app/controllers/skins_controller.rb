@@ -46,6 +46,14 @@ class SkinsController < ApplicationController
     not_found_error
   end
 
+  def query
+    query_string = params[:query].to_s
+    gallery_query = GalleryQuery.new(query_string)
+    url = gallery_query.to_url
+
+    redirect_to(skins_gallery_path + gallery_query.to_url)
+  end
+
   def show
     show_meta_config
     @attributions = @skin.attributions.attributed_visible_to_user(current_user).with_attributed_skin

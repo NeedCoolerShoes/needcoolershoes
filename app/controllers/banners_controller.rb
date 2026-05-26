@@ -36,6 +36,14 @@ class BannersController < ApplicationController
     not_found_error
   end
 
+  def query
+    query_string = params[:query].to_s
+    gallery_query = GalleryQuery.new(query_string)
+    url = gallery_query.to_url
+
+    redirect_to(banners_gallery_path + url)
+  end
+
   def random
     banner = Banner.ordered_by("random").first
     if banner.present?

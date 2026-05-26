@@ -1,12 +1,13 @@
 <%
   classes ||= ""
   btn_classes ||= ""
-  gallery_path = (@gallery_tab == :banners ? banners_gallery_path : skins_gallery_path)
+  gallery_path = (@gallery_tab == :banners ? banners_query_path : skins_query_path)
   search_type = (@gallery_tab == :banners ? "banners" : "skins")
+  value = params[:search]
 %>
-<%= form_with url: gallery_path, method: :get do |form| %>
+<%= form_with url: gallery_path, method: :post do |form| %>
   <div class="flex gap-2 w-full">
-    <%= form.search_field :search, value: params[:search], title: "Search for #{search_type}", placeholder: "Search for #{search_type}", class: "md:text-black text-ncs-dark-100 md:bg-ncs-yellow bg-ncs-dark-600 rounded md:shadow-[0px_3px_3px_#efa326aa_inset] shadow-[0px_3px_3px_#000a_inset] md:border-ncs-header-base border-ncs-dark-500 md:focus:border-ncs-header-selected focus:border-ncs-dark-200 focus:outline-none focus:ring-0 flex-1 h-8 #{classes}" %>
+    <%= form.search_field :query, value: value, title: "Search for #{search_type}", placeholder: "Search for #{search_type}", class: "md:text-black text-ncs-dark-100 md:bg-ncs-yellow bg-ncs-dark-600 rounded md:shadow-[0px_3px_3px_#efa326aa_inset] shadow-[0px_3px_3px_#000a_inset] md:border-ncs-header-base border-ncs-dark-500 md:focus:border-ncs-header-selected focus:border-ncs-dark-200 focus:outline-none focus:ring-0 flex-1 h-8 #{classes}" %>
     <%= form.button name: "", class: "cursor-pointer btn-none p-0.5 #{btn_classes}", aria: {label: "Search"} do %>
       <%= heroicon "magnifying-glass", size: 25, class: "md:text-ncs-header-base" %>
     <% end %>
