@@ -25,7 +25,7 @@ class SkinsController < ApplicationController
 
   def index
     @gallery_params = gallery_params
-    skins = Skin.with_params(@gallery_params)
+    skins = Skin.includes(:tags, :skin_part, :skin_category, :user, :favourites).with_params(@gallery_params)
     skins = skins.merge(Skin.order_by_created) unless gallery_params[:order].present?
     skins = if current_user.present?
       if @gallery_params[:hidden] && current_user.authorized?(:moderator)
@@ -39,7 +39,14 @@ class SkinsController < ApplicationController
     params[:page].to_i > 0 ? nil : params[:page] = 1
     items = (gallery_params[:items] || 24).to_i.clamp(1, 50)
     @pagy, @skins = pagy(skins, items: items)
-    @tags = @skins.top_tags(10)
+
+
+    
+    tag_list = ActsAsTaggableOn::DefaultParser.new(params[:tag]).parse
+    @active_tags = ActsAsTaggableOn::Tag.where(name: tag_list)
+
+    taggings = ActsAsTaggableOn::Tagging.where(taggable_id: @skins, taggable_type: "Skin")
+    @tags = ActsAsTaggableOn::Tag.where(id: taggings.pluck(:tag_id)).where.not(id: @active_tags).order(taggings_count: :desc).first(10)
 
     index_meta_config
   rescue Pagy::OverflowError
@@ -49,7 +56,6 @@ class SkinsController < ApplicationController
   def query
     query_string = params[:query].to_s
     gallery_query = GalleryQuery.new(query_string)
-    url = gallery_query.to_url
 
     redirect_to(skins_gallery_path + gallery_query.to_url)
   end

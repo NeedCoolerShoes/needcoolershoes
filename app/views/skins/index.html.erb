@@ -11,7 +11,7 @@
 
 <% content_for :filters do %>
   <% if can_use_gallery_filters? %>
-    <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, tags: @tags} %>
+    <%= render partial: "skins/index/skin_filters", locals: {params: @gallery_params, active_tags: @active_tags, tags: @tags} %>
   <% else %>
     <div class="bg-ncs-dark-700 p-2 pb-4 rounded-b text-ncs-dark-100">
       <p class="mb-2">
