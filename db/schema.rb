@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_31_165219) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_04_081418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -162,6 +162,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_31_165219) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_skin_categories_on_name", unique: true
   end
 
   create_table "skin_jam_winners", force: :cascade do |t|
@@ -193,6 +194,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_31_165219) do
     t.datetime "updated_at", null: false
     t.integer "skin_upload_status", default: 0, null: false
     t.boolean "ignore_skin_model", default: false, null: false
+    t.index ["name"], name: "index_skin_parts_on_name", unique: true
   end
 
   create_table "skins", force: :cascade do |t|
