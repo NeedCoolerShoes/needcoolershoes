@@ -7,7 +7,7 @@
     <%= link_to "Random Skin", random_skin_path, class: "underline" %>
   </div>
   <hr class="border-ncs-dark-500 my-2 w-3/4 mx-auto">
-  <% tag_list = tags.map {|tag| tag.name } %>
+  <% tag_list = active_tags.map {|tag| tag.name } + tags.map {|tag| tag.name } %>
   <% if tag_list.any? %>
     <h3 class="font-bold text-ncs-dark-100">Relevant Tags:</h3>
     <div class="flex flex-wrap items-center gap-1">

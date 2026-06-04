@@ -6,12 +6,13 @@
     <%= link_to "Random Banner", random_banner_path, class: "underline text-ncs-dark-200" %>
   </div>
   <hr class="border-ncs-dark-500 my-2 w-3/4 mx-auto">
-  <% if tags.any? %>
+  <% tag_list = active_tags.map {|tag| tag.name } + tags.map {|tag| tag.name } %>
+  <% if tag_list.any? %>
     <h3 class="font-bold text-ncs-dark-100">Relevant Tags:</h3>
     <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-      <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
-        <% tags.each do |tag| %>
-          <%= banners_gallery_tag_filter_tag params, tag.name, "" %>
+      <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
+        <% tag_list.each do |name| %>
+          <%= banners_gallery_tag_filter_tag params, name, "" %>
         <% end %>
       </div>
     </div>
@@ -19,7 +20,7 @@
   <% end %>
   <h3 class="font-bold text-ncs-dark-100 font-size-20">Compatibility:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
       <%
         compatibilities = %w[survival command]
       %>
@@ -31,7 +32,7 @@
   <hr class="border-ncs-dark-500 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Style:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
       <%
         styles = %w[banner shield]
       %>
@@ -43,7 +44,7 @@
   <hr class="border-ncs-dark-500 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Supports Versions:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
       <%
         versions = Banner.minimum_versions.keys.reject {|key| key == Banner.latest_mc_version}
       %>
@@ -59,7 +60,7 @@
   <hr class="border-ncs-dark-500 my-2 border-b-0 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Created At:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
       <%
         date_ranges = {
           today: "0", last_7_days: "7", last_30_days: "30", last_90_days: "90", last_year: "365"
@@ -73,7 +74,7 @@
   <hr class="border-ncs-dark-500 my-2 w-3/4 mx-auto">
   <h3 class="font-bold text-ncs-dark-100">Order By:</h3>
   <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-    <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+    <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
       <%
         orderings = {
           "hot" => "Hot",
@@ -95,7 +96,7 @@
     <hr class="border-ncs-dark-500 my-2 w-3/4 mx-auto">
     <h3 class="font-bold text-ncs-dark-100">Relevant to Me:</h3>
     <div class="flex flex-wrap gap-1 text-ncs-dark-100">
-      <div class="flex flex-wrap items-center gap-2 text-ncs-dark-200">
+      <div class="flex flex-wrap items-center gap-1 text-ncs-dark-200">
         <%= banners_gallery_filter_tag params.except(:favourited_by), :user, current_user.name, "", "My Banners" %>
         <%= banners_gallery_filter_tag params.except(:user), :favourited_by, current_user.name, "", "My Favourites" %>
         <% if current_user.authorized?(:moderator) %>

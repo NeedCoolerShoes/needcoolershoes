@@ -26,10 +26,14 @@ class BannersController < ApplicationController
     end
     
     @pagy, @banners = pagy(banners, items: items)
-    @tags = @banners.top_tags
-    
     @banners_all = banners
     @gallery_tab = :banners
+
+    tag_list = ActsAsTaggableOn::DefaultParser.new(params[:tag]).parse
+    @active_tags = ActsAsTaggableOn::Tag.where(name: tag_list)
+
+    taggings = ActsAsTaggableOn::Tagging.where(taggable_id: @banners, taggable_type: "Banner")
+    @tags = ActsAsTaggableOn::Tag.where(id: taggings.pluck(:tag_id)).where.not(id: @active_tags).order(taggings_count: :desc).first(10)
     
     index_meta_config
   rescue Pagy::OverflowError
