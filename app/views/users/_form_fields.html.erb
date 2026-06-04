@@ -7,7 +7,7 @@
 <div class="flex flex-col gap-2">
   <div class="flex flex-col gap-1">
     <%= form.label :name %>
-    <%= form.text_field :name, class: name_disabled ? "text-gray-600 cursor-text" : "text-black", disabled: name_disabled %>
+    <%= form.text_field :name, class: name_disabled ? "text-gray-600 cursor-text" : "text-black", disabled: name_disabled, oninput: "formatUsername(event)" %>
   </div>
   <p class="text-sm text-slate-300">
     You can only change your username once every 30 days.
@@ -61,3 +61,12 @@
       </p>
     </div>
   <% end %>
+
+<script>
+  function formatUsername(event) {
+    const target = event.target
+    const value = target.value
+
+    target.value = value.toLowerCase().replaceAll(/[^a-z0-9_@\-]/g, "-")
+  }
+</script>

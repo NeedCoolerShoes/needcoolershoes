@@ -34,7 +34,7 @@ class User < ApplicationRecord
   has_many :access_tokens, class_name: 'Doorkeeper::AccessToken', foreign_key: :resource_owner_id, dependent: :delete_all
 
   validates :name,
-    format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows letters, numbers, dashes and underscores"},
+    format: {with: /\A[a-z0-9\-_]+\z/, message: "only allows lowercase letters, numbers, dashes and underscores"},
     exclusion: {in: %w[sign_in sign_out password cancel sign_up edit current otp], message: "%{value} is reserved"},
     uniqueness: true,
     username: true,

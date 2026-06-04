@@ -49,9 +49,9 @@ class UsersController < ApplicationController
       end
 
       if valid
-        format.html { redirect_to user_path(params[:id]), notice: "User updated successfully!" }
+        format.html { redirect_to user_path(@user), notice: "User updated successfully!" }
       else
-        format.html { redirect_to user_path(params[:id]), alert: format_errors(@user.errors.messages) }
+        format.html { redirect_to user_path(@user), alert: format_errors(@user.errors.messages) }
       end
     end
   end
