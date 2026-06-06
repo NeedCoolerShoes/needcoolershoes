@@ -25,14 +25,17 @@
 <% end %>
 
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
-<% if @banners.any? %>
-  <h1 class="text-ncs-dark-200 text-sm mb-2 -mt-2">
-    Showing banners
-    <span class="font-bold"><%= @pagy.from %></span>
-    to <span class="font-bold"><%= @pagy.to %></span>
-    of <span class="font-bold"><%= @pagy.count%></span>
-  </h1>
-<% end %>
+<div class="flex flex-col mob:flex-row-reverse justify-between mb-2 -mt-2">
+  <h1 class="text-ncs-dark-200 font-bold">Minecraft Banners</h1>
+  <% if @banners.any? %>
+    <h1 class="text-ncs-dark-200 text-sm">
+      Showing banners
+      <span class="font-bold"><%= @pagy.from %></span>
+      to <span class="font-bold"><%= @pagy.to %></span>
+      of <span class="font-bold"><%= @pagy.count%></span>
+    </h1>
+  <% end %>
+</div>
 
 <div class="grow">
   <% if !@banners.any? %>
@@ -47,3 +50,23 @@
   </div>
 </div>
 <%= render partial: "shared/pagy_nav", locals: { pagy: @pagy } %>
+
+<% if @pagy.page == 1 %>
+<details class="text-ncs-dark-100">
+  <summary class="font-bold cursor-pointer select-none">Minecraft Banner Gallery</summary>
+  <div class="flex flex-col gap-2">
+    <p>
+      Explore the best Minecraft Banners designed by our community. Find the perfect banner for any situation with our many advanced filters,
+      or create your own using our <a href="<%= banner_editor_path %>" class="underline">banner editor</a>.
+    </p>
+    <p>
+      You can search for banners, apply tags, and filter based on survival compatibility or whether it works as a shield.
+      Once you have found a banner you like, you can follow the instructions to craft it in the loom, or use the command generator
+      to make a command for creative.
+    </p>
+    <p>
+      NeedCoolerShoes is the best way to browse for high quality Minecraft Banners, with creative new designs uploaded every day.
+    </p>
+  </div>
+</details>
+<% end %>
