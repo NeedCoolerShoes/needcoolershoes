@@ -262,14 +262,17 @@ class SkinsController < ApplicationController
 
   def index_meta_config
     meta_config do |config|
+      config.title = "Minecraft Skins"
+
       if params[:user].present?
         config.title = "Minecraft Skins by #{params[:user].titleize}"
         config.description = "Browse minecraft skins created by #{params[:user].titleize}."
       elsif params[:favourited_by].present?
         config.title = "#{params[:favourited_by].titleize}'s Favorite Skins"
         config.description = "Browse minecraft skins favorited by #{params[:favourited_by].titleize}."
+      elsif @pagy.page == 1
+        config.description = "Explore our awesome collection of Minecraft Skins, created by our community. Find the perfect skin for your Minecraft character with our many advanced filters."
       else
-        config.title = "Minecraft Skins"
         config.description = "NeedCoolerShoes skins gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft skins created with our skin editor, by part, category or tag."
       end
       config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")

@@ -221,8 +221,14 @@ class BannersController < ApplicationController
       else
         "Minecraft Banners"
       end
+
+      if @pagy.page == 1
+        config.description = "Explore the best Minecraft Banners designed by our community. Find the perfect banner for any situation with our many advanced filters."
+      else
+        config.description = "NeedCoolerShoes banner gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft banners created with our Banner Maker, filter by version or shield compatibility."
+      end
+
       config.title << (@pagy.page > 1 ? " (Page #{@pagy.page})" : "")
-      config.description = "NeedCoolerShoes banner gallery (page #{@pagy.page} of #{@pagy.last}). Browse high quality community made minecraft banners created with our Banner Maker, filter by version or shield compatibility."
     end
   end
 
