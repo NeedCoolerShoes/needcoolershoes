@@ -1,0 +1,268 @@
+<div class="bg-ncs-dark-800 flex flex-col p-4 text-white rounded-md">
+  <h1 class="font-bold text-lg">Moderating User #<%= @user.id %></h1>
+  <div class="grid grid-cols-1 lg:grid-cols-2 items-start gap-2">
+    <table class="prose prose-invert">
+      <tr>
+        <th>Status</th>
+        <td class="capitalize"><%= @user.moderation_status %></td>
+      <tr>
+        <th>Name</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th>Username</th>
+        <td><%= @user.display_name %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>
+          <% if has_blocked_email_domain? %>
+            <%= email_name %>@<span class="text-red-500"><%= email_domain %></span> <span class="select-none" title="This email domain is banned.">⚠️</span>
+          <% else %>
+            <%= @user.email %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>Joined At</th>
+        <td><%= @user.created_at.strftime("%d %b, %Y") %></td>
+      </tr>
+      <tr>
+        <th>Total Skins</th>
+        <td><%= @user.skins.count %></td>
+      </tr>
+      <tr>
+        <th>Total Banners</th>
+        <td><%= @user.banners.count %></td>
+      </tr>
+      <tr>
+        <th>Total Favourites</th>
+        <td><%= @user.favourites.count %></td>
+      </tr>
+    </table>
+    <div class="prose prose-invert h-[400px] overflow-auto pb-2 pr-2">
+      <% if @user.biography.present? %>
+        <%= markdown @user.biography %>
+      <% else %>
+        <p>A Miner in Need of Cooler Shoes...</p>
+      <% end %>
+    </div>
+  </div>
+  <div>
+    <h2 class="font-bold">Moderation Logs</h2>
+    <div class="h-48 overflow-auto space-y-2">
+      <% if modlogs.any? %>
+        <%= render partial: "site/modlog", collection: modlogs, as: :modlog %>
+      <% else %>
+        <p>No moderation logs present</p>
+      <% end %>
+    </div>
+  </div>
+  <div id="actions" class="relative">
+    <div class="absolute bottom-0 left-0 right-0 flex justify-between">
+      <div>
+        <% if previous_record.present? %>
+          <%= link_to "Previous", user_moderation_path(previous_record.id), id: "previous-link", class: "btn-ncs px-2", "data-turbo": false %>
+        <% else %>
+          <button class="btn-ncs px-2" disabled>Previous</button>
+        <% end %>
+      </div>
+      <div>
+        <% if next_record.present? %>
+          <%= link_to "Next", user_moderation_path(next_record.id), id: "next-link", class: "btn-ncs px-2", "data-turbo": false %>
+        <% else %>
+          <button class="btn-ncs px-2" disabled>Next</button>
+        <% end %>
+      </div>
+    </div>
+    <details class="mb-2">
+      <summary class="font-bold cursor-pointer select-none">Instructions</summary>
+      <p>
+        If unsure, and want a second opinion, use flag, to add user to the review list. If the user is confidently legitimate, has uploaded skins and banners and seems good, approve them. If the user seems like a spammer using a temporary or suspicious email domain, ban that email domain to prevent future abuse. Finally, ban users that break TOS, or seem like spammers.
+      </p>
+    </details>
+    <div class="relative grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-2 mb-16 md:mx-28 md:mb-0">
+      <div class="relative">
+        <div id="flag-actions" class="absolute hidden left-0 right-0 bottom-14">
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "spam"}, data: {turbo: false} do %>
+            Flag Spam<span class="hidden lg:inline"> [1]</span>
+          <% end %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "tos"}, data: {turbo: false} do %>
+            Flag TOS<span class="hidden lg:inline"> [2]</span>
+          <% end %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "error"}, data: {turbo: false} do %>
+            Flag Error<span class="hidden lg:inline"> [3]</span>
+          <% end %>
+          <button  command="show-modal" commandfor="flag-custom" class="action btn-ncs px-2 text-amber-500">
+            Custom<span class="hidden lg:inline"> [4]</span>
+          </button>
+        </div>
+        <button id="flag-button" class="btn-ncs px-2 text-amber-500">Flag<span class="hidden lg:inline"> [F]</span></button>
+      </div>
+      <div class="relative">
+        <div id="ban-actions" class="absolute hidden left-0 right-0 bottom-14">
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "spam"}, data: {turbo: false} do %>
+            Ban Spam<span class="hidden lg:inline"> [1]</span>
+          <% end %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "tos"}, data: {turbo: false} do %>
+              Ban TOS<span class="hidden lg:inline"> [2]</span>
+          <% end %>
+          <button command="show-modal" commandfor="ban-custom" class="action btn-ncs px-2 text-red-500">
+            Custom<span class="hidden lg:inline"> [3]</span>
+          </button>
+        </div>
+        <button id="ban-button" class="btn-ncs px-2 text-red-500">Ban<span class="hidden lg:inline"> [X]</span></button>
+      </div>
+      <% if has_blocked_email_domain? %>
+        <%= button_to "Unban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-blue-500", params: {update_action: "unban_email", value: email_domain}, data: {turbo: false} %>
+      <% else %>
+        <%= button_to "Ban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-red-500", params: {update_action: "ban_email", value: email_domain}, data: {turbo: false} %>
+      <% end %>
+      <% if @user.status_approved? %>
+        <button class="btn-ncs px-2 text-green-500" disabled>
+          Approve<span class="hidden lg:inline"> [Space]</span>
+        </button>
+      <% else %>
+        <%= button_to user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-green-500", params: {update_action: "approve", value: email_domain}, data: {turbo: false}, id: "approve-button" do %>
+          Approve<span class="hidden lg:inline"> [Space]</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <dialog id="flag-custom" class="bg-transparent">
+    <div class="p-4 bg-ncs-dark-500 rounded text-white">
+      <h2 class="font-bold text-lg">Flagging User</h2>
+      <%= form_with url: user_moderation_path(@user.id), method: :put, "data-turbo": false do |form| %>
+        <%= form.hidden_field :update_action, value: "flag" %>
+        <div class="flex flex-col gap-2">
+          <%= form.label :value, "Reason" %>
+          <%= form.text_field :value, required: true %>
+        </div>
+      <% end %>
+      <div class="flex gap-2 mt-2">
+        <button commandfor="flag-custom" command="request-close" class="btn-ncs px-2">Cancel</button>
+        <button class="btn-ncs px-2">Flag User</button>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="ban-custom" class="bg-transparent">
+    <div class="p-4 bg-ncs-dark-500 rounded text-white">
+      <h2 class="font-bold text-lg">Banning User</h2>
+      <%= form_with url: user_moderation_path(@user.id), method: :put, "data-turbo": false do |form| %>
+        <%= form.hidden_field :update_action, value: "ban" %>
+        <div class="flex flex-col gap-2">
+          <%= form.label :value, "Reason" %>
+          <%= form.text_field :value, required: true %>
+        </div>
+      <% end %>
+      <div class="flex gap-2 mt-2">
+        <button commandfor="ban-custom" command="request-close" class="btn-ncs px-2">Cancel</button>
+        <button class="btn-ncs px-2">Ban User</button>
+      </div>
+    </div>
+  </dialog>
+</dialog>
+
+<style>
+  th {
+    width: 150px;
+  }
+
+  td {
+    word-break: break-all;
+  }
+
+  button.btn-ncs span {
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  let flagOpen = false;
+  let banOpen = false;
+
+  const flagButton = document.getElementById("flag-button");
+  const flagActions = document.getElementById("flag-actions");
+  const banButton = document.getElementById("ban-button");
+  const banActions = document.getElementById("ban-actions");
+
+  const flagList = flagActions.querySelectorAll(".action");
+  const banList = banActions.querySelectorAll(".action");
+
+  console.log(flagList);
+
+  flagButton.addEventListener("click", () => {
+    setFlagOpen(!flagOpen);
+  });
+
+  banButton.addEventListener("click", () => {
+    setBanOpen(!banOpen);
+  });
+
+
+  function setFlagOpen(open) {
+    if (open && banOpen) {
+      setBanOpen(false);
+    }
+
+    flagOpen = open;
+    flagOpen ? flagActions.classList.remove("hidden") : flagActions.classList.add("hidden");
+  }
+
+  function setBanOpen(open) {
+    if (open && flagOpen) {
+      setFlagOpen(false);
+    }
+
+    banOpen = open;
+    banOpen ? banActions.classList.remove("hidden") : banActions.classList.add("hidden");
+  }
+
+  document.addEventListener("keydown", event => {
+    if (event.target.nodeName === "INPUT") return;
+
+    if (event.key === "ArrowLeft") {
+      document.getElementById("previous-link")?.click()
+    }
+
+    if (event.key === "ArrowRight") {
+      document.getElementById("next-link")?.click()
+    }
+
+    if (event.key === " ") {
+      document.getElementById("approve-button")?.click()
+    }
+
+    if (event.key === "f") {
+      flagButton.click();
+    }
+
+    if (event.key === "x") {
+      banButton.click();
+    }
+
+    if (event.key.match(/^\d$/)) {
+      if (!flagOpen && !banOpen) return;
+      event.preventDefault();
+
+      const idx = Number(event.key) - 1;
+
+      console.log(idx);
+
+      const list = flagOpen ? flagList : banList;
+      const button = list.item(idx);
+
+      if (!button) return;
+
+      button.click();
+    }
+
+  });
+
+  document.addEventListener("pointerdown", event => {
+    if (event.target.nodeName === "BUTTON") return;
+    
+    setFlagOpen(false);
+    setBanOpen(false);
+  })
+</script>

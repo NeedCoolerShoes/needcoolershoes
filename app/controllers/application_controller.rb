@@ -150,4 +150,12 @@ class ApplicationController < ActionController::Base
     store_path = request.fullpath.size > 256 ? request.path : request.fullpath
     store_location_for(:user, store_path)
   end
+
+  def check_ban
+    return unless current_user.banned?
+
+    modlog = modlog_path(id: current_user.id, type: "User")
+
+    redirect_to root_path, alert: current_user.ban_message || "You are currently banned. Check the [modlog](#{modlog}) for more information."
+  end
 end

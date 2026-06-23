@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update export]
   before_action :set_user, only: %i[show edit moderator_edit update moderator_update export]
   before_action :validates_current_user, only: %i[edit update export]
+  before_action :check_user_banned, only: %i[show]
 
   require_role :moderator, only: %i[moderator_edit moderator_update]
 
@@ -89,6 +90,14 @@ class UsersController < ApplicationController
     else
       not_found_error
     end
+  end
+
+  def check_user_banned
+    return unless @user.status_banned?
+    return if current_user == @user
+    return if current_user&.moderator?
+
+    not_found_error
   end
 
   def validates_current_user

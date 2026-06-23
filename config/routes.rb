@@ -136,6 +136,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope :moderation do
+    resources :users, only: %i[index show update], as: :user_moderation, controller: "moderation/user"
+  end
+
   scope ".well-known" do
     get "microsoft-identity-association", to: "site#microsoft_identity_association"
   end

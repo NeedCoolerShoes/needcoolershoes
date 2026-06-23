@@ -157,3 +157,7 @@
 .pointer-events-passthrough :not(div).pointer-events-none {
   pointer-events: none;
 }
+
+.formatting-basic a {
+  @apply underline;
+}
