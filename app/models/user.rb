@@ -2,6 +2,7 @@ class User < ApplicationRecord
   require "zip"
 
   include OtpAuthenticatable
+  include Moderateable
   attr_writer :login
 
   YEAR_KARMA = 50
@@ -47,7 +48,10 @@ class User < ApplicationRecord
 
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
   scope :with_login, ->(login) { where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]) }
-
+  
+  attribute :moderation_status, :integer, default: 0
+  enum :moderation_status, %i[none approved flagged banned], prefix: :status
+  
   enum :role, ROLES
 
   before_create :set_support_token, unless: :support_token?
@@ -135,6 +139,7 @@ class User < ApplicationRecord
   end
 
   def banned?
+    return true if status_banned?
     return false unless ban_ends_at.present?
     ban_ends_at > Time.current
   end

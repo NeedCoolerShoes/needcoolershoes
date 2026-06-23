@@ -1,6 +1,7 @@
 class BannersController < ApplicationController
   before_action :authenticate_user!, only: %i[create edit update destroy]
   before_action :set_banner, only: %i[show edit update destroy moderator_edit moderator_update add_favourite remove_favourite]
+  before_action :check_ban, only: %i[create]
   before_action :validate_can_edit, only: %i[edit update destroy]
   before_action :check_visibility, only: :show
   before_action :redirect_title, only: :show
