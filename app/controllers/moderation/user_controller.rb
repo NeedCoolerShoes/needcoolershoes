@@ -36,21 +36,21 @@ class Moderation::UserController < Moderation::BaseController
     User.status_none
   end
 
-  def moderate(params, reason)
+  def moderate(user_params, reason)
     old_attr = @user.attributes
 
     respond_to do |format|
       user, modlog = nil
       ActiveRecord::Base.transaction do
-        user = @user.update!(params)
+        user = @user.update!(user_params)
         new_attr = @user.reload.attributes
         modlog = Modlog.generate!(@user, current_user, old_attr, new_attr, reason)
       end
       raise "Error saving banner or modlog" unless user && modlog
 
-      format.html { redirect_to user_moderation_path(@user.id), notice: "User was successfully updated." }
+      format.html { redirect_to user_moderation_path(@user.id, status: params[:status]), notice: "User was successfully updated." }
     rescue
-      format.html { redirect_to user_moderation_path(@user.id), alert: "Error saving user." }
+      format.html { redirect_to user_moderation_path(@user.id, status: params[:status]), alert: "Error saving user." }
     end
   end
 
@@ -83,9 +83,9 @@ class Moderation::UserController < Moderation::BaseController
   def ban_email(domain)
     respond_to do |format|
       if BlockedEmailDomain.create(domain: domain)
-        format.html { redirect_to user_moderation_path(@user.id), notice: "Email domain has been banned." }
+        format.html { redirect_to user_moderation_path(@user.id, status: params[:status]), notice: "Email domain has been banned." }
       else
-        format.html { redirect_to user_moderation_path(@user.id), alert: "Error when banning email domain." }
+        format.html { redirect_to user_moderation_path(@user.id, status: params[:status]), alert: "Error when banning email domain." }
       end
     end
   end

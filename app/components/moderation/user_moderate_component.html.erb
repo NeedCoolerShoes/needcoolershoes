@@ -84,13 +84,13 @@
     <div class="relative grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-2 mb-16 md:mx-28 md:mb-0">
       <div class="relative">
         <div id="flag-actions" class="absolute hidden left-0 right-0 bottom-14">
-          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "spam"}, data: {turbo: false} do %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "spam", status: @params[:status]}, data: {turbo: false} do %>
             Flag Spam<span class="hidden lg:inline"> [1]</span>
           <% end %>
-          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "tos"}, data: {turbo: false} do %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "tos", status: @params[:status]}, data: {turbo: false} do %>
             Flag TOS<span class="hidden lg:inline"> [2]</span>
           <% end %>
-          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "error"}, data: {turbo: false} do %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-amber-500", params: {update_action: "flag", value: "error", status: @params[:status]}, data: {turbo: false} do %>
             Flag Error<span class="hidden lg:inline"> [3]</span>
           <% end %>
           <button  command="show-modal" commandfor="flag-custom" class="action btn-ncs px-2 text-amber-500">
@@ -101,10 +101,10 @@
       </div>
       <div class="relative">
         <div id="ban-actions" class="absolute hidden left-0 right-0 bottom-14">
-          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "spam"}, data: {turbo: false} do %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "spam", status: @params[:status]}, data: {turbo: false} do %>
             Ban Spam<span class="hidden lg:inline"> [1]</span>
           <% end %>
-          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "tos"}, data: {turbo: false} do %>
+          <%= button_to user_moderation_path(@user.id), method: :put, class: "action btn-ncs px-2 text-red-500", params: {update_action: "ban", value: "tos", status: @params[:status]}, data: {turbo: false} do %>
               Ban TOS<span class="hidden lg:inline"> [2]</span>
           <% end %>
           <button command="show-modal" commandfor="ban-custom" class="action btn-ncs px-2 text-red-500">
@@ -114,16 +114,16 @@
         <button id="ban-button" class="btn-ncs px-2 text-red-500">Ban<span class="hidden lg:inline"> [X]</span></button>
       </div>
       <% if has_blocked_email_domain? %>
-        <%= button_to "Unban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-blue-500", params: {update_action: "unban_email", value: email_domain}, data: {turbo: false} %>
+        <%= button_to "Unban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-blue-500", params: {update_action: "unban_email", value: email_domain, status: @params[:status]}, data: {turbo: false} %>
       <% else %>
-        <%= button_to "Ban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-red-500", params: {update_action: "ban_email", value: email_domain}, data: {turbo: false} %>
+        <%= button_to "Ban Email", user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-red-500", params: {update_action: "ban_email", value: email_domain, status: @params[:status]}, data: {turbo: false} %>
       <% end %>
       <% if @user.status_approved? %>
         <button class="btn-ncs px-2 text-green-500" disabled>
           Approve<span class="hidden lg:inline"> [Space]</span>
         </button>
       <% else %>
-        <%= button_to user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-green-500", params: {update_action: "approve", value: email_domain}, data: {turbo: false}, id: "approve-button" do %>
+        <%= button_to user_moderation_path(@user.id), method: :put, class: "btn-ncs px-2 text-green-500", params: {update_action: "approve", value: email_domain, status: @params[:status]}, data: {turbo: false}, id: "approve-button" do %>
           Approve<span class="hidden lg:inline"> [Space]</span>
         <% end %>
       <% end %>
@@ -134,6 +134,7 @@
       <h2 class="font-bold text-lg">Flagging User</h2>
       <%= form_with url: user_moderation_path(@user.id), method: :put, "data-turbo": false do |form| %>
         <%= form.hidden_field :update_action, value: "flag" %>
+        <%= form.hidden_field :status, value: @params[:status] %>
         <div class="flex flex-col gap-2">
           <%= form.label :value, "Reason" %>
           <%= form.text_field :value, required: true %>
@@ -150,6 +151,7 @@
       <h2 class="font-bold text-lg">Banning User</h2>
       <%= form_with url: user_moderation_path(@user.id), method: :put, "data-turbo": false do |form| %>
         <%= form.hidden_field :update_action, value: "ban" %>
+        <%= form.hidden_field :status, value: @params[:status] %>
         <div class="flex flex-col gap-2">
           <%= form.label :value, "Reason" %>
           <%= form.text_field :value, required: true %>
