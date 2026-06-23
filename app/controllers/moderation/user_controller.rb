@@ -2,11 +2,12 @@ class Moderation::UserController < Moderation::BaseController
   before_action :set_user, only: %i[show update]
 
   def index
-    users = User.status_none.order(id: :desc)
+    users = get_scope.order(id: :desc)
     @pagy, @users = pagy(users, items: 24)
   end
 
   def show
+    @scope = get_scope
   end
 
   def update
@@ -23,6 +24,16 @@ class Moderation::UserController < Moderation::BaseController
 
   def set_user
     @user = User.find(params[:id])
+  end
+
+  def get_scope
+    case params[:status]
+    when "approved" then return User.status_approved
+    when "flagged" then return User.status_flagged
+    when "banned" then return User.status_banned
+    end
+
+    User.status_none
   end
 
   def moderate(params, reason)

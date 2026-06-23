@@ -62,14 +62,14 @@
     <div class="absolute bottom-0 left-0 right-0 flex justify-between">
       <div>
         <% if previous_record.present? %>
-          <%= link_to "Previous", user_moderation_path(previous_record.id), id: "previous-link", class: "btn-ncs px-2", "data-turbo": false %>
+          <%= link_to "Previous", user_moderation_path(previous_record.id, status: @params[:status]), id: "previous-link", class: "btn-ncs px-2", "data-turbo": false %>
         <% else %>
           <button class="btn-ncs px-2" disabled>Previous</button>
         <% end %>
       </div>
       <div>
         <% if next_record.present? %>
-          <%= link_to "Next", user_moderation_path(next_record.id), id: "next-link", class: "btn-ncs px-2", "data-turbo": false %>
+          <%= link_to "Next", user_moderation_path(next_record.id, status: @params[:status]), id: "next-link", class: "btn-ncs px-2", "data-turbo": false %>
         <% else %>
           <button class="btn-ncs px-2" disabled>Next</button>
         <% end %>

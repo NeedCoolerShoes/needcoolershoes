@@ -3,8 +3,10 @@
 class Moderation::UserModerateComponent < ViewComponent::Base
   include TextHelper
 
-  def initialize(user:)
+  def initialize(user:, scope:, params:)
     @user = user
+    @scope = scope
+    @params = params
     @has_blocked_email_domain = nil
   end
 
@@ -21,11 +23,11 @@ class Moderation::UserModerateComponent < ViewComponent::Base
   end
 
   def previous_record
-    @user.next(User.status_none)
+    @user.next(@scope)
   end
 
   def next_record
-    @user.previous(User.status_none)
+    @user.previous(@scope)
   end
 
   def modlogs
