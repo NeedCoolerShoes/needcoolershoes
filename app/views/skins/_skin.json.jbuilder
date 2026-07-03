@@ -7,6 +7,7 @@ json.description skin.description
 json.model skin.model
 json.part skin.skin_part.name
 json.category skin.skin_category.name
+json.license skin.license
 json.favourites_count skin.favourites_count
 json.tags skin.tag_list
 json.attributions do
