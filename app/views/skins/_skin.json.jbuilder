@@ -10,6 +10,7 @@ json.category skin.skin_category.name
 json.license skin.license
 json.favourites_count skin.favourites_count
 json.tags skin.tag_list
+json.minecraft_texture_url skin.minecraft_texture_url
 json.attributions do
   json.partial! "skins/attribution", collection: skin.attributions, as: :attribution
 end
