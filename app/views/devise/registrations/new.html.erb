@@ -1,3 +1,7 @@
+<% content_for :scripts do %>
+  <script async defer src="<%= asset_path("altcha.js") %>" type="module"></script>
+<% end %>
+
 <h2 class="text-4xl text-center">Sign Up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { data: { turbo: false } }) do |f| %>
@@ -39,15 +43,8 @@
     </div>
 
     <div class="flex flex-col">
-      <div>
-        <%= label_tag :question, @captcha_question %>
-        <%= link_to "Help", captcha_hint_path, class: "text-sm text-gray-200 underline", target: "_blank" %>
-      </div>
-      <%= text_field_tag :question, nil, class: "text-black w-full" %>
+      <altcha-widget challenge="<%= Altcha.create_challenge.to_json %>"></altcha-widget>
     </div>
-
-    <%= label_tag :captcha, "What is 2 + 2? (required)", class: "hidden" %>
-    <%= text_field_tag :captcha, nil, class: "hidden" %>
 
     <div class="actions">
       <% if Needcoolershoes::Config.signups_disabled %>
@@ -69,3 +66,10 @@
     target.value = value.toLowerCase().replaceAll(/[^a-z0-9_@\-]/g, "-")
   }
 </script>
+
+<style>
+  altcha-widget {
+    color-scheme: dark;
+    --altcha-max-width: 100%;
+  }
+</style>

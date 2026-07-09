@@ -88,6 +88,8 @@ GEM
       zeitwerk (>= 2.4, < 3.0)
     addressable (2.8.8)
       public_suffix (>= 2.0.2, < 8.0)
+    altcha-rails (0.1.0)
+      base64 (~> 0.2)
     base64 (0.3.0)
     bcrypt (3.1.20)
     benchmark (0.5.0)
@@ -512,6 +514,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 12.0)
+  altcha-rails (~> 0.1.0)
   bootsnap
   canonical-rails!
   capybara
