@@ -6,7 +6,7 @@ module GalleryFilters
     scope :order_by_updated, ->(direction = :desc) { order(updated_at: direction) }
     scope :order_by_created, ->(direction = :desc) { order(created_at: direction) }
     scope :order_by_favourites, ->(direction = :desc) { order(favourites_count: direction) }
-    scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.days)..) }
+    scope :created_after_days, ->(count) { where(created_at: (Date.today - count.to_i.clamp(0..10000).days)..) }
     scope :with_params, ->(params) { with_params_query(params) }
 
     scope :order_by_random_seed, ->(seed) {
