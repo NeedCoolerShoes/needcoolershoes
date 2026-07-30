@@ -1,4 +1,4 @@
-<h2 class="text-4xl text-center">Log in</h2>
+<h2 class="text-4xl text-center mb-4">Welcome back!</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name), method: :post, authenticity_token: true, html: {"data-turbo": false}) do |f| %>
   <div class="flex flex-col gap-2">
@@ -11,6 +11,9 @@
       <%= f.label :password %>
       <%= f.password_field :password, placeholder: "My Secret Password", value: resource.password, autocomplete: "current-password", class: "text-black" %>
     </div>
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+      <%= link_to "Forgot your password?", new_password_path(resource_name), class: "underline", style:"color: #9ca3af; margin-top: -8px; font-size: 0.75rem" %><br />
+    <% end %>
 
     <%= content_for?(:extra_session_fields) ? yield(:extra_session_fields) : nil %>
 
@@ -28,6 +31,6 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
-<div class="mt-2">
+<div class="mt-4">
   <%= render partial: "devise/sessions/new_site_warning" %>
 </div>
