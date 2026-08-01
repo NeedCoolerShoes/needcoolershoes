@@ -16,7 +16,7 @@ class SessionsController < Devise::SessionsController
     return render_invalid_credentials unless resource.valid_password?(sign_in_params[:password])
     return if passes_otp_check?(resource)
 
-    flash[:alert] = "Invalid one-time password." if sign_in_params[:otp_attempt]
+    flash[:alert] = "Invalid authentication code." if sign_in_params[:otp_attempt]
     render :otp, status: 422
   end
 

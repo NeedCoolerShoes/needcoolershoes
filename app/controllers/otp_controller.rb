@@ -20,9 +20,9 @@ class OtpController < ApplicationController
   def update
     respond_to do |format|
       if current_user.enable_otp!(otp_params[:otp_attempt])
-        format.html { redirect_to edit_user_registration_path, notice: "OTP enabled successfully." }
+        format.html { redirect_to edit_user_registration_path, notice: "Two-factor authentication enabled successfully." }
       else
-        format.html { redirect_to verify_otp_path, alert: "One-time Password was incorrect!" }
+        format.html { redirect_to verify_otp_path, alert: "Authentication Code was incorrect!" }
       end
     end
   end

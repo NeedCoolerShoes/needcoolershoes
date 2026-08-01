@@ -159,7 +159,7 @@ class SkinsController < ApplicationController
   end
 
   def download
-    send_data @skin.to_png, type: "image/png", filename: "download.png"
+    send_data @skin.to_png, type: "image/png", filename: "#{@skin.name.downcase.gsub(" ", "_")}_by_#{@skin.user.name}.png"
     unless current_user == @skin.user
       @skin.download_count = (@skin.download_count || 0) + 1
       @skin.save(touch: false)

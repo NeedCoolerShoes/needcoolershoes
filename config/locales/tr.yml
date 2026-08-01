@@ -27,7 +27,7 @@ tr:
     edit: "Edit Information"
     moderate: "Moderate Content"
   skins:
-    download: "Download to Computer"
+    download: "Download Skin"
     change_skin: "Change Skin on minecraft.net"
     feature: "Feature Skin on Profile"
     feature_tooltip: "Display skin as your avatar on your profile."

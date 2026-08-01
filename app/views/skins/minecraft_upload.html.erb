@@ -36,7 +36,7 @@
         user_accounts_connect_path(current_user, redirect: skin_minecraft_upload_url(@skin)),
         class: "underline text-white mr-2", "data-turbo": false
       %>
-      <%= link_to "Manage Accounts", user_accounts_path(current_user), class: "underline text-white" %>
+      <%= link_to "Manage Minecraft Accounts", user_accounts_path(current_user), class: "underline text-white" %>
       <% if @minecraft_accounts.any? %>
         <div class="flex flex-col gap-2 mt-4">
           <%= render MinecraftAccountComponent.with_collection(@minecraft_accounts, skin: @skin) %>
