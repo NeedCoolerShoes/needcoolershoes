@@ -108,45 +108,91 @@ module SkinTransformations
   ]
 
   UV_ALL_SIDES_CLASSIC = [
-    {uv: %i[face face_overlay], coordinates: [4, 0]},
-    {uv: %i[face_back face_overlay_back], coordinates: [36, 0]},
-    {uv: %i[face_right face_overlay_right], coordinates: [20, 0]},
-    {uv: %i[face_left face_overlay_left], coordinates: [52, 0]},
-    {uv: %i[torso torso_overlay], coordinates: [4, 8]},
-    {uv: %i[torso_back torso_overlay_back], coordinates: [36, 8]},
-    {uv: %i[right_arm right_arm_overlay], coordinates: [0, 8]},
-    {uv: %i[right_arm_back right_arm_overlay_back], coordinates: [44, 8]},
-    {uv: %i[right_arm_right right_arm_overlay_right], coordinates: [22, 8]},
-    {uv: %i[left_arm left_arm_overlay], coordinates: [12, 8]},
-    {uv: %i[left_arm_back left_arm_overlay_back], coordinates: [32, 8]},
-    {uv: %i[left_arm_left left_arm_overlay_left], coordinates: [54, 8]},
-    {uv: %i[right_leg right_leg_overlay], coordinates: [4, 20]},
-    {uv: %i[right_leg_back right_leg_overlay_back], coordinates: [40, 20]},
-    {uv: %i[right_leg_right right_leg_overlay_right], coordinates: [22, 20]},
-    {uv: %i[left_leg left_leg_overlay], coordinates: [8, 20]},
-    {uv: %i[left_leg_back left_leg_overlay_back], coordinates: [36, 20]},
-    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]}
+    {uv: %i[right_leg], coordinates: [43, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay], coordinates: [40, 202], scale: [46, 126]},
+    {uv: %i[right_leg_back], coordinates: [403, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay_back], coordinates: [400, 202], scale: [46, 126]},
+    {uv: %i[right_leg_right], coordinates: [223, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay_right], coordinates: [220, 202], scale: [46, 126]},
+    
+    {uv: %i[left_leg], coordinates: [83, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay], coordinates: [80, 202], scale: [46, 126]},
+    {uv: %i[left_leg_back], coordinates: [363, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay_back], coordinates: [360, 202], scale: [46, 126]},
+    {uv: %i[left_leg_left], coordinates: [543, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay_left], coordinates: [540, 202], scale: [46, 126]},
+    
+    {uv: %i[right_arm], coordinates: [3, 85], scale: [40, 120]},
+    {uv: %i[right_arm_overlay], coordinates: [0, 82], scale: [46, 126]},
+    {uv: %i[right_arm_back], coordinates: [443, 85], scale: [40, 120]},
+    {uv: %i[right_arm_overlay_back], coordinates: [440, 82], scale: [46, 126]},
+    {uv: %i[right_arm_right], coordinates: [223, 85], scale: [40, 120]},
+    {uv: %i[right_arm_overlay_right], coordinates: [220, 82], scale: [46, 126]},
+    
+    {uv: %i[left_arm], coordinates: [123, 85], scale: [40, 120]},
+    {uv: %i[left_arm_overlay], coordinates: [120, 82], scale: [46, 126]},
+    {uv: %i[left_arm_back], coordinates: [323, 85], scale: [40, 120]},
+    {uv: %i[left_arm_overlay_back], coordinates: [320, 82], scale: [46, 126]},
+    {uv: %i[left_arm_left], coordinates: [543, 85], scale: [40, 120]},
+    {uv: %i[left_arm_overlay_left], coordinates: [540, 82], scale: [46, 126]},
+
+    {uv: %i[torso], coordinates: [43, 85], scale: [80, 120]},
+    {uv: %i[torso_overlay], coordinates: [40, 82], scale: [86, 126]},
+    {uv: %i[torso_back], coordinates: [363, 85], scale: [80, 120]},
+    {uv: %i[torso_overlay_back], coordinates: [360, 82], scale: [86, 126]},
+
+    {uv: %i[face], coordinates: [43, 5], scale: [80, 80]},
+    {uv: %i[face_overlay], coordinates: [38, 0], scale: [90,90]},
+    {uv: %i[face_right], coordinates: [203, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_right], coordinates: [198, 0], scale: [90,90]},
+    {uv: %i[face_back], coordinates: [363, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_back], coordinates: [358, 0], scale: [90,90]},
+    {uv: %i[face_left], coordinates: [523, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_left], coordinates: [518, 0], scale: [90,90]},
   ]
 
   UV_ALL_SIDES_SLIM = [
-    {uv: %i[face face_overlay], coordinates: [4, 0]},
-    {uv: %i[face_back face_overlay_back], coordinates: [36, 0]},
-    {uv: %i[face_right face_overlay_right], coordinates: [20, 0]},
-    {uv: %i[face_left face_overlay_left], coordinates: [52, 0]},
-    {uv: %i[torso torso_overlay], coordinates: [4, 8]},
-    {uv: %i[torso_back torso_overlay_back], coordinates: [36, 8]},
-    {uv: %i[right_arm right_arm_overlay], coordinates: [1, 8]},
-    {uv: %i[right_arm_back right_arm_overlay_back], coordinates: [44, 8]},
-    {uv: %i[right_arm_right right_arm_overlay_right], coordinates: [22, 8]},
-    {uv: %i[left_arm left_arm_overlay], coordinates: [12, 8]},
-    {uv: %i[left_arm_back left_arm_overlay_back], coordinates: [33, 8]},
-    {uv: %i[left_arm_left left_arm_overlay_left], coordinates: [54, 8]},
-    {uv: %i[right_leg right_leg_overlay], coordinates: [4, 20]},
-    {uv: %i[right_leg_back right_leg_overlay_back], coordinates: [40, 20]},
-    {uv: %i[right_leg_right right_leg_overlay_right], coordinates: [22, 20]},
-    {uv: %i[left_leg left_leg_overlay], coordinates: [8, 20]},
-    {uv: %i[left_leg_back left_leg_overlay_back], coordinates: [36, 20]},
-    {uv: %i[left_leg_left left_leg_overlay_left], coordinates: [54, 20]}
+    {uv: %i[right_leg], coordinates: [43, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay], coordinates: [40, 202], scale: [46, 126]},
+    {uv: %i[right_leg_back], coordinates: [403, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay_back], coordinates: [400, 202], scale: [46, 126]},
+    {uv: %i[right_leg_right], coordinates: [223, 205], scale: [40, 120]},
+    {uv: %i[right_leg_overlay_right], coordinates: [220, 202], scale: [46, 126]},
+    
+    {uv: %i[left_leg], coordinates: [83, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay], coordinates: [80, 202], scale: [46, 126]},
+    {uv: %i[left_leg_back], coordinates: [363, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay_back], coordinates: [360, 202], scale: [46, 126]},
+    {uv: %i[left_leg_left], coordinates: [543, 205], scale: [40, 120]},
+    {uv: %i[left_leg_overlay_left], coordinates: [540, 202], scale: [46, 126]},
+    
+    {uv: %i[right_arm], coordinates: [13, 85], scale: [30, 120]},
+    {uv: %i[right_arm_overlay], coordinates: [10, 82], scale: [36, 126]},
+    {uv: %i[right_arm_back], coordinates: [443, 85], scale: [30, 120]},
+    {uv: %i[right_arm_overlay_back], coordinates: [440, 82], scale: [36, 126]},
+    {uv: %i[right_arm_right], coordinates: [223, 85], scale: [40, 120]},
+    {uv: %i[right_arm_overlay_right], coordinates: [220, 82], scale: [46, 126]},
+    
+    {uv: %i[left_arm], coordinates: [123, 85], scale: [30, 120]},
+    {uv: %i[left_arm_overlay], coordinates: [120, 82], scale: [36, 126]},
+    {uv: %i[left_arm_back], coordinates: [333, 85], scale: [30, 120]},
+    {uv: %i[left_arm_overlay_back], coordinates: [330, 82], scale: [36, 126]},
+    {uv: %i[left_arm_left], coordinates: [543, 85], scale: [40, 120]},
+    {uv: %i[left_arm_overlay_left], coordinates: [540, 82], scale: [46, 126]},
+
+    {uv: %i[torso], coordinates: [43, 85], scale: [80, 120]},
+    {uv: %i[torso_overlay], coordinates: [40, 82], scale: [86, 126]},
+    {uv: %i[torso_back], coordinates: [363, 85], scale: [80, 120]},
+    {uv: %i[torso_overlay_back], coordinates: [360, 82], scale: [86, 126]},
+
+    {uv: %i[face], coordinates: [43, 5], scale: [80, 80]},
+    {uv: %i[face_overlay], coordinates: [38, 0], scale: [90,90]},
+    {uv: %i[face_right], coordinates: [203, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_right], coordinates: [198, 0], scale: [90,90]},
+    {uv: %i[face_back], coordinates: [363, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_back], coordinates: [358, 0], scale: [90,90]},
+    {uv: %i[face_left], coordinates: [523, 5], scale: [80, 80]},
+    {uv: %i[face_overlay_left], coordinates: [518, 0], scale: [90,90]},
   ]
 
   FRONTBACK_MODEL_TO_UV = {
@@ -165,6 +211,12 @@ module SkinTransformations
     uv.each do |data|
       data[:uv].each do |id|
         crop = src.crop(*uvmap[id])
+
+        if part_scale = data[:scale]
+          sx, sy = part_scale
+          crop.resample_nearest_neighbor!((sx).round, (sy).round)
+        end
+        
         img.compose!(crop, *data[:coordinates])
       end
     end

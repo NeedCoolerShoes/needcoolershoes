@@ -160,8 +160,8 @@ class Skin < ApplicationRecord
     map_to_image(to_img, *FRONTBACK_MODEL_TO_UV[model.to_sym], size: [36, 32], scale: scale)
   end
 
-  def to_all_sides_img(scale = 10)
-    map_to_image(to_img, *ALL_SIDES_MODEL_TO_UV[model.to_sym], size: [60, 32], scale: scale)
+  def to_all_sides_img(scale = 1)
+    map_to_image(to_img, *ALL_SIDES_MODEL_TO_UV[model.to_sym], size: [608, 328], scale: scale)
   end
 
   def preview_img
@@ -178,7 +178,7 @@ class Skin < ApplicationRecord
     path = SOCIAL_CACHE_PATH.join(filename)
     return path.read if path.exist?
     template_data = ChunkyPNG::Image.from_file("lib/assets/social-preview-#{model}.png")
-    img_data = template_data.compose(to_all_sides_img, 90, 20).to_datastream
+    img_data = template_data.compose(to_all_sides_img, 87, 15).to_datastream
     cache_image_file(path, img_data)
     img_data
   end
