@@ -4,7 +4,7 @@
 
 @layer components {
   .btn-ncs {
-    @apply capitalize cursor-pointer text-white text-center mb-1.5 flex align-items-center justify-content-center;
+    @apply capitalize cursor-pointer text-white text-center mb-1.5 flex items-center justify-center;
     @apply w-full text-lg font-serif font-extrabold;
     @apply mb-2 pt-[.5rem] pb-[.5rem];
     line-height: 1.5rem;

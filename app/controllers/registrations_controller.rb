@@ -1,14 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
-  CAPTCHA_QUESTION = "What item does a Creeper drop? (in English)"
-  CAPTCHA_REGEX = /gun\s*powder/i
-
   prepend_before_action :check_signups_disabled, only: :create
   prepend_before_action :verify_captcha, only: :create
-
-  def new
-    @captcha_question = CAPTCHA_QUESTION.html_safe
-    super
-  end
 
   private
 
@@ -19,13 +11,21 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def verify_captcha
-    if Discord::NewUserWebhook::WEBHOOK_URL.present?
-      up = params[:user]
-      Discord::NewUserWebhook.send_webhook(up[:name], up[:email], params[:question], params[:captcha], request)
+    unless Altcha.verify(params.permit(:altcha)[:altcha])
+      redirect_to new_user_registration_path, alert: "Invalid captcha. Please try again."
+      return
     end
 
-    return if params[:question].to_s.match?(CAPTCHA_REGEX)
-      
-    redirect_to root_path, alert: "Question answered incorrectly"
+    return unless Discord::NewUserWebhook::WEBHOOK_URL.present?
+
+    up = params[:user]
+
+    base_email = up[:email].to_s
+    domain = base_email.split("@").last
+    blocked = BlockedEmailDomain.with_domain(domain).any?
+
+    email = up[:email] + (blocked ? " ⚠️" : "")  
+
+    Discord::NewUserWebhook.send_webhook(up[:name], email, params[:question], params[:captcha], request)
   end
 end

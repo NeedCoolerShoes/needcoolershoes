@@ -9,6 +9,7 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= content_for?(:scripts) ? yield(:scripts) : nil %>
     <%= render partial: "shared/favicons" %>
     <%= render partial: "shared/preloads" %>
     <%= render partial: "shared/analytics" %>
