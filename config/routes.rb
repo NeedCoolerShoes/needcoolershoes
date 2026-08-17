@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get "gallery/skins/:page", to: "skins#index"
   get "gallery", to: redirect(path: "/gallery/skins")
   get "gallery/:page", to: redirect("/gallery/skins/%{page}")
+  get "$:profile", to: redirect("@%{profile}")
   get "@:profile",
       to: redirect { |p, _| "/@#{p[:profile].to_s.downcase}" },
       constraints: ->(req) { req.params[:profile] =~ /[A-Z]/ }
