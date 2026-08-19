@@ -351,7 +351,7 @@ class SkinsController < ApplicationController
 
   def skin_params
     permit = [:name, :description, :tags, :data, :visibility, :model, :skin_part_id, :skin_category_id, :creator, :terms_and_conditions, attributions: []]
-    permit.append(:license, :hidden, :minecraft_texture_url) if current_user.authorized?(:moderator)
+    permit.append(:license, :hidden, :bypass_edit_restriction, :minecraft_texture_url) if current_user.authorized?(:moderator)
     params.require(:skin).permit(permit)
   end
 

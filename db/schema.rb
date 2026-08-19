@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_06_18_061333) do
+ActiveRecord::Schema[8.0].define(version: 2026_08_19_175045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -219,6 +219,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_06_18_061333) do
     t.string "minecraft_texture_url"
     t.integer "rank", default: 0, null: false
     t.integer "minecraft_texture_status", default: 0, null: false
+    t.boolean "bypass_edit_restriction", default: false, null: false
     t.index ["skin_category_id"], name: "index_skins_on_skin_category_id"
     t.index ["skin_part_id"], name: "index_skins_on_skin_part_id"
     t.index ["user_id"], name: "index_skins_on_user_id"

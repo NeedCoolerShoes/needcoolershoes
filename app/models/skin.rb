@@ -117,7 +117,7 @@ class Skin < ApplicationRecord
   end
 
   def can_user_open_in_editor?(some_user)
-    return true if is_public?
+    return true if is_public? || bypass_edit_restriction
     return false unless some_user.is_a? User
     return true if some_user.id == user_id
     false

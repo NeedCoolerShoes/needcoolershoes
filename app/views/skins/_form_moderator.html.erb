@@ -19,6 +19,13 @@
 
     <div>
       <div class="flex gap-1 items-center">
+        <%= form.check_box :bypass_edit_restriction %>
+        <%= form.label :bypass_edit_restriction, class: "select-none" %>
+      </div>
+    </div>
+
+    <div>
+      <div class="flex gap-1 items-center">
         <%= form.check_box :hidden %>
         <%= form.label :hidden, class: "select-none" %>
       </div>
