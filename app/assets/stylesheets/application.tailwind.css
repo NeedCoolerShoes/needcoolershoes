@@ -60,7 +60,13 @@
     align-items: center;
     justify-content: center;
   }
-
+  
+  @media (pointer:none), (pointer:coarse) {
+    .spoiler::after {
+      content: "Tap";
+    }
+  }
+  
   .spoiler:hover {
     color: inherit;
   }
