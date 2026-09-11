@@ -38,12 +38,6 @@ class ApplicationController < ActionController::Base
     teapot_error
   end
 
-  def configure_devise_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name display_name email question])
-    devise_parameter_sanitizer.permit(:sign_in, keys: %i[otp_attempt])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[featured_skin_id])
-  end
-
   def meta_config
     yield @meta_config ||= DEFAULT_META_CONFIG.call
   end
@@ -157,5 +151,13 @@ class ApplicationController < ActionController::Base
     modlog = modlog_path(id: current_user.id, type: "User")
 
     redirect_to root_path, alert: current_user.ban_message || "You are currently banned. Check the [modlog](#{modlog}) for more information."
+  end
+
+  protected
+
+  def configure_devise_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name display_name email question])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[otp_attempt])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[featured_skin_id, email])
   end
 end
