@@ -81,6 +81,7 @@ RailsAdmin.config do |config|
 
   config.model "User" do
     configure :biography, :markdown
+    exclude_fields :password, :password_confirmation
   end
 
   config.model "SiteMessage" do
