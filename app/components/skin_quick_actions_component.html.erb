@@ -34,6 +34,7 @@
     <%= button_to "Mark NSFW", skin_quick_action_path(@skin, "nsfw"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <%= button_to "Mark Bigotry / Hate Speech", skin_quick_action_path(@skin, "hate-speech"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <%= button_to "Mark Nazi / Hate Groups", skin_quick_action_path(@skin, "hate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Stolen", skin_quick_action_path(@skin, "stolen"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
   </div>
 
   <div data-hidden-toggle-target="select" data--select="categorize" class="hidden text-white">
