@@ -16,7 +16,7 @@
           </div>
           <div class="flex items-center gap-2">
             <% if current_user.present? %>
-              <% if current_user.authorized?(:admin) %>
+              <% if current_user.authorized?(:moderator) %>
                 <%= link_to "Admin", "/admin", class: "text-white underline" %>
                 <span class="text-white">|</span>
               <% end %>

@@ -1,8 +1,11 @@
 require_relative "../../lib/needcoolershoes/admin/actions/bump_site_message"
+require_relative "../../lib/rails_admin/extensions/needcoolershoes/authorization_adapter"
 
 def solid_queue_classes
   SolidQueue.constants.map(&SolidQueue.method(:const_get)).grep(Class)
 end
+
+RailsAdmin.add_extension(:needcoolershoes, RailsAdmin::Extensions::Needcoolershoes, authorization: true)
 
 RailsAdmin.config do |config|
   RailsAdmin::Config::Actions.register(
@@ -53,16 +56,18 @@ RailsAdmin.config do |config|
 
   config.excluded_models += solid_queue_classes
 
-  config.authorize_with do
-    redirect_to main_app.root_path unless current_user&.authorized?(:admin)
-  end
+  # config.authorize_with do |controller|
+  #   puts controller
+  #   redirect_to main_app.root_path unless current_user&.authorized?(:admin)
+  # end
+  config.authorize_with :needcoolershoes
 
   # Configure description fields to use markdown
   %w[Badge Banner Skin SkinJam].each do |model_name|
     config.model(model_name) { configure :description, :markdown }
   end
 
-  %w[Users SkinPart SkinCategory].each do |model_name|
+  %w[User SkinPart SkinCategory].each do |model_name|
     config.model(model_name) { configure(:skins) { hide } }
   end
 
