@@ -15,16 +15,43 @@
   </div>
 
   <div data-hidden-toggle-target="select" data--select="unlist-skin" class="hidden">
-    <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2 mb-4">
+    <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2">
       Back
     </button>
+
+    <div class="flex gap-2 mb-4">
+      <button disabled class="btn-ncs text-base py-0.5 px-2">
+        Prev
+      </button>
+      <button class="btn-ncs text-base py-0.5 px-2" data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="unlist-skin-2">
+        Next
+      </button>
+    </div>
+
     <%= button_to "Mark Duplicate", skin_quick_action_path(@skin, "duplicate"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <%= button_to "Mark Blank", skin_quick_action_path(@skin, "blank"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
-    <%= button_to "Mark Low Effort", skin_quick_action_path(@skin, "low-effort"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
-    <%= button_to "Mark Engagement Farming", skin_quick_action_path(@skin, "engagement-farming"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <% if @skin.classic? %>
       <%= button_to "Change model to Slim", skin_quick_action_path(@skin, "slim"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
     <% end %>
+  </div>
+
+  <div data-hidden-toggle-target="select" data--select="unlist-skin-2" class="hidden">
+    <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="main" class="btn-ncs text-base py-0.5 px-2">
+      Back
+    </button>
+
+    <div class="flex gap-2 mb-4">
+      <button class="btn-ncs text-base py-0.5 px-2" data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="unlist-skin">
+        Prev
+      </button>
+      <button disabled class="btn-ncs text-base py-0.5 px-2">
+        Next
+      </button>
+    </div>
+
+    <%= button_to "Mark Low Effort", skin_quick_action_path(@skin, "low-effort"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Engagement Farming", skin_quick_action_path(@skin, "engagement-farming"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
+    <%= button_to "Mark Re-upload", skin_quick_action_path(@skin, "reupload"), class: "btn-ncs text-base py-0.5 px-2", params: {redirect: @redirect} %>
   </div>
 
   <div data-hidden-toggle-target="select" data--select="hide-skin" class="hidden">

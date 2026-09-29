@@ -258,6 +258,7 @@ class SkinsController < ApplicationController
       when "blank" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Blank or almost blank skins are not allowed on the site.")
       when "low-effort" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Skin does not fit minimum effort guidelines as described in the site rules.")
       when "engagement-farming" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Engagement / interaction farming is not allowed.")
+      when "reupload" then qa_moderate(format, redirect_path, {visibility: :is_unlisted, license: :arr}, "Re-uploading other people's skins without permission is not allowed.")
       when "categorize" then qa_moderate(format, redirect_path, skin_params, "Moved skin to another part / category.")
       else not_found_error
       end
