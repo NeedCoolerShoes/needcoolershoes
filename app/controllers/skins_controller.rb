@@ -63,6 +63,11 @@ class SkinsController < ApplicationController
   def show
     show_meta_config
     @attributions = @skin.attributions.attributed_visible_to_user(current_user).with_attributed_skin
+
+    if current_user&.authorized?(:moderator)
+      @all_attributions = @skin.attributions
+    end
+
     @variants = @skin.variants.visible_to_user(current_user)
     respond_to do |format|
       format.png { send_data @skin.preview_img, type: "image/png", disposition: "inline" }

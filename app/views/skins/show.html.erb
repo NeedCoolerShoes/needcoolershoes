@@ -168,19 +168,27 @@
         </div>
       </div>
     <% end %>
-    <% if @attributions.any? %>
+    <% if @attributions.any? || @all_attributions&.any? %>
       <div class="bg-ncs-dark-600 text-ncs-dark-100 rounded">
         <div class="bg-ncs-dark-700 p-1 rounded">
           <h2>Parts Used</h2>
         </div>
         <div class="p-2">
-          <div class="flex flex-wrap gap-2 items-start">
-            <%= render partial: "attribution", collection: @attributions, as: :attribution %>
-          </div>
-          <details>
-            <summary class="text-sm cursor-pointer select-none">Attribution Text</summary>
-            <%= render partial: "attribution_text", collection: @attributions, as: :attribution %>
-          </details>
+          <% if @attributions.any? %>
+            <div class="flex flex-wrap gap-2 items-start">
+              <%= render partial: "attribution", collection: @attributions, as: :attribution %>
+            </div>
+            <details>
+              <summary class="text-sm cursor-pointer select-none">Attribution Text</summary>
+              <%= render partial: "attribution_text", collection: @attributions, as: :attribution %>
+            </details>
+          <% end %>
+          <% if @all_attributions&.any? %>
+            <details>
+              <summary class="text-sm cursor-pointer select-none">Attribution Data</summary>
+              <%= render partial: "attribution_moderator", collection: @all_attributions, as: :attribution %>
+            </details>
+          <% end %>
         </div>
       </div>
     <% end %>
