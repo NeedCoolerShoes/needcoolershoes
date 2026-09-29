@@ -13,7 +13,8 @@ module.exports = {
       fontFamily: {
         sans: ['Lato', ...defaultTheme.fontFamily.sans],
         serif: ['Lato', ...defaultTheme.fontFamily.serif],
-        icon: ['icon', ...defaultTheme.fontFamily.sans]
+        icon: ['icon', ...defaultTheme.fontFamily.sans],
+        title: ['Poppins', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
         'ncs-tweed': "url('/tweed.png'), linear-gradient(#161618)",

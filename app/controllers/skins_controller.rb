@@ -249,6 +249,7 @@ class SkinsController < ApplicationController
       when "nsfw" then qa_moderate(format, redirect_path, {hidden: true}, "NSFW content is not allowed on the site.")
       when "hate-speech" then qa_moderate(format, redirect_path, {hidden: true}, "Bigoted / hateful imagery or speech is not allowed on the site.")
       when "hate" then qa_moderate(format, redirect_path, {hidden: true}, "Imagery of Nazis / hate groups is not allowed on the site.")
+      when "stolen" then qa_moderate(format, redirect_path, {hidden: true}, "Reposting other people's skins without changing anything is not allowed.")
       when "blank" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Blank or almost blank skins are not allowed on the site.")
       when "low-effort" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Skin does not fit minimum effort guidelines as described in the site rules.")
       when "engagement-farming" then qa_moderate(format, redirect_path, {visibility: :is_unlisted}, "Engagement / interaction farming is not allowed.")
