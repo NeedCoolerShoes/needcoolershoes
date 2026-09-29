@@ -48,6 +48,7 @@ class User < ApplicationRecord
 
   scope :order_by_pixels, ->(order = :desc) { order(pixels: order) }
   scope :with_login, ->(login) { where(["lower(name) = :value OR lower(email) = :value", { :value => login.downcase }]) }
+  scope :search_by_name, ->(name) { where("name LIKE ?", "#{name}%") }
   
   attribute :moderation_status, :integer, default: 0
   enum :moderation_status, %i[none approved flagged banned], prefix: :status
@@ -109,6 +110,10 @@ class User < ApplicationRecord
     output = read_attribute("display_name")
     output = name unless output.present?
     output
+  end
+
+  def admin_label_name
+    name.gsub("-", "_")
   end
 
   def pixels!

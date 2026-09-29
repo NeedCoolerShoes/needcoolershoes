@@ -1,8 +1,14 @@
 require_relative "../../lib/needcoolershoes/admin/actions/bump_site_message"
+require_relative "../../lib/needcoolershoes/admin/types/user_name_type"
+
 require_relative "../../lib/rails_admin/extensions/needcoolershoes/authorization_adapter"
 
-def solid_queue_classes
-  SolidQueue.constants.map(&SolidQueue.method(:const_get)).grep(Class)
+def excluded_classes
+  classes = SolidQueue.constants.map(&SolidQueue.method(:const_get)).grep(Class)
+  classes += SolidCache.constants.map(&SolidCache.method(:const_get)).grep(Class)
+  classes += SolidCable.constants.map(&SolidCable.method(:const_get)).grep(Class)
+
+  classes
 end
 
 RailsAdmin.add_extension(:needcoolershoes, RailsAdmin::Extensions::Needcoolershoes, authorization: true)
@@ -54,7 +60,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.excluded_models += solid_queue_classes
+  config.excluded_models += excluded_classes
 
   # config.authorize_with do |controller|
   #   puts controller
@@ -71,14 +77,6 @@ RailsAdmin.config do |config|
     config.model(model_name) { configure(:skins) { hide } }
   end
 
-  # Hide Solid Queue models
-  [
-    "BlockedExecution", "ClaimedExecution", "FailedExecution", "Job", "Pause", "Process",
-    "ReadyExecution", "RecurringExecution", "RecurringTask", "ScheduledExecution", "Semaphore"
-  ].each do |model_name|
-    config.model("SolidQueue::" + model_name) { hide }
-  end
-
   config.model "MinecraftAccount" do
     configure(:minecraft_token) { hide }
     configure(:refresh_token) { hide }
@@ -87,12 +85,50 @@ RailsAdmin.config do |config|
   config.model "User" do
     configure :biography, :markdown
     exclude_fields :password, :password_confirmation
+
+    object_label_method do
+      :admin_label_name
+    end
+
+    field "name_length", :user_name do
+      sort_reverse false
+      sortable true
+    end
+
+    field "name" do
+      pretty_value do
+        value.upcase
+      end
+    end
+
+    list do
+      search_by :search_by_name
+    end
   end
 
   config.model "SiteMessage" do
     configure :message, :markdown
     list do
       sort_by :bumped_at
+    end
+  end
+end
+
+Rails.configuration.after_initialize do
+  RailsAdmin.config.models_pool.each do |model|
+    RailsAdmin.config.model model do
+      next if model == "ApplicationRecord"
+
+      field_names = all_fields.map {|f| f.name }
+      next unless field_names.include?(:user)
+
+      edit do
+        configure :user do
+          partial "form_filtering_select_user_name"
+        end
+      end
+      # if parent.attribute_names.include?(:user_id)        
+      # end
     end
   end
 end
