@@ -4,6 +4,6 @@ class BadgesController < ApplicationController
       config.title = "Hall of Fame"
       config.description = "A list of badges awarding the achievements of the Miners Need Cooler Shoes community."
     end
-    @badges = Badge.with_user_badges
+    @badges = Badge.with_user_badges.order(created_at: :desc)
   end
 end
