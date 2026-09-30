@@ -91,14 +91,10 @@ RailsAdmin.config do |config|
     end
 
     field "name_length", :user_name do
+      hide
+      formatted_value { bindings[:object].name }
       sort_reverse false
       sortable true
-    end
-
-    field "name" do
-      pretty_value do
-        value.upcase
-      end
     end
 
     list do
