@@ -234,23 +234,10 @@ class Skin < ApplicationRecord
     super("/s/#{id}")
   end
 
-  def to_player_head_command
+  def to_player_head_command(version = PlayerHeadCommandGenerator::LATEST_VERSION)
     return "" unless minecraft_texture_url?
 
-    data = {
-      timestamp: Time.current.to_i,
-      profileId: "c6283b1435c64a2994226327260c461c",
-      profileName: "NeedCoolerShoes",
-      textures: {
-        SKIN: {
-          url: minecraft_texture_url
-        }
-      }
-    }
-
-    base64 = Base64.urlsafe_encode64(data.to_json, padding: false)
-
-    "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{base64}\"}]}] 1"
+    PlayerHeadCommandGenerator.new(minecraft_texture_url).generate(version)
   end
 
   def schedule_mineskin_upload
