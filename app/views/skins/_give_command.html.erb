@@ -13,10 +13,10 @@
         <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
           <div class="flex gap-2 p-2" data-version="<%= key %>">
             <textarea readonly="true" cols="5" name="give command"
-              id="give-command" class="w-full resize bg-ncs-dark-700 border-ncs-dark-200" value=""
+              id="give-command-<%= key %>" class="w-full resize bg-ncs-dark-700 border-ncs-dark-200" value=""
             ><%= skin.to_player_head_command(key) %></textarea>
             <div class="relative">
-              <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
+              <button title="<%= t "actions.copy" %>" onclick="copyText('give-command-<%= key %>')">
                 <%= heroicon "document-duplicate" %>
               </button>
               <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
