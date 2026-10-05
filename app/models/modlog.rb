@@ -1,5 +1,6 @@
 class Modlog < ApplicationRecord
   belongs_to :user
+  belongs_to :associated_user, optional: true, class_name: "User"
   belongs_to :target, polymorphic: true
 
   validates :user, :target, :changelog, :reason, presence: true
@@ -9,6 +10,7 @@ class Modlog < ApplicationRecord
   scope :with_target_id, ->(id) { where(target_id: id) }
   scope :with_target_type, ->(type) { where(target_type: type) }
   scope :with_user, ->(name) { includes(:user).where(user: {name: name}) }
+  scope :with_associated_user, ->(name) { includes(:associated_user).where(associated_user: {name: name}) }
 
   scope :order_by_creation, ->(dir = :desc) { order(created_at: dir) }
 
@@ -20,7 +22,13 @@ class Modlog < ApplicationRecord
       attr[key] = [old_attr[key], value]
     end
     raise "No changes made" if attr.empty?
-    create!(user: user, target: target, changelog: attr, reason: reason)
+
+    associated_user_id = nil
+    if target.has_attribute?(:user_id)
+      associated_user_id = target.user_id
+    end
+
+    create!(user: user, target: target, associated_user_id: associated_user_id, changelog: attr, reason: reason)
   end
 
   def target_name

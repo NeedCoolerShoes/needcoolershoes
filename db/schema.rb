@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_08_19_175045) do
+ActiveRecord::Schema[8.0].define(version: 2026_10_05_064744) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,6 +83,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_19_175045) do
     t.string "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "associated_user_id"
+    t.index ["associated_user_id"], name: "index_modlogs_on_associated_user_id"
     t.index ["target_type", "target_id"], name: "index_modlogs_on_target"
     t.index ["user_id"], name: "index_modlogs_on_user_id"
   end
@@ -319,6 +321,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_08_19_175045) do
   add_foreign_key "favourites", "users"
   add_foreign_key "minecraft_accounts", "users"
   add_foreign_key "modlogs", "users"
+  add_foreign_key "modlogs", "users", column: "associated_user_id"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
   add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"

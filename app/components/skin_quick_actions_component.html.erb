@@ -12,6 +12,7 @@
     <button data-action="click->hidden-toggle#select" data-hidden-toggle-select-param="categorize" class="btn-ncs text-base py-0.5 px-2">
       Update Part / Category
     </button>
+    <%= link_to "View User's Modlog", modlog_path(user: @skin.user.name), class: "btn-ncs text-base py-0.5 px-2" %>
   </div>
 
   <div data-hidden-toggle-target="select" data--select="unlist-skin" class="hidden">
