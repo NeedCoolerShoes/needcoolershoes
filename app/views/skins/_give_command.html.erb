@@ -1,30 +1,28 @@
 <div id="skin:give_command_<%= skin.id %>" class="bg-ncs-dark-600 text-ncs-dark-100 rounded">
   <div class="bg-ncs-dark-700 p-1 rounded">
-    <h2>Give Player Head</h2>
+    <h2>Generate Player Head Give Command</h2>
   </div>
   <% if skin.texture_resolved? %>
     <div>
       <div id="version-buttons" class="flex gap-2 pl-2 pt-1">
         <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
-          <button onclick="setSelectedVersion(event)" data-version="<%= key %>"><%= value %></button>
+          <button onclick="setSelectedVersion(event)" data-version="<%= key %>" data-command="<%= skin.to_player_head_command(key) %>">
+            <%= value %>
+          </button>
         <% end %>
       </div>
-      <div id="version-commands">
-        <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
-          <div class="flex gap-2 p-2" data-version="<%= key %>">
-            <textarea readonly="true" cols="5" name="give command"
-              id="give-command-<%= key %>" class="w-full resize bg-ncs-dark-700 border-ncs-dark-200" value=""
-            ><%= skin.to_player_head_command(key) %></textarea>
-            <div class="relative">
-              <button title="<%= t "actions.copy" %>" onclick="copyText('give-command-<%= key %>')">
-                <%= heroicon "document-duplicate" %>
-              </button>
-              <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
-                <%= t "actions.copied" %>
-              </span>
-            </div>
-          </div>
-        <% end %>
+      <div class="flex gap-2 p-2">
+        <textarea readonly="true" cols="5" name="give command"
+          id="give-command" class="w-full resize bg-ncs-dark-700 border-ncs-dark-200" value=""
+        ><%= skin.to_player_head_command(PlayerHeadCommandGenerator::LATEST_VERSION) %></textarea>
+        <div class="relative">
+          <button title="<%= t "actions.copy" %>" onclick="copyText('give-command')">
+            <%= heroicon "document-duplicate" %>
+          </button>
+          <span class="copy-text hidden absolute -top-4 bg-ncs-dark-700 rounded-sm p-0.5 text-ncs-dark-100 text-sm select-none">
+            <%= t "actions.copied" %>
+          </span>
+        </div>
       </div>
     </div>
   <% elsif skin.texture_pending? %>
@@ -48,18 +46,17 @@
   const latestVersion = "<%= PlayerHeadCommandGenerator::LATEST_VERSION %>";
 
   const versionButtons = document.getElementById("version-buttons");
-  const versionCommands = document.getElementById("version-commands");
+  const commandText = document.getElementById("give-command");
 
   function setSelectedVersion(event) {
     selectVersion(event.target.getAttribute("data-version"));
+
+    commandText.innerText = event.target.getAttribute("data-command");
   }
 
-  function selectVersion(version) {
+  function selectVersion(version, command) {
     versionButtons.querySelectorAll("button").forEach(e => e.removeAttribute("data-selected"));
     versionButtons.querySelector(`[data-version="${version}"]`).setAttribute("data-selected", true);
-
-    versionCommands.querySelectorAll("[data-version]").forEach(e => e.classList.add("hidden"));
-    versionCommands.querySelector(`[data-version="${version}"]`).classList.remove("hidden");
   }
 
   selectVersion(latestVersion);
