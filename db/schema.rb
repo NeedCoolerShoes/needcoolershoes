@@ -308,7 +308,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_10_05_073531) do
     t.string "ban_message"
     t.bigint "minecraft_account_id"
     t.string "support_token", default: "", null: false
-    t.boolean "allow_bulk_upload", default: false, null: false
     t.integer "moderation_status", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["featured_badge_id"], name: "index_users_on_featured_badge_id"

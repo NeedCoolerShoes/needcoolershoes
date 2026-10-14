@@ -17,7 +17,7 @@ module.exports = {
         title: ['Poppins', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
-        'ncs-tweed': "url('/tweed.png'), linear-gradient(#161618)",
+        'ncs-tweed': "url('/tweed.webp'), linear-gradient(#161618)",
         'ncs-flourish': "url('/flourish.png')",
         'ncs-flourish-side': "url('/flourish-side.png')",
         'ncs-grid': "linear-gradient(#0004, #0000), url('/grid-dark.png')",
