@@ -237,7 +237,7 @@ class Skin < ApplicationRecord
   def to_player_head_command(version = PlayerHeadCommandGenerator::LATEST_VERSION)
     return "" unless minecraft_texture_url?
 
-    PlayerHeadCommandGenerator.new(minecraft_texture_url).generate(version)
+    PlayerHeadCommandGenerator.new(minecraft_texture_url, name, user.name, to_short_url).generate(version)
   end
 
   def schedule_mineskin_upload

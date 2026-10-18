@@ -4,12 +4,14 @@
   </div>
   <% if skin.texture_resolved? %>
     <div class="p-2">
-      <div id="version-buttons" class="flex gap-2 overflow-auto">
-        <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
-          <button onclick="setSelectedVersion(event)" data-version="<%= key %>" data-command="<%= skin.to_player_head_command(key) %>" class="shrink-0">
-            <%= value %>
-          </button>
-        <% end %>
+      <div id="version-buttons">
+        <select onchange="setSelectedVersion(event)" class="p-1 pr-8">
+          <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
+            <option data-version="<%= key %>" data-command="<%= skin.to_player_head_command(key) %>">
+              <%= value %>
+            </option>
+          <% end %>
+        </select>
       </div>
       <div class="flex gap-2 pt-2">
         <textarea readonly="true" cols="5" name="give command"
@@ -49,9 +51,12 @@
   const commandText = document.getElementById("give-command");
 
   function setSelectedVersion(event) {
-    selectVersion(event.target.getAttribute("data-version"));
+    const option = event.target.selectedOptions[0];
 
-    commandText.innerText = event.target.getAttribute("data-command");
+    if (!option) return;
+
+    selectVersion(option.getAttribute("data-version"));
+    commandText.innerText = option.getAttribute("data-command");
   }
 
   function selectVersion(version, command) {
