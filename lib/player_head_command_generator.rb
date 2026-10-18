@@ -2,7 +2,8 @@ class PlayerHeadCommandGenerator
   LATEST_VERSION = :"1_20_5"
   VERSIONS = {
     :"1_20_5" => "1.20.5+",
-    :"1_13" => "1.13 to 1.20.4",
+    :"1_16" => "1.16 to 1.20.4",
+    :"1_13" => "1.13 to 1.15.2",
     :"1_8" => "1.8 to 1.12"
   }
 
@@ -13,6 +14,7 @@ class PlayerHeadCommandGenerator
   def generate(version)
     case version
     when :"1_20_5" then generate_1_20_5
+    when :"1_16" then generate_1_16
     when :"1_13" then generate_1_13
     when :"1_8" then generate_1_8
     end
@@ -20,6 +22,10 @@ class PlayerHeadCommandGenerator
 
   def generate_1_20_5
     "give @p player_head[profile={name:\"NeedCoolerShoes\",properties:[{name:\"textures\",value:\"#{to_base64}\"}]}] 1"
+  end
+
+  def generate_1_16
+    "give @p player_head{SkullOwner:{Id:[I;0,0,0,0],Properties:{textures:[{Value:\"#{to_base64}\"}]}}} 1"
   end
 
   def generate_1_13

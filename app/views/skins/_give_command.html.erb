@@ -3,15 +3,15 @@
     <h2>Generate Player Head Give Command</h2>
   </div>
   <% if skin.texture_resolved? %>
-    <div>
-      <div id="version-buttons" class="flex gap-2 pl-2 pt-1">
+    <div class="p-2">
+      <div id="version-buttons" class="flex gap-2 overflow-auto">
         <% PlayerHeadCommandGenerator::VERSIONS.each do |key, value| %>
-          <button onclick="setSelectedVersion(event)" data-version="<%= key %>" data-command="<%= skin.to_player_head_command(key) %>">
+          <button onclick="setSelectedVersion(event)" data-version="<%= key %>" data-command="<%= skin.to_player_head_command(key) %>" class="shrink-0">
             <%= value %>
           </button>
         <% end %>
       </div>
-      <div class="flex gap-2 p-2">
+      <div class="flex gap-2 pt-2">
         <textarea readonly="true" cols="5" name="give command"
           id="give-command" class="w-full resize bg-ncs-dark-700 border-ncs-dark-200" value=""
         ><%= skin.to_player_head_command(PlayerHeadCommandGenerator::LATEST_VERSION) %></textarea>
