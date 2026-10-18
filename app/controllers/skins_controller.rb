@@ -315,7 +315,7 @@ class SkinsController < ApplicationController
   end
 
   def render_img_missing
-    img = File.read("app/assets/images/missing_img.png")
+    img = File.read("app/assets/images/missing_img.webp")
 
     respond_to do |format|
       format.png { send_data img, type: "image/png", disposition: "inline", status: 200 }
