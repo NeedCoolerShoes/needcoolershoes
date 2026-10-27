@@ -7,6 +7,6 @@ class Badge < ApplicationRecord
   scope :with_tag, ->(tag) { where("tags @> ARRAY[?]::varchar[]", tag) }
 
   def rendering_mode
-    smooth_rendering ? "smooth" : "pixelated";
+    smooth_rendering ? "auto" : "pixelated";
   end
 end
