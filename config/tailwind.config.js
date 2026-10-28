@@ -20,7 +20,7 @@ module.exports = {
         'ncs-tweed': "url('/tweed.webp'), linear-gradient(#1c1d20)",
         'ncs-flourish': "url('/flourish.png'), linear-gradient(180deg, #E99832 6.25%, #FFE99E 6.25%, #FFE99E 12.5%, #F2B42C 12.5%, #F2B42C 18.75%, #F6C532 18.75%, #F6C532 81.25%, #F2B42C 81.25%, #F2B42C 87.5%, #FFE99E 87.5%, #FFE99E 93.75%, #D2702F 93.75%)",
         'ncs-flourish-side': "url('/flourish-side.png')",
-        'ncs-grid': "linear-gradient(#0004, #0000), url('/grid-dark.png')",
+        'ncs-grid': "linear-gradient(#0004, #0000), url('/grid-dark.png'), linear-gradient(#26282b)",
       },
       colors: {
         'ncs-brown': '#926602',
