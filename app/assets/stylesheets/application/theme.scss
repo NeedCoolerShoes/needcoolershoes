@@ -1,0 +1,21 @@
+:root {
+  --ncs-bg: url("/bg.webp");
+  --ncs-bg-fallback: linear-gradient(#121935, #367286, #9cbeb5, #d7ebd1, #eaf1c8);
+  --ncs-logo: url("/header.png");
+  --ncs-header-flourish: url('/flourish.png');
+  --ncs-header-flourish-fallback: linear-gradient(180deg, #E99832 6.25%, #FFE99E 6.25%, #FFE99E 12.5%, #F2B42C 12.5%, #F2B42C 18.75%, #F6C532 18.75%, #F6C532 81.25%, #F2B42C 81.25%, #F2B42C 87.5%, #FFE99E 87.5%, #FFE99E 93.75%, #D2702F 93.75%);
+  --ncs-header-flourish-side: url('/flourish-side.png');
+  --ncs-header-primary: #ac2d3a;
+  --ncs-header-secondary: #da6d11;
+  --ncs-header-hover: #be4f2f;
+}
+
+.ncs-theme-spooky {
+  --ncs-bg: url("/halloween-bg.webp");
+  --ncs-logo: url("/halloween-header.png");
+  --ncs-header-flourish: url('/halloween-flourish.png');
+  --ncs-header-flourish-side: url('/halloween-flourish-side.png');
+  --ncs-header-primary: #5c3acb;
+  --ncs-header-secondary: #926eff;
+  --ncs-header-hover: #6844e0;
+}

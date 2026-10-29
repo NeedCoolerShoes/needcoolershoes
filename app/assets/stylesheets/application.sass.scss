@@ -1,5 +1,6 @@
 // Entry point for your Sass build
 
+@use "application/theme";
 @use "application/fonts";
 @use "application/misc";
 @use "application/tagify";
@@ -7,7 +8,7 @@
 html {
   width: 100vw;
   height: 100vh;
-  background-image: url("/bg.webp"), linear-gradient(#121935, #367286, #9cbeb5, #d7ebd1, #eaf1c8);
+  background-image: var(--ncs-bg), var(--ncs-bg-fallback);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;

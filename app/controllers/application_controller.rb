@@ -11,9 +11,14 @@ class ApplicationController < ActionController::Base
       " :: NeedCoolerShoes"
     )
   }
+  THEMES = {
+    "none" => nil,
+    "spooky" => "ncs-theme-spooky"
+  }
 
   before_action :configure_devise_parameters, if: :devise_controller?
   before_action :store_user_location!, if: :storable_location?
+  before_action :configure_theme
   around_action :switch_locale
   rescue_from ActiveRecord::ConnectionNotEstablished, with: :db_connection_error
 
@@ -57,6 +62,23 @@ class ApplicationController < ActionController::Base
   def authorized?(role, user = current_user)
     return false unless user.is_a? User
     user.authorized?(role)
+  end
+
+  def configure_theme
+    theme = "none"
+
+    time = Time.current
+    
+    # Spooky theme
+    if time.month == 10 && time.day == 31
+      theme = "spooky"
+    end
+
+    if params[:"theme-override"]
+      theme = params[:"theme-override"]
+    end
+
+    @theme_class = THEMES[theme]
   end
 
   def db_connection_error
