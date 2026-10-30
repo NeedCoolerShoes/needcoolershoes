@@ -9,7 +9,7 @@
         <div class="flex justify-between px-3 sm:px-0">
           <a href="/" class="flex items-center gap-2 h-[47px] py-4" data-turbo="false">
             <div class="w-[80px] h-[60px] bg-ncs-logo bg-cover"></div>
-            <img src="<%= asset_path "text-logo.svg" %>"  class="hidden sm:block uppercase text-base leading-[1rem] text-white font-title font-black text-orange-300 max-w-32 text-center" alt="Miners&nbsp;Need Cooler&nbsp;Shoes"/>
+            <img src="<% if @theme_class == "ncs-theme-spooky" %><%= asset_path "text-logo-halloween.svg" %><% else %><%= asset_path "text-logo.svg" %><% end %>"  class="hidden sm:block uppercase text-base leading-[1rem] text-white font-title font-black text-orange-300 max-w-32 text-center" alt="Miners&nbsp;Need Cooler&nbsp;Shoes"/>
           </a>
           <div class="hidden lg:flex items-center justify-center">
             <%= render OpenCollectiveGoalComponent.new %>
