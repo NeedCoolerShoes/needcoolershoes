@@ -9,7 +9,13 @@ class Favourite < ApplicationRecord
 
   def self.add_favourite(user, target)
     favourite = new(target: target, user: user)
-    favourite.karma = user.favourite_grant
+
+    if target&.user == user
+      favourite.karma = 0
+    else
+      favourite.karma = user.favourite_grant
+    end
+
     result = favourite.save
 
     if result && target.respond_to?(:update_ranking!)
